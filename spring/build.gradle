@@ -28,7 +28,7 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
-	runtimeOnly 'org.xerial:sqlite-jdbc:3.34.0'
+	runtimeOnly 'org.xerial:sqlite-jdbc:3.42.0.0'
 }
 
 tasks.named('test') {
