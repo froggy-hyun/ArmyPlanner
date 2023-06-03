@@ -29,7 +29,7 @@ public class User extends TimeEntity {
     @Column(nullable = false)
     private String nickname;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 30)
     private String password;
 
     @Column(nullable = false, length = 50)
