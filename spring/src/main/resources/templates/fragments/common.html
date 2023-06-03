@@ -26,9 +26,10 @@
                                                                                 th:if="${menu} == 'board'">(current)</span></a>
             </li>
         </ul>
-        <a class="btn btn-secondary mr-2 my-2 my-sm-0" th:href="@{/user/register}" sec:authorize="!isAuthenticated()">register</a>
-        <a class="btn btn-secondary my-2 my-sm-0" th:href="@{/user/login}" sec:authorize="!isAuthenticated()">login</a> <!-- 로그인이 안된 경우  -->
+        <a class="btn btn-secondary mr-2 my-2 my-sm-0" th:href="@{/auth/join}" sec:authorize="!isAuthenticated()">register</a>
+        <a class="btn btn-secondary my-2 my-sm-0" th:href="@{/auth/login}" sec:authorize="!isAuthenticated()">login</a>
 
+        <!-- 로그인이 안된 경우  -->
         <form class="form-inline my-2 my-lg-0" th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()">
             <span class="text-white mr-2 mx-2" sec:authentication="name">사용자</span>
             <span class="text-white mr-2 mx-2" sec:authentication="principal.authorities">권한</span>
