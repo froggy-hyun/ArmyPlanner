@@ -1,6 +1,6 @@
 package ArmyPlanner.spring.service;
 
-import ArmyPlanner.spring.domain.User;
+import ArmyPlanner.spring.domain.Member;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,13 +15,13 @@ import java.util.Collection;
 @AllArgsConstructor
 public class CustomUserDetails implements UserDetails {
 
-    private final User user;
+    private final Member member;
 
     @Override
-    public String getPassword() { return user.getPassword(); }
+    public String getPassword() { return member.getPassword(); }
 
     @Override
-    public String getUsername() { return user.getUsername(); }
+    public String getUsername() { return member.getUsername(); }
 
     /* 계정 만료 여부
      *  true : 만료 안됨
@@ -64,7 +64,7 @@ public class CustomUserDetails implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
     Collection<GrantedAuthority> collectors = new ArrayList<>();
 
-    collectors.add(() -> "ROLE_" + user.getRole());
+    collectors.add(() -> "ROLE_" + member.getRole());
 
     return collectors;
     }

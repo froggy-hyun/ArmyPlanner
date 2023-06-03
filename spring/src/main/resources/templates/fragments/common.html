@@ -10,31 +10,30 @@
 <body>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" th:fragment="menu(menu)">
     <a class="navbar-brand" href="/">Spring boot Service</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
-            aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item" th:classappend="${menu} == 'home'? 'active'">
-                <a class="nav-link" href="#" th:href="@{/}">홈 <span class="sr-only"
-                                                                    th:if="${menu} == 'home'">(current)</span></a>
-            </li>
-            <li class="nav-item" th:classappend="${menu} == 'board'? 'active'">
-                <a class="nav-link" href="#" th:href="@{/board/list}">게시판 <span class="sr-only"
-                                                                                th:if="${menu} == 'board'">(current)</span></a>
-            </li>
+    <div class="collapse navbar-collapse" id="navbarStatus" sec:authorize="isAuthenticated()">
+        <p th:text="|${principal.username}님 환영합니다.|"></p>
+        <p th:text="|현재 ${principal.username} 님의 권한 : ${role}|"></p>
+        <ul>
+            <li th:text="|session.getId = ${#session.getId()}|"></li>
+            <li th:text="|session.getAttributeNames = ${#session.getAttributeNames()}|"></li>
+            <li th:text="|session.getCreationTime = ${#session.getCreationTime()}|"></li>
         </ul>
-        <a class="btn btn-secondary mr-2 my-2 my-sm-0" th:href="@{/auth/join}" sec:authorize="!isAuthenticated()">register</a>
-        <a class="btn btn-secondary my-2 my-sm-0" th:href="@{/auth/login}" sec:authorize="!isAuthenticated()">login</a>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarMenus">
+        <a th:href="@{/registry}">
+            <button class="btn btn-lg btn-secondary">회원가입</button>
+        </a>
+        <a th:href="@{/login}">
+            <button sec:authorize="!isAuthenticated()" class="btn btn-lg btn-dark">로그인</button>
+        </a>
+        <a th:href="@{/logout}">
+            <button sec:authorize="isAuthenticated()" class="btn btn-danger btn-lg">로그아웃</button>
+        </a>
 
-        <!-- 로그인이 안된 경우  -->
-        <form class="form-inline my-2 my-lg-0" th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()">
-            <span class="text-white mr-2 mx-2" sec:authentication="name">사용자</span>
-            <span class="text-white mr-2 mx-2" sec:authentication="principal.authorities">권한</span>
-            <button class="btn btn-secondary my-2 my-sm-0" type="submit">logout</button>
-        </form>
+        <a class="btn btn-secondary mr-2 my-2 my-sm-0" th:href="@{/admin/home}"><button class="btn btn-lg btn-dark">ADMIN page 접근 </button></a>
+        <a class="btn btn-secondary my-2 my-sm-0" th:href="@{/manager/home}"><button class="btn btn-lg btn-dark">MANAGER page 접근</button></a>
+    </div>
+        </div>
     </div>
 </nav>
 </body>

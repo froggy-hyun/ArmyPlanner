@@ -1,29 +1,31 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:replace="fragments/common :: head(title)" />
-<body class="text-center">
+<body>
 <nav th:replace="fragments/common :: menu(menu)" />
-<h1 class="h3 mb-3 font-weight-normal">회원가입</h1>
-<form class="form-signin" th:action="@{/auth/joinProc}" th:objectt="${userDto}" method="post" > <!-- 요청 보내기-->
-    <div class="form-group">
-        <label>아이디</label>
-        <input type="text" name="username" class="form-control" placeholder="아이디를 입력해주세요">
+<div class="container">
+    <div class="my-4">
+        <h2>회원가입</h2>
     </div>
+    <form th:action method="post" th:object="${member}">
+        <div class="mb-3">
+            <label for="username" class="form-label">username</label>
+            <input type="text" class="form-control" id="username" th:field="*{username}">
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" th:field="*{password}">
+        </div>
 
-    <div class="form-group">
-        <label>비밀번호</label>
-        <input type="password" name="password" class="form-control" placeholder="비밀번호를 입력해주세요">
-    </div>
-
-    <div class="form-group">
-        <label>닉네임</label>
-        <input type="text" name="nickname" class="form-control" placeholder="닉네임을 입력해주세요">
-    </div>
-
-    <div class="form-group">
-        <label>이메일</label>
-        <input type="email" name="email" class="form-control" placeholder="이메일을 입력해주세요">
-    </div>
-
-    <button class="btn btn-primary bi bi-person"> 가입</button>
-</form>
+        <hr class="my-3">
+        <div class="mb-3">
+            <div th:each="r : ${roles}" class="form-check form-check-inline">
+                <input type="radio" th:field="*{role}" th:value="${r.value}" class="form-check-input">
+                <label th:for="${#ids.prev('role')}" th:text="${r.key}" class="form-check-label"></label>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">회원가입</button>
+    </form>
+</div>
+</body>
+</html>
