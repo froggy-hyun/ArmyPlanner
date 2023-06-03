@@ -18,7 +18,7 @@ public class CustomUserDetailService implements UserDetailsService {
     private final UserRepository userRepository;
     private final HttpSession session;
 
-    /* username DB에 존재여부 확인 */
+    /* 로그인 인증 - username DB에 존재여부 확인 */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     User user = userRepository.findByUsername(username).orElseThrow(() ->
