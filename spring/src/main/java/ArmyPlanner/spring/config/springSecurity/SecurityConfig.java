@@ -22,16 +22,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     //BCryptPasswordEncoder : Spring Security 비밀번호 암호화 객체
-    public BCryptPasswordEncoder encoder() {
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    @Override
-    // AuthenticationManager(인증처리)를 생성하기 위해 AuthenticationManagerBuilder 사용
-    // passwordEncoder : AuthenticationManager에게 어떤 해쉬로 암호화했는지 알려줌
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(customUserDetailService).passwordEncoder(encoder());
-    }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
@@ -58,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/") //로그아웃 성공 시 이동되는 페이지
                 .invalidateHttpSession(true); //HTTP 세션을 초기화
 
-        http.userDetailsService(userDetailsService());
+        http.userDetailsService(customUserDetailService);
     }
 }
 
