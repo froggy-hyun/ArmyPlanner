@@ -21,7 +21,7 @@
     </div>
     <div class="collapse navbar-collapse" id="navbarMenus">
         <a th:href="@{/registry}">
-            <button class="btn btn-lg btn-secondary">회원가입</button>
+            <button sec:authorize="!isAuthenticated()" class="btn btn-lg btn-secondary">회원가입</button>
         </a>
         <a th:href="@{/login}">
             <button sec:authorize="!isAuthenticated()" class="btn btn-lg btn-dark">로그인</button>
