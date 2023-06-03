@@ -57,6 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/logout") //로그아웃 url
                 .logoutSuccessUrl("/") //로그아웃 성공 시 이동되는 페이지
                 .invalidateHttpSession(true); //HTTP 세션을 초기화
+
         http.userDetailsService(userDetailsService());
     }
 }

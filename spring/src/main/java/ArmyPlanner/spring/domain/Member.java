@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "MEMBER")
 @Getter
-public class Member extends TimeEntity {
+public class Member{
 
 //    @Id
 //    // @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,17 +18,13 @@ public class Member extends TimeEntity {
     @Id @GeneratedValue
     private Long id;
 
-    @Column(nullable = false, length = 30, unique = true)
     private String username; // 아이디
 
-    @Column(nullable = false, length = 30)
     private String password;
 
-    @Column(nullable = false)
     private boolean enabled;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private Role role;
 
     @Builder
