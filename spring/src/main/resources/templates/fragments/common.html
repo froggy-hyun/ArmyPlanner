@@ -11,12 +11,12 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" th:fragment="menu(menu)">
     <a class="navbar-brand" href="/">Spring boot Service</a>
     <div class="collapse navbar-collapse" id="navbarStatus" sec:authorize="isAuthenticated()">
-        <p th:text="|${principal.username}님 환영합니다.|"></p>
-        <p th:text="|현재 ${principal.username} 님의 권한 : ${role}|"></p>
+        <p class="text-light" th:text="|${principal.username}님 환영합니다.|"></p>
+        <p class="text-light" th:text="|현재 ${principal.username} 님의 권한 : ${role}|"></p>
         <ul>
-            <li th:text="|session.getId = ${#session.getId()}|"></li>
-            <li th:text="|session.getAttributeNames = ${#session.getAttributeNames()}|"></li>
-            <li th:text="|session.getCreationTime = ${#session.getCreationTime()}|"></li>
+            <li class="text-light" th:text="|session.getId = ${#session.getId()}|"></li>
+            <li class="text-light" th:text="|session.getAttributeNames = ${#session.getAttributeNames()}|"></li>
+            <li class="text-light" th:text="|session.getCreationTime = ${#session.getCreationTime()}|"></li>
         </ul>
     </div>
     <div class="collapse navbar-collapse" id="navbarMenus">
