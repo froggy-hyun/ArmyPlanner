@@ -7,7 +7,7 @@ spring:
   # MySQL ?? ??
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306
+    url: jdbc:mysql://localhost:3306/base
     username: root
     password: admin
   # JPA ??
@@ -18,4 +18,4 @@ spring:
       hibernate:
         show_sql: true # ???? ?? ?? ??
         format_sql: true # ???? ???? ??? ???? ?? ???
-    database-platform: org.hibernate.dialect.MySQL5Dialect
+    database-platform: org.hibernate.dialect.MySQL8Dialect
