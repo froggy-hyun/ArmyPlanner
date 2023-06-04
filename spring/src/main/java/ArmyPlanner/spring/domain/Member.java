@@ -40,7 +40,7 @@ public class Member{
         Member member = Member.builder()
                 .username(memberRegistryDto.getUsername())
                 .password(passwordEncoder.encode(memberRegistryDto.getPassword()))
-                .role(Role.ROLE_MEMBER)
+                .role(Role.MEMBER)
                 .build();
         return member;
     }
