@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" >
 <head th:replace="fragments/common :: head(title)" />
 <script th:inline="javascript">
     //회원가입 실패시 에러 메시지 출력
@@ -31,6 +31,7 @@
             <button type="submit" class="btn btn-outline-dark">회원가입</button>
             <button type="button" class="btn btn-outline-dark" onclick="history.back();">취소</button>
         </div>
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
     </form>
 </div>
 </body>
