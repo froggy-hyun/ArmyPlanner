@@ -41,9 +41,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     //HttpSecurity : HTTP 요청에 대한 보안 구성
     protected void configure(HttpSecurity http) throws Exception {
 //      http.csrf().disable(); //csrf 토큰 임시 비활성화
-        http.csrf().ignoringAntMatchers("/h2-console/**").disable();
         http.authorizeRequests()
-                .antMatchers("/","/registry","/login", "/css/**", "/h2-console/**").permitAll()
+                .antMatchers("/","/registry","/login", "/css/**").permitAll()
                 .antMatchers("/member/**").authenticated() // 일반사용자 접근 가능
                 .antMatchers("/manager/**").hasAnyRole("MANAGER", "ADMIN") // 매니저, 관리자 접근 가능
                 .antMatchers("/admin/**").hasRole("ADMIN"); // 관리자만 접근 가능

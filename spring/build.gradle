@@ -23,6 +23,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
@@ -32,7 +33,11 @@ dependencies {
 	// H2
 	runtimeOnly 'com.h2database:h2'
 
+	//mysql
+	implementation 'mysql:mysql-connector-java'
+
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
 }
 
 tasks.named('test') {
