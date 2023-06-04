@@ -41,12 +41,4 @@ public class RegistryController {
         return "redirect:/login";
     }
 
-    @ModelAttribute("roles")
-    public Map<String, Role> roles() {
-        Map<String, Role> map = new LinkedHashMap<>();
-        map.put("관리자", Role.ROLE_ADMIN);
-        map.put("매니저", Role.ROLE_MANAGER);
-        map.put("일반 사용자", Role.ROLE_MEMBER);
-        return map;
-    }
 }
