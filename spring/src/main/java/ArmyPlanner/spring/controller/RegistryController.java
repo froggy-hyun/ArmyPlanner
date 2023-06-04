@@ -1,42 +1,44 @@
 package ArmyPlanner.spring.controller;
 
 import ArmyPlanner.spring.domain.Member;
-import ArmyPlanner.spring.domain.Role;
-import ArmyPlanner.spring.repository.MemberRepository;
+import ArmyPlanner.spring.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import javax.validation.Valid;
 
 @Slf4j
 @RequiredArgsConstructor
 @Controller
 public class RegistryController {
 
-    private final MemberRepository memberRepository;
-    private final BCryptPasswordEncoder passwordEncoder;
+    private final MemberService memberService;
+    private final PasswordEncoder passwordEncoder;
 
     @GetMapping("/registry")
     public String registryForm(Model model) {
-        model.addAttribute("member", new RegistryRequest());
+        model.addAttribute("memberRegistryDto", new MemberRegistryDto());
         return "user/register";
     }
 
-    @PostMapping("/registry")
-    public String registry(@ModelAttribute RegistryRequest registryRequest) {
-        Member member = Member.builder()
-                .username(registryRequest.getUsername())
-                .password(passwordEncoder.encode(registryRequest.getPassword()))
-                .role(registryRequest.getRole())
-                .build();
-        memberRepository.save(member);
+    @PostMapping("/registry") //@valid : 객체의 유효성 검증
+    public String registry(@Valid MemberRegistryDto memberRegistryDto, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "user/register";
+        }
+        try {
+            Member member = Member.createMember(memberRegistryDto, passwordEncoder);
+            memberService.saveMember(member);
+        } catch (IllegalStateException e) {
+            model.addAttribute("errorMessage", e.getMessage());
+            return "user/register";
+        }
 
         return "redirect:/login";
     }
