@@ -1,7 +1,10 @@
 package ArmyPlanner.spring.controller;
 
+import ArmyPlanner.spring.domain.SecurityUser;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Slf4j
@@ -9,7 +12,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class ExceptionController {
 
     @GetMapping("/forbidden")
-    public String exceptionHandling() {
+    public String exceptionHandling(@AuthenticationPrincipal SecurityUser principal, Model model) {
+        if (principal != null) {
+            model.addAttribute("principal", principal.getMember());
+            model.addAttribute("role", principal.getMember().getRole().getDescription());
+        }
         return "forbidden";
     }
 }
