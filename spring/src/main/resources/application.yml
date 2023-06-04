@@ -7,8 +7,8 @@ spring:
   # MySQL ?? ??
   datasource:
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:8090
-    username: admin
+    url: jdbc:mysql://localhost:3306
+    username: root
     password: admin
   # JPA ??
   jpa:
