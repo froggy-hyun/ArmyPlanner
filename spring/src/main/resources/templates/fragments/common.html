@@ -30,8 +30,8 @@
             <button sec:authorize="isAuthenticated()" class="btn btn-danger btn-lg">로그아웃</button>
         </a>
 
-        <a class="btn btn-secondary mr-2 my-2 my-sm-0" th:href="@{/admin/home}"><button class="btn btn-lg btn-dark">ADMIN page 접근 </button></a>
-        <a class="btn btn-secondary my-2 my-sm-0" th:href="@{/manager/home}"><button class="btn btn-lg btn-dark">MANAGER page 접근</button></a>
+        <a sec:authorize="hasRole('ADMIN')" class="btn btn-secondary mr-2 my-2 my-sm-0" th:href="@{/admin/home}"><button class="btn btn-lg btn-dark">ADMIN page 접근 </button></a>
+        <a sec:authorize="hasRole('MANAGER')" class="btn btn-secondary my-2 my-sm-0" th:href="@{/manager/home}"><button class="btn btn-lg btn-dark">MANAGER page 접근</button></a>
     </div>
 </nav>
 </body>
