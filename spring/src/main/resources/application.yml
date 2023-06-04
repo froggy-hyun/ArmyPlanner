@@ -7,7 +7,7 @@ spring:
   # MySQL ?? ??
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/base
+    url: jdbc:mysql://localhost:3306/base?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: root
     password: admin
   # JPA ??
