@@ -1,14 +1,14 @@
 package ArmyPlanner.spring.controller;
 
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
 
 @NoArgsConstructor
-@Getter
+@Data
 public class MemberRegistryDto {
 
     // @NotBlank : null, "", " " 모두 허용x
