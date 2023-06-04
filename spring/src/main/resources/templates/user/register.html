@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/common :: head(title)" />
+<script th:inline="javascript">
+    //회원가입 실패시 에러 메시지 출력
+    $(document).ready(function(){
+        var errorMessage = [[${errorMessage}]];
+        if(errorMessage != null){
+            alert(errorMessage);
+        }
+    });
+</script>
 <body>
 <nav th:replace="fragments/common :: menu(menu)" />
 <div class="container">
