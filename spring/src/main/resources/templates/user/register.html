@@ -1,22 +1,31 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org" >
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/common :: head(title)" />
-<script th:inline="javascript">
-    //회원가입 실패시 에러 메시지 출력
+<th:block>
+    <style>
+        .fieldError {
+            color: #bd2130;
+        }
+    </style>
+</th:block>
+<!--회원가입 실패시 에러 메시지 출력-->
+<th:block>
+    <script th:inline="javascript">
     $(document).ready(function(){
         var errorMessage = [[${errorMessage}]];
         if(errorMessage != null){
             alert(errorMessage);
         }
     });
-</script>
+    </script>
+</th:block>
 <body>
 <nav th:replace="fragments/common :: menu(menu)" />
 <div class="container">
     <div class="my-4">
         <h2>사용자 회원가입</h2>
     </div>
-    <form action="/registry" role="form" method="post"  th:object="${memberRegistryDto}">
+    <form action="/registry" role="form" method="post" th:object="${memberRegistryDto}">
         <div class="form-group py-2">
             <label th:for="username">아이디</label>
             <input type="text" th:field="*{username}" class="form-control" placeholder="아이디를 입력해주세요">
