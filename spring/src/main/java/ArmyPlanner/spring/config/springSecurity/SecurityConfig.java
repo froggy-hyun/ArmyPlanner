@@ -47,7 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/manager/**").hasAnyRole("MANAGER", "ADMIN") // 매니저, 관리자 접근 가능
                 .antMatchers("/admin/**").hasRole("ADMIN"); // 관리자만 접근 가능
         // 인증 필요시 로그인 페이지와 로그인 성공시 리다이랙팅 경로 지정
-        http.formLogin().loginProcessingUrl("/login").defaultSuccessUrl("/", true).failureUrl("/login/error");
+        http.formLogin().loginPage("/login").loginProcessingUrl("/login").defaultSuccessUrl("/", true).failureUrl("/login/error");
         // 인증된 사용자이지만 인가되지 않은 경로에 접근시 리다이랙팅 시킬 uri 지정
         http.exceptionHandling().accessDeniedPage("/forbidden");
         http.logout()// "/logout"에 접근하면 HTTP 세션 제거
