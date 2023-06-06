@@ -3,7 +3,6 @@ package ArmyPlanner.spring.controller;
 import ArmyPlanner.spring.domain.Member;
 import ArmyPlanner.spring.service.MemberService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
 
-@Slf4j
 @RequiredArgsConstructor
 @Controller
 public class RegistryController {
