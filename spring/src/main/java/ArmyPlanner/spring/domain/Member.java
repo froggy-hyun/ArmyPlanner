@@ -42,6 +42,7 @@ public class Member{
     public static Member createMember(MemberRegistryDto memberRegistryDto, PasswordEncoder passwordEncoder){
         Member member = Member.builder()
                 .username(memberRegistryDto.getUsername())
+                .name(memberRegistryDto.getName())
                 .password(passwordEncoder.encode(memberRegistryDto.getPassword()))
                 .role(Role.MEMBER)
                 .build();
