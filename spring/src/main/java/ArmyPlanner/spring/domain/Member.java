@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name = "MEMBER")
+@Table(name = "member")
 @Getter
 public class Member{
 
@@ -22,28 +22,29 @@ public class Member{
     private Long id;
 
     @Column(unique = true)
-    private String username; // 아이디
-
-    private String name;
+    private String email; // 이메일
 
     private String password;
+
+    private String name;
 
     @Enumerated(EnumType.STRING)
     private Role role;
 
     @Builder
-    public Member(String username, String name, String password, Role role) {
-        this.username = username;
-        this.name = name;
+    public Member(String email, String password, String name, Role role) {
+        this.email = email;
         this.password = password;
+        this.name = name;
         this.role = role;
     }
 
+
     public static Member createMember(MemberRegistryDto memberRegistryDto, PasswordEncoder passwordEncoder){
         Member member = Member.builder()
-                .username(memberRegistryDto.getUsername())
-                .name(memberRegistryDto.getName())
+                .email(memberRegistryDto.getEmail())
                 .password(passwordEncoder.encode(memberRegistryDto.getPassword()))
+                .name(memberRegistryDto.getName())
                 .role(Role.MEMBER)
                 .build();
         return member;

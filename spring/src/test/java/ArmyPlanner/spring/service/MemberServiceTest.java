@@ -26,8 +26,9 @@ public class MemberServiceTest {
 
     public Member createMember() {
         MemberRegistryDto memberRegistryDto = MemberRegistryDto.builder()
-                .username("테스트")
-                .password("1111")
+                .email("test@naver.com")
+                .password("test")
+                .name("테스트")
                 .build();
         return Member.createMember(memberRegistryDto, passwordEncoder);
     }
@@ -38,6 +39,6 @@ public class MemberServiceTest {
         Member member = createMember();
         Member savedMember = memberService.saveMember(member);
 
-        assertEquals(member.getUsername(), savedMember.getUsername());
+        assertEquals(member.getEmail(), savedMember.getEmail());
     }
 }

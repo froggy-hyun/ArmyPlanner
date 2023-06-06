@@ -24,22 +24,22 @@ public class MemberService implements UserDetailsService {
     }
 
     private void validateDuplicateMember(Member member) {
-        Member findMember = memberRepository.findByUsername(member.getUsername());
+        Member findMember = memberRepository.findByEmail(member.getEmail());
         if (findMember != null) {
             throw new IllegalStateException("이미 가입된 회원입니다.");
         }
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Member member = memberRepository.findByUsername(username);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Member member = memberRepository.findByEmail(email);
 
         if (member == null) {
-            throw new UsernameNotFoundException(username);
+            throw new UsernameNotFoundException(email);
         }
 
         return User.builder()
-                .username(member.getUsername())
+                .username(member.getEmail())
                 .password(member.getPassword())
                 .roles(member.getRole().toString())
                 .build();
