@@ -25,7 +25,7 @@
     <div class="my-4">
         <h2>사용자 회원가입</h2>
     </div>
-    <form action="/registry" role="form" method="post" th:object="${memberRegistryDto}">
+    <form th:action="@{/registry}" role="form" method="post" th:object="${memberRegistryDto}">
         <div class="form-group py-2">
             <label th:for="username">아이디</label>
             <input type="text" th:field="*{username}" class="form-control" placeholder="아이디를 입력해주세요">
@@ -40,7 +40,6 @@
             <button type="submit" class="btn btn-outline-dark">회원가입</button>
             <button type="button" class="btn btn-outline-dark" onclick="history.back();">취소</button>
         </div>
-        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
     </form>
 </div>
 </body>
