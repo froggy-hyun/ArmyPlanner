@@ -11,8 +11,7 @@
 4. 장소 추가
 
 ### → [OpenAPI]
-1. 장병 국가기술자격 취득 정보 : 장병 국가기술자격 취득 정보 https://opendata.mnd.go.kr/openinf/sheetview2.jsp?infId=OA-9599  
-   국방부_육군 장병 휴가 내역 조회 https://www.milipass.or.kr/html/sub/sub03.html  
+1. 국방부_육군 장병 휴가 내역 조회 https://www.milipass.or.kr/html/sub/sub03.html  
 2. 농림수산식품교육문화정보원_칼로리 정보 https://www.data.go.kr/data/15050912/fileData.do#/tab-layer-openapi
 3. 국방부 PX 인기상품 정보 : PX 인기상품 정보 https://opendata.mnd.go.kr/openinf/sheetview2.jsp?infId=OA-9491  
 4. 병사 할인 혜택 정보 : 병사 할인 혜택 정보 https://opendata.mnd.go.kr/openinf/sheetview2.jsp?infId=OA-9493  
