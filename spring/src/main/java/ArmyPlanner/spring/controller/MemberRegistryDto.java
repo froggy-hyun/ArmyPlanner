@@ -1,6 +1,7 @@
 package ArmyPlanner.spring.controller;
 
-import lombok.Builder;
+import ArmyPlanner.spring.domain.Member;
+import ArmyPlanner.spring.domain.Role;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
@@ -25,10 +26,15 @@ public class MemberRegistryDto {
     @NotBlank(message = "이름은 필수 입력 값입니다.")
     private String name;
 
-    @Builder
-    public MemberRegistryDto(String email, String password, String name) {
-        this.email = email;
-        this.password = password;
-        this.name = name;
+    private String phone;
+
+    public Member toEntity() {
+        return Member.builder()
+                .email(email)
+                .password(password)
+                .name(name)
+                .phone(phone)
+                .role(Role.MEMBER)
+                .build();
     }
 }

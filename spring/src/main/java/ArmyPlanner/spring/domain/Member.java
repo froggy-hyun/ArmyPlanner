@@ -1,11 +1,13 @@
 package ArmyPlanner.spring.domain;
 
-import ArmyPlanner.spring.controller.MemberRegistryDto;
 import lombok.*;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "member")
@@ -28,26 +30,13 @@ public class Member{
 
     private String name;
 
+    private String phone;
+
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @Builder
-    public Member(String email, String password, String name, Role role) {
-        this.email = email;
-        this.password = password;
-        this.name = name;
-        this.role = role;
-    }
+    @CreationTimestamp
+    private Timestamp createDate;
 
-
-    public static Member createMember(MemberRegistryDto memberRegistryDto, PasswordEncoder passwordEncoder){
-        Member member = Member.builder()
-                .email(memberRegistryDto.getEmail())
-                .password(passwordEncoder.encode(memberRegistryDto.getPassword()))
-                .name(memberRegistryDto.getName())
-                .role(Role.MEMBER)
-                .build();
-        return member;
-    }
 
 }

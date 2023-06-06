@@ -32,7 +32,7 @@ public class RegistryController {
             return "user/register";
         }
         try {
-            Member member = Member.createMember(memberRegistryDto, passwordEncoder);
+            Member member = MemberService.createMember(memberRegistryDto, passwordEncoder);
             memberService.saveMember(member);
         } catch (IllegalStateException e) {
             model.addAttribute("errorMessage", e.getMessage());
