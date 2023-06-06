@@ -1,22 +1,27 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/common :: head(title)" />
-<body class="text-center">
+<body>
 <nav th:replace="fragments/common :: menu(menu)" />
-    <h1 class="h3 mb-3 font-weight-normal">로그인</h1>
-    <form role="form" method="post" th:action="@{/login}">
-        <div class="form-group py-2">
-            <label th:for="username">아이디</label>
-            <input type="username" name="username" class="form-control" placeholder="아이디를 입력해주세요">
-        </div>
-        <div class="form-group py-2">
-            <label th:for="password">비밀번호</label>
-            <input type="password" name="password" class="form-control" placeholder="비밀번호 입력">
-        </div>
-        <p th:if="${loginErrorMsg}" class="error" th:text="${loginErrorMsg}"></p>
-        <div style="text-align:center" class="py-3">
-            <button type="submit" class="btn btn-outline-dark">로그인</button>
-            <button type="button" class="btn btn-outline-dark" onclick="location.href='/registry'">회원가입</button>
-        </div>
-    </form>
+<div class="container">
+    <div class="my-4">
+        <h2>로그인</h2>
+        <form role="form" method="post" th:action="@{/login}">
+            <div class="form-group py-2">
+                <label th:for="username">아이디</label>
+                <input type="username" name="username" class="form-control" placeholder="아이디를 입력해주세요">
+            </div>
+            <div class="form-group py-2">
+                <label th:for="password">비밀번호</label>
+                <input type="password" name="password" class="form-control" placeholder="비밀번호 입력">
+            </div>
+            <p th:if="${loginErrorMsg}" class="error" th:text="${loginErrorMsg}"></p>
+            <div style="text-align:center" class="py-3">
+                <button type="submit" class="btn btn-outline-dark">로그인</button>
+                <button type="button" class="btn btn-outline-dark" onclick="location.href='/registry'">회원가입</button>
+            </div>
+        </form>
+    </div>
+</div>
+<footer th:replace="fragments/common :: footer"></footer>
 </body>
