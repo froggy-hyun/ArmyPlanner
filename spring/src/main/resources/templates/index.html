@@ -168,6 +168,9 @@
             </div>
         </section>
     </main>
+    <main sec:authorize="isAuthenticated()" class="flex-shrink-0">
+        <h1>당신의 워크스페이스</h1>
+    </main>
     <!-- Footer-->
     <footer th:replace="fragments/common :: footer"></footer>
 </body>
