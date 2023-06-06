@@ -31,8 +31,8 @@
                 <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="fieldError">Incorrect data</p>
             </div>
             <div class="form-group py-2">
-                <label th:for="phone">전화번호</label>
-                <input type="text" th:field="*{phone}" class="form-control" placeholder="이름 입력">
+                <label th:for="phone">휴대폰번호</label>
+                <input type="text" th:field="*{phone}" class="form-control" placeholder="휴대폰번호 입력('-'포함)">
                 <p th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="fieldError">Incorrect data</p>
             </div>
             <div style="text-align:center" class="py-3">
