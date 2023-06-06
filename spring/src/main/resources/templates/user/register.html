@@ -8,17 +8,7 @@
         }
     </style>
 </th:block>
-<!--회원가입 실패시 에러 메시지 출력-->
-<th:block>
-    <script th:inline="javascript">
-    $(document).ready(function(){
-        var errorMessage = [[${errorMessage}]];
-        if(errorMessage != null){
-            alert(errorMessage);
-        }
-    });
-    </script>
-</th:block>
+
 <body>
 <nav th:replace="fragments/common :: menu(menu)" />
 <div class="container">
@@ -43,4 +33,15 @@
     </form>
 </div>
 </body>
+<!--회원가입 실패시 에러 메시지 출력-->
+<th:block>
+    <script th:inline="javascript">
+    $(document).ready(function(){
+        var errorMessage = [[${errorMessage}]];
+        if(errorMessage != null){
+            alert(errorMessage);
+        }
+    });
+    </script>
+</th:block>
 </html>
