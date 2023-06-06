@@ -2,41 +2,10 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <head th:replace="fragments/common :: head(title)" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>Modern Business - Start Bootstrap Template</title>
-    <!-- Bootstrap icons-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-    <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="css/indexStyle.css" rel="stylesheet" />
 </head>
 <body class="d-flex flex-column h-100">
-    <nav th:replace="fragments/common :: menu(menu)" />
-
     <main class="flex-shrink-0">
-        <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container px-5">
-                <a class="navbar-brand" href="index.html">ArmyPlanner</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link" href="index.html">홈</a></li>
-                        <li class="nav-item"><a class="nav-link" href="about.html">회원가입</a></li>
-                        <li class="nav-item"><a class="nav-link" href="faq.html">고객센터</a></li>
-                        <li class="nav-item"><a class="nav-link" href="faq.html">나의 Planner</a></li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdownPortfolio" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">군인혜택</a>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownPortfolio">
-                                <li><a class="dropdown-item" href="portfolio-overview.html">군인우대정보</a></li>
-                                <li><a class="dropdown-item" href="portfolio-item.html">커뮤니티</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+        <nav th:replace="fragments/common :: menu(menu)" />
         <!-- Header-->
         <header class="bg-dark py-5">
             <div class="container px-5">
