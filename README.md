@@ -6,9 +6,9 @@
 ### [기능]
 0. 회원 기능
 1. Calendar기능(FullCalendar, 기간별로 볼 수 있음) 구성 - 계획 CRUD
-- 2. 식단(칼로리, 영양소 등...)
-- 3. 소비기록
-- 4. 장소 추가
+2. 식단(칼로리, 영양소 등...)
+3. 소비기록
+4. 장소 추가
 
 ### → [OpenAPI]
 1. 장병 국가기술자격 취득 정보 : 장병 국가기술자격 취득 정보 https://opendata.mnd.go.kr/openinf/sheetview2.jsp?infId=OA-9599  
