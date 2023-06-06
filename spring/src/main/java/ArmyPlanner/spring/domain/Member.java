@@ -24,14 +24,17 @@ public class Member{
     @Column(unique = true)
     private String username; // 아이디
 
+    private String name;
+
     private String password;
 
     @Enumerated(EnumType.STRING)
     private Role role;
 
     @Builder
-    public Member(String username, String password, Role role) {
+    public Member(String username, String name, String password, Role role) {
         this.username = username;
+        this.name = name;
         this.password = password;
         this.role = role;
     }
