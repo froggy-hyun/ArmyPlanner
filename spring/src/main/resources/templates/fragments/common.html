@@ -26,7 +26,7 @@
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" th:fragment="menu(menu)">
     <div class="container px-5">
-        <a class="navbar-brand" href="index.html">ArmyPlanner</a>
+        <a class="navbar-brand" href="/">ArmyPlanner</a>
         <div class="collapse navbar-collapse" id="navbarStatus" sec:authorize="isAuthenticated()">
             <p class="text-light" th:text="|${#authentication.name}님 환영합니다.|"></p>
             <p class="text-light" th:text="|현재 ${#authentication.name} 님의 권한 : ${#authentication.authorities}}|"></p>
