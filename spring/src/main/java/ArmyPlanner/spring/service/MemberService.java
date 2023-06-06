@@ -19,9 +19,14 @@ public class MemberService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
 
+    public static Member createMember(MemberRegistryDto memberRegistryDto, PasswordEncoder passwordEncoder){
+        String encPassword = passwordEncoder.encode(memberRegistryDto.getPassword());
+        memberRegistryDto.setPassword(encPassword);
+        return memberRegistryDto.toEntity();
+    }
+
     public Member saveMember(Member member) {
         validateDuplicateMember(member);
-
         return memberRepository.save(member);
     }
 
@@ -47,9 +52,4 @@ public class MemberService implements UserDetailsService {
                 .build();
     }
 
-    public static Member createMember(MemberRegistryDto memberRegistryDto, PasswordEncoder passwordEncoder){
-        String encPassword = passwordEncoder.encode(memberRegistryDto.getPassword());
-        memberRegistryDto.setPassword(encPassword);
-        return memberRegistryDto.toEntity();
-    }
 }
