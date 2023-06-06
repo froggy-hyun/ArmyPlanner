@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @RequiredArgsConstructor //CustomUserDetailsService 생성자 주입
 @Configuration
@@ -55,7 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // 인증된 사용자이지만 인가되지 않은 경로에 접근시 리다이랙팅 시킬 uri 지정
         http.exceptionHandling().accessDeniedPage("/forbidden");
         http.logout()// "/logout"에 접근하면 HTTP 세션 제거
-                .logoutUrl("/logout") //로그아웃 url
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/") //로그아웃 성공 시 이동되는 페이지
                 .invalidateHttpSession(true); //HTTP 세션을 초기화
     }
