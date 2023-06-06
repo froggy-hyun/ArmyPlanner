@@ -48,7 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .expiredUrl("/login ");         // 세션이 만료된 경우 이동 할 페이지
         http.authorizeRequests()
                 .antMatchers("/","/registry","/login", "/css/**").permitAll()
-                .antMatchers("/member/**").authenticated() // 일반사용자 접근 가능
+                .antMatchers("/member/**", "/myPlanner").authenticated() // 일반사용자 접근 가능
                 .antMatchers("/manager/**").hasAnyRole("MANAGER", "ADMIN") // 매니저, 관리자 접근 가능
                 .antMatchers("/admin/**").hasRole("ADMIN"); // 관리자만 접근 가능
         // 인증 필요시 로그인 페이지와 로그인 성공시 리다이랙팅 경로 지정
