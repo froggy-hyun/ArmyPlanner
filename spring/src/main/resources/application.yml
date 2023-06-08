@@ -19,3 +19,12 @@ spring:
         show_sql: true # ???? ?? ?? ??
         format_sql: true # ???? ???? ??? ???? ?? ???
     database-platform: org.hibernate.dialect.MySQL8Dialect
+
+  #devtools
+  devtools:
+    livereload:
+      enabled: true
+  freemarker:
+    cache: false
+  thymeleaf:
+    cache: false
