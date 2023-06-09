@@ -22,13 +22,19 @@
 		  editable : true,
 		  nowIndicator: true,
 		  locale: 'ko',
+		  googleCalendarApiKey : '', //구글 캘린더 API KEY
 		  eventSources: [
-                {
-                  url: 'myPlanner/api/events/',
-                  color: 'yellow',
-                  textColor: 'black'
-                }
-          ]
+            {
+              url: 'myPlanner/api/events/',
+              color: 'yellow',
+              textColor: 'black'
+            },
+            {
+              googleCalendarId : '', //구글 캘린더 아이디 - 공휴일 가져오기
+              color: 'white',
+              textColor: 'red'
+            }
+          ],
         });
         calendar.render();
       });
