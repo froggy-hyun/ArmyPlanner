@@ -1,6 +1,6 @@
 package ArmyPlanner.spring.service;
 
-import ArmyPlanner.spring.controller.MemberRegistryDto;
+import ArmyPlanner.spring.Dto.MemberRegistryDto;
 import ArmyPlanner.spring.domain.Member;
 import ArmyPlanner.spring.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;

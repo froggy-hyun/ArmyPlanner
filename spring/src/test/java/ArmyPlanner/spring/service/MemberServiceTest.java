@@ -2,7 +2,7 @@ package ArmyPlanner.spring.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import ArmyPlanner.spring.controller.MemberRegistryDto;
+import ArmyPlanner.spring.Dto.MemberRegistryDto;
 import ArmyPlanner.spring.domain.Member;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
