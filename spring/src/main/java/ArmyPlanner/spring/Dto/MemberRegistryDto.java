@@ -1,4 +1,4 @@
-package ArmyPlanner.spring.controller;
+package ArmyPlanner.spring.Dto;
 
 import ArmyPlanner.spring.domain.Member;
 import ArmyPlanner.spring.domain.Role;
