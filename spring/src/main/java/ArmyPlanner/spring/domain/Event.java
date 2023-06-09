@@ -23,6 +23,6 @@ public class Event {
     @Column(nullable = false)
     private LocalDateTime start;
     @Column(nullable = false)
-    private LocalDateTime finish;
+    private LocalDateTime end;
 
 }
