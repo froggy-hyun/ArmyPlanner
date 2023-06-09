@@ -21,7 +21,14 @@
 		  droppable : true,
 		  editable : true,
 		  nowIndicator: true,
-		  locale: 'ko'
+		  locale: 'ko',
+		  eventSources: [
+                {
+                  url: 'myPlanner/api/events/',
+                  color: 'yellow',
+                  textColor: 'black'
+                }
+          ]
         });
         calendar.render();
       });
