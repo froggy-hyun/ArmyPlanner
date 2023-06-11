@@ -42,6 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     //HttpSecurity : HTTP 요청에 대한 보안 구성
     protected void configure(HttpSecurity http) throws Exception {
 //      http.csrf().disable(); //csrf 토큰 임시 비활성화
+        http.csrf().ignoringAntMatchers("/myPlanner/api/events");
         http.sessionManagement()
                 .maximumSessions(1)                 // 최대 허용 가능 세션 수 , -1 : 무제한 로그인 세션 허용
                 .maxSessionsPreventsLogin(false)    // 동시 로그인 차단함,  false : 기존 세션 만료(default)
