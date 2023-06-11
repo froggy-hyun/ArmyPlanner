@@ -1,4 +1,4 @@
-package ArmyPlanner.spring.controller;
+package ArmyPlanner.spring.service;
 
 import ArmyPlanner.spring.Dto.EventDto;
 import ArmyPlanner.spring.domain.Event;
