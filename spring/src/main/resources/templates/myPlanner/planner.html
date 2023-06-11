@@ -4,6 +4,7 @@
 <head>
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/google-calendar@6.1.8/index.global.min.js"></script>
   <script>
       document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
@@ -22,7 +23,7 @@
 		  editable : true,
 		  nowIndicator: true,
 		  locale: 'ko',
-		  googleCalendarApiKey : '', //구글 캘린더 API KEY
+		  googleCalendarApiKey: '', //구글 캘린더 API KEY
 		  eventSources: [
             {
               url: 'myPlanner/api/events/',
@@ -30,7 +31,7 @@
               textColor: 'black'
             },
             {
-              googleCalendarId : '', //구글 캘린더 아이디 - 공휴일 가져오기
+              googleCalendarId : 'ko.south_korea#holiday@group.v.calendar.google.com', //구글 캘린더 아이디 - 공휴일 가져오기
               color: 'white',
               textColor: 'red'
             }
