@@ -3,17 +3,19 @@ package ArmyPlanner.spring.service;
 import ArmyPlanner.spring.Dto.EventDto;
 import ArmyPlanner.spring.domain.Event;
 import ArmyPlanner.spring.repository.EventRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
+@Transactional
 public class EventService {
 
-    @Autowired
-    private EventRepository eventRepository;
+    private final EventRepository eventRepository;
 
 
     public List<EventDto> listAllEvents() {
@@ -32,6 +34,10 @@ public class EventService {
         }
 
         return eventsDto;
+    }
+
+    public Event saveEvent(Event event) {
+        return eventRepository.save(event);
     }
 
 }

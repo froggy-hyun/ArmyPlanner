@@ -1,14 +1,18 @@
 package ArmyPlanner.spring.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name="event")
-@Getter @Setter
+@Table(name = "event")
+@Getter
 public class Event {
 
     @Id
@@ -20,9 +24,14 @@ public class Event {
     private String title;
     @Column(nullable = false)
     private String description;
-    @Column(nullable = false)
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+9")
     private LocalDateTime start;
-    @Column(nullable = false)
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+9")
     private LocalDateTime end;
+
 
 }
