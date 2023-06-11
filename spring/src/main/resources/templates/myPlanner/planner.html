@@ -23,7 +23,7 @@
 		  editable : true,
 		  nowIndicator: true,
 		  locale: 'ko',
-		  googleCalendarApiKey: '', //구글 캘린더 API KEY
+		  googleCalendarApiKey: 'AIzaSyD7FEF1RyDXeRs5iUzQ865DTAeHlbT1vcM', //구글 캘린더 API KEY
 		  eventSources: [
             {
               url: 'myPlanner/api/events/',
@@ -36,6 +36,49 @@
               textColor: 'red'
             }
           ],
+          select: function (arg) { // 드래그로 이벤트 생성.
+            var title = prompt('일정을 입력해주세요.');
+            if (title) {
+              calendar.addEvent({
+                title: title,
+                start: arg.start,
+                end: arg.end,
+                allDay: arg.allDay,
+              })
+            }
+            var allEvent = calendar.getEvents();
+
+            var events = new Array();
+            for (var i = 0; i < allEvent.length; i++) {
+              var obj = new Object();
+              // alert(allEvent[i]._def.title);
+              obj.title = allEvent[i]._def.title;
+              obj.start = allEvent[i]._instance.range.start;
+              obj.end = allEvent[i]._instance.range.end;
+
+              events.push(obj);
+            }
+            var jsondata = JSON.stringify(events);
+            console.log(jsondata);
+            // saveData(jsondata);
+
+            $(function saveData(jsondata) {
+              $.ajax({
+                url: "/myPlanner/api/events",
+                method: "POST",
+                dataType: "json",
+                data: JSON.stringify(events),
+                contentType: 'application/json',
+              })
+              .done(function (result) {
+              // alert(result);
+              })
+              .fail(function (request, status, error) {
+                alert("에러 발생" + error);
+              });
+              calendar.unselect()
+            });
+          },
         });
         calendar.render();
       });
