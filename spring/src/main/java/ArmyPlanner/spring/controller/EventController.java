@@ -6,6 +6,8 @@ import ArmyPlanner.spring.service.EventService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -26,30 +28,26 @@ public class EventController {
 
     @PostMapping
     @ResponseBody
-    public String addEvent(@RequestBody Map<String, Object> param) throws Exception {
+    public String addEvent(@RequestParam Map<String, Object> param, HttpServletRequest req, HttpServletResponse res) throws Exception {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String title = (String) param.get("title");
+//            String description = (String) param.get("description");
+        String startDateString = (String) param.get("start");
+        String endDateString = (String) param.get("end");
+        LocalDateTime start = LocalDateTime.parse(startDateString, formatter);
+        LocalDateTime end = LocalDateTime.parse(endDateString, formatter);
 
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.KOREA);
 
-        for (int i = 0; i < param.size(); i++) {
-
-            String title = (String) param.get("title");
-            String description = (String) param.get("description");
-            String startDateString = (String) param.get("start");
-            String endDateString = (String) param.get("end");
-
-            LocalDateTime startDate = LocalDateTime.parse(startDateString, dateTimeFormatter);
-            LocalDateTime endDate = LocalDateTime.parse(endDateString, dateTimeFormatter);
-
-            Event event = Event.builder()
-                    .title(title)
+        Event event = EventDto.builder()
+                .title(title)
 //                    .description(description)
-                    .start(startDate)
-                    .end(endDate)
-                    .build();
+                .start(String.valueOf(start))
+                .end(String.valueOf(end))
+                .build().toEntity();
 
-            eventService.saveEvent(event);
+        eventService.saveEvent(event);
 
-        }
+
         return "redirect:/myPlanner";
     }
 

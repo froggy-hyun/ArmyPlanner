@@ -59,7 +59,17 @@
                   "start" : start_date,
                   "end" : end_date
                 }//전송할 객체 생성
-              console.log(obj); //서버로 해당 객체를 전달해서 DB 연동 가능
+              $.ajax({
+                url: "/myPlanner/api/events",
+                method: "POST",
+                dataType: "json",
+                data: JSON.stringify(obj),
+                contentType: 'application/json',
+              })
+              .fail(function (request, status, error) {
+                alert("에러 발생" + error);
+               })
+
               $('#calendarModal').modal('hide');
               }
             });
