@@ -38,6 +38,8 @@
           ],
           select: function (arg) { // 드래그로 이벤트 생성.
             $("#calendarModal").modal("show"); // modal 나타내기
+            document.getElementById("calendar_start_date").value = moment(arg.start).format('YYYY-MM-DD');
+            document.getElementById("calendar_end_date").value = moment(arg.end).format('YYYY-MM-DD');
 
             $("#addCalendar").on("click",function(){  // modal의 추가 버튼 클릭 시
               var content = $("#calendar_content").val();
@@ -57,8 +59,8 @@
                   "start" : start_date,
                   "end" : end_date
                 }//전송할 객체 생성
-
               console.log(obj); //서버로 해당 객체를 전달해서 DB 연동 가능
+              $('#calendarModal').modal('hide');
               }
             });
           }
