@@ -37,36 +37,31 @@
             }
           ],
           select: function (arg) { // 드래그로 이벤트 생성.
-            var title = prompt('일정을 입력해주세요.');
-            if (title) {
-              var newEvent = {
-                "title" : title,
-                "start": arg.start,
-                "end" : arg.end
+            $("#calendarModal").modal("show"); // modal 나타내기
+
+            $("#addCalendar").on("click",function(){  // modal의 추가 버튼 클릭 시
+              var content = $("#calendar_content").val();
+              var start_date = $("#calendar_start_date").val();
+              var end_date = $("#calendar_end_date").val();
+
+              //내용 입력 여부 확인
+              if(content == null || content == ""){
+                alert("내용을 입력하세요.");
+              }else if(start_date == "" || end_date ==""){
+                alert("날짜를 입력하세요.");
+              }else if(new Date(end_date)- new Date(start_date) < 0){ // date 타입으로 변경 후 확인
+                alert("종료일이 시작일보다 먼저입니다.");
+              }else{ // 정상적인 입력 시
+                var obj = {
+                  "title" : content,
+                  "start" : start_date,
+                  "end" : end_date
+                }//전송할 객체 생성
+
+              console.log(obj); //서버로 해당 객체를 전달해서 DB 연동 가능
               }
-
-            }
-
-            var jsondata = JSON.stringify(newEvent);
-
-
-            $(function saveData(jsondata) {
-              $.ajax({
-                url: "/myPlanner/api/events",
-                method: "POST",
-                dataType: "json",
-                data: JSON.stringify(newEvent),
-                contentType: 'application/json',
-              })
-              .done(function (result) {
-              // alert(result);
-              })
-              .fail(function (request, status, error) {
-                alert("에러 발생" + error);
-              });
-              calendar.unselect()
             });
-          },
+          }
         });
         calendar.render();
       });
@@ -76,5 +71,34 @@
 <body>
 <nav th:replace="fragments/common :: menu(menu)" />
 <div id='calendar'></div>
+<!-- modal 추가 -->
+<div class="modal fade" id="calendarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">일정을 입력하세요.</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="taskId" class="col-form-label">일정 내용</label>
+          <input type="text" class="form-control" id="calendar_content" name="calendar_content">
+          <label for="taskId" class="col-form-label">시작 날짜</label>
+          <input type="date" class="form-control" id="calendar_start_date" name="calendar_start_date">
+          <label for="taskId" class="col-form-label">종료 날짜</label>
+          <input type="date" class="form-control" id="calendar_end_date" name="calendar_end_date">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-warning" id="addCalendar">추가</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="sprintSettingModalClose">취소</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <footer th:replace="fragments/common :: footer"></footer>
 </body>
