@@ -26,26 +26,26 @@ public class EventController {
 
     @PostMapping
     @ResponseBody
-    public String addEvent(@RequestBody List<Map<String, Object>> param) throws Exception {
+    public String addEvent(@RequestBody Map<String, Object> param) throws Exception {
 
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.KOREA);
 
         for (int i = 0; i < param.size(); i++) {
 
-            String title = (String) param.get(i).get("title");
-            String description = (String) param.get(i).get("description");
-            String startDateString = (String) param.get(i).get("start");
-            String endDateString = (String) param.get(i).get("end");
+            String title = (String) param.get("title");
+            String description = (String) param.get("description");
+            String startDateString = (String) param.get("start");
+            String endDateString = (String) param.get("end");
 
             LocalDateTime startDate = LocalDateTime.parse(startDateString, dateTimeFormatter);
             LocalDateTime endDate = LocalDateTime.parse(endDateString, dateTimeFormatter);
 
-            Event event = EventDto.builder()
+            Event event = Event.builder()
                     .title(title)
-                    .description(description)
-                    .start(startDateString)
-                    .end(endDateString)
-                    .build().toEntity();
+//                    .description(description)
+                    .start(startDate)
+                    .end(endDate)
+                    .build();
 
             eventService.saveEvent(event);
 

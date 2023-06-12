@@ -20,18 +20,10 @@ public class EventDto {
 
     private String title;
 
-    private String description;
+//    private String description;
 
     private String start;
 
     private String end;
 
-    public Event toEntity() {
-        return Event.builder()
-                .title(title)
-                .description(description)
-                .start(LocalDateTime.parse(start))
-                .end(LocalDateTime.parse(end))
-                .build();
-    }
 }

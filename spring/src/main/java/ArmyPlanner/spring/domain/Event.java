@@ -22,8 +22,8 @@ public class Event {
 
     @Column(nullable = false)
     private String title;
-    @Column(nullable = false)
-    private String description;
+//    @Column(nullable = false)
+//    private String description;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+9")
