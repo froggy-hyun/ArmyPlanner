@@ -59,16 +59,21 @@
                   "start" : start_date,
                   "end" : end_date
                 }//전송할 객체 생성
+              var event = JSON.stringify(obj)
               $.ajax({
                 url: "/myPlanner/api/events",
                 method: "POST",
                 dataType: "json",
-                data: JSON.stringify(obj),
+                data: event,
                 contentType: 'application/json',
+                success : function(){
+				  alert('삭제를 완료하였습니다!');
+				},
+                fail : function (request, status, error) {
+                  alert("에러 발생" + error)
+                }
               })
-              .fail(function (request, status, error) {
-                alert("에러 발생" + error);
-               })
+
 
               $('#calendarModal').modal('hide');
               }

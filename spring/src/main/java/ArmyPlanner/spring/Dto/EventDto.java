@@ -7,7 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 
 @Data
@@ -27,11 +28,12 @@ public class EventDto {
     private String end;
 
     public Event toEntity() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return Event.builder()
                 .title(title)
 //                .description(description)
-                .start(LocalDateTime.parse(start))
-                .end(LocalDateTime.parse(end))
+                .start(LocalDate.parse(start, formatter))
+                .end(LocalDate.parse(end, formatter))
                 .build();
     }
 

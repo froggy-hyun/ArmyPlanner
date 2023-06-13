@@ -5,7 +5,7 @@ import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Builder
 @AllArgsConstructor
@@ -27,11 +27,11 @@ public class Event {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+9")
-    private LocalDateTime start;
+    private LocalDate start;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+9")
-    private LocalDateTime end;
+    private LocalDate end;
 
 
 }
