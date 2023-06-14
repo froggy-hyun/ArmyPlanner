@@ -15,8 +15,4 @@ public class MainController {
         return "index";
     }
 
-    @GetMapping("/myPlanner")
-    public String myPlanner(){
-        return "myPlanner/planner";
-    }
 }

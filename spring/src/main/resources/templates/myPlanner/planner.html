@@ -8,88 +8,92 @@
   <meta name="_csrf" th:content="${_csrf.token}"/>
   <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
   <script>
+   $(document).ready(function (){
       var token = $("meta[name='_csrf']").attr("content");
 	  var header = $("meta[name='_csrf_header']").attr("content");
-      document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-          initialView: 'dayGridMonth',
-          headerToolbar : {
-			start : 'prev next today',
-			center : 'title',
-			end : 'dayGridMonth,dayGridWeek,dayGridDay'
-		  },
-		  titleFormat : function(date) {
-			return date.date.year + '년 ' + (parseInt(date.date.month) + 1) + '월';
-		  },
-		  selectable : true,
-		  droppable : true,
-		  editable : true,
-		  nowIndicator: true,
-		  locale: 'ko',
-		  googleCalendarApiKey: 'AIzaSyD7FEF1RyDXeRs5iUzQ865DTAeHlbT1vcM', //구글 캘린더 API KEY
-		  eventSources: [
-            {
-              url: 'myPlanner/api/events/',
-              color: 'yellow',
-              textColor: 'black'
-            },
-            {
-              googleCalendarId : 'ko.south_korea#holiday@group.v.calendar.google.com', //구글 캘린더 아이디 - 공휴일 가져오기
-              color: 'white',
-              textColor: 'red'
-            }
-          ],
-          select: function (arg) { // 드래그로 이벤트 생성.
-            $("#calendarModal").modal("show"); // modal 나타내기
-            document.getElementById("calendar_start_date").value = moment(arg.start).format('YYYY-MM-DD');
-            document.getElementById("calendar_end_date").value = moment(arg.end).format('YYYY-MM-DD');
 
-            $("#addCalendar").on("click",function(){  // modal의 추가 버튼 클릭 시
-              var content = $("#calendar_content").val();
-              var start_date = $("#calendar_start_date").val();
-              var end_date = $("#calendar_end_date").val();
-
-              //내용 입력 여부 확인
-              if(content == null || content == ""){
-                alert("내용을 입력하세요.");
-              }else if(start_date == "" || end_date ==""){
-                alert("날짜를 입력하세요.");
-              }else if(new Date(end_date)- new Date(start_date) < 0){ // date 타입으로 변경 후 확인
-                alert("종료일이 시작일보다 먼저입니다.");
-              }else{ // 정상적인 입력 시
-                var obj = {
-                  "title" : content,
-                  "start" : start_date,
-                  "end" : end_date
-                }//전송할 객체 생성
-              var event = JSON.stringify(obj)
-              $.ajax({
-                url: "/myPlanner/create",
-                method: "POST",
-                dataType: "json",
-                data: event,
-                contentType: 'application/json',
-                beforeSend : function(xhr) {
-                  xhr.setRequestHeader(header, token);
-                },
-                success : function(){
-				  alert('삭제를 완료하였습니다!');
-				},
-                fail : function (request, status, error) {
-                  alert("에러 발생" + error)
-                }
-              })
-
-
-              $('#calendarModal').modal('hide');
-              }
-            });
+      var calendarEl = document.getElementById('calendar');
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        headerToolbar : {
+		  start : 'prev next today',
+		  center : 'title',
+		  end : 'dayGridMonth,dayGridWeek,dayGridDay,listWeek'
+		},
+		titleFormat : function(date) {
+		  return date.date.year + '년 ' + (parseInt(date.date.month) + 1) + '월';
+		},
+		navLinks: true,
+		selectable : true,
+		droppable : true,
+		editable : true,
+		nowIndicator: true,
+		locale: 'ko',
+		googleCalendarApiKey: 'AIzaSyD7FEF1RyDXeRs5iUzQ865DTAeHlbT1vcM', //구글 캘린더 API KEY
+		eventSources: [
+          {
+            url: 'myPlanner/api/events/',
+            color: 'yellow',
+            textColor: 'black'
+          },
+          {
+            googleCalendarId : 'ko.south_korea#holiday@group.v.calendar.google.com', //구글 캘린더 아이디 - 공휴일 가져오기
+            color: 'white',
+            textColor: 'red'
           }
-        });
-        calendar.render();
-      });
+        ],
+        select: function (arg) { // 드래그로 이벤트 생성.
+          $("#calendarModal").modal("show"); // modal 나타내기
+          document.getElementById("calendar_start_date").value = moment(arg.start).format('YYYY-MM-DD');
+          document.getElementById("calendar_end_date").value = moment(arg.end).format('YYYY-MM-DD');
 
+          $("#addCalendar").on("click",function(){  // modal의 추가 버튼 클릭 시
+            var content = $("#calendar_content").val();
+            var start_date = $("#calendar_start_date").val();
+            var end_date = $("#calendar_end_date").val();
+
+            //내용 입력 여부 확인
+            if(content == null || content == ""){
+              alert("내용을 입력하세요.");
+            }else if(start_date == "" || end_date ==""){
+              alert("날짜를 입력하세요.");
+            }else if(new Date(end_date)- new Date(start_date) < 0){ // date 타입으로 변경 후 확인
+              alert("종료일이 시작일보다 먼저입니다.");
+            }else{ // 정상적인 입력 시
+              var obj = {
+                "title" : content,
+                "start" : start_date,
+                "end" : end_date
+              }//전송할 객체 생성
+            var event = JSON.stringify(obj)
+            $.ajax({
+              url: "/myPlanner/create",
+              method: "POST",
+              dataType: "text",
+              data: event,
+              contentType: 'application/json',
+              beforeSend : function(xhr) {
+                xhr.setRequestHeader(header, token);
+              },
+              success : function(){
+				alert("등록을 완료하였습니다!");
+		      },
+              fail : function (request, status, error){
+                alert("에러 발생" + error)
+              },
+              complete : function(){
+                location.replace("");
+              }
+            })
+
+
+            $('#calendarModal').modal('hide');
+            }
+          });
+        }
+      });
+      calendar.render();
+   });
     </script>
 </head>
 <body>
@@ -106,12 +110,12 @@
         </button>
       </div>
       <div class="modal-body">
-        <div class="form-group">
-          <label for="taskId" class="col-form-label">일정 내용</label>
+        <div id="event" class="form-group">
+          <label for="event" class="col-form-label">일정 내용</label>
           <input type="text" class="form-control" id="calendar_content" name="calendar_content">
-          <label for="taskId" class="col-form-label">시작 날짜</label>
+          <label for="event" class="col-form-label">시작 날짜</label>
           <input type="date" class="form-control" id="calendar_start_date" name="calendar_start_date">
-          <label for="taskId" class="col-form-label">종료 날짜</label>
+          <label for="event" class="col-form-label">종료 날짜</label>
           <input type="date" class="form-control" id="calendar_end_date" name="calendar_end_date">
         </div>
       </div>
