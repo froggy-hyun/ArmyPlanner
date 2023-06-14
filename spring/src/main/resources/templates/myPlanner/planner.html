@@ -5,7 +5,11 @@
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/google-calendar@6.1.8/index.global.min.js"></script>
+  <meta name="_csrf" th:content="${_csrf.token}"/>
+  <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
   <script>
+      var token = $("meta[name='_csrf']").attr("content");
+	  var header = $("meta[name='_csrf_header']").attr("content");
       document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -61,11 +65,14 @@
                 }//전송할 객체 생성
               var event = JSON.stringify(obj)
               $.ajax({
-                url: "/myPlanner/api/events",
+                url: "/myPlanner/create",
                 method: "POST",
                 dataType: "json",
                 data: event,
                 contentType: 'application/json',
+                beforeSend : function(xhr) {
+                  xhr.setRequestHeader(header, token);
+                },
                 success : function(){
 				  alert('삭제를 완료하였습니다!');
 				},
