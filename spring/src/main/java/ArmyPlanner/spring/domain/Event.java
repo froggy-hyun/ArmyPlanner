@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "event")
-@Getter
+@Data
 public class Event {
 
     @Id
@@ -33,5 +33,7 @@ public class Event {
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+9")
     private LocalDate end;
 
+    @ManyToOne
+    private Member member;
 
 }
