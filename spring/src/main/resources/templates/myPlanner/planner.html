@@ -106,10 +106,10 @@
         eventClick: function(arg) {
           $("#eventInfoModal").modal("show"); // modal 나타내기
           console.log(moment(arg.start));
-          document.getElementById("info_calendar_start_date").value = moment(arg.start).format('YYYY-MM-DD');
-          document.getElementById("info_calendar_end_date").value = moment(arg.end).format('YYYY-MM-DD');
-          document.getElementById("info_calendar_start_time").value = moment(arg.start).format('HH:mm');
-          document.getElementById("info_calendar_end_time").value = moment(arg.end).format('HH:mm');
+          document.getElementById("info_calendar_start_date").value = moment(arg.event.start).format('YYYY-MM-DD');
+          document.getElementById("info_calendar_end_date").value = moment(arg.event.end).format('YYYY-MM-DD');
+          document.getElementById("info_calendar_start_time").value = moment(arg.event.start).format('HH:mm');
+          document.getElementById("info_calendar_end_time").value = moment(arg.event.end).format('HH:mm');
         }
       });
       calendar.render();
