@@ -109,6 +109,7 @@
           document.getElementById("info_event_end_date").value = moment(arg.event.end).format('YYYY-MM-DD');
           document.getElementById("info_event_start_time").value = moment(arg.event.start).format('HH:mm');
           document.getElementById("info_event_end_time").value = moment(arg.event.end).format('HH:mm');
+          document.getElementById("info_event_content").value = arg.event.title;
         }
       });
       calendar.render();
@@ -151,7 +152,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" id="add_event_save">추가</button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="sprintSettingModalClose">취소</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="add_event_modal_close">취소</button>
       </div>
     </div>
   </div>
@@ -179,17 +180,19 @@
 <!--          </div>-->
           <label for="event" class="col-form-label">시작 날짜
           </label>
-          <input type="date" class="form-control" id="info_event_start_date" name="info_calendar_start_date">
+          <input type="date" class="form-control" id="info_event_start_date" name="info_calendar_start_date" disabled="true">
           <input type="time" class="form-control" id="info_event_start_time" name="info_calendar_start_time" disabled="true">
           <label for="event" class="col-form-label">종료 날짜</label>
-          <input type="date" class="form-control" id="info_event_end_date" name="info_calendar_end_date">
+          <input type="date" class="form-control" id="info_event_end_date" name="info_calendar_end_date" disabled="true">
           <input type="time" class="form-control" id="info_event_end_time" name="info_calendar_end_time" disabled="true">
           <label for="event" class="col-form-label">일정 내용</label>
-          <input type="text" class="form-control" id="info_event_content" name="info_calendar_content">
+          <input type="text" class="form-control" id="info_event_content" name="info_calendar_content" disabled="true">
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="infoModalClose">취소</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="info_event_modal_close">취소</button>
+        <button type="submit" class="btn btn-warning" id="event_update">수정</button>
+        <button type="submit" class="btn btn-danger" id="event_delete">삭제</button>
       </div>
     </div>
   </div>
