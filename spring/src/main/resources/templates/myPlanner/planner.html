@@ -110,6 +110,37 @@
           document.getElementById("info_event_start_time").value = moment(arg.event.start).format('HH:mm');
           document.getElementById("info_event_end_time").value = moment(arg.event.end).format('HH:mm');
           document.getElementById("info_event_content").value = arg.event.title;
+
+          $("#event_delete").off('click').on("click",function(){
+            if(confirm("해당 일정을 삭제하시겠습니까 ?")){
+              var obj = {
+                "title" : arg.event.title,
+                "start" : arg.event.start,
+                "end" : arg.event.end,
+                "allDay" : arg.event.allDay
+              }//전송할 객체 생성
+              var event = JSON.stringify(obj)
+              $.ajax({
+                url: "/myPlanner/delete",
+                method: "DELETE",
+                dataType: "text",
+                data: event,
+                contentType: 'application/json',
+                beforeSend : function(xhr) {
+                  xhr.setRequestHeader(header, token);
+                },
+                success : function(){
+				  alert("삭제를 완료하였습니다!");
+		        },
+                fail : function (request, status, error){
+                  alert("에러 발생" + error)
+                },
+                complete : function(){
+                  location.replace("");
+                }
+              })
+            }
+          })
         }
       });
       calendar.render();
