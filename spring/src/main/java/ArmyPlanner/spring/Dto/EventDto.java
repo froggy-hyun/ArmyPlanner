@@ -9,7 +9,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 
 @Data
@@ -30,13 +32,16 @@ public class EventDto {
 
     private Member member;
 
+    private boolean allDay;
+
     public Event toEntity() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm", Locale.KOREA);
         return Event.builder()
                 .title(title)
 //                .description(description)
-                .start(LocalDate.parse(start, formatter))
-                .end(LocalDate.parse(end, formatter))
+                .start(LocalDateTime.parse(start, dateTimeFormatter))
+                .end(LocalDateTime.parse(end, dateTimeFormatter))
+                .allDay(allDay)
                 .member(member)
                 .build();
     }

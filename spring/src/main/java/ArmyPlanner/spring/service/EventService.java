@@ -31,6 +31,7 @@ public class EventService {
             eventDto.setTitle(list.get(i).getTitle());
             eventDto.setStart(list.get(i).getStart().toString());
             eventDto.setEnd(list.get(i).getEnd().toString());
+            eventDto.setAllDay(list.get(i).isAllDay());
             eventsDto.add(eventDto);
         }
 

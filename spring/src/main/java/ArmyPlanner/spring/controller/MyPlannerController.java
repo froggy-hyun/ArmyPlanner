@@ -41,6 +41,7 @@ public class MyPlannerController {
 //            String description = (String) param.get("description");
         String start = eventDto.getStart();
         String end = eventDto.getEnd();
+        boolean allDay = eventDto.isAllDay();
         String username = principal.getName();
         Member member = memberRepository.findByEmail(username);
 
@@ -49,6 +50,7 @@ public class MyPlannerController {
 //                    .description(description)
                 .start(start)
                 .end(end)
+                .allDay(allDay)
                 .member(member)
                 .build().toEntity();
 

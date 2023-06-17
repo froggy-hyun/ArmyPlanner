@@ -46,24 +46,37 @@
           $("#calendarModal").modal("show"); // modal 나타내기
           document.getElementById("calendar_start_date").value = moment(arg.start).format('YYYY-MM-DD');
           document.getElementById("calendar_end_date").value = moment(arg.end).format('YYYY-MM-DD');
+          document.getElementById("calendar_start_time").value = moment(arg.start).format('HH:mm');
+          document.getElementById("calendar_end_time").value = moment(arg.end).format('HH:mm');
 
           $("#addCalendar").on("click",function(){  // modal의 추가 버튼 클릭 시
             var content = $("#calendar_content").val();
             var start_date = $("#calendar_start_date").val();
+            var start_time = $("#calendar_start_time").val();
             var end_date = $("#calendar_end_date").val();
+            var end_time = $("#calendar_end_time").val();
+
+            var allDay = true;
+            if($('input:radio[id=set_time]').is(':checked')){
+              allDay = false;
+            }
+
+            var start = start_date + " " + start_time;
+            var end = end_date + " " + end_time;
 
             //내용 입력 여부 확인
             if(content == null || content == ""){
               alert("내용을 입력하세요.");
             }else if(start_date == "" || end_date ==""){
               alert("날짜를 입력하세요.");
-            }else if(new Date(end_date)- new Date(start_date) < 0){ // date 타입으로 변경 후 확인
+            }else if(new Date(end)- new Date(start) < 0){ // date 타입으로 변경 후 확인
               alert("종료일이 시작일보다 먼저입니다.");
             }else{ // 정상적인 입력 시
               var obj = {
                 "title" : content,
-                "start" : start_date,
-                "end" : end_date
+                "start" : start,
+                "end" : end,
+                "allDay" : allDay
               }//전송할 객체 생성
             var event = JSON.stringify(obj)
             $.ajax({
@@ -111,32 +124,23 @@
       </div>
       <div class="modal-body">
         <div id="event" class="form-group">
-          <label for="event" class="col-form-label">일정 내용</label>
-          <input type="text" class="form-control" id="calendar_content" name="calendar_content">
+          <div class="form-check">
+            <input class="form-check-input" type="radio" id="all_time" name="all_or_set_time" onchange="setTimeDisplay()" checked="checked">
+            <label class="form-check-label" for="all_time">종일</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" id="set_time" name="all_or_set_time" onchange="setTimeDisplay()">
+            <label class="form-check-label" for="set_time">시간 지정</label>
+          </div>
           <label for="event" class="col-form-label">시작 날짜
-            <div class="form-check">
-              <input class="form-check-input" type="radio" id="start_all_time" name="start_time" onchange="setStartTimeDisplay()" checked="checked">
-              <label class="form-check-label" for="start_all_time">종일</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" id="start_set_time" name="start_time" onchange="setStartTimeDisplay()">
-              <label class="form-check-label" for="start_set_time">시간 지정</label>
-            </div>
           </label>
           <input type="date" class="form-control" id="calendar_start_date" name="calendar_start_date">
-          <input type="time" class="form-control" id="calendar_start_time" name="calendar_start_time" disabled="true">
-          <label for="event" class="col-form-label">종료 날짜
-            <div class="form-check">
-              <input class="form-check-input" type="radio" id="end_all_time" name="end_time" onchange="setEndTimeDisplay()" checked="checked">
-              <label class="form-check-label" for="end_all_time">종일</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" id="end_set_time" name="end_time" onchange="setEndTimeDisplay()">
-              <label class="form-check-label" for="end_set_time">시간 지정</label>
-            </div>
-          </label>
+          <input type="time" class="form-control" id="calendar_start_time" name="calendar_start_time" disabled="true" value="00:00">
+          <label for="event" class="col-form-label">종료 날짜</label>
           <input type="date" class="form-control" id="calendar_end_date" name="calendar_end_date">
-          <input type="time" class="form-control" id="calendar_end_time" name="calendar_end_time" disabled="true">
+          <input type="time" class="form-control" id="calendar_end_time" name="calendar_end_time" disabled="true" value="00:00">
+          <label for="event" class="col-form-label">일정 내용</label>
+          <input type="text" class="form-control" id="calendar_content" name="calendar_content">
         </div>
       </div>
       <div class="modal-footer">
@@ -151,21 +155,16 @@
 <footer th:replace="fragments/common :: footer"></footer>
 </body>
 <script>
-  function setStartTimeDisplay(){
-    if($('input:radio[id=start_all_time]').is(':checked')){
-        $('#calendar_start_time').val("");
+  function setTimeDisplay(){
+    if($('input:radio[id=all_time]').is(':checked')){
+        $('#calendar_start_time').val("00:00");
         $('#calendar_start_time').attr("disabled", true);
-    }else if($('input:radio[id=start_set_time]').is(':checked')){
-        $('#calendar_start_time').attr("disabled", false);
-    }
-  }
-
-  function setEndTimeDisplay(){
-    if($('input:radio[id=end_all_time]').is(':checked')){
-        $('#calendar_end_time').val("");
+        $('#calendar_end_time').val("00:00");
         $('#calendar_end_time').attr("disabled", true);
-    }else if($('input:radio[id=end_set_time]').is(':checked')){
+    }else if($('input:radio[id=set_time]').is(':checked')){
+        $('#calendar_start_time').attr("disabled", false);
         $('#calendar_end_time').attr("disabled", false);
     }
   }
+
 </script>
