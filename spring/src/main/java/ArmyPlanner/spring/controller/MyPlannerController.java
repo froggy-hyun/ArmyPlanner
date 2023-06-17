@@ -34,9 +34,9 @@ public class MyPlannerController {
         return "myPlanner/planner";
     }
 
-    @PostMapping(value = "create" )
+    @PostMapping(value = "create")
     @ResponseBody
-    public String addEvent(@RequestBody EventDto eventDto, Principal principal, Model model) throws Exception {
+    public void addEvent(@RequestBody EventDto eventDto, Principal principal) throws Exception {
         String title = eventDto.getTitle();
 //            String description = (String) param.get("description");
         String start = eventDto.getStart();
@@ -55,9 +55,13 @@ public class MyPlannerController {
                 .build().toEntity();
 
         eventService.saveEvent(event);
-
-        return "redirect:/";
     }
 
+    @DeleteMapping(value = "delete")
+    @ResponseBody
+    public void deleteEvent(@RequestBody EventDto eventDto, Principal principal) throws Exception {
+        Long id = eventDto.getId();
+        eventService.deleteEvent(id);
+    }
 
 }

@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -41,6 +42,10 @@ public class EventService {
     public Event saveEvent(Event event) {
 
         return eventRepository.save(event);
+    }
+
+    public void deleteEvent(Long id) {
+        eventRepository.deleteById(id);
     }
 
 }
