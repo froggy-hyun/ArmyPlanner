@@ -49,7 +49,7 @@
           document.getElementById("calendar_start_time").value = moment(arg.start).format('HH:mm');
           document.getElementById("calendar_end_time").value = moment(arg.end).format('HH:mm');
 
-          $("#addCalendar").on("click",function(){  // modal의 추가 버튼 클릭 시
+          $("#addCalendar").off('click').on("click",function(){  // modal의 추가 버튼 클릭 시
             var content = $("#calendar_content").val();
             var start_date = $("#calendar_start_date").val();
             var start_time = $("#calendar_start_time").val();
@@ -99,8 +99,7 @@
               }
             })
 
-
-            $('#calendarModal').modal('hide');
+            calendar.unselect();
             }
           });
         }
