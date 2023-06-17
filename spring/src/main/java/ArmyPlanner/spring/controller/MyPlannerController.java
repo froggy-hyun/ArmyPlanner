@@ -23,8 +23,10 @@ public class MyPlannerController {
 
     @GetMapping("api/events")
     @ResponseBody
-    public List<EventDto> listAllEvents() {
-        return eventService.listAllEvents();
+    public List<EventDto> listAllEvents(Principal principal) {
+        String username = principal.getName();
+        Member member = memberRepository.findByEmail(username);
+        return eventService.listAllEvents(member);
     }
 
     @GetMapping

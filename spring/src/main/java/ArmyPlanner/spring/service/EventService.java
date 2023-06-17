@@ -2,6 +2,7 @@ package ArmyPlanner.spring.service;
 
 import ArmyPlanner.spring.Dto.EventDto;
 import ArmyPlanner.spring.domain.Event;
+import ArmyPlanner.spring.domain.Member;
 import ArmyPlanner.spring.repository.EventRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,8 +19,8 @@ public class EventService {
     private final EventRepository eventRepository;
 
 
-    public List<EventDto> listAllEvents() {
-        List<Event> list = eventRepository.findAll();
+    public List<EventDto> listAllEvents(Member member) {
+        List<Event> list = eventRepository.findAllByMember(member);
 
         List<EventDto> eventsDto = new ArrayList<>();
 
