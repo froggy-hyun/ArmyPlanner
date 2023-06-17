@@ -123,7 +123,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <div id="event" class="form-group">
+        <form id="event" class="form-group">
           <div class="form-check">
             <input class="form-check-input" type="radio" id="all_time" name="all_or_set_time" onchange="setTimeDisplay()" checked="checked">
             <label class="form-check-label" for="all_time">종일</label>
@@ -141,7 +141,7 @@
           <input type="time" class="form-control" id="calendar_end_time" name="calendar_end_time" disabled="true" value="00:00">
           <label for="event" class="col-form-label">일정 내용</label>
           <input type="text" class="form-control" id="calendar_content" name="calendar_content">
-        </div>
+        </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-warning" id="addCalendar">추가</button>
@@ -166,5 +166,10 @@
         $('#calendar_end_time').attr("disabled", false);
     }
   }
+
+  $('.modal').on('hidden.bs.modal', function (e) {
+	$(this).find('form')[0].reset();
+	setTimeDisplay();
+  })
 
 </script>
