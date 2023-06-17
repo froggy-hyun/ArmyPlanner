@@ -114,6 +114,7 @@
           $("#event_delete").off('click').on("click",function(){
             if(confirm("해당 일정을 삭제하시겠습니까 ?")){
               var obj = {
+                "id" : arg.event.id,
                 "title" : arg.event.title,
                 "start" : arg.event.start,
                 "end" : arg.event.end,
@@ -136,7 +137,7 @@
                   alert("에러 발생" + error)
                 },
                 complete : function(){
-                  location.replace("");
+
                 }
               })
             }
