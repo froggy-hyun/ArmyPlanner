@@ -113,10 +113,30 @@
         <div id="event" class="form-group">
           <label for="event" class="col-form-label">일정 내용</label>
           <input type="text" class="form-control" id="calendar_content" name="calendar_content">
-          <label for="event" class="col-form-label">시작 날짜</label>
+          <label for="event" class="col-form-label">시작 날짜
+            <div class="form-check">
+              <input class="form-check-input" type="radio" id="start_all_time" name="start_time" onchange="setStartTimeDisplay()" checked="checked">
+              <label class="form-check-label" for="start_all_time">종일</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" id="start_set_time" name="start_time" onchange="setStartTimeDisplay()">
+              <label class="form-check-label" for="start_set_time">시간 지정</label>
+            </div>
+          </label>
           <input type="date" class="form-control" id="calendar_start_date" name="calendar_start_date">
-          <label for="event" class="col-form-label">종료 날짜</label>
+          <input type="time" class="form-control" id="calendar_start_time" name="calendar_start_time" disabled="true">
+          <label for="event" class="col-form-label">종료 날짜
+            <div class="form-check">
+              <input class="form-check-input" type="radio" id="end_all_time" name="end_time" onchange="setEndTimeDisplay()" checked="checked">
+              <label class="form-check-label" for="end_all_time">종일</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" id="end_set_time" name="end_time" onchange="setEndTimeDisplay()">
+              <label class="form-check-label" for="end_set_time">시간 지정</label>
+            </div>
+          </label>
           <input type="date" class="form-control" id="calendar_end_date" name="calendar_end_date">
+          <input type="time" class="form-control" id="calendar_end_time" name="calendar_end_time" disabled="true">
         </div>
       </div>
       <div class="modal-footer">
@@ -130,3 +150,22 @@
 
 <footer th:replace="fragments/common :: footer"></footer>
 </body>
+<script>
+  function setStartTimeDisplay(){
+    if($('input:radio[id=start_all_time]').is(':checked')){
+        $('#calendar_start_time').val("");
+        $('#calendar_start_time').attr("disabled", true);
+    }else if($('input:radio[id=start_set_time]').is(':checked')){
+        $('#calendar_start_time').attr("disabled", false);
+    }
+  }
+
+  function setEndTimeDisplay(){
+    if($('input:radio[id=end_all_time]').is(':checked')){
+        $('#calendar_end_time').val("");
+        $('#calendar_end_time').attr("disabled", true);
+    }else if($('input:radio[id=end_set_time]').is(':checked')){
+        $('#calendar_end_time').attr("disabled", false);
+    }
+  }
+</script>
