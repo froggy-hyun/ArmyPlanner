@@ -43,7 +43,7 @@
           }
         ],
         select: function (arg) { // 드래그로 이벤트 생성.
-          $("#add_event_modal").modal("show"); // modal 나타내기
+          $("#type_event_modal").modal("show"); // modal 나타내기
           document.getElementById("add_event_start_date").value = moment(arg.start).format('YYYY-MM-DD');
           document.getElementById("add_event_end_date").value = moment(arg.end).format('YYYY-MM-DD');
           document.getElementById("add_event_start_time").value = moment(arg.start).format('HH:mm');
@@ -151,6 +151,43 @@
 <body>
 <nav th:replace="fragments/common :: menu(menu)" />
 <div id='calendar'></div>
+<!-- 이벤트 유형 선택 modal -->
+<div class="modal fade" id="type_event_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="type_event_title">일정 유형을 선택하세요.</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-body">
+                    <div class="form-check">
+                        <input style="background-image: url('img/vacation.png');" class="form-check-input" type="radio" id="vacation" name="type_event">
+                        <label class="form-check-label" for="vacation">휴가</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" id="diet" name="type_event">
+                        <label class="form-check-label" for="diet">식단</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" id="shopping" name="type_event" >
+                        <label class="form-check-label" for="shopping">소비</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" id="location" name="type_event">
+                        <label class="form-check-label" for="location">장소</label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="type_event_save">추가</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="type_event_modal_close">취소</button>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- 이벤트 추가 modal -->
 <div class="modal fade" id="add_event_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
