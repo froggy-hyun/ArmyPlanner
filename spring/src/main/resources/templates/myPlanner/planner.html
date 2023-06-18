@@ -101,7 +101,19 @@
                   $('#diet_input').css('display','block');
                   $('#add_event_diet').attr('disabled', false);
                   $("#add_diet_by_api").off('click').on("click",function(){
+                    $.ajax({
+                        type: "GET",
+                        url: "api.odcloud.kr/api/YfVszWFGgZBtStWJ429k2RIkV3b1vpS4obo/KLxcU15enrSNaCvSNO3TLZKnGjaAfL3trm9jk6X7jFG86kpm6Q==",
+                        data: {},
+                        success: function(data){
+                           let dusty_data = data['RealtimeCityAir']['row'];
+                           for (let i = 0; i < dusty_data.length; i++) {
+                             put_data(i,dusty_data[i]['MSRDT'],dusty_data[i]['MSRSTE_NM'],dusty_data[i]['IDEX_NM'],dusty_data[i]['IDEX_MVL'])
+                           }
+                        }
+                    })
                     $("#add_diet_by_api_modal").modal("show");
+
                   })
                 } else if(eventType == "shopping") {
                   $('#shopping_input').css('display','block');
@@ -393,16 +405,6 @@
                             <th>등록일</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr v-for="data in apiList">
-                            <td>{{data.no}}</td>
-                            <td>{{data.dong_nm}}</td>
-                            <td>{{data.nrsry_type}}</td>
-                            <td>{{data.inst_nm}}</td>
-                            <td>{{data.telno}}</td>
-                            <td>{{data.addr}}</td>
-                        </tr>
-                    </tbody>
                 </table>
             </div>
             <div class="modal-footer">
@@ -439,6 +441,25 @@
 	setTimeDisplay();
 	resetExtraInputs();
   })
+
+  function put_data(num,date, food_name, kcal, carbohydrate, protein, fat, cholesterol, salt) {
+    let table_html=
+    '<tbody>\
+      <tr>\
+        <th scope="row">'+(num+1)+'</th>\
+        <td>'+food_name+'</td>\
+        <td>'+kcal+'</td>\
+        <td>'+carbohydrate+'</td>\
+        <td>'+protein+'</td>\
+        <td>'+fat+'</td>\
+        <td>'+cholesterol+'</td>\
+        <td>'+fiber+'</td>\
+        <td>'+salt+'</td>\
+      </tr>\
+    </tbody>'
+
+    $('#api').append(table_html);
+  }
 
 </script>
 
