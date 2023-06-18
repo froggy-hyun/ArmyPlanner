@@ -11,13 +11,13 @@
 4. 장소 추가
 
 ### → [OpenAPI]
-1. 국방부_육군 장병 휴가 내역 조회 https://www.milipass.or.kr/html/sub/sub03.html  
-2. 농림수산식품교육문화정보원_칼로리 정보 https://www.data.go.kr/data/15050912/fileData.do#/tab-layer-openapi
-3. 국방부 PX 인기상품 정보 : PX 인기상품 정보 https://opendata.mnd.go.kr/openinf/sheetview2.jsp?infId=OA-9491  
-4. 병사 할인 혜택 정보 : 병사 할인 혜택 정보 https://opendata.mnd.go.kr/openinf/sheetview2.jsp?infId=OA-9493  
-   전군 복지 휴양시설 위치정보 목록 : 군 복지 휴양시설 정보 https://opendata.mnd.go.kr/openinf/sheetview2.jsp?infId=OA-9441  
-   군병원 정보 : 군병원 정보 https://opendata.mnd.go.kr/openinf/sheetview2.jsp?infId=OA-9436  
-   TMO(여행장병 안내소) 정보 : TMO(여행장병 안내소) 정보 https://opendata.mnd.go.kr/openinf/sheetview2.jsp?infId=OA-9595  
+1. <국방분야데이터> 국방부_육군 장병 휴가 내역 조회 https://www.milipass.or.kr/html/sub/sub03.html  
+2. <국가중점데이터> 식품의약품안전처_식품 영양성분 정보 https://www.data.go.kr/data/15057436/openapi.do
+3. <국방분야데이터> 국방부 PX 인기상품 정보 : PX 인기상품 정보 https://opendata.mnd.go.kr/openinf/sheetview2.jsp?infId=OA-9491  
+4. <국방분야데이터> 병사 할인 혜택 정보 : 병사 할인 혜택 정보 https://opendata.mnd.go.kr/openinf/sheetview2.jsp?infId=OA-9493  
+   <국방분야데이터> 전군 복지 휴양시설 위치정보 목록 : 군 복지 휴양시설 정보 https://opendata.mnd.go.kr/openinf/sheetview2.jsp?infId=OA-9441  
+   <국방분야데이터> 군병원 정보 : 군병원 정보 https://opendata.mnd.go.kr/openinf/sheetview2.jsp?infId=OA-9436  
+   <국방분야데이터> TMO(여행장병 안내소) 정보 : TMO(여행장병 안내소) 정보 https://opendata.mnd.go.kr/openinf/sheetview2.jsp?infId=OA-9595  
 
 
 ### [제작방향]
