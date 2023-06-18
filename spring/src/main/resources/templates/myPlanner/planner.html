@@ -100,6 +100,9 @@
                 } else if(eventType == "diet") {
                   $('#diet_input').css('display','block');
                   $('#add_event_diet').attr('disabled', false);
+                  $("#add_diet_by_api").off('click').on("click",function(){
+                    $("#add_diet_by_api_modal").modal("show");
+                  })
                 } else if(eventType == "shopping") {
                   $('#shopping_input').css('display','block');
                   $('#add_event_shopping').attr('disabled', false);
@@ -266,7 +269,7 @@
     </div>
 </div>
 <!-- 이벤트 추가 modal -->
-<div class="modal fade" id="add_event_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="add_event_modal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -298,9 +301,18 @@
               <input type="text" class="form-control" id="add_event_vacation" name="calendar_content" disabled="true">
           </div>
           <div class= "buttons" id="diet_input">
-              <label for="add_event_diet" class="col-form-label">식단 추가</label>
-              <input type="button" class="btnAdd btn btn-dark" value="Add">
-              <input type="text" class="form-control" id="add_event_diet" name="calendar_content" disabled="true">
+              <label for="add_event_diet" class="col-form-label">식단 추가 (기호 단위는 생략해서 입력해주세요.)</label>
+              <input type="button" id="add_diet_by_api" class="btnAdd btn btn-dark" value="음식 영양소 검색 등록">
+              <div id="add_event_diet" disabled="true">
+                  <input type="text" id="food_name" class="form-control" name="calendar_content" placeholder="음식명 예) 김치찌개, 쌀밥, 김치">
+                  <input type="text" id="kcal" class="form-control" name="calendar_content" placeholder="1회 섭취 칼로리 합(kcal)">
+                  <input type="text" id="carbohydrate" class="form-control" name="calendar_content" placeholder="1회 섭취 탄수화물 합(g)">
+                  <input type="text" id="protein" class="form-control" name="calendar_content" placeholder="1회 섭취 단백질 합(g)">
+                  <input type="text" id="fat" class="form-control" name="calendar_content" placeholder="1회 섭취 지방 합(g)">
+                  <input type="text" id="cholesterol" class="form-control" name="calendar_content" placeholder="1회 섭취 콜레스테롤 합(g)">
+                  <input type="text" id="fiber" class="form-control" name="calendar_content" placeholder="1회 섭취 식이섬유 합(g)">
+                  <input type="text" id="salt" class="form-control" name="calendar_content" placeholder="1회 섭취 나트륨 합(g)">
+              </div>
           </div>
           <div id="shopping_input">
               <label for="add_event_shopping" class="col-form-label">소비 기록</label>
@@ -325,7 +337,7 @@
 </div>
 
 <!-- 이벤트 상세 정보 modal -->
-<div class="modal fade" id="info_event_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="info_event_modal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -356,6 +368,50 @@
   </div>
 </div>
 
+<!-- 식단 선택 api modal -->
+<div class="modal fade" id="add_diet_by_api_modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="add_diet_title">식단 정보</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table id="api">
+                    <thead>
+                        <tr>
+                            <th>음식명</th>
+                            <th>1인분칼로리(kcal)</th>
+                            <th>탄수화물(g)</th>
+                            <th>단백질(g)</th>
+                            <th>지방(g)</th>
+                            <th>콜레스테롤(g)</th>
+                            <th>식이섬유(g)</th>
+                            <th>나트륨(g)</th>
+                            <th>등록일</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="data in apiList">
+                            <td>{{data.no}}</td>
+                            <td>{{data.dong_nm}}</td>
+                            <td>{{data.nrsry_type}}</td>
+                            <td>{{data.inst_nm}}</td>
+                            <td>{{data.telno}}</td>
+                            <td>{{data.addr}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="add_diet_modal_close">취소</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <footer th:replace="fragments/common :: footer"></footer>
 </body>
@@ -384,14 +440,5 @@
 	resetExtraInputs();
   })
 
-  $('.btnAdd').click (function () {
-    $('.buttons').append (
-      '<input type="text" class="add_event_text_extra form-control" name="calendar_content_extra"> <input type="button" class="btnRemove btn btn-light" value="Remove"><br>'
-    ); // end append
-    $('.btnRemove').on('click', function () {
-      $(this).prev().remove (); // remove the textbox
-      $(this).next ().remove (); // remove the <br>
-      $(this).remove (); // remove the button
-    });
-  }); // end click
 </script>
+
