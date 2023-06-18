@@ -297,8 +297,9 @@
               <label for="add_event_vacation" class="col-form-label">휴가 내역</label>
               <input type="text" class="form-control" id="add_event_vacation" name="calendar_content" disabled="true">
           </div>
-          <div id="diet_input">
+          <div class= "buttons" id="diet_input">
               <label for="add_event_diet" class="col-form-label">식단 추가</label>
+              <input type="button" class="btnAdd btn btn-dark" value="Add">
               <input type="text" class="form-control" id="add_event_diet" name="calendar_content" disabled="true">
           </div>
           <div id="shopping_input">
@@ -371,8 +372,26 @@
     }
   }
 
+  function resetExtraInputs() {
+     $(".add_event_text_extra").remove();
+     $(".btnRemove").remove();
+     $("br").remove();
+  }
+
   $('.modal').on('hidden.bs.modal', function (e) {
 	$(this).find('form')[0].reset();
 	setTimeDisplay();
+	resetExtraInputs();
   })
+
+  $('.btnAdd').click (function () {
+    $('.buttons').append (
+      '<input type="text" class="add_event_text_extra form-control" name="calendar_content_extra"> <input type="button" class="btnRemove btn btn-light" value="Remove"><br>'
+    ); // end append
+    $('.btnRemove').on('click', function () {
+      $(this).prev().remove (); // remove the textbox
+      $(this).next ().remove (); // remove the <br>
+      $(this).remove (); // remove the button
+    });
+  }); // end click
 </script>
