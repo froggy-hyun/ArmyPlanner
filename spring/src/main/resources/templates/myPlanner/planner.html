@@ -103,12 +103,12 @@
                   $("#add_diet_by_api").off('click').on("click",function(){
                     $.ajax({
                         type: "GET",
-                        url: "api.odcloud.kr/api/YfVszWFGgZBtStWJ429k2RIkV3b1vpS4obo/KLxcU15enrSNaCvSNO3TLZKnGjaAfL3trm9jk6X7jFG86kpm6Q==",
+                        url: "http://apis.data.go.kr/1470000/FoodNtrIrdntInfoService/getFoodNtrItdntList?ServiceKey=YfVszWFGgZBtStWJ429k2RIkV3b1vpS4obo%2FKLxcU15enrSNaCvSNO3TLZKnGjaAfL3trm9jk6X7jFG86kpm6Q%3D%3D&numOfRows=3&pageNo=1&type=json",
                         data: {},
                         success: function(data){
-                           let dusty_data = data['RealtimeCityAir']['row'];
+                           let dusty_data = data['row'];
                            for (let i = 0; i < dusty_data.length; i++) {
-                             put_data(i,dusty_data[i]['MSRDT'],dusty_data[i]['MSRSTE_NM'],dusty_data[i]['IDEX_NM'],dusty_data[i]['IDEX_MVL'])
+                             put_data(i,dusty_data[i]['DESC_KOR'],dusty_data[i]['SERVING_WT'],dusty_data[i]['NUTR_CONT1'],dusty_data[i]['NUTR_CONT2'],dusty_data[i]['NUTR_CONT3'],dusty_data[i]['NUTR_CONT4'],dusty_data[i]['NUTR_CONT5'])
                            }
                         }
                     })
