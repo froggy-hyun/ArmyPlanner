@@ -7,6 +7,45 @@
   <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/google-calendar@6.1.8/index.global.min.js"></script>
   <meta name="_csrf" th:content="${_csrf.token}"/>
   <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+  <style>
+    .cc-selector input{
+        margin:0;padding:0;
+        -webkit-appearance:none;
+           -moz-appearance:none;
+                appearance:none;
+
+        cursor:pointer;
+        background-size:contain;
+        background-repeat:no-repeat;
+        display:inline-block;
+        width:100px;height:70px;
+        -webkit-transition: all 100ms ease-in;
+           -moz-transition: all 100ms ease-in;
+                transition: all 100ms ease-in;
+        -webkit-filter: brightness(0) grayscale(1) opacity(1);
+           -moz-filter: brightness(0) grayscale(1) opacity(1);
+                filter: brightness(0) grayscale(1) opacity(1);
+    }
+    .vacation{background-image:url(img/vacation.png);}
+    .diet{background-image:url(img/diet.png);}
+    .shopping{background-image:url(img/shopping.png);}
+    .location{background-image:url(img/location.png);}
+
+
+    .cc-selector input:hover{
+        -webkit-filter: brightness(1.2) grayscale(.5) opacity(.9);
+           -moz-filter: brightness(1.2) grayscale(.5) opacity(.9);
+                filter: brightness(1.2) grayscale(.5) opacity(.9);
+    }
+
+    .cc-selector input:checked {
+        -webkit-filter: none;
+           -moz-filter: none;
+                filter: none;
+    }
+
+
+  </style>
   <script>
    $(document).ready(function (){
       var token = $("meta[name='_csrf']").attr("content");
@@ -161,28 +200,28 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <div class="modal-body">
-                    <div class="form-check">
-                        <input style="background-image: url('img/vacation.png');" class="form-check-input" type="radio" id="vacation" name="type_event">
-                        <label class="form-check-label" for="vacation">휴가</label>
+            <form class = "modal-body">
+                <div class="cc-selector">
+                    <div>
+                        <input type="radio" class="type_event_input vacation" id="vacation" value="vacation" name="type_event">
+                        <label for="vacation">휴가</label>
                     </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" id="diet" name="type_event">
-                        <label class="form-check-label" for="diet">식단</label>
+                    <div>
+                        <input type="radio" class="type_event_input diet" id="diet" value="diet" name="type_event">
+                        <label for="diet">식단</label>
                     </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" id="shopping" name="type_event" >
-                        <label class="form-check-label" for="shopping">소비</label>
+                    <div>
+                        <input type="radio" class="type_event_input shopping" id="shopping" value="shopping" name="type_event" >
+                        <label for="shopping">소비</label>
                     </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" id="location" name="type_event">
-                        <label class="form-check-label" for="location">장소</label>
+                    <div>
+                        <input type="radio" class="type_event_input location" id="location" value="location" name="type_event">
+                        <label for="location">장소</label>
                     </div>
                 </div>
-            </div>
+            </form>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="type_event_save">추가</button>
+                <button type="button" class="btn btn-primary" id="type_event_save">선택</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="type_event_modal_close">취소</button>
             </div>
         </div>
@@ -202,14 +241,13 @@
         <form id="event" class="form-group">
           <div class="form-check">
             <input class="form-check-input" type="radio" id="all_time" name="all_or_set_time" onchange="setTimeDisplay()" checked="checked">
-            <label class="form-check-label" for="all_time">종일</label>
+            <label class="form-check-label all_time" for="all_time">종일</label>
           </div>
           <div class="form-check">
             <input class="form-check-input" type="radio" id="set_time" name="all_or_set_time" onchange="setTimeDisplay()">
-            <label class="form-check-label" for="set_time">시간 지정</label>
+            <label class="form-check-label set_time" for="set_time">시간 지정</label>
           </div>
-          <label for="event" class="col-form-label">시작 날짜
-          </label>
+          <label for="event" class="col-form-label">시작 날짜</label>
           <input type="date" class="form-control" id="add_event_start_date" name="calendar_start_date">
           <input type="time" class="form-control" id="add_event_start_time" name="calendar_start_time" disabled="true" value="00:00">
           <label for="event" class="col-form-label">종료 날짜</label>
@@ -247,8 +285,7 @@
 <!--            <input class="form-check-input" type="radio" id="set_time" name="all_or_set_time" onchange="setTimeDisplay()">-->
 <!--            <label class="form-check-label" for="set_time">시간 지정</label>-->
 <!--          </div>-->
-          <label for="event" class="col-form-label">시작 날짜
-          </label>
+          <label for="event" class="col-form-label">시작 날짜</label>
           <input type="date" class="form-control" id="info_event_start_date" name="info_calendar_start_date" disabled="true">
           <input type="time" class="form-control" id="info_event_start_time" name="info_calendar_start_time" disabled="true">
           <label for="event" class="col-form-label">종료 날짜</label>
@@ -287,5 +324,4 @@
 	$(this).find('form')[0].reset();
 	setTimeDisplay();
   })
-
 </script>
