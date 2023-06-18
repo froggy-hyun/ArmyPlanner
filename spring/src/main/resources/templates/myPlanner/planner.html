@@ -26,10 +26,11 @@
            -moz-filter: brightness(0) grayscale(1) opacity(1);
                 filter: brightness(0) grayscale(1) opacity(1);
     }
-    .vacation{background-image:url(img/vacation.png);}
-    .diet{background-image:url(img/diet.png);}
-    .shopping{background-image:url(img/shopping.png);}
-    .location{background-image:url(img/location.png);}
+    .vacation{background-image:url(img/eventType/vacation.png);}
+    .diet{background-image:url(img/eventType/diet.png);}
+    .shopping{background-image:url(img/eventType/shopping.png);}
+    .location{background-image:url(img/eventType/location.png);}
+    .text{background-image:url(img/eventType/text.png);}
 
 
     .cc-selector input:hover{
@@ -217,6 +218,10 @@
                     <div>
                         <input type="radio" class="type_event_input location" id="location" value="location" name="type_event">
                         <label for="location">장소</label>
+                    </div>
+                    <div>
+                        <input type="radio" class="type_event_input text" id="text" value="text" name="type_event">
+                        <label for="text">텍스트로 입력하기</label>
                     </div>
                 </div>
             </form>
