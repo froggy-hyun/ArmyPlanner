@@ -87,6 +87,30 @@
           $("#type_event_save").off('click').on("click",function(){
               var eventType = $('input:radio[name="type_event"]:checked').val();
               if(eventType == "vacation" || eventType == "diet" || eventType == "shopping" || eventType == "location" || eventType == "text") {
+
+                $('#vacation_input').css('display','none');
+                $('#diet_input').css('display','none');
+                $('#shopping_input').css('display','none');
+                $('#location_input').css('display','none');
+                $('#text_input').css('display','none');
+
+                if(eventType == "vacation") {
+                  $('#vacation_input').css('display','block');
+                  $('#add_event_vacation').attr('disabled', false);
+                } else if(eventType == "diet") {
+                  $('#diet_input').css('display','block');
+                  $('#add_event_diet').attr('disabled', false);
+                } else if(eventType == "shopping") {
+                  $('#shopping_input').css('display','block');
+                  $('#add_event_shopping').attr('disabled', false);
+                } else if(eventType == "location") {
+                  $('#location_input').css('display','block');
+                  $('#add_event_location').attr('disabled', false);
+                } else if(eventType == "text") {
+                  $('#text_input').css('display','block');
+                  $('#add_event_text').attr('disabled', false);
+                }
+
                 $("#add_event_modal").modal("show");
                 document.getElementById("add_event_start_date").value = moment(arg.start).format('YYYY-MM-DD');
                 document.getElementById("add_event_end_date").value = moment(arg.end).format('YYYY-MM-DD');
@@ -94,7 +118,7 @@
                 document.getElementById("add_event_end_time").value = moment(arg.end).format('HH:mm');
 
                 $("#add_event_save").off('click').on("click",function(){  // modal의 추가 버튼 클릭 시
-                  var content = $("#add_event_content").val();
+                  var text = $("#add_event_text").val();
                   var start_date = $("#add_event_start_date").val();
                   var start_time = $("#add_event_start_time").val();
                   var end_date = $("#add_event_end_date").val();
@@ -109,7 +133,7 @@
                   var end = end_date + " " + end_time;
 
                   //내용 입력 여부 확인
-                  if(content == null || content == ""){
+                  if(text == null || text == ""){
                     alert("내용을 입력하세요.");
                   }else if(start_date == "" || end_date ==""){
                     alert("날짜를 입력하세요.");
@@ -117,7 +141,7 @@
                     alert("종료일이 시작일보다 먼저입니다.");
                   }else{ // 정상적인 입력 시
                     var obj = {
-                      "title" : content,
+                      "title" : text,
                       "start" : start,
                       "end" : end,
                       "allDay" : allDay
@@ -158,7 +182,7 @@
           document.getElementById("info_event_end_date").value = moment(arg.event.end).format('YYYY-MM-DD');
           document.getElementById("info_event_start_time").value = moment(arg.event.start).format('HH:mm');
           document.getElementById("info_event_end_time").value = moment(arg.event.end).format('HH:mm');
-          document.getElementById("info_event_content").value = arg.event.title;
+          document.getElementById("info_event_text").value = arg.event.title;
 
           $("#event_delete").off('click').on("click",function(){
             if(confirm("해당 일정을 삭제하시겠습니까 ?")){
@@ -261,14 +285,34 @@
             <input class="form-check-input" type="radio" id="set_time" name="all_or_set_time" onchange="setTimeDisplay()">
             <label class="form-check-label set_time" for="set_time">시간 지정</label>
           </div>
-          <label for="event" class="col-form-label">시작 날짜</label>
+          <label for="add_event_start_date" class="col-form-label">시작 날짜</label>
           <input type="date" class="form-control" id="add_event_start_date" name="calendar_start_date">
+          <label for="add_event_start_time" class="col-form-label">시작 시간</label>
           <input type="time" class="form-control" id="add_event_start_time" name="calendar_start_time" disabled="true" value="00:00">
-          <label for="event" class="col-form-label">종료 날짜</label>
+          <label for="add_event_end_date" class="col-form-label">종료 날짜</label>
           <input type="date" class="form-control" id="add_event_end_date" name="calendar_end_date">
+          <label for="add_event_end_time" class="col-form-label">종료 시간</label>
           <input type="time" class="form-control" id="add_event_end_time" name="calendar_end_time" disabled="true" value="00:00">
-          <label for="event" class="col-form-label">일정 내용</label>
-          <input type="text" class="form-control" id="add_event_content" name="calendar_content">
+          <div id="vacation_input">
+              <label for="add_event_vacation" class="col-form-label">휴가 내역</label>
+              <input type="text" class="form-control" id="add_event_vacation" name="calendar_content" disabled="true">
+          </div>
+          <div id="diet_input">
+              <label for="add_event_diet" class="col-form-label">식단 추가</label>
+              <input type="text" class="form-control" id="add_event_diet" name="calendar_content" disabled="true">
+          </div>
+          <div id="shopping_input">
+              <label for="add_event_shopping" class="col-form-label">소비 기록</label>
+              <input type="text" class="form-control" id="add_event_shopping" name="calendar_content" disabled="true">
+          </div>
+          <div id="location_input">
+              <label for="add_event_location" class="col-form-label">장소 추가</label>
+              <input type="text" class="form-control" id="add_event_location" name="calendar_content" disabled="true">
+          </div>
+          <div id="text_input">
+              <label for="add_event_text" class="col-form-label">텍스트 추가</label>
+              <input type="text" class="form-control" id="add_event_text" name="calendar_content" disabled="true">
+          </div>
         </form>
       </div>
       <div class="modal-footer">
@@ -290,23 +334,16 @@
         </button>
       </div>
       <div class="modal-body">
-<!--        <form id="event" class="form-group">-->
-<!--          <div class="form-check">-->
-<!--            <input class="form-check-input" type="radio" id="all_time" name="all_or_set_time" onchange="setTimeDisplay()" checked="checked">-->
-<!--            <label class="form-check-label" for="all_time">종일</label>-->
-<!--          </div>-->
-<!--          <div class="form-check">-->
-<!--            <input class="form-check-input" type="radio" id="set_time" name="all_or_set_time" onchange="setTimeDisplay()">-->
-<!--            <label class="form-check-label" for="set_time">시간 지정</label>-->
-<!--          </div>-->
-          <label for="event" class="col-form-label">시작 날짜</label>
+          <label for="info_event_start_date" class="col-form-label">시작 날짜</label>
           <input type="date" class="form-control" id="info_event_start_date" name="info_calendar_start_date" disabled="true">
+          <label for="info_event_start_time" class="col-form-label">시작 시간</label>
           <input type="time" class="form-control" id="info_event_start_time" name="info_calendar_start_time" disabled="true">
-          <label for="event" class="col-form-label">종료 날짜</label>
+          <label for="info_event_end_date" class="col-form-label">종료 날짜</label>
           <input type="date" class="form-control" id="info_event_end_date" name="info_calendar_end_date" disabled="true">
+          <label for="info_event_end_time" class="col-form-label">종료 시간</label>
           <input type="time" class="form-control" id="info_event_end_time" name="info_calendar_end_time" disabled="true">
-          <label for="event" class="col-form-label">일정 내용</label>
-          <input type="text" class="form-control" id="info_event_content" name="info_calendar_content" disabled="true">
+          <label for="info_event_text" class="col-form-label">일정 내용</label>
+          <input type="text" class="form-control" id="info_event_text" name="info_calendar_text" disabled="true">
         </form>
       </div>
       <div class="modal-footer">
