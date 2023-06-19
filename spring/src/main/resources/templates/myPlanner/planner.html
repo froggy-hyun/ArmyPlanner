@@ -101,19 +101,41 @@
                   $('#diet_input').css('display','block');
                   $('#add_event_diet').attr('disabled', false);
                   $("#add_diet_by_api").off('click').on("click",function(){
+                    $("#add_diet_by_api_modal").modal("show");
+                    let pageNo = 1;
+                    let numOfRows = 100;
+                    let serviceKey = "YfVszWFGgZBtStWJ429k2RIkV3b1vpS4obo%2FKLxcU15enrSNaCvSNO3TLZKnGjaAfL3trm9jk6X7jFG86kpm6Q%3D%3D"
+
                     $.ajax({
                         type: "GET",
-                        url: "http://apis.data.go.kr/1470000/FoodNtrIrdntInfoService/getFoodNtrItdntList?ServiceKey=YfVszWFGgZBtStWJ429k2RIkV3b1vpS4obo%2FKLxcU15enrSNaCvSNO3TLZKnGjaAfL3trm9jk6X7jFG86kpm6Q%3D%3D&numOfRows=3&pageNo=1&type=json",
+                        url: `http://apis.data.go.kr/1471000/FoodNtrIrdntInfoService1/getFoodNtrItdntList1?ServiceKey=${serviceKey}&numOfRows=${numOfRows}&pageNo=${pageNo}&type=json`,
                         data: {},
                         success: function(data){
-                           let dusty_data = data['row'];
+                           let dusty_data = data;
                            for (let i = 0; i < dusty_data.length; i++) {
-                             put_data(i,dusty_data[i]['DESC_KOR'],dusty_data[i]['SERVING_WT'],dusty_data[i]['NUTR_CONT1'],dusty_data[i]['NUTR_CONT2'],dusty_data[i]['NUTR_CONT3'],dusty_data[i]['NUTR_CONT4'],dusty_data[i]['NUTR_CONT5'])
+                             function put_data(DESC_KOR, SERVING_WT, NUTR_CONT1, NUTR_CONT2, NUTR_CONT3, NUTR_CONT4, NUTR_CONT5, NUTR_CONT6, NUTR_CONT7, NUTR_CONT8, NUTR_CONT9) {
+                                let table_html=
+                                '<tbody>\
+                                  <tr>\
+                                    <td>'+dusty_data[i]['DESC_KOR']+'</td>\
+                                    <td>'+dusty_data[i]['SERVING_WT']+'</td>\
+                                    <td>'+dusty_data[i]['NUTR_CONT1']+'</td>\
+                                    <td>'+dusty_data[i]['NUTR_CONT2']+'</td>\
+                                    <td>'+dusty_data[i]['NUTR_CONT3']+'</td>\
+                                    <td>'+dusty_data[i]['NUTR_CONT4']+'</td>\
+                                    <td>'+dusty_data[i]['NUTR_CONT5']+'</td>\
+                                    <td>'+dusty_data[i]['NUTR_CONT6']+'</td>\
+                                    <td>'+dusty_data[i]['NUTR_CONT7']+'</td>\
+                                    <td>'+dusty_data[i]['NUTR_CONT8']+'</td>\
+                                    <td>'+dusty_data[i]['NUTR_CONT9']+'</td>\
+                                  </tr>\
+                                </tbody>'
+
+                                $('#api').append(table_html);
+                              }
                            }
                         }
                     })
-                    $("#add_diet_by_api_modal").modal("show");
-
                   })
                 } else if(eventType == "shopping") {
                   $('#shopping_input').css('display','block');
@@ -394,15 +416,17 @@
                 <table id="api">
                     <thead>
                         <tr>
-                            <th>음식명</th>
-                            <th>1인분칼로리(kcal)</th>
+                            <th>식품명</th>
+                            <th>1회제공량 (g)</th>
+                            <th>열량 (kcal)</th>
                             <th>탄수화물(g)</th>
                             <th>단백질(g)</th>
                             <th>지방(g)</th>
-                            <th>콜레스테롤(g)</th>
-                            <th>식이섬유(g)</th>
-                            <th>나트륨(g)</th>
-                            <th>등록일</th>
+                            <th>당류 (g)</th>
+                            <th>나트륨 (g)</th>
+                            <th>콜레스테롤 (g)</th>
+                            <th>포화지방산 (g)</th>
+                            <th>트랜스지방산 (g)</th>
                         </tr>
                     </thead>
                 </table>
@@ -441,25 +465,6 @@
 	setTimeDisplay();
 	resetExtraInputs();
   })
-
-  function put_data(num,date, food_name, kcal, carbohydrate, protein, fat, cholesterol, salt) {
-    let table_html=
-    '<tbody>\
-      <tr>\
-        <th scope="row">'+(num+1)+'</th>\
-        <td>'+food_name+'</td>\
-        <td>'+kcal+'</td>\
-        <td>'+carbohydrate+'</td>\
-        <td>'+protein+'</td>\
-        <td>'+fat+'</td>\
-        <td>'+cholesterol+'</td>\
-        <td>'+fiber+'</td>\
-        <td>'+salt+'</td>\
-      </tr>\
-    </tbody>'
-
-    $('#api').append(table_html);
-  }
 
 </script>
 
