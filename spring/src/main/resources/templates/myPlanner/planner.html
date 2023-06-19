@@ -105,35 +105,55 @@
                     let pageNo = 1;
                     let numOfRows = 100;
                     let serviceKey = "YfVszWFGgZBtStWJ429k2RIkV3b1vpS4obo%2FKLxcU15enrSNaCvSNO3TLZKnGjaAfL3trm9jk6X7jFG86kpm6Q%3D%3D"
+                    let totalCount;
+                    let resultCode;
 
+                    //totalCount와 resultCode를 먼저 받아옴으로써 api가 정상적인지와 총 데이터의 갯수를 파악
                     $.ajax({
                         type: "GET",
                         url: `http://apis.data.go.kr/1471000/FoodNtrIrdntInfoService1/getFoodNtrItdntList1?ServiceKey=${serviceKey}&numOfRows=${numOfRows}&pageNo=${pageNo}&type=json`,
                         data: {},
-                        success: function(data){
-                           let bodyData = data.body;
-                           for (let i = 0; i < numOfRows; i++) {
-                             let table_html=
-                               '<tbody>\
-                                 <tr>\
-                                   <td>'+bodyData.items[i]['DESC_KOR']+'</td>\
-                                   <td>'+bodyData.items[i]['SERVING_WT']+'</td>\
-                                   <td>'+bodyData.items[i]['NUTR_CONT1']+'</td>\
-                                   <td>'+bodyData.items[i]['NUTR_CONT2']+'</td>\
-                                   <td>'+bodyData.items[i]['NUTR_CONT3']+'</td>\
-                                   <td>'+bodyData.items[i]['NUTR_CONT4']+'</td>\
-                                   <td>'+bodyData.items[i]['NUTR_CONT5']+'</td>\
-                                   <td>'+bodyData.items[i]['NUTR_CONT6']+'</td>\
-                                   <td>'+bodyData.items[i]['NUTR_CONT7']+'</td>\
-                                   <td>'+bodyData.items[i]['NUTR_CONT8']+'</td>\
-                                   <td>'+bodyData.items[i]['NUTR_CONT9']+'</td>\
-                                 </tr>\
-                               </tbody>'
-
-                                $('#api').append(table_html);
-                           }
+                        async: false,
+                        success: function(data) {
+                            totalCount = data.body.totalCount;
+                            resultCode = data.header.resultCode;
                         }
                     })
+                    if(resultCode != "00"){
+                        alert("공공데이터 API에 문제가 있습니다! 잠시 후 다시 시도하세요.");
+                    }
+
+                    //모든 데이터 가져오기
+                    for(pageNo; pageNo<Math.ceil(totalCount/numOfRows)+1; pageNo++){
+                        $.ajax({
+                            type: "GET",
+                            url: `http://apis.data.go.kr/1471000/FoodNtrIrdntInfoService1/getFoodNtrItdntList1?ServiceKey=${serviceKey}&numOfRows=${numOfRows}&pageNo=${pageNo}&type=json`,
+                            data: {},
+                            success: function(data){
+                               let bodyData = data.body;
+                               for (let i = 0; i < numOfRows; i++) {
+                                 let table_html=
+                                   '<tbody>\
+                                     <tr>\
+                                       <td>'+bodyData.items[i]['DESC_KOR']+'</td>\
+                                       <td>'+bodyData.items[i]['SERVING_WT']+'</td>\
+                                       <td>'+bodyData.items[i]['NUTR_CONT1']+'</td>\
+                                       <td>'+bodyData.items[i]['NUTR_CONT2']+'</td>\
+                                       <td>'+bodyData.items[i]['NUTR_CONT3']+'</td>\
+                                       <td>'+bodyData.items[i]['NUTR_CONT4']+'</td>\
+                                       <td>'+bodyData.items[i]['NUTR_CONT5']+'</td>\
+                                       <td>'+bodyData.items[i]['NUTR_CONT6']+'</td>\
+                                       <td>'+bodyData.items[i]['NUTR_CONT7']+'</td>\
+                                       <td>'+bodyData.items[i]['NUTR_CONT8']+'</td>\
+                                       <td>'+bodyData.items[i]['NUTR_CONT9']+'</td>\
+                                     </tr>\
+                                   </tbody>'
+
+                                    $('#api').append(table_html);
+                               }
+                            }
+                        })
+                    }
                   })
                 } else if(eventType == "shopping") {
                   $('#shopping_input').css('display','block');
