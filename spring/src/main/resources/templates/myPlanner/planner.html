@@ -111,28 +111,26 @@
                         url: `http://apis.data.go.kr/1471000/FoodNtrIrdntInfoService1/getFoodNtrItdntList1?ServiceKey=${serviceKey}&numOfRows=${numOfRows}&pageNo=${pageNo}&type=json`,
                         data: {},
                         success: function(data){
-                           let dusty_data = data;
-                           for (let i = 0; i < dusty_data.length; i++) {
-                             function put_data(DESC_KOR, SERVING_WT, NUTR_CONT1, NUTR_CONT2, NUTR_CONT3, NUTR_CONT4, NUTR_CONT5, NUTR_CONT6, NUTR_CONT7, NUTR_CONT8, NUTR_CONT9) {
-                                let table_html=
-                                '<tbody>\
-                                  <tr>\
-                                    <td>'+dusty_data[i]['DESC_KOR']+'</td>\
-                                    <td>'+dusty_data[i]['SERVING_WT']+'</td>\
-                                    <td>'+dusty_data[i]['NUTR_CONT1']+'</td>\
-                                    <td>'+dusty_data[i]['NUTR_CONT2']+'</td>\
-                                    <td>'+dusty_data[i]['NUTR_CONT3']+'</td>\
-                                    <td>'+dusty_data[i]['NUTR_CONT4']+'</td>\
-                                    <td>'+dusty_data[i]['NUTR_CONT5']+'</td>\
-                                    <td>'+dusty_data[i]['NUTR_CONT6']+'</td>\
-                                    <td>'+dusty_data[i]['NUTR_CONT7']+'</td>\
-                                    <td>'+dusty_data[i]['NUTR_CONT8']+'</td>\
-                                    <td>'+dusty_data[i]['NUTR_CONT9']+'</td>\
-                                  </tr>\
-                                </tbody>'
+                           let bodyData = data.body;
+                           for (let i = 0; i < numOfRows; i++) {
+                             let table_html=
+                               '<tbody>\
+                                 <tr>\
+                                   <td>'+bodyData.items[i]['DESC_KOR']+'</td>\
+                                   <td>'+bodyData.items[i]['SERVING_WT']+'</td>\
+                                   <td>'+bodyData.items[i]['NUTR_CONT1']+'</td>\
+                                   <td>'+bodyData.items[i]['NUTR_CONT2']+'</td>\
+                                   <td>'+bodyData.items[i]['NUTR_CONT3']+'</td>\
+                                   <td>'+bodyData.items[i]['NUTR_CONT4']+'</td>\
+                                   <td>'+bodyData.items[i]['NUTR_CONT5']+'</td>\
+                                   <td>'+bodyData.items[i]['NUTR_CONT6']+'</td>\
+                                   <td>'+bodyData.items[i]['NUTR_CONT7']+'</td>\
+                                   <td>'+bodyData.items[i]['NUTR_CONT8']+'</td>\
+                                   <td>'+bodyData.items[i]['NUTR_CONT9']+'</td>\
+                                 </tr>\
+                               </tbody>'
 
                                 $('#api').append(table_html);
-                              }
                            }
                         }
                     })
