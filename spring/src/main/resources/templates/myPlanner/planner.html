@@ -139,6 +139,7 @@
                         $.ajax({
                             type: "GET",
                             url: `http://apis.data.go.kr/1471000/FoodNtrIrdntInfoService1/getFoodNtrItdntList1?ServiceKey=${serviceKey}&numOfRows=${numOfRows}&pageNo=${pageNo}&type=json`,
+                            async : false,
                             data: {},
                             success: function(data){
                                let bodyData = data.body;
@@ -157,9 +158,8 @@
                                     table_html += '  <td>'+bodyData.items[i]['NUTR_CONT8']+'</td>';
                                     table_html += '  <td>'+bodyData.items[i]['NUTR_CONT9']+'</td>';
                                     table_html += '</tr>';
-
-                                    $('#api>tbody').append(table_html);
                                }
+                               $('#api>tbody').append(table_html);
                             }
                         })
                     }
