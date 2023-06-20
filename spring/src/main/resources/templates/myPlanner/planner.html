@@ -160,7 +160,7 @@
 
                     let pageCount = 10; //페이징에 나타낼 페이지 수
 
-                    displayData(pageNo, numOfRows);
+                    displayData(pageNo);
                     paging(totalCount, numOfRows, pageCount, pageNo);
 
                     //데이터 가져오기
@@ -193,6 +193,7 @@
                     }
 
                     function displayData(pageNo) {
+                      $('#api>tbody').empty();
                       setTable(pageNo);
                     }
 
@@ -236,7 +237,7 @@
                       $("#pagingul").html(pageHtml);
                       let displayCount = "";
                       displayCount = "현재 1 - " + totalPage + " 페이지 / " + totalCount + "건";
-                      $("#api").text(displayCount);
+                      $("#displayCount").text(displayCount);
 
 
                       //페이징 번호 클릭 이벤트
@@ -247,11 +248,8 @@
                         if ($id == "next") selectedPage = next;
                         if ($id == "prev") selectedPage = prev;
 
-                        //전역변수에 선택한 페이지 번호를 담는다...
                         pageNo = selectedPage;
-                        //페이징 표시 재호출
                         paging(totalCount, numOfRows, pageCount, pageNo);
-                        //글 목록 표시 재호출
                         displayData(pageNo, numOfRows);
                       });
                     }
@@ -533,6 +531,7 @@
                 </button>
             </div>
             <div class="modal-body app">
+                <span id="displayCount"></span>
                 <table id="api" style="font-size: 1vh">
                     <thead id="table_head">
                         <tr>
