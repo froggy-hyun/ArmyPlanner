@@ -139,6 +139,7 @@
                   $('#diet_input').css('display','block');
                   $('#add_event_diet').attr('disabled', false);
 
+                  $("#add_event_modal").modal("show");
                   $("#add_event_save").off('click').on("click",function(){  // modal의 일정 추가 버튼 클릭 시 - 식단
                       var food_name = $("#food_name").val();
                       var kcal = $("#kcal").val();
