@@ -45,10 +45,6 @@
                 filter: none;
     }
 
-    //표 글씨 크기
-    table#api {
-        font-size: 1vh;
-    }
   </style>
   <script>
    $(document).ready(function (){
@@ -106,7 +102,7 @@
                   $("#add_diet_by_api").off('click').on("click",function(){
                     $("#add_diet_by_api_modal").modal("show");
                     let pageNo = 1;
-                    const numOfRows = 10;
+                    const numOfRows = 100;
                     let serviceKey = "YfVszWFGgZBtStWJ429k2RIkV3b1vpS4obo%2FKLxcU15enrSNaCvSNO3TLZKnGjaAfL3trm9jk6X7jFG86kpm6Q%3D%3D"
                     let totalCount;
                     let resultCode;
@@ -139,7 +135,6 @@
                         $.ajax({
                             type: "GET",
                             url: `http://apis.data.go.kr/1471000/FoodNtrIrdntInfoService1/getFoodNtrItdntList1?ServiceKey=${serviceKey}&numOfRows=${numOfRows}&pageNo=${pageNo}&type=json`,
-                            async : false,
                             data: {},
                             success: function(data){
                                let bodyData = data.body;
@@ -554,8 +549,8 @@
                 </button>
             </div>
             <div class="modal-body app">
-                <table id="api">
-                    <thead>
+                <table id="api" style="font-size: 1vh">
+                    <thead id="table_head">
                         <tr>
                             <th>식품명</th>
                             <th>1회제공량 (g)</th>
