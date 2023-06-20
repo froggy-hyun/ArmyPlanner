@@ -45,7 +45,10 @@
                 filter: none;
     }
 
-
+    //표 글씨 크기
+    table#api {
+        font-size: 1vh;
+    }
   </style>
   <script>
    $(document).ready(function (){
@@ -103,7 +106,7 @@
                   $("#add_diet_by_api").off('click').on("click",function(){
                     $("#add_diet_by_api_modal").modal("show");
                     let pageNo = 1;
-                    let numOfRows = 100;
+                    const numOfRows = 10;
                     let serviceKey = "YfVszWFGgZBtStWJ429k2RIkV3b1vpS4obo%2FKLxcU15enrSNaCvSNO3TLZKnGjaAfL3trm9jk6X7jFG86kpm6Q%3D%3D"
                     let totalCount;
                     let resultCode;
@@ -123,37 +126,157 @@
                         alert("공공데이터 API에 문제가 있습니다! 잠시 후 다시 시도하세요.");
                     }
 
-                    //모든 데이터 가져오기
-                    for(pageNo; pageNo<Math.ceil(totalCount/numOfRows)+1; pageNo++){
+                    const showPageCnt = 5;
+                    const totalPage = Math.ceil(totalCount/numOfRows)+1;
+
+                    //1페이지
+                    setTable(pageNo);
+                    setPaging(pageNo);
+
+                    //데이터 가져오기
+                    function setTable(pageNo){
+                        $('#api>tbody').empty();
                         $.ajax({
                             type: "GET",
                             url: `http://apis.data.go.kr/1471000/FoodNtrIrdntInfoService1/getFoodNtrItdntList1?ServiceKey=${serviceKey}&numOfRows=${numOfRows}&pageNo=${pageNo}&type=json`,
                             data: {},
                             success: function(data){
                                let bodyData = data.body;
+                               let table_html='';
                                for (let i = 0; i < numOfRows; i++) {
-                                 let table_html=
-                                   '<tbody>\
-                                     <tr>\
-                                       <td>'+bodyData.items[i]['DESC_KOR']+'</td>\
-                                       <td>'+bodyData.items[i]['SERVING_WT']+'</td>\
-                                       <td>'+bodyData.items[i]['NUTR_CONT1']+'</td>\
-                                       <td>'+bodyData.items[i]['NUTR_CONT2']+'</td>\
-                                       <td>'+bodyData.items[i]['NUTR_CONT3']+'</td>\
-                                       <td>'+bodyData.items[i]['NUTR_CONT4']+'</td>\
-                                       <td>'+bodyData.items[i]['NUTR_CONT5']+'</td>\
-                                       <td>'+bodyData.items[i]['NUTR_CONT6']+'</td>\
-                                       <td>'+bodyData.items[i]['NUTR_CONT7']+'</td>\
-                                       <td>'+bodyData.items[i]['NUTR_CONT8']+'</td>\
-                                       <td>'+bodyData.items[i]['NUTR_CONT9']+'</td>\
-                                     </tr>\
-                                   </tbody>'
+                                    table_html += '<tr>';
+                                    table_html += '  <td>'+bodyData.items[i]['DESC_KOR']+'</td>';
+                                    table_html += '  <td>'+bodyData.items[i]['SERVING_WT']+'</td>';
+                                    table_html += '  <td>'+bodyData.items[i]['NUTR_CONT1']+'</td>';
+                                    table_html += '  <td>'+bodyData.items[i]['NUTR_CONT2']+'</td>';
+                                    table_html += '  <td>'+bodyData.items[i]['NUTR_CONT3']+'</td>';
+                                    table_html += '  <td>'+bodyData.items[i]['NUTR_CONT4']+'</td>';
+                                    table_html += '  <td>'+bodyData.items[i]['NUTR_CONT5']+'</td>';
+                                    table_html += '  <td>'+bodyData.items[i]['NUTR_CONT6']+'</td>';
+                                    table_html += '  <td>'+bodyData.items[i]['NUTR_CONT7']+'</td>';
+                                    table_html += '  <td>'+bodyData.items[i]['NUTR_CONT8']+'</td>';
+                                    table_html += '  <td>'+bodyData.items[i]['NUTR_CONT9']+'</td>';
+                                    table_html += '</tr>';
 
-                                    $('#api').append(table_html);
+                                    $('#api>tbody').append(table_html);
                                }
                             }
                         })
                     }
+
+                    $(document).on('click', 'div.paging>div.pages>span', function() {
+                        if (!$(this).hasClass('active')) {
+                          $(this).parent().find('span.active').removeClass('active');
+                          $(this).addClass('active');
+
+                          setTable(Number($(this).text()));
+                        }
+                    });
+
+                    $(document).on('click', 'div.paging>i', function() {
+                       const totalPage = Math.floor(todoData.length / countPerPage) + (todoData.length % countPerPage == 0 ? 0 : 1);
+                       const id = $(this).attr('id');
+                       //console.log(id);
+
+                       if (id == 'first_page') {
+                         setTable(1);
+                         setPaging(1);
+                       } else if (id == 'prev_page') {
+                         let arrPages = [];
+                         $('div.paging>div.pages>span').each(function(idx, item) {
+                           arrPages.push(Number($(this).text()));
+                         });
+
+                         const prevPage = _.min(arrPages) - showPageCnt;
+                         setTable(prevPage);
+                         setPaging(prevPage);
+                       } else if (id == 'next_page') {
+                         let arrPages = [];
+                         $('div.paging>div.pages>span').each(function(idx, item) {
+                           arrPages.push(Number($(this).text()));
+                         });
+
+                         const nextPage = _.max(arrPages) + 1;
+                         setTable(nextPage);
+                         setPaging(nextPage);
+                       } else if (id == 'last_page') {
+                         const lastPage = Math.floor((totalPage - 1) / showPageCnt) * showPageCnt + 1;
+                         setTable(lastPage);
+                         setPaging(lastPage);
+                       }
+                    });
+
+                    function setPaging(pageNum) {
+                      const currentPage = pageNum;
+
+                      showAllIcon();
+
+                      if (currentPage <= showPageCnt) {
+                        $('#first_page').hide();
+                        $('#prev_page').hide();
+                      }
+                      if (
+                        totalPage <= showPageCnt ||
+                        Math.floor((currentPage - 1) / showPageCnt) * showPageCnt + showPageCnt + 1 > totalPage
+                      ) {
+                        $('#next_page').hide();
+                        $('#last_page').hide();
+                      }
+
+                      let start = Math.floor((currentPage - 1) / showPageCnt) * showPageCnt + 1;
+                      let sPagesHtml = '';
+                      for (const end = start + showPageCnt; start < end && start <= totalPage; start++) {
+                        sPagesHtml += '<span class="' + (start == currentPage ? 'active' : '') + '">' + start + '</span>';
+                      }
+                      $('div.paging>div.pages').html(sPagesHtml);
+                    }
+
+                    function showAllIcon() {
+                      $('#first_page').show();
+                      $('#prev_page').show();
+                      $('#next_page').show();
+                      $('#last_page').show();
+                    }
+
+                    $(document).on('click', 'div.paging>div.pages>span', function() {
+                        if (!$(this).hasClass('active')) {
+                          $(this).parent().find('span.active').removeClass('active');
+                          $(this).addClass('active');
+
+                          setTable(Number($(this).text()));
+                        }
+                    });
+
+                    $(document).on('click', 'div.paging>i', function() {
+                       const id = $(this).attr('id');
+
+                       if (id == 'first_page') {
+                         setTable(1);
+                         setPaging(1);
+                       } else if (id == 'prev_page') {
+                         let arrPages = [];
+                         $('div.paging>div.pages>span').each(function(idx, item) {
+                           arrPages.push(Number($(this).text()));
+                         });
+
+                         const prevPage = _.min(arrPages) - showPageCnt;
+                         setTable(prevPage);
+                         setPaging(prevPage);
+                       } else if (id == 'next_page') {
+                         let arrPages = [];
+                         $('div.paging>div.pages>span').each(function(idx, item) {
+                           arrPages.push(Number($(this).text()));
+                         });
+
+                         const nextPage = _.max(arrPages) + 1;
+                         setTable(nextPage);
+                         setPaging(nextPage);
+                       } else if (id == 'last_page') {
+                         const lastPage = Math.floor((totalPage - 1) / showPageCnt) * showPageCnt + 1;
+                         setTable(lastPage);
+                         setPaging(lastPage);
+                       }
+                    });
                   })
                 } else if(eventType == "shopping") {
                   $('#shopping_input').css('display','block');
@@ -430,7 +553,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body app">
                 <table id="api">
                     <thead>
                         <tr>
@@ -447,7 +570,22 @@
                             <th>트랜스지방산 (g)</th>
                         </tr>
                     </thead>
+                    <tbody></tbody>
                 </table>
+                <div class="paging">
+                    <i class="fa-solid fa-angles-left" id="first_page"></i>
+                    <i class="fa-solid fa-angle-left" id="prev_page"></i>
+                    <div class="pages">
+                        <span class="active">1</span>
+                        <span>2</span>
+                        <span>3</span>
+                        <span>4</span>
+                        <span>5</span>
+                    </div>
+                    <i class="fa-solid fa-angle-right" id="next_page"></i>
+                    <i class="fa-solid fa-angles-right" id="last_page"></i>
+                </div>
+            </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="add_diet_modal_close">취소</button>
