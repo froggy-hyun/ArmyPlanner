@@ -218,7 +218,7 @@
                     let totalPage;
                     let totalCount;
                     let resultCode;
-                    let desc_kor;
+                    let desc_kor = "";
 
                     let pageCount = 8; //페이징에 나타낼 페이지 수
 
@@ -228,24 +228,25 @@
                     pageNo = 1;
                     url = `http://apis.data.go.kr/1471000/FoodNtrIrdntInfoService1/getFoodNtrItdntList1?ServiceKey=${serviceKey}&numOfRows=${numOfRows}&pageNo=${pageNo}&type=json`
                     init();
-                    totalPage = Math.ceil(totalCount/numOfRows)+1;
+                    totalPage = Math.ceil(totalCount/numOfRows);
                     paging(totalCount, numOfRows, pageCount, pageNo);
                     displayData(pageNo);
 
                     $('#search_food').off('click').on("click", function(){
-                        if($('#food_name_input').val()==""){
+                        desc_kor = $('#food_name_input').val()
+                        if($(desc_kor)==""){
                             pageNo = 1;
                             url = `http://apis.data.go.kr/1471000/FoodNtrIrdntInfoService1/getFoodNtrItdntList1?ServiceKey=${serviceKey}&numOfRows=${numOfRows}&pageNo=${pageNo}&type=json`
                             init();
-                            totalPage = Math.ceil(totalCount/numOfRows)+1;
+                            totalPage = Math.ceil(totalCount/numOfRows);
                             paging(totalCount, numOfRows, pageCount, pageNo);
                             displayData(pageNo);
                         }else{
-                            desc_kor = $('#food_name_input').val();
                             pageNo = 1;
+                            desc_kor = $('#food_name_input').val();
                             url = `http://apis.data.go.kr/1471000/FoodNtrIrdntInfoService1/getFoodNtrItdntList1?ServiceKey=${serviceKey}&numOfRows=${numOfRows}&pageNo=${pageNo}&type=json&desc_kor=${desc_kor}`;
                             init();
-                            totalPage = Math.ceil(totalCount/numOfRows)+1;
+                            totalPage = Math.ceil(totalCount/numOfRows);
                             paging(totalCount, numOfRows, pageCount, pageNo);
                             displayData(pageNo);
                         }
@@ -299,6 +300,11 @@
 
                     function displayData(pageNo) {
                       $('#api>tbody').empty();
+                      if($(desc_kor)==""){
+                        url = `http://apis.data.go.kr/1471000/FoodNtrIrdntInfoService1/getFoodNtrItdntList1?ServiceKey=${serviceKey}&numOfRows=${numOfRows}&pageNo=${pageNo}&type=json`;
+                      }else{
+                        url = `http://apis.data.go.kr/1471000/FoodNtrIrdntInfoService1/getFoodNtrItdntList1?ServiceKey=${serviceKey}&numOfRows=${numOfRows}&pageNo=${pageNo}&type=json&desc_kor=${desc_kor}`;
+                      }
                       setTable(pageNo);
                     }
 
@@ -341,7 +347,7 @@
 
                       $("#pagingul").html(pageHtml);
                       let displayCount = "";
-                      displayCount = "현재 1 - " + totalPage + " 페이지 / " + totalCount + "건";
+                      displayCount = "현재 ${pageNo} - ${totalPage} 페이지 / " ${totalCount}건";
                       $("#displayCount").text(displayCount);
 
 
