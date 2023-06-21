@@ -369,18 +369,21 @@
                       });
                     }
 
-                    $(document).on('click', '#api tbody>tr', function(){
+                    $(document).off('click').on('click', '#api tbody>tr', function(){
                         var tr = $(this);
                         var td = tr.children();
-                        alert(td.eq(0).text());
+                        if($('#food_name').val() !=""){
+                            $('#food_name').val($('#food_name').val() + "/");
+                        }
                         $('#food_name').val($('#food_name').val() + td.eq(0).text());
-                        $('#kcal').val($('#kcal').val() + td.eq(1).text());
-                        $('#carbohydrate').val($('#carbohydrate').val() + td.eq(2).text());
-                        $('#protein').val($('#protein').val() + td.eq(3).text());
-                        $('#fat').val($('#fat').val() + td.eq(4).text());
-                        $('#cholesterol').val($('#cholesterol').val() + td.eq(5).text());
-                        $('#fiber').val($('#fiber').val() + td.eq(6).text());
-                        $('#salt').val($('#salt').val() + td.eq(7).text());
+
+                        $('#kcal').val(Number($('#kcal').val()) + Number(td.eq(1).text()));
+                        $('#carbohydrate').val(Number($('#carbohydrate').val()) + Number(td.eq(2).text()));
+                        $('#protein').val(Number($('#protein').val()) + Number(td.eq(3).text()));
+                        $('#fat').val(Number($('#fat').val()) + Number(td.eq(4).text()));
+                        $('#cholesterol').val(Number($('#cholesterol').val()) + Number(td.eq(5).text()));
+                        $('#fiber').val(Number($('#fiber').val()) + Number(td.eq(6).text()));
+                        $('#salt').val(Number($('#salt').val()) + Number(td.eq(7).text()));
 
                         $("#add_diet_by_api_modal").modal("hide");
                     });
