@@ -232,7 +232,7 @@
                     paging(totalCount, numOfRows, pageCount, pageNo);
                     displayData(pageNo);
 
-                    $('#food_name_input').keyup(function(){
+                    $('#search_food').off('click').on("click", function(){
                         if($('#food_name_input').val()==""){
                             pageNo = 1;
                             url = `http://apis.data.go.kr/1471000/FoodNtrIrdntInfoService1/getFoodNtrItdntList1?ServiceKey=${serviceKey}&numOfRows=${numOfRows}&pageNo=${pageNo}&type=json`
@@ -241,9 +241,9 @@
                             paging(totalCount, numOfRows, pageCount, pageNo);
                             displayData(pageNo);
                         }else{
-                            url = `http://apis.data.go.kr/1471000/FoodNtrIrdntInfoService1/getFoodNtrItdntList1?ServiceKey=${serviceKey}&numOfRows=${numOfRows}&pageNo=${pageNo}&type=json&desc_kor=${desc_kor}`;
                             desc_kor = $('#food_name_input').val();
                             pageNo = 1;
+                            url = `http://apis.data.go.kr/1471000/FoodNtrIrdntInfoService1/getFoodNtrItdntList1?ServiceKey=${serviceKey}&numOfRows=${numOfRows}&pageNo=${pageNo}&type=json&desc_kor=${desc_kor}`;
                             init();
                             totalPage = Math.ceil(totalCount/numOfRows)+1;
                             paging(totalCount, numOfRows, pageCount, pageNo);
@@ -632,6 +632,7 @@
             </div>
             <div class="modal-body app">
                 <input type="text" id="food_name_input" placeholder="음식명을 입력해보세요.">
+                <button id="search_food" >검색</button>
                 <span id="displayCount"></span>
                 <table class="table table-hover" id="api" style="font-size: 1vh">
                     <thead id="table_head">
