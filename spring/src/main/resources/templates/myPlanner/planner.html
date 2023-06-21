@@ -386,12 +386,12 @@
                         let add_salt = (td.eq(7).text()!="N/A") ? td.eq(7).text() : 0;
 
                         $('#kcal').val(Number($('#kcal').val()) + Number(add_kcal));
-                        $('#carbohydrate').val(Number($('#carbohydrate').val()) + Number(add_carbohydrate));
-                        $('#protein').val(Number($('#protein').val()) + Number(add_protein));
-                        $('#fat').val(Number($('#fat').val()) + Number(add_fat));
-                        $('#cholesterol').val(Number($('#cholesterol').val()) + Number(add_cholesterol));
-                        $('#fiber').val(Number($('#fiber').val()) + Number(add_fiber));
-                        $('#salt').val(Number($('#salt').val()) + Number(add_salt));
+                        $('#carbohydrate').val((Number($('#carbohydrate').val()) + Number(add_carbohydrate)).toFixed(1));
+                        $('#protein').val((Number($('#protein').val()) + Number(add_protein)).toFixed(1));
+                        $('#fat').val((Number($('#fat').val()) + Number(add_fat)).toFixed(1));
+                        $('#cholesterol').val((Number($('#cholesterol').val()) + Number(add_cholesterol)).toFixed(1));
+                        $('#fiber').val((Number($('#fiber').val()) + Number(add_fiber)).toFixed(1));
+                        $('#salt').val((Number($('#salt').val()) + Number(add_salt)).toFixed(1));
 
                         $("#add_diet_by_api_modal").modal("hide");
                     });
