@@ -209,6 +209,10 @@
                       }
                   });
 
+                  $("#add_diet_by_text").off('click').on("click",function(){
+                    $("#add_diet_by_text_modal").modal("show");
+                  });
+
                   $("#add_diet_by_api").off('click').on("click",function(){
                     $("#add_diet_by_api_modal").modal("show");
 
@@ -561,7 +565,8 @@
           </div>
           <div class= "buttons" id="diet_input">
               <label for="add_event_diet" class="col-form-label">식단 추가 (기호 단위는 생략해서 입력해주세요.)</label>
-              <input type="button" id="add_diet_by_api" class="btnAdd btn btn-dark" value="음식 영양소 검색 등록">
+              <input type="button" id="add_diet_by_api" class="btnAdd btn btn-dark" value="음식 영양소 검색 추가">
+              <input type="button" id="add_diet_by_text" class="btn btn-outline-secondary" value="텍스트로 추가">
               <div id="add_event_diet" disabled="true">
                   <input type="text" id="food_name" class="form-control" name="calendar_content" placeholder="음식명 예) 김치찌개, 쌀밥, 김치">
                   <input type="text" id="kcal" class="form-control" name="calendar_content" placeholder="1회 섭취 칼로리 합(kcal)">
@@ -668,6 +673,31 @@
         </div>
     </div>
 </div>
+<!-- 텍스트로 식단 추가 modal -->
+<div class="modal fade" id="add_diet_by_text_modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <label for="add_event_diet" class="col-form-label">텍스트로 식단 추가 (기호 단위는 생략해서 입력해주세요.)</label>
+                <div id="add_diet_by_text_form" disabled="true">
+                    <input type="text" id="food_name_text" class="form-control" name="calendar_content" placeholder="음식명 예) 김치찌개, 쌀밥, 김치">
+                    <input type="text" id="kcal_text" class="form-control" name="calendar_content" placeholder="1회 섭취 칼로리 합(kcal)">
+                    <input type="text" id="carbohydrate_text" class="form-control" name="calendar_content" placeholder="1회 섭취 탄수화물 합(g)">
+                    <input type="text" id="protein_text" class="form-control" name="calendar_content" placeholder="1회 섭취 단백질 합(g)">
+                    <input type="text" id="fat_text" class="form-control" name="calendar_content" placeholder="1회 섭취 지방 합(g)">
+                    <input type="text" id="cholesterol_text" class="form-control" name="calendar_content" placeholder="1회 섭취 콜레스테롤 합(g)">
+                    <input type="text" id="fiber_text" class="form-control" name="calendar_content" placeholder="1회 섭취 식이섬유 합(g)">
+                    <input type="text" id="salt_text" class="form-control" name="calendar_content" placeholder="1회 섭취 나트륨 합(g)">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="add_diet_by_text_save">추가</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="add_diet_by_text_modal_close">취소</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 <footer th:replace="fragments/common :: footer"></footer>
