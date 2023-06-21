@@ -137,7 +137,6 @@
                   $('#add_event_vacation').attr('disabled', false);
                 } else if(eventType == "diet") {
                   $('#diet_input').css('display','block');
-                  $('#add_event_diet').attr('disabled', false);
 
                   $("#add_event_modal").modal("show");
                   $("#add_event_save").off('click').on("click",function(){  // modal의 일정 추가 버튼 클릭 시 - 식단
@@ -369,6 +368,22 @@
                         displayData(pageNo);
                       });
                     }
+
+                    $(document).on('click', '#api tbody>tr', function(){
+                        var tr = $(this);
+                        var td = tr.children();
+                        alert(td.eq(0).text());
+                        $('#food_name').val($('#food_name').val() + td.eq(0).text());
+                        $('#kcal').val($('#kcal').val() + td.eq(1).text());
+                        $('#carbohydrate').val($('#carbohydrate').val() + td.eq(2).text());
+                        $('#protein').val($('#protein').val() + td.eq(3).text());
+                        $('#fat').val($('#fat').val() + td.eq(4).text());
+                        $('#cholesterol').val($('#cholesterol').val() + td.eq(5).text());
+                        $('#fiber').val($('#fiber').val() + td.eq(6).text());
+                        $('#salt').val($('#salt').val() + td.eq(7).text());
+
+                        $("#add_diet_by_api_modal").modal("hide");
+                    });
                   })
                 } else if(eventType == "shopping") {
                   $('#shopping_input').css('display','block');
@@ -564,18 +579,18 @@
               <input type="text" class="form-control" id="add_event_vacation" name="calendar_content" disabled="true">
           </div>
           <div class= "buttons" id="diet_input">
-              <label for="add_event_diet" class="col-form-label">식단 추가 (기호 단위는 생략해서 입력해주세요.)</label>
+              <label for="add_event_diet" class="col-form-label">식단 추가 (기호 단위는 생략)</label>
               <input type="button" id="add_diet_by_api" class="btnAdd btn btn-dark" value="음식 영양소 검색 추가">
               <input type="button" id="add_diet_by_text" class="btn btn-outline-secondary" value="텍스트로 추가">
               <div id="add_event_diet" disabled="true">
-                  <input type="text" id="food_name" class="form-control" name="calendar_content" placeholder="음식명 예) 김치찌개, 쌀밥, 김치">
-                  <input type="text" id="kcal" class="form-control" name="calendar_content" placeholder="1회 섭취 칼로리 합(kcal)">
-                  <input type="text" id="carbohydrate" class="form-control" name="calendar_content" placeholder="1회 섭취 탄수화물 합(g)">
-                  <input type="text" id="protein" class="form-control" name="calendar_content" placeholder="1회 섭취 단백질 합(g)">
-                  <input type="text" id="fat" class="form-control" name="calendar_content" placeholder="1회 섭취 지방 합(g)">
-                  <input type="text" id="cholesterol" class="form-control" name="calendar_content" placeholder="1회 섭취 콜레스테롤 합(g)">
-                  <input type="text" id="fiber" class="form-control" name="calendar_content" placeholder="1회 섭취 식이섬유 합(g)">
-                  <input type="text" id="salt" class="form-control" name="calendar_content" placeholder="1회 섭취 나트륨 합(g)">
+                  <input type="text" id="food_name" class="form-control" name="calendar_content" placeholder="음식명 예) 김치찌개, 쌀밥, 김치" value="" disabled="true">
+                  <input type="number" id="kcal" class="form-control" name="calendar_content" placeholder="1회 섭취 칼로리 합(kcal)" value=0 disabled="true">
+                  <input type="number" id="carbohydrate" class="form-control" name="calendar_content" placeholder="1회 섭취 탄수화물 합(g)" value=0 disabled="true">
+                  <input type="number" id="protein" class="form-control" name="calendar_content" placeholder="1회 섭취 단백질 합(g)" value=0 disabled="true">
+                  <input type="number" id="fat" class="form-control" name="calendar_content" placeholder="1회 섭취 지방 합(g)" value=0 disabled="true">
+                  <input type="number" id="cholesterol" class="form-control" name="calendar_content" placeholder="1회 섭취 콜레스테롤 합(g)" value=0 disabled="true">
+                  <input type="number" id="fiber" class="form-control" name="calendar_content" placeholder="1회 섭취 식이섬유 합(g)" value=0 disabled="true">
+                  <input type="number" id="salt" class="form-control" name="calendar_content" placeholder="1회 섭취 나트륨 합(g)" value=0 disabled="true">
               </div>
           </div>
           <div id="shopping_input">
@@ -664,7 +679,7 @@
                             <th scope="col">트랜스지방산 (g)</th>
                         </tr>
                     </thead>
-                    <tbody></tbody>
+                    <tbody id="api_body"></tbody>
                 </table>
                 <ul id="pagingul"></ul>
             </div>
@@ -680,9 +695,9 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-body">
-                <label for="add_event_diet" class="col-form-label">텍스트로 식단 추가 (기호 단위는 생략해서 입력해주세요.)</label>
+                <label for="add_event_diet" class="col-form-label">텍스트로 식단 추가 (기호 단위는 생략해서 입력해주세요.)<br>한번에 하나씩 추가해주세요.</label>
                 <div id="add_diet_by_text_form" disabled="true">
-                    <input type="text" id="food_name_text" class="form-control" name="calendar_content" placeholder="음식명 예) 김치찌개, 쌀밥, 김치">
+                    <input type="text" id="food_name_text" class="form-control" name="calendar_content" placeholder="음식명 예) 김치찌개">
                     <input type="text" id="kcal_text" class="form-control" name="calendar_content" placeholder="1회 섭취 칼로리 합(kcal)">
                     <input type="text" id="carbohydrate_text" class="form-control" name="calendar_content" placeholder="1회 섭취 탄수화물 합(g)">
                     <input type="text" id="protein_text" class="form-control" name="calendar_content" placeholder="1회 섭취 단백질 합(g)">
