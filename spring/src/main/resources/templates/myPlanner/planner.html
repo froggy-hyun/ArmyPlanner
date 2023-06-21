@@ -377,13 +377,21 @@
                         }
                         $('#food_name').val($('#food_name').val() + td.eq(0).text());
 
-                        $('#kcal').val(Number($('#kcal').val()) + Number(td.eq(1).text()));
-                        $('#carbohydrate').val(Number($('#carbohydrate').val()) + Number(td.eq(2).text()));
-                        $('#protein').val(Number($('#protein').val()) + Number(td.eq(3).text()));
-                        $('#fat').val(Number($('#fat').val()) + Number(td.eq(4).text()));
-                        $('#cholesterol').val(Number($('#cholesterol').val()) + Number(td.eq(5).text()));
-                        $('#fiber').val(Number($('#fiber').val()) + Number(td.eq(6).text()));
-                        $('#salt').val(Number($('#salt').val()) + Number(td.eq(7).text()));
+                        let add_kcal = (td.eq(1).text()!="N/A") ? td.eq(1).text() : 0 ;
+                        let add_carbohydrate = (td.eq(2).text()!="N/A") ? td.eq(2).text() : 0;
+                        let add_protein = (td.eq(3).text()!="N/A") ? td.eq(3).text() : 0;
+                        let add_fat = (td.eq(4).text()!="N/A") ? td.eq(4).text() : 0;
+                        let add_cholesterol = (td.eq(5).text()!="N/A") ? td.eq(5).text() : 0;
+                        let add_fiber = (td.eq(6).text()!="N/A") ? td.eq(6).text() : 0;
+                        let add_salt = (td.eq(7).text()!="N/A") ? td.eq(7).text() : 0;
+
+                        $('#kcal').val(Number($('#kcal').val()) + Number(add_kcal));
+                        $('#carbohydrate').val(Number($('#carbohydrate').val()) + Number(add_carbohydrate));
+                        $('#protein').val(Number($('#protein').val()) + Number(add_protein));
+                        $('#fat').val(Number($('#fat').val()) + Number(add_fat));
+                        $('#cholesterol').val(Number($('#cholesterol').val()) + Number(add_cholesterol));
+                        $('#fiber').val(Number($('#fiber').val()) + Number(add_fiber));
+                        $('#salt').val(Number($('#salt').val()) + Number(add_salt));
 
                         $("#add_diet_by_api_modal").modal("hide");
                     });
@@ -587,13 +595,13 @@
               <input type="button" id="add_diet_by_text" class="btn btn-outline-secondary" value="텍스트로 추가">
               <div id="add_event_diet" disabled="true">
                   <input type="text" id="food_name" class="form-control" name="calendar_content" placeholder="음식명 예) 김치찌개, 쌀밥, 김치" value="" disabled="true">
-                  <input type="number" id="kcal" class="form-control" name="calendar_content" placeholder="1회 섭취 칼로리 합(kcal)" value=0 disabled="true">
-                  <input type="number" id="carbohydrate" class="form-control" name="calendar_content" placeholder="1회 섭취 탄수화물 합(g)" value=0 disabled="true">
-                  <input type="number" id="protein" class="form-control" name="calendar_content" placeholder="1회 섭취 단백질 합(g)" value=0 disabled="true">
-                  <input type="number" id="fat" class="form-control" name="calendar_content" placeholder="1회 섭취 지방 합(g)" value=0 disabled="true">
-                  <input type="number" id="cholesterol" class="form-control" name="calendar_content" placeholder="1회 섭취 콜레스테롤 합(g)" value=0 disabled="true">
-                  <input type="number" id="fiber" class="form-control" name="calendar_content" placeholder="1회 섭취 식이섬유 합(g)" value=0 disabled="true">
-                  <input type="number" id="salt" class="form-control" name="calendar_content" placeholder="1회 섭취 나트륨 합(g)" value=0 disabled="true">
+                  <input type="number" id="kcal" class="form-control" name="calendar_content" placeholder="1회 섭취 칼로리 합(kcal)" disabled="true">
+                  <input type="number" id="carbohydrate" class="form-control" name="calendar_content" placeholder="1회 섭취 탄수화물 합(g)" disabled="true">
+                  <input type="number" id="protein" class="form-control" name="calendar_content" placeholder="1회 섭취 단백질 합(g)" disabled="true">
+                  <input type="number" id="fat" class="form-control" name="calendar_content" placeholder="1회 섭취 지방 합(g)" disabled="true">
+                  <input type="number" id="cholesterol" class="form-control" name="calendar_content" placeholder="1회 섭취 콜레스테롤 합(g)" disabled="true">
+                  <input type="number" id="fiber" class="form-control" name="calendar_content" placeholder="1회 섭취 식이섬유 합(g)" disabled="true">
+                  <input type="number" id="salt" class="form-control" name="calendar_content" placeholder="1회 섭취 나트륨 합(g)" disabled="true">
               </div>
           </div>
           <div id="shopping_input">
