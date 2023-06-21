@@ -277,8 +277,8 @@
                             data: {},
                             success: function(data){
                                let bodyData = data.body;
-                               let table_html='';
                                for (let i = 0; i < numOfRows; i++) {
+                                    let table_html='';
                                     table_html += '<tr>';
                                     table_html += '  <td>'+bodyData.items[i]['DESC_KOR']+'</td>';
                                     table_html += '  <td>'+bodyData.items[i]['SERVING_WT']+'</td>';
@@ -292,8 +292,9 @@
                                     table_html += '  <td>'+bodyData.items[i]['NUTR_CONT8']+'</td>';
                                     table_html += '  <td>'+bodyData.items[i]['NUTR_CONT9']+'</td>';
                                     table_html += '</tr>';
+
+                                    $('#api>tbody').append(table_html);
                                }
-                               $('#api>tbody').append(table_html);
                             }
                         })
                     }
