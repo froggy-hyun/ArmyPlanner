@@ -520,30 +520,36 @@
           $('#location_info').css('display','none');
           $('#text_info').css('display','none');
 
-          if(arg.event.extendedProps.eventType == "vacation"){
-            $('#vacation_info').css('display','block');
-            $('#info_event_vacation').attr('disabled', false);
-          }else if(arg.event.extendedProps.eventType == "diet"){
-            $('#diet_info').css('display','block');
-            $('#info_event_diet').attr('disabled', false);
-          }else if(arg.event.extendedProps.eventType == "shopping"){
-            $('#shopping_info').css('display','block');
-            $('#info_event_shopping').attr('disabled', false);
-          }else if(arg.event.extendedProps.eventType == "location"){
-            $('#location_info').css('display','block');
-            $('#info_event_location').attr('disabled', false);
-          }else if(arg.event.extendedProps.eventType == "text"){
-            $('#text_info').css('display','block');
-            $('#info_event_text').attr('disabled', false);
-          }
-
-          $("#info_event_modal").modal("show"); // modal 나타내기
           document.getElementById("info_event_start_date").value = moment(arg.event.start).format('YYYY-MM-DD');
           document.getElementById("info_event_end_date").value = moment(arg.event.end).format('YYYY-MM-DD');
           document.getElementById("info_event_start_time").value = moment(arg.event.start).format('HH:mm');
           document.getElementById("info_event_end_time").value = moment(arg.event.end).format('HH:mm');
 
-          document.getElementById("info_event_text").value = arg.event.title;
+          if(arg.event.extendedProps.eventType == "vacation"){
+            $('#vacation_info').css('display','block');
+          }else if(arg.event.extendedProps.eventType == "diet"){
+            $('#diet_info').css('display','block');
+            document.getElementById("diet_title_info").value = arg.event.title;
+            document.getElementById("food_name_info").value = arg.event.extendedProps.food_name;
+            document.getElementById("kcal_info").value = arg.event.extendedProps.kcal;
+            document.getElementById("carbohydrate_info").value = arg.event.extendedProps.carbohydrate;
+            document.getElementById("protein_info").value = arg.event.extendedProps.protein;
+            document.getElementById("fat_info").value = arg.event.extendedProps.fat;
+            document.getElementById("sugar_info").value = arg.event.extendedProps.sugar;
+            document.getElementById("salt_info").value = arg.event.extendedProps.salt;
+            document.getElementById("cholesterol_info").value = arg.event.extendedProps.cholesterol;
+            document.getElementById("saturatedFattyAcids_info").value = arg.event.extendedProps.saturatedFattyAcids;
+            document.getElementById("transFattyAcids_info").value = arg.event.extendedProps.transFattyAcids;
+          }else if(arg.event.extendedProps.eventType == "shopping"){
+            $('#shopping_info').css('display','block');
+          }else if(arg.event.extendedProps.eventType == "location"){
+            $('#location_info').css('display','block');
+          }else if(arg.event.extendedProps.eventType == "text"){
+            $('#text_info').css('display','block');
+            document.getElementById("info_event_text").value = arg.event.title;
+          }
+
+          $("#info_event_modal").modal("show"); // modal 나타내기
 
           $("#event_delete").off('click').on("click",function(){
             if(confirm("해당 일정을 삭제하시겠습니까 ?")){
@@ -723,8 +729,23 @@
               <input type="text" class="form-control" id="info_event_vacation" name="info_calendar_text" disabled="true">
           </div>
           <div id="diet_info">
-              <label for="info_event_diet" class="col-form-label">식단 내용</label>
-              <input type="text" class="form-control" id="info_event_diet" name="info_calendar_text" disabled="true">
+              <fieldset id="info_event_diet" disabled="true">
+                  <label for="diet_title_info" class="col-form-label">식단 제목</label>
+                  <input type="text" id="diet_title_info" class="form-control" name="info_event_diet">
+                  <label for="info_event_diet" class="col-form-label">식단 내용</label>
+                  <fieldset id="info_event_diet_info">
+                      <input type="text" id="food_name_info" class="form-control" name="info_event_diet">
+                      <input type="number" id="kcal_info" class="form-control" name="info_event_diet">
+                      <input type="number" id="carbohydrate_info" class="form-control" name="info_event_diet">
+                      <input type="number" id="protein_info" class="form-control" name="info_event_diet">
+                      <input type="number" id="fat_info" class="form-control" name="info_event_diet">
+                      <input type="number" id="sugar_info" class="form-control" name="info_event_diet">
+                      <input type="number" id="salt_info" class="form-control" name="info_event_diet">
+                      <input type="number" id="cholesterol_info" class="form-control" name="info_event_diet">
+                      <input type="number" id="saturatedFattyAcids_info" class="form-control" name="info_event_diet">
+                      <input type="number" id="transFattyAcids_info" class="form-control" name="info_event_diet">
+                  </fieldset>
+              </fieldset>
           </div>
           <div id="shopping_info">
               <label for="info_event_shopping" class="col-form-label">소비 내용</label>
