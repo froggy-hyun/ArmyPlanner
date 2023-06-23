@@ -520,21 +520,21 @@
           $('#location_info').css('display','none');
           $('#text_info').css('display','none');
 
-          if(arg.event.extendedProps.eventType == vacation){
-            $('#info_event_vacation').css('display','block');
-            $('#vacation_info').attr('disabled', false);
-          }else if(arg.event.extendedProps.eventType == diet){
-            $('#info_event_diet').css('display','block');
-            $('#diet_info').attr('disabled', false);
-          }else if(arg.event.extendedProps.eventType == shopping){
-            $('#info_event_shopping').css('display','block');
-            $('#shopping_info').attr('disabled', false);
-          }else if(arg.event.extendedProps.eventType == location){
-            $('#info_event_location').css('display','block');
-            $('#location_info').attr('disabled', false);
-          }else if(arg.event.extendedProps.eventType == text){
-            $('#info_event_text').css('display','block');
-            $('#text_info').attr('disabled', false);
+          if(arg.event.extendedProps.eventType == "vacation"){
+            $('#vacation_info').css('display','block');
+            $('#info_event_vacation').attr('disabled', false);
+          }else if(arg.event.extendedProps.eventType == "diet"){
+            $('#diet_info').css('display','block');
+            $('#info_event_diet').attr('disabled', false);
+          }else if(arg.event.extendedProps.eventType == "shopping"){
+            $('#shopping_info').css('display','block');
+            $('#info_event_shopping').attr('disabled', false);
+          }else if(arg.event.extendedProps.eventType == "location"){
+            $('#location_info').css('display','block');
+            $('#info_event_location').attr('disabled', false);
+          }else if(arg.event.extendedProps.eventType == "text"){
+            $('#text_info').css('display','block');
+            $('#info_event_text').attr('disabled', false);
           }
 
           $("#info_event_modal").modal("show"); // modal 나타내기
