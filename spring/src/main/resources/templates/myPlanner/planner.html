@@ -211,6 +211,20 @@
 
                   $("#add_diet_by_text").off('click').on("click",function(){
                     $("#add_diet_by_text_modal").modal("show");
+
+                    $("#add_diet_by_text_save").off('click').on("click",function(){
+                        let food_name_text = `$('#food_name_text').val ($('#servingSize_text')g)`;
+                        $('#food_name').val($('#food_name').val() + food_name_text);
+		                $('#kcal').val((Number($('#kcal').val()) + Number($('#kcal_text').val())).toFixed(1));
+                        $('#carbohydrate').val((Number($('#carbohydrate').val()) + Number($('#carbohydrate_text').val())).toFixed(1));
+                        $('#protein').val((Number($('#protein').val()) + Number($('#protein_text').val())).toFixed(1));
+                        $('#fat').val((Number($('#fat').val()) + Number($('#fat_text').val())).toFixed(1));
+                        $('#sugar').val((Number($('#sugar').val()) + Number($('#sugar_text').val())).toFixed(1));
+                        $('#salt').val((Number($('#salt').val()) + Number($('#salt_text').val())).toFixed(1));
+                        $('#cholesterol').val((Number($('#cholesterol').val()) + Number($('#cholesterol_text').val())).toFixed(1));
+                        $('#saturatedFattyAcids').val((Number($('#saturatedFattyAcids').val()) + Number($('#saturatedFattyAcids_text').val())).toFixed(1));
+                        $('#transFattyAcids').val((Number($('#transFattyAcids').val()) + Number($('#transFattyAcids_text').val())).toFixed(1));
+                    })
                   });
 
                   $("#add_diet_by_api").off('click').on("click",function(){
@@ -389,7 +403,7 @@
                         let add_saturatedFattyAcids = (td.eq(9).text()!="N/A") ? td.eq(9).text() : 0;
                         let add_transFattyAcids = (td.eq(10).text()!="N/A") ? td.eq(10).text() : 0;
 
-                        $('#kcal').val(Number($('#kcal').val()) + Number(add_kcal));
+                        $('#kcal').val((Number($('#kcal').val()) + Number(add_kcal)).toFixed(1));
                         $('#carbohydrate').val((Number($('#carbohydrate').val()) + Number(add_carbohydrate)).toFixed(1));
                         $('#protein').val((Number($('#protein').val()) + Number(add_protein)).toFixed(1));
                         $('#fat').val((Number($('#fat').val()) + Number(add_fat)).toFixed(1));
