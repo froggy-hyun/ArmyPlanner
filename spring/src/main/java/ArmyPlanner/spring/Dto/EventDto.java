@@ -47,38 +47,40 @@ public class EventDto {
 
     private boolean allDay;
 
-    public Event toEntity() {
+    public Event toEntity_text() {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm", Locale.KOREA);
-            if (eventType == "text") {
-                return Event.builder()
-                        .eventType(eventType)
-                        .title(title)
-                        .start(LocalDateTime.parse(start, dateTimeFormatter))
-                        .end(LocalDateTime.parse(end, dateTimeFormatter))
-                        .allDay(allDay)
-                        .member(member)
-                        .build();
-            } else if (eventType == "diet") {
-                return Event.builder()
-                        .eventType(eventType)
-                        .title(title)
-                        .food_name(food_name)
-                        .kcal(kcal)
-                        .carbohydrate(carbohydrate)
-                        .protein(protein)
-                        .fat(fat)
-                        .sugar(sugar)
-                        .salt(salt)
-                        .cholesterol(cholesterol)
-                        .saturatedFattyAcids(saturatedFattyAcids)
-                        .transFattyAcids(transFattyAcids)
-                        .start(LocalDateTime.parse(start, dateTimeFormatter))
-                        .end(LocalDateTime.parse(end, dateTimeFormatter))
-                        .allDay(allDay)
-                        .member(member)
-                        .build();
-            }
-        return null;
+        return Event.builder()
+                .eventType(eventType)
+                .title(title)
+                .start(LocalDateTime.parse(start, dateTimeFormatter))
+                .end(LocalDateTime.parse(end, dateTimeFormatter))
+                .allDay(allDay)
+                .member(member)
+                .build();
+
     }
 
+    public Event toEntity_diet() {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm", Locale.KOREA);
+
+        return Event.builder()
+                .eventType(eventType)
+                .title(title)
+                .food_name(food_name)
+                .kcal(kcal)
+                .carbohydrate(carbohydrate)
+                .protein(protein)
+                .fat(fat)
+                .sugar(sugar)
+                .salt(salt)
+                .cholesterol(cholesterol)
+                .saturatedFattyAcids(saturatedFattyAcids)
+                .transFattyAcids(transFattyAcids)
+                .start(LocalDateTime.parse(start, dateTimeFormatter))
+                .end(LocalDateTime.parse(end, dateTimeFormatter))
+                .allDay(allDay)
+                .member(member)
+                .build();
+
+    }
 }

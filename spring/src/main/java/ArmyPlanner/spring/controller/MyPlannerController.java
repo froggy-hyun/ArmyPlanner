@@ -45,6 +45,7 @@ public class MyPlannerController {
         String username = principal.getName();
         Member member = memberRepository.findByEmail(username);
 
+
         Event eventText = EventDto.builder()
                 .eventType(eventType)
                 .title(title)
@@ -52,7 +53,7 @@ public class MyPlannerController {
                 .end(end)
                 .allDay(allDay)
                 .member(member)
-                .build().toEntity();
+                .build().toEntity_text();
 
         eventService.saveEvent(eventText);
     }
@@ -80,6 +81,7 @@ public class MyPlannerController {
         String username = principal.getName();
         Member member = memberRepository.findByEmail(username);
 
+
         Event eventDiet = EventDto.builder()
                 .eventType(eventType)
                 .title(title)
@@ -97,9 +99,10 @@ public class MyPlannerController {
                 .end(end)
                 .allDay(allDay)
                 .member(member)
-                .build().toEntity();
+                .build().toEntity_diet();
 
         eventService.saveEvent(eventDiet);
+
     }
 
     @DeleteMapping(value = "delete")

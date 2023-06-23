@@ -38,9 +38,9 @@ public class EventService {
         return eventsDto;
     }
 
-    public Event saveEvent(Event eventText) {
+    public Event saveEvent(Event event) {
 
-        return eventRepository.save(eventText);
+        return eventRepository.save(event);
     }
 
     public void deleteEvent(Long id) {
