@@ -13,12 +13,14 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "event")
 @Data
-public class Event {
+public class Event_text {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
     private Long id;
+
+    private String eventType;
 
     @Column(nullable = false)
     private String title;

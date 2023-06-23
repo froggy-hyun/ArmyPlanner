@@ -1,14 +1,13 @@
 package ArmyPlanner.spring.Dto;
 
 
-import ArmyPlanner.spring.domain.Event;
+import ArmyPlanner.spring.domain.Event_text;
 import ArmyPlanner.spring.domain.Member;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -18,9 +17,11 @@ import java.util.Locale;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class EventDto {
+public class Event_textDto {
 
     private Long id;
+
+    private String eventType;
 
     private String title;
 
@@ -34,9 +35,9 @@ public class EventDto {
 
     private boolean allDay;
 
-    public Event toEntity() {
+    public Event_text toEntity() {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm", Locale.KOREA);
-        return Event.builder()
+        return Event_text.builder()
                 .title(title)
 //                .description(description)
                 .start(LocalDateTime.parse(start, dateTimeFormatter))

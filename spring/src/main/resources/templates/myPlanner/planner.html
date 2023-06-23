@@ -174,9 +174,9 @@
                       }else{ // 정상적인 입력 시
                         var obj = {
                           "title" : "식단",
-                          "start" : start
+                          "start" : start,
                           "end" : end,
-                          "allDay" : allDay
+                          "allDay" : allDay,
                           "food_name" : food_name,
                           "kcal" : kcal,
                           "carbohydrate" : carbohydrate,
@@ -188,12 +188,12 @@
                           "saturatedFattyAcids" : saturatedFattyAcids,
                           "transFattyAcids" : transFattyAcids,
                         }//전송할 객체 생성
-                        var event = JSON.stringify(obj)
+                        var eventText = JSON.stringify(obj)
                         $.ajax({
                           url: "/myPlanner/create",
                           method: "POST",
                           dataType: "text",
-                          data: event,
+                          data: eventText,
                           contentType: 'application/json',
                           beforeSend : function(xhr) {
                             xhr.setRequestHeader(header, token);
@@ -477,12 +477,12 @@
                         "end" : end,
                         "allDay" : allDay
                       }//전송할 객체 생성
-                      var event = JSON.stringify(obj)
+                      var eventText = JSON.stringify(obj)
                       $.ajax({
                         url: "/myPlanner/create",
                         method: "POST",
                         dataType: "text",
-                        data: event,
+                        data: eventText,
                         contentType: 'application/json',
                         beforeSend : function(xhr) {
                           xhr.setRequestHeader(header, token);
@@ -510,27 +510,27 @@
         },
         eventClick: function(arg) {
           $("#info_event_modal").modal("show"); // modal 나타내기
-          document.getElementById("info_event_start_date").value = moment(arg.event.start).format('YYYY-MM-DD');
-          document.getElementById("info_event_end_date").value = moment(arg.event.end).format('YYYY-MM-DD');
-          document.getElementById("info_event_start_time").value = moment(arg.event.start).format('HH:mm');
-          document.getElementById("info_event_end_time").value = moment(arg.event.end).format('HH:mm');
-          document.getElementById("info_event_text").value = arg.event.title;
+          document.getElementById("info_event_start_date").value = moment(arg.eventText.start).format('YYYY-MM-DD');
+          document.getElementById("info_event_end_date").value = moment(arg.eventText.end).format('YYYY-MM-DD');
+          document.getElementById("info_event_start_time").value = moment(arg.eventText.start).format('HH:mm');
+          document.getElementById("info_event_end_time").value = moment(arg.eventText.end).format('HH:mm');
+          document.getElementById("info_event_text").value = arg.eventText.title;
 
           $("#event_delete").off('click').on("click",function(){
             if(confirm("해당 일정을 삭제하시겠습니까 ?")){
               var obj = {
-                "id" : arg.event.id,
-                "title" : arg.event.title,
-                "start" : arg.event.start,
-                "end" : arg.event.end,
-                "allDay" : arg.event.allDay
+                "id" : arg.eventText.id,
+                "title" : arg.eventText.title,
+                "start" : arg.eventText.start,
+                "end" : arg.eventText.end,
+                "allDay" : arg.eventText.allDay
               }//전송할 객체 생성
-              var event = JSON.stringify(obj)
+              var eventText = JSON.stringify(obj)
               $.ajax({
                 url: "/myPlanner/delete",
                 method: "DELETE",
                 dataType: "text",
-                data: event,
+                data: eventText,
                 contentType: 'application/json',
                 beforeSend : function(xhr) {
                   xhr.setRequestHeader(header, token);
@@ -608,7 +608,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form id="event" class="form-group">
+        <form id="eventText" class="form-group">
           <div class="form-check">
             <input class="form-check-input" type="radio" id="all_time" name="all_or_set_time" onchange="setTimeDisplay()" checked="checked">
             <label class="form-check-label all_time" for="all_time">종일</label>

@@ -1,13 +1,12 @@
 package ArmyPlanner.spring.controller;
 
-import ArmyPlanner.spring.Dto.EventDto;
-import ArmyPlanner.spring.domain.Event;
+import ArmyPlanner.spring.Dto.Event_textDto;
+import ArmyPlanner.spring.domain.Event_text;
 import ArmyPlanner.spring.domain.Member;
 import ArmyPlanner.spring.repository.MemberRepository;
 import ArmyPlanner.spring.service.EventService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -23,7 +22,7 @@ public class MyPlannerController {
 
     @GetMapping("api/events")
     @ResponseBody
-    public List<EventDto> listAllEvents(Principal principal) {
+    public List<Event_textDto> listAllEvents(Principal principal) {
         String username = principal.getName();
         Member member = memberRepository.findByEmail(username);
         return eventService.listAllEvents(member);
@@ -36,16 +35,16 @@ public class MyPlannerController {
 
     @PostMapping(value = "create")
     @ResponseBody
-    public void addEvent(@RequestBody EventDto eventDto, Principal principal) throws Exception {
-        String title = eventDto.getTitle();
+    public void addEvent(@RequestBody Event_textDto eventTextDto, Principal principal) throws Exception {
+        String title = eventTextDto.getTitle();
 //            String description = (String) param.get("description");
-        String start = eventDto.getStart();
-        String end = eventDto.getEnd();
-        boolean allDay = eventDto.isAllDay();
+        String start = eventTextDto.getStart();
+        String end = eventTextDto.getEnd();
+        boolean allDay = eventTextDto.isAllDay();
         String username = principal.getName();
         Member member = memberRepository.findByEmail(username);
 
-        Event event = EventDto.builder()
+        Event_text eventText = Event_textDto.builder()
                 .title(title)
 //                    .description(description)
                 .start(start)
@@ -54,13 +53,13 @@ public class MyPlannerController {
                 .member(member)
                 .build().toEntity();
 
-        eventService.saveEvent(event);
+        eventService.saveEvent(eventText);
     }
 
     @DeleteMapping(value = "delete")
     @ResponseBody
-    public void deleteEvent(@RequestBody EventDto eventDto, Principal principal) throws Exception {
-        Long id = eventDto.getId();
+    public void deleteEvent(@RequestBody Event_textDto eventTextDto, Principal principal) throws Exception {
+        Long id = eventTextDto.getId();
         eventService.deleteEvent(id);
     }
 

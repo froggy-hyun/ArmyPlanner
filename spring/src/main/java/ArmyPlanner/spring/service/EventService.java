@@ -1,7 +1,7 @@
 package ArmyPlanner.spring.service;
 
-import ArmyPlanner.spring.Dto.EventDto;
-import ArmyPlanner.spring.domain.Event;
+import ArmyPlanner.spring.Dto.Event_textDto;
+import ArmyPlanner.spring.domain.Event_text;
 import ArmyPlanner.spring.domain.Member;
 import ArmyPlanner.spring.repository.EventRepository;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,28 +19,28 @@ public class EventService {
     private final EventRepository eventRepository;
 
 
-    public List<EventDto> listAllEvents(Member member) {
-        List<Event> list = eventRepository.findAllByMember(member);
+    public List<Event_textDto> listAllEvents(Member member) {
+        List<Event_text> list = eventRepository.findAllByMember(member);
 
-        List<EventDto> eventsDto = new ArrayList<>();
+        List<Event_textDto> eventsDto = new ArrayList<>();
 
         for (int i = 0; i < list.size(); i++) {
-            EventDto eventDto = new EventDto();
+            Event_textDto eventTextDto = new Event_textDto();
 
-            eventDto.setId(list.get(i).getId());
-            eventDto.setTitle(list.get(i).getTitle());
-            eventDto.setStart(list.get(i).getStart().toString());
-            eventDto.setEnd(list.get(i).getEnd().toString());
-            eventDto.setAllDay(list.get(i).isAllDay());
-            eventsDto.add(eventDto);
+            eventTextDto.setId(list.get(i).getId());
+            eventTextDto.setTitle(list.get(i).getTitle());
+            eventTextDto.setStart(list.get(i).getStart().toString());
+            eventTextDto.setEnd(list.get(i).getEnd().toString());
+            eventTextDto.setAllDay(list.get(i).isAllDay());
+            eventsDto.add(eventTextDto);
         }
 
         return eventsDto;
     }
 
-    public Event saveEvent(Event event) {
+    public Event_text saveEvent(Event_text eventText) {
 
-        return eventRepository.save(event);
+        return eventRepository.save(eventText);
     }
 
     public void deleteEvent(Long id) {
