@@ -135,6 +135,7 @@
                 if(eventType == "vacation") {
                   $('#vacation_input').css('display','block');
                   $('#add_event_vacation').attr('disabled', false);
+                  $("#add_event_modal").modal("show");
                 } else if(eventType == "diet") {
                   $('#diet_input').css('display','block');
                   $('#diet_title').attr('disabled', false);
@@ -443,9 +444,11 @@
                 } else if(eventType == "shopping") {
                   $('#shopping_input').css('display','block');
                   $('#add_event_shopping').attr('disabled', false);
+                  $("#add_event_modal").modal("show");
                 } else if(eventType == "location") {
                   $('#location_input').css('display','block');
                   $('#add_event_location').attr('disabled', false);
+                  $("#add_event_modal").modal("show");
                 } else if(eventType == "text") {
                   $('#text_input').css('display','block');
                   $('#add_event_text').attr('disabled', false);
