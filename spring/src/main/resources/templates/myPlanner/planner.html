@@ -514,21 +514,45 @@
           })
         },
         eventClick: function(arg) {
+          $('#vacation_info').css('display','none');
+          $('#diet_info').css('display','none');
+          $('#shopping_info').css('display','none');
+          $('#location_info').css('display','none');
+          $('#text_info').css('display','none');
+
+          if(arg.event.extendedProps.eventType == vacation){
+            $('#info_event_vacation').css('display','block');
+            $('#vacation_info').attr('disabled', false);
+          }else if(arg.event.extendedProps.eventType == diet){
+            $('#info_event_diet').css('display','block');
+            $('#diet_info').attr('disabled', false);
+          }else if(arg.event.extendedProps.eventType == shopping){
+            $('#info_event_shopping').css('display','block');
+            $('#shopping_info').attr('disabled', false);
+          }else if(arg.event.extendedProps.eventType == location){
+            $('#info_event_location').css('display','block');
+            $('#location_info').attr('disabled', false);
+          }else if(arg.event.extendedProps.eventType == text){
+            $('#info_event_text').css('display','block');
+            $('#text_info').attr('disabled', false);
+          }
+
           $("#info_event_modal").modal("show"); // modal 나타내기
-          document.getElementById("info_event_start_date").value = moment(arg.eventText.start).format('YYYY-MM-DD');
-          document.getElementById("info_event_end_date").value = moment(arg.eventText.end).format('YYYY-MM-DD');
-          document.getElementById("info_event_start_time").value = moment(arg.eventText.start).format('HH:mm');
-          document.getElementById("info_event_end_time").value = moment(arg.eventText.end).format('HH:mm');
-          document.getElementById("info_event_text").value = arg.eventText.title;
+          document.getElementById("info_event_start_date").value = moment(arg.event.start).format('YYYY-MM-DD');
+          document.getElementById("info_event_end_date").value = moment(arg.event.end).format('YYYY-MM-DD');
+          document.getElementById("info_event_start_time").value = moment(arg.event.start).format('HH:mm');
+          document.getElementById("info_event_end_time").value = moment(arg.event.end).format('HH:mm');
+
+          document.getElementById("info_event_text").value = arg.event.title;
 
           $("#event_delete").off('click').on("click",function(){
             if(confirm("해당 일정을 삭제하시겠습니까 ?")){
               var obj = {
-                "id" : arg.eventText.id,
-                "title" : arg.eventText.title,
-                "start" : arg.eventText.start,
-                "end" : arg.eventText.end,
-                "allDay" : arg.eventText.allDay
+                "id" : arg.event.id,
+                "title" : arg.event.title,
+                "start" : arg.event.start,
+                "end" : arg.event.end,
+                "allDay" : arg.event.allDay
               }//전송할 객체 생성
               var eventText = JSON.stringify(obj)
               $.ajax({
@@ -694,8 +718,26 @@
           <input type="date" class="form-control" id="info_event_end_date" name="info_calendar_end_date" disabled="true">
           <label for="info_event_end_time" class="col-form-label">종료 시간</label>
           <input type="time" class="form-control" id="info_event_end_time" name="info_calendar_end_time" disabled="true">
-          <label for="info_event_text" class="col-form-label">일정 내용</label>
-          <input type="text" class="form-control" id="info_event_text" name="info_calendar_text" disabled="true">
+          <div id="vacation_info">
+              <label for="info_event_vacation" class="col-form-label">휴가 내용</label>
+              <input type="text" class="form-control" id="info_event_vacation" name="info_calendar_text" disabled="true">
+          </div>
+          <div id="diet_info">
+              <label for="info_event_diet" class="col-form-label">식단 내용</label>
+              <input type="text" class="form-control" id="info_event_diet" name="info_calendar_text" disabled="true">
+          </div>
+          <div id="shopping_info">
+              <label for="info_event_shopping" class="col-form-label">소비 내용</label>
+              <input type="text" class="form-control" id="info_event_shopping" name="info_calendar_text" disabled="true">
+          </div>
+          <div id="location_info">
+              <label for="info_event_location" class="col-form-label">장소 내용</label>
+              <input type="text" class="form-control" id="info_event_location" name="info_calendar_text" disabled="true">
+          </div>
+          <div id="text_info">
+              <label for="info_event_text" class="col-form-label">일정 내용</label>
+              <input type="text" class="form-control" id="info_event_text" name="info_calendar_text" disabled="true">
+          </div>
         </form>
       </div>
       <div class="modal-footer">

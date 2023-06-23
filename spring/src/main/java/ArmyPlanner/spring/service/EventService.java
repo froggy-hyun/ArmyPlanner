@@ -28,7 +28,20 @@ public class EventService {
             EventDto eventTextDto = new EventDto();
 
             eventTextDto.setId(list.get(i).getId());
+            eventTextDto.setEventType(list.get(i).getEventType());
             eventTextDto.setTitle(list.get(i).getTitle());
+
+            eventTextDto.setFood_name(list.get(i).getFood_name());
+            eventTextDto.setKcal(list.get(i).getKcal());
+            eventTextDto.setCarbohydrate(list.get(i).getCarbohydrate());
+            eventTextDto.setProtein(list.get(i).getProtein());
+            eventTextDto.setFat(list.get(i).getFat());
+            eventTextDto.setSugar(list.get(i).getSugar());
+            eventTextDto.setSalt(list.get(i).getSalt());
+            eventTextDto.setCholesterol(list.get(i).getCholesterol());
+            eventTextDto.setSaturatedFattyAcids(list.get(i).getSaturatedFattyAcids());
+            eventTextDto.setTransFattyAcids(list.get(i).getTransFattyAcids());
+
             eventTextDto.setStart(list.get(i).getStart().toString());
             eventTextDto.setEnd(list.get(i).getEnd().toString());
             eventTextDto.setAllDay(list.get(i).isAllDay());
