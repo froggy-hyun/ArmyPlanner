@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "event")
 @Data
-public class Event_text {
+public class Event {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,8 +24,18 @@ public class Event_text {
 
     @Column(nullable = false)
     private String title;
-//    @Column(nullable = false)
-//    private String description;
+
+//  식단 -----------------------
+    private String food_name;
+    private String kcal;
+    private String carbohydrate;
+    private String protein;
+    private String fat;
+    private String sugar;
+    private String salt;
+    private String cholesterol;
+    private String saturatedFattyAcids;
+    private String transFattyAcids;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+9")

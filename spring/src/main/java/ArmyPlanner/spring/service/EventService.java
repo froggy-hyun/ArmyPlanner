@@ -1,7 +1,7 @@
 package ArmyPlanner.spring.service;
 
-import ArmyPlanner.spring.Dto.Event_textDto;
-import ArmyPlanner.spring.domain.Event_text;
+import ArmyPlanner.spring.Dto.EventDto;
+import ArmyPlanner.spring.domain.Event;
 import ArmyPlanner.spring.domain.Member;
 import ArmyPlanner.spring.repository.EventRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,13 +19,13 @@ public class EventService {
     private final EventRepository eventRepository;
 
 
-    public List<Event_textDto> listAllEvents(Member member) {
-        List<Event_text> list = eventRepository.findAllByMember(member);
+    public List<EventDto> listAllEvents(Member member) {
+        List<Event> list = eventRepository.findAllByMember(member);
 
-        List<Event_textDto> eventsDto = new ArrayList<>();
+        List<EventDto> eventsDto = new ArrayList<>();
 
         for (int i = 0; i < list.size(); i++) {
-            Event_textDto eventTextDto = new Event_textDto();
+            EventDto eventTextDto = new EventDto();
 
             eventTextDto.setId(list.get(i).getId());
             eventTextDto.setTitle(list.get(i).getTitle());
@@ -38,7 +38,7 @@ public class EventService {
         return eventsDto;
     }
 
-    public Event_text saveEvent(Event_text eventText) {
+    public Event saveEvent(Event eventText) {
 
         return eventRepository.save(eventText);
     }

@@ -173,6 +173,7 @@
                         alert("종료일이 시작일보다 먼저입니다.");
                       }else{ // 정상적인 입력 시
                         var obj = {
+                          "eventType" : "식단",
                           "title" : "식단",
                           "start" : start,
                           "end" : end,
@@ -190,7 +191,7 @@
                         }//전송할 객체 생성
                         var eventText = JSON.stringify(obj)
                         $.ajax({
-                          url: "/myPlanner/create",
+                          url: "/myPlanner/create_diet",
                           method: "POST",
                           dataType: "text",
                           data: eventText,
@@ -472,6 +473,7 @@
                       alert("종료일이 시작일보다 먼저입니다.");
                     }else{ // 정상적인 입력 시
                       var obj = {
+                        "eventType" : "텍스트",
                         "title" : text,
                         "start" : start,
                         "end" : end,
@@ -479,7 +481,7 @@
                       }//전송할 객체 생성
                       var eventText = JSON.stringify(obj)
                       $.ajax({
-                        url: "/myPlanner/create",
+                        url: "/myPlanner/create_text",
                         method: "POST",
                         dataType: "text",
                         data: eventText,
