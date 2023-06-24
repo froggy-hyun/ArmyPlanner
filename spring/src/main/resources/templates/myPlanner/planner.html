@@ -688,13 +688,17 @@
           </div>
           <div id="shopping_input">
               <label for="add_event_shopping" class="col-form-label">소비 기록</label>
+              <div class= "buttons" id="shopping_buttons">
+                  <input type="button" id="add_shopping_by_px_api" class="btnAdd btn btn-dark" value="px 물품 검색 추가">
+                  <input type="button" id="add_shopping_by_text" class="btn btn-outline-secondary" value="텍스트로 추가">
+              </div>
               <input type="text" class="form-control" id="add_event_shopping" name="calendar_content" disabled="true">
           </div>
           <div id="location_input">
               <label for="add_event_location" class="col-form-label">장소 추가</label>
               <input type="text" class="form-control" id="add_event_location" name="calendar_content" disabled="true">
           </div>
-          <div id="text_input">
+          <div id="text_inputbtn-">
               <label for="add_event_text" class="col-form-label">텍스트 추가</label>
               <input type="text" class="form-control" id="add_event_text" name="calendar_content" disabled="true">
           </div>
