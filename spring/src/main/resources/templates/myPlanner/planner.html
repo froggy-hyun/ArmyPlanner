@@ -491,47 +491,50 @@
                         }
                     });
 
-                    //totalCount와 resultCode를 먼저 받아옴으로써 api가 정상적인지와 총 데이터의 갯수를 파악
+                    //totalCount를 먼저 받아옴으로써 api가 정상적인지와 총 데이터의 갯수를 파악
                     function init() {
+                        alloriginsUrl = `https://api.allorigins.win/get?url=${url}`;
                         $.ajax({
-                            beforeSend : function(xhr) {
-                                xhr.setRequestHeader(header, token);
-                            },
                             type: "GET",
-                            url: url,
+                            url: alloriginsUrl,
                             data: {},
                             async: false,
                             success: function(data) {
-                                totalCount = data.list_total_count;
-                            },
-                            fail : function (request, status, error){
-                                alert("에러 발생" + error)
-                            },
+                                data = JSON.stringify(data);
+                                data = JSON.parse(data); //string -> json
+                                alert(data.contents);
+                                totalCount = data.contents.DS_MND_PX_PARD_PRDT_INFO.list_total_count;
+                                alert(totalCount);
+                            }
                         })
+
+
+                        totalCount = getData.DS_MND_PX_PARD_PRDT_INFO.list_total_count;
+                        alert(totalCount);
                     }
 
                     //데이터 가져오기
                     function setTable(pageNo){
+                        alloriginsUrl = `https://api.allorigins.win/get?url=${url}`;
                         $.ajax({
-                            beforeSend : function(xhr) {
-                                xhr.setRequestHeader(header, token);
-                            },
                             type: "GET",
-                            url: url,
+                            url: alloriginsUrl,
                             data: {},
-                            success: function(data){
-                               for (let i = 0; i < numOfRows; i++) {
-                                    let table_html='';
-                                    table_html += '<tr>';
-                                    table_html += '  <td>'+data[i]['DESC_KOR']+'</td>';
-                                    table_html += '  <td>'+bodyData.items[i]['prdtnm']+'</td>';
-                                    table_html += '  <td>'+bodyData.items[i]['sellyear']+'</td>';
-                                    table_html += '</tr>';
+                            async: false,
+                            success: function(data) {
+                                for (let i = 0; i < numOfRows; i++) {
+                                let table_html='';
+                                table_html += '<tr>';
+                                table_html += '  <td>'+data.DS_MND_PX_PARD_PRDT_INFO.row[i]['prdtnm']+'</td>';
+                                table_html += '  <td>'+data.DS_MND_PX_PARD_PRDT_INFO.row[i]['sellyear']+'</td>';
+                                table_html += '</tr>';
 
-                                    $('#shopping_api>tbody').append(table_html);
-                               }
+                                $('#shopping_api>tbody').append(table_html);
+
+                                }
                             }
                         })
+
                     }
 
                     function displayData(pageNo) {
