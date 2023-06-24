@@ -45,7 +45,7 @@
                 filter: none;
     }
 
-    #pagingul{
+    #diet_pagingul{
         text-align: center;
         display: inline-block;
         border: 1px solid #ccc;
@@ -53,14 +53,14 @@
         padding-left :0;
     }
 
-    #pagingul li {
+    #diet_pagingul li {
         text-align: center;
         float: left;
         list-style:none;
 
     }
 
-    #pagingul li a {
+    #diet_pagingul li a {
         display: block;
         font-size: 14px;
         color: black;
@@ -70,11 +70,11 @@
         text-decoration-line:none;
     }
 
-    #pagingul li.on {
+    #diet_pagingul li.on {
         background: #eda712;
     }
 
-    #pagingul li.on a {
+    #diet_pagingul li.on a {
         color: #fff;
     }
 
@@ -335,14 +335,14 @@
                                     table_html += '  <td>'+bodyData.items[i]['NUTR_CONT9']+'</td>';
                                     table_html += '</tr>';
 
-                                    $('#api>tbody').append(table_html);
+                                    $('#diet_api>tbody').append(table_html);
                                }
                             }
                         })
                     }
 
                     function displayData(pageNo) {
-                      $('#api>tbody').empty();
+                      $('#diet_api>tbody').empty();
                       if($(desc_kor)==""){
                         url = `http://apis.data.go.kr/1471000/FoodNtrIrdntInfoService1/getFoodNtrItdntList1?ServiceKey=${serviceKey}&numOfRows=${numOfRows}&pageNo=${pageNo}&type=json`;
                       }else{
@@ -388,14 +388,14 @@
                         pageHtml += "<li><a href='#' id='next'> 다음 </a></li>";
                       }
 
-                      $("#pagingul").html(pageHtml);
+                      $("#diet_pagingul").html(pageHtml);
                       let displayCount = "";
                       displayCount = `현재 ${pageNo} - ${totalPage} 페이지 / ${totalCount}건`;
                       $("#displayCount").text(displayCount);
 
 
                       //페이징 번호 클릭 이벤트
-                      $("#pagingul li a").click(function () {
+                      $("#diet_pagingul li a").click(function () {
                         let $id = $(this).attr("id");
                         selectedPage = $(this).text();
 
@@ -408,7 +408,7 @@
                       });
                     }
 
-                    $(document).off('click').on('click', '#api tbody>tr', function(){
+                    $(document).off('click').on('click', '#diet_api tbody>tr', function(){
                         var tr = $(this);
                         var td = tr.children();
                         if($('#food_name').val() !=""){
@@ -445,6 +445,12 @@
                   $('#shopping_input').css('display','block');
                   $('#add_event_shopping').attr('disabled', false);
                   $("#add_event_modal").modal("show");
+                  $("#add_shopping_by_px_api").off('click').on("click",function(){
+                    $("#add_shopping_by_px_api_modal").modal("show");
+                  });
+                  $("#add_shopping_by_text").off('click').on("click",function(){
+                    $("#add_shopping_by_text_modal").modal("show");
+                  });
                 } else if(eventType == "location") {
                   $('#location_input').css('display','block');
                   $('#add_event_location').attr('disabled', false);
@@ -782,7 +788,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="add_diet_title">식단 정보</h5>
+                <h5 class="modal-title" id="add_diet_api_title">식단 정보</h5>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -792,9 +798,9 @@
                     <input type="text" id="food_name_input" class="form-control" placeholder="음식명을 입력해보세요." aria-label="Recipient's username" aria-describedby="button-addon2">
                     <button id="search_food" class="btn btn-outline-secondary" type="button">검색</button>
                 </div>
-                <span id="displayCount"></span>
-                <table class="table table-hover" id="api" style="font-size: 1vh">
-                    <thead id="table_head">
+                <span id="diet_displayCount"></span>
+                <table class="table table-hover" id="diet_api" style="font-size: 1vh">
+                    <thead id="diet_table_head">
                         <tr>
                             <th scope="col">식품명</th>
                             <th scope="col">1회제공량 (g)</th>
@@ -809,9 +815,9 @@
                             <th scope="col">트랜스지방산 (g)</th>
                         </tr>
                     </thead>
-                    <tbody id="api_body"></tbody>
+                    <tbody id="diet_api_body"></tbody>
                 </table>
-                <ul id="pagingul"></ul>
+                <ul id="diet_pagingul"></ul>
             </div>
             </div>
             <div class="modal-footer">
@@ -820,6 +826,7 @@
         </div>
     </div>
 </div>
+
 <!-- 텍스트로 식단 추가 modal -->
 <div class="modal fade" id="add_diet_by_text_modal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -843,6 +850,59 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" id="add_diet_by_text_save">추가</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="add_diet_by_text_modal_close">취소</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- px 물품 선택 api modal -->
+<div class="modal fade" id="add_shopping_by_px_api_modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="add_shopping_api_title">PX 물품 정보</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body app">
+                <div class="input-group mb-3">
+                    <input type="text" id="px_name_input" class="form-control" placeholder="상품을 입력해보세요." aria-label="Recipient's username" aria-describedby="button-addon2">
+                    <button id="search_px" class="btn btn-outline-secondary" type="button">검색</button>
+                </div>
+                <span id="px_displayCount"></span>
+                <table class="table table-hover" id="px_api" style="font-size: 1vh">
+                    <thead id="px_table_head">
+                    <tr>
+                        <th scope="col">상품명</th>
+                        <th scope="col">판매년도</th>
+                    </tr>
+                    </thead>
+                    <tbody id="px_api_body"></tbody>
+                </table>
+                <ul id="px_pagingul"></ul>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="add_px_modal_close">취소</button>
+        </div>
+    </div>
+</div>
+
+<!-- 텍스트로 소비 기록 추가 modal -->
+<div class="modal fade" id="add_shopping_by_text_modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <label for="add_diet_by_text_form" class="col-form-label">텍스트로 소비 기록 추가 <br>한번에 하나씩 추가해주세요.</label>
+                <form id="add_shopping_by_text_form">
+                    <input type="text" id="item_name_text" class="form-control" name="calendar_content" placeholder="상품명 예) OO컵라면" >
+                    <input type="number" id="price" class="form-control" name="calendar_content" placeholder="금액">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="add_shopping_by_text_save">추가</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="add_shopping_by_text_modal_close">취소</button>
             </div>
         </div>
     </div>
