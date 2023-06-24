@@ -447,6 +447,159 @@
                   $("#add_event_modal").modal("show");
                   $("#add_shopping_by_px_api").off('click').on("click",function(){
                     $("#add_shopping_by_px_api_modal").modal("show");
+                    let pageNo;
+                    const numOfRows = 100;
+                    let serviceKey = "3733313631313630353532323832313332";
+                    let resultType = "json";
+                    let service = "DS_MND_PX_PARD_PRDT_INFO";
+                    let start;
+                    let end;
+                    let totalPage;
+                    let totalCount;
+                    let px_name;
+
+                    let pageCount = 8; //페이징에 나타낼 페이지 수
+
+                    let url;
+
+                    //초기 렌더링
+                    start = 1;
+                    end = 1;
+                    url = `https://openapi.mnd.go.kr/${serviceKey}/${resultType}/${service}/${start}/${end}`
+                    init();
+                    totalPage = Math.ceil(totalCount/numOfRows);
+                    paging(totalCount, numOfRows, pageCount, pageNo);
+                    displayData(pageNo);
+
+                    $('#search_px').off('click').on("click", function(){
+                        px_name = $('#px_name_input').val()
+                        if($(px_name)==""){
+                            pageNo = 1;
+                            url = `https://openapi.mnd.go.kr/${serviceKey}/${resultType}/${service}/{start}/{totalCount}`
+                            init();
+                            totalPage = Math.ceil(totalCount/numOfRows);
+                            paging(totalCount, numOfRows, pageCount, pageNo);
+                            displayData(pageNo);
+                        }else{
+                            pageNo = 1;
+                            px_name = $('#px_name_input').val();
+                            url = `http://apis.data.go.kr/1471000/FoodNtrIrdntInfoService1/getFoodNtrItdntList1?ServiceKey=${serviceKey}&numOfRows=${numOfRows}&pageNo=${pageNo}&type=json&desc_kor=${desc_kor}`;
+                            init();
+                            totalPage = Math.ceil(totalCount/numOfRows);
+                            paging(totalCount, numOfRows, pageCount, pageNo);
+                            displayData(pageNo);
+                        }
+                    });
+
+                    //totalCount와 resultCode를 먼저 받아옴으로써 api가 정상적인지와 총 데이터의 갯수를 파악
+                    function init() {
+                        $.ajax({
+                            beforeSend : function(xhr) {
+                                xhr.setRequestHeader(header, token);
+                            },
+                            type: "GET",
+                            url: url,
+                            data: {},
+                            async: false,
+                            success: function(data) {
+                                totalCount = data.list_total_count;
+                            },
+                            fail : function (request, status, error){
+                                alert("에러 발생" + error)
+                            },
+                        })
+                    }
+
+                    //데이터 가져오기
+                    function setTable(pageNo){
+                        $.ajax({
+                            beforeSend : function(xhr) {
+                                xhr.setRequestHeader(header, token);
+                            },
+                            type: "GET",
+                            url: url,
+                            data: {},
+                            success: function(data){
+                               for (let i = 0; i < numOfRows; i++) {
+                                    let table_html='';
+                                    table_html += '<tr>';
+                                    table_html += '  <td>'+data[i]['DESC_KOR']+'</td>';
+                                    table_html += '  <td>'+bodyData.items[i]['prdtnm']+'</td>';
+                                    table_html += '  <td>'+bodyData.items[i]['sellyear']+'</td>';
+                                    table_html += '</tr>';
+
+                                    $('#shopping_api>tbody').append(table_html);
+                               }
+                            }
+                        })
+                    }
+
+                    function displayData(pageNo) {
+                      $('#shopping_api>tbody').empty();
+<!--                      if($(px_name)==""){-->
+<!--                        url = `http://apis.data.go.kr/1471000/FoodNtrIrdntInfoService1/getFoodNtrItdntList1?ServiceKey=${serviceKey}&numOfRows=${numOfRows}&pageNo=${pageNo}&type=json`;-->
+<!--                      }else{-->
+<!--                        url = `http://apis.data.go.kr/1471000/FoodNtrIrdntInfoService1/getFoodNtrItdntList1?ServiceKey=${serviceKey}&numOfRows=${numOfRows}&pageNo=${pageNo}&type=json&desc_kor=${desc_kor}`;-->
+<!--                      }-->
+                      setTable(pageNo);
+                    }
+
+                    function paging(totalCount, numOfRows, pageCount, pageNo) {
+
+                      if(totalPage<pageCount){
+                        pageCount=totalPage;
+                      }
+
+                      let pageGroup = Math.ceil(pageNo / pageCount); // 페이지 그룹
+                      let last = pageGroup * pageCount; //화면에 보여질 마지막 페이지 번호
+
+                      if (last > totalPage) {
+                        last = totalPage;
+                      }
+
+                      let first = last - (pageCount - 1); //화면에 보여질 첫번째 페이지 번호
+                      let next = last + 1;
+                      let prev = first - 1;
+
+                      let pageHtml = "";
+
+                      if (prev > 0) {
+                        pageHtml += "<li><a href='#' id='prev'> 이전 </a></li>";
+                      }
+
+                     //페이징 번호 표시
+                      for (var i = first; i <= last; i++) {
+                        if (pageNo == i) {
+                          pageHtml +=
+                            "<li class='on'><a href='#' id='" + i + "'>" + i + "</a></li>";
+                        } else {
+                          pageHtml += "<li><a href='#' id='" + i + "'>" + i + "</a></li>";
+                        }
+                      }
+
+                      if (last < totalPage) {
+                        pageHtml += "<li><a href='#' id='next'> 다음 </a></li>";
+                      }
+
+                      $("#shopping_pagingul").html(pageHtml);
+                      let displayCount = "";
+                      displayCount = `현재 ${pageNo} - ${totalPage} 페이지 / ${totalCount}건`;
+                      $("#shopping_displayCount").text(displayCount);
+
+
+                      //페이징 번호 클릭 이벤트
+                      $("#shopping_pagingul li a").click(function () {
+                        let $id = $(this).attr("id");
+                        selectedPage = $(this).text();
+
+                        if ($id == "next") selectedPage = next;
+                        if ($id == "prev") selectedPage = prev;
+
+                        pageNo = selectedPage;
+                        paging(totalCount, numOfRows, pageCount, pageNo);
+                        displayData(pageNo);
+                      });
+                    }
                   });
                   $("#add_shopping_by_text").off('click').on("click",function(){
                     $("#add_shopping_by_text_modal").modal("show");
