@@ -139,6 +139,36 @@ public class MyPlannerController {
 
     }
 
+    @GetMapping("getpxapi/{start}/{end}/{search}")
+    @ResponseBody
+    public String getPxApi(@PathVariable Long start, @PathVariable Long end, @PathVariable String search) throws IOException {
+        String serviceKey = "3733313631313630353532323832313332";
+        String resultType = "json";
+        String service = "DS_MND_PX_PARD_PRDT_INFO";
+        String string_url = "https://openapi.mnd.go.kr/" + serviceKey + "/" + resultType + "/" + service + "/" + start + "/" + end;
+        URL url = new URL(string_url);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+        BufferedReader rd;
+
+        // 서비스코드가 정상이면 200~300사이의 숫자가 나옵니다.
+        if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
+            rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        } else {
+            rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+        }
+        StringBuilder sb = new StringBuilder();
+        String line;
+        while ((line = rd.readLine()) != null) {
+            sb.append(line);
+        }
+        rd.close();
+        conn.disconnect();
+
+        return sb.toString();
+
+    }
+
 
     @DeleteMapping(value = "delete")
     @ResponseBody

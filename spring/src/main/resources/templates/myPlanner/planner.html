@@ -460,9 +460,6 @@
                     let url;
 
                     //초기 렌더링
-                    start = 1;
-                    end = 1;
-                    url = `/myPlanner/getpxapi/${start}/${end}`
                     init();
                     totalPage = Math.ceil(totalCount/numOfRows);
 
@@ -472,35 +469,60 @@
 
                     $('#search_px').off('click').on("click", function(){
                         px_name = $('#px_name_input').val()
-<!--                        if($(px_name)==""){-->
-<!--                            pageNo = 1;-->
-<!--                            url = `https://openapi.mnd.go.kr/${serviceKey}/${resultType}/${service}/{start}/{totalCount}`-->
-<!--                            init();-->
-<!--                            totalPage = Math.ceil(totalCount/numOfRows);-->
-<!--                            paging(totalCount, numOfRows, pageCount, pageNo);-->
-<!--                            displayData(pageNo);-->
-<!--                        }else{-->
-<!--                            pageNo = 1;-->
-<!--                            px_name = $('#px_name_input').val();-->
-<!--                            url = `http://apis.data.go.kr/1471000/FoodNtrIrdntInfoService1/getFoodNtrItdntList1?ServiceKey=${serviceKey}&numOfRows=${numOfRows}&pageNo=${pageNo}&type=json&desc_kor=${desc_kor}`;-->
-<!--                            init();-->
-<!--                            totalPage = Math.ceil(totalCount/numOfRows);-->
-<!--                            paging(totalCount, numOfRows, pageCount, pageNo);-->
-<!--                            displayData(pageNo);-->
-<!--                        }-->
+                        if($(px_name)==""){
+                            init();
+                            totalPage = Math.ceil(totalCount/numOfRows);
+                            url = `/myPlanner/getpxapi/${start}/${totalCount}`
+                            paging(totalCount, numOfRows, pageCount, pageNo);
+                            displayData(pageNo);
+                        }else{
+                            px_name = $('#px_name_input').val();
+                            search_init(px_name);
+                            totalPage = Math.ceil(totalCount/numOfRows);
+                            paging(totalCount, numOfRows, pageCount, pageNo);
+                            displayData(pageNo);
+                        }
                     });
 
                     //totalCount를 먼저 받아옴으로써 api가 정상적인지와 총 데이터의 갯수를 파악
                     function init() {
                         pageNo = 1;
+                        start = 1;
+                        end = 1;
+                        url = `/myPlanner/getpxapi/${start}/${end}`
                         $.ajax({
                             type: "GET",
                             url: url,
                             data: {},
                             async: false,
                             success: function(data) {
-                                data = JSON.parse(data); //string -> json
-                                totalCount = data.DS_MND_PX_PARD_PRDT_INFO.list_total_count;
+                                jsonData = JSON.parse(data); //string -> json
+                                totalCount = jsonData.DS_MND_PX_PARD_PRDT_INFO.list_total_count;
+                            }
+                        })
+                    }
+
+                    //px 검색 했을 경우 init
+                    function search_init(px_name) {
+                        pageNo = 1;
+                        start = 1;
+                        end = totalCount;
+                        url = `/myPlanner/getpxapi/${start}/${end}`
+                        $.ajax({
+                            type: "GET",
+                            url: url,
+                            data: {},
+                            async: false,
+                            success: function(data) {
+                                jsonData = JSON.parse(data).DS_MND_PX_PARD_PRDT_INFO;; //string -> json
+                                actual_totalCount = jsonData.list_total_count;
+                                totalCount = 0;
+                                for (let i = 0; i < actual_totalCount; i++) {
+                                    if((jsonData.row[i]['prdtnm']).includes(px_name)){
+                                        totalCount += 1;
+                                    }
+                                }
+                                alert(totalCount);
                             }
                         })
                     }
@@ -525,16 +547,31 @@
                                 }
                             }
                         })
+                    }
 
+                    function setTable(pageNo, search){
+                        $.ajax({
+                            type: "GET",
+                            url: url,
+                            data: {},
+                            async: false,
+                            success: function(data) {
+                                let jsonData = JSON.parse(data).DS_MND_PX_PARD_PRDT_INFO; //string -> json
+                                for (let i = 0; i < numOfRows; i++) {
+                                    let table_html='';
+                                    table_html += '<tr>';
+                                    table_html += '  <td>'+jsonData.row[i]['prdtnm']+'</td>';
+                                    table_html += '  <td>'+jsonData.row[i]['sellyear']+'</td>';
+                                    table_html += '</tr>';
+
+                                    $('#px_api_body').append(table_html);
+                                }
+                            }
+                        })
                     }
 
                     function displayData(pageNo) {
                       $('#px_api_body').empty();
-<!--                      if($(px_name)==""){-->
-<!--                        url = `http://apis.data.go.kr/1471000/FoodNtrIrdntInfoService1/getFoodNtrItdntList1?ServiceKey=${serviceKey}&numOfRows=${numOfRows}&pageNo=${pageNo}&type=json`;-->
-<!--                      }else{-->
-<!--                        url = `http://apis.data.go.kr/1471000/FoodNtrIrdntInfoService1/getFoodNtrItdntList1?ServiceKey=${serviceKey}&numOfRows=${numOfRows}&pageNo=${pageNo}&type=json&desc_kor=${desc_kor}`;-->
-<!--                      }-->
 
                       $('#add_shopping_by_px_api_modal').scrollTop(0);
                       setTable(pageNo);
