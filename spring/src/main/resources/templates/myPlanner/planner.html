@@ -496,11 +496,9 @@
                             data: {},
                             async: false,
                             success: function(data) {
-<!--                                data = JSON.stringify(data);-->
-<!--                                data = JSON.parse(data); //string -> json-->
-<!--                                alert(data.contents);-->
-<!--                                totalCount = data.contents.DS_MND_PX_PARD_PRDT_INFO.list_total_count;-->
-<!--                                alert(totalCount);-->
+                                data = JSON.parse(data); //string -> json
+                                totalCount = data.DS_MND_PX_PARD_PRDT_INFO.list_total_count;
+                                alert(totalCount);
                             }
                         })
 
