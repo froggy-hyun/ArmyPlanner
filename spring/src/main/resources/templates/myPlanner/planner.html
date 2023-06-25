@@ -713,7 +713,7 @@
                         if($('#shopping_name').val() !=""){
                             $('#shopping_name').val($('#shopping_name').val() + "/");
                         }
-                        let shopping_name = `${td.eq(0).text()} (${price} 원)`;
+                        let shopping_name = `${td.eq(0).text()} (${price}원)`;
                         $('#shopping_name').val($('#shopping_name').val() + shopping_name);
                         $('#total_price').val((Number($('#total_price').val()) + Number(price)));
 
@@ -723,6 +723,17 @@
                   });
                   $("#add_shopping_by_text").off('click').on("click",function(){
                     $("#add_shopping_by_text_modal").modal("show");
+
+                    $(document).off('click').on('click', '#add_shopping_by_text_save', function(){
+                        if($('#shopping_name').val() !=""){
+                            $('#shopping_name').val($('#shopping_name').val() + "/");
+                        }
+                        let shopping_name = `${$('#item_name_text').val()} (${$('#price').val()}원)`;
+                        $('#shopping_name').val($('#shopping_name').val() + shopping_name);
+                        $('#total_price').val((Number($('#total_price').val()) + Number($('#price').val())));
+
+                        $("#add_shopping_by_text_modal").modal("hide");
+                    })
                   });
                 } else if(eventType == "location") {
                   $('#location_input').css('display','block');
