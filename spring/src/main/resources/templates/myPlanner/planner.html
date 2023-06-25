@@ -335,14 +335,14 @@
                                     table_html += '  <td>'+bodyData.items[i]['NUTR_CONT9']+'</td>';
                                     table_html += '</tr>';
 
-                                    $('#diet_api>tbody').append(table_html);
+                                    $('#diet_api_body').append(table_html);
                                }
                             }
                         })
                     }
 
                     function displayData(pageNo) {
-                      $('#diet_api>tbody').empty();
+                      $('#diet_api_body').empty();
                       if($(desc_kor)==""){
                         url = `http://apis.data.go.kr/1471000/FoodNtrIrdntInfoService1/getFoodNtrItdntList1?ServiceKey=${serviceKey}&numOfRows=${numOfRows}&pageNo=${pageNo}&type=json`;
                       }else{
@@ -465,6 +465,8 @@
                     url = `/myPlanner/getpxapi/${start}/${end}`
                     init();
                     totalPage = Math.ceil(totalCount/numOfRows);
+
+                    url = `/myPlanner/getpxapi/${start}/${totalCount}`
                     paging(totalCount, numOfRows, pageCount, pageNo);
                     displayData(pageNo);
 
@@ -490,6 +492,7 @@
 
                     //totalCount를 먼저 받아옴으로써 api가 정상적인지와 총 데이터의 갯수를 파악
                     function init() {
+                        pageNo = 1;
                         $.ajax({
                             type: "GET",
                             url: url,
@@ -498,33 +501,27 @@
                             success: function(data) {
                                 data = JSON.parse(data); //string -> json
                                 totalCount = data.DS_MND_PX_PARD_PRDT_INFO.list_total_count;
-                                alert(totalCount);
                             }
                         })
-
-
-                        totalCount = getData.DS_MND_PX_PARD_PRDT_INFO.list_total_count;
-                        alert(totalCount);
                     }
 
                     //데이터 가져오기
                     function setTable(pageNo){
-                        alloriginsUrl = `https://api.allorigins.win/get?url=${url}`;
                         $.ajax({
                             type: "GET",
-                            url: alloriginsUrl,
+                            url: url,
                             data: {},
                             async: false,
                             success: function(data) {
+                                let jsonData = JSON.parse(data).DS_MND_PX_PARD_PRDT_INFO; //string -> json
                                 for (let i = 0; i < numOfRows; i++) {
-                                let table_html='';
-                                table_html += '<tr>';
-                                table_html += '  <td>'+data.DS_MND_PX_PARD_PRDT_INFO.row[i]['prdtnm']+'</td>';
-                                table_html += '  <td>'+data.DS_MND_PX_PARD_PRDT_INFO.row[i]['sellyear']+'</td>';
-                                table_html += '</tr>';
+                                    let table_html='';
+                                    table_html += '<tr>';
+                                    table_html += '  <td>'+jsonData.row[i]['prdtnm']+'</td>';
+                                    table_html += '  <td>'+jsonData.row[i]['sellyear']+'</td>';
+                                    table_html += '</tr>';
 
-                                $('#shopping_api>tbody').append(table_html);
-
+                                    $('#px_api_body').append(table_html);
                                 }
                             }
                         })
@@ -532,7 +529,7 @@
                     }
 
                     function displayData(pageNo) {
-                      $('#shopping_api>tbody').empty();
+                      $('#px_api_body').empty();
 <!--                      if($(px_name)==""){-->
 <!--                        url = `http://apis.data.go.kr/1471000/FoodNtrIrdntInfoService1/getFoodNtrItdntList1?ServiceKey=${serviceKey}&numOfRows=${numOfRows}&pageNo=${pageNo}&type=json`;-->
 <!--                      }else{-->
