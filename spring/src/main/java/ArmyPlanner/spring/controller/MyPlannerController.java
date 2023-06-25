@@ -177,7 +177,7 @@ public class MyPlannerController {
                 .end(end)
                 .allDay(allDay)
                 .member(member)
-                .build().toEntity_text();
+                .build().toEntity_shopping();
 
         eventService.saveEvent(eventShopping);
     }

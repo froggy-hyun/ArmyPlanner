@@ -472,7 +472,6 @@
                         alert("종료일이 시작일보다 먼저입니다.");
                       }else{ // 정상적인 입력 시
                         var obj = {
-
                           "eventType" : "shopping",
                           "title" : shopping_title,
                           "start" : start,
@@ -835,6 +834,9 @@
             document.getElementById("transFattyAcids_info").value = arg.event.extendedProps.transFattyAcids;
           }else if(arg.event.extendedProps.eventType == "shopping"){
             $('#shopping_info').css('display','block');
+            document.getElementById("shopping_title_info").value = arg.event.title;
+            document.getElementById("shopping_name_info").value = arg.event.extendedProps.shopping_name;
+            document.getElementById("totalPrice_info").value = arg.event.extendedProps.total_price;
           }else if(arg.event.extendedProps.eventType == "location"){
             $('#location_info').css('display','block');
           }else if(arg.event.extendedProps.eventType == "text"){
@@ -1053,8 +1055,8 @@
                   <input type="text" id="shopping_title_info" class="form-control" name="info_event_shopping">
                   <label for="info_event_shopping_info" class="col-form-label">소비 내용</label>
                   <fieldset id="info_event_shopping_info">
-                      <input type="text" id="shopping_name_info" class="form-control" name="info_event_diet" placeholder="상품명 + 가격">
-                      <input type="number" id="totalPrice_info" class="form-control" name="info_event_diet" placeholder="가격 총 합">
+                      <input type="text" id="shopping_name_info" class="form-control" name="info_shopping_diet">
+                      <input type="number" id="totalPrice_info" class="form-control" name="info_shopping_diet">
                   </fieldset>
               </fieldset>
           </div>

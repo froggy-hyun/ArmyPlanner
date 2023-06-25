@@ -42,6 +42,9 @@ public class EventService {
             eventTextDto.setSaturatedFattyAcids(list.get(i).getSaturatedFattyAcids());
             eventTextDto.setTransFattyAcids(list.get(i).getTransFattyAcids());
 
+            eventTextDto.setShopping_name(list.get(i).getShopping_name());
+            eventTextDto.setTotal_price(list.get(i).getTotal_price());
+
             eventTextDto.setStart(list.get(i).getStart().toString());
             eventTextDto.setEnd(list.get(i).getEnd().toString());
             eventTextDto.setAllDay(list.get(i).isAllDay());
