@@ -443,7 +443,7 @@
                   })
                 } else if(eventType == "shopping") {
                   $('#shopping_input').css('display','block');
-                  $('#add_event_shopping').attr('disabled', false);
+                  $('#shopping_title').attr('disabled', false);
                   $("#add_event_modal").modal("show");
                   $("#add_shopping_by_px_api").off('click').on("click",function(){
                     $("#add_shopping_by_px_api_modal").modal("show");
@@ -891,18 +891,21 @@
               <input type="number" id="transFattyAcids" class="form-control" name="calendar_content" placeholder="1회 섭취 트랜스지방산 합(g)" disabled="true">
           </div>
           <div id="shopping_input">
-              <label for="add_event_shopping" class="col-form-label">소비 기록</label>
+              <label for="shopping_input" class="col-form-label">소비 기록 추가</label>
+              <input type="text" id="shopping_title" class="form-control" name="calendar_content" placeholder="제목 예) 점심 식단" value="" disabled="true">
+              <br>
               <div class= "buttons" id="shopping_buttons">
                   <input type="button" id="add_shopping_by_px_api" class="btnAdd btn btn-dark" value="px 물품 검색 추가">
                   <input type="button" id="add_shopping_by_text" class="btn btn-outline-secondary" value="텍스트로 추가">
               </div>
-              <input type="text" class="form-control" id="add_event_shopping" name="calendar_content" disabled="true">
+              <input type="text" id="shopping_name" class="form-control" name="calendar_content" placeholder="상품명 + 금액" value="" disabled="true">
+              <input type="number" id="total_price" class="form-control" name="calendar_content" placeholder="총 금액 (원)" disabled="true">
           </div>
           <div id="location_input">
               <label for="add_event_location" class="col-form-label">장소 추가</label>
               <input type="text" class="form-control" id="add_event_location" name="calendar_content" disabled="true">
           </div>
-          <div id="text_inputbtn-">
+          <div id="text_input">
               <label for="add_event_text" class="col-form-label">텍스트 추가</label>
               <input type="text" class="form-control" id="add_event_text" name="calendar_content" disabled="true">
           </div>
@@ -943,7 +946,7 @@
               <fieldset id="info_event_diet" disabled="true">
                   <label for="diet_title_info" class="col-form-label">식단 제목</label>
                   <input type="text" id="diet_title_info" class="form-control" name="info_event_diet">
-                  <label for="info_event_diet" class="col-form-label">식단 내용</label>
+                  <label for="info_event_diet_info" class="col-form-label">식단 내용</label>
                   <fieldset id="info_event_diet_info">
                       <input type="text" id="food_name_info" class="form-control" name="info_event_diet">
                       <input type="number" id="kcal_info" class="form-control" name="info_event_diet">
@@ -959,8 +962,15 @@
               </fieldset>
           </div>
           <div id="shopping_info">
-              <label for="info_event_shopping" class="col-form-label">소비 내용</label>
-              <input type="text" class="form-control" id="info_event_shopping" name="info_calendar_text" disabled="true">
+              <fieldset id="info_event_shopping" disabled="true">
+                  <label for="shopping_title_info" class="col-form-label">소비 기록 제목</label>
+                  <input type="text" id="shopping_title_info" class="form-control" name="info_event_shopping">
+                  <label for="info_event_shopping_info" class="col-form-label">소비 내용</label>
+                  <fieldset id="info_event_shopping_info">
+                      <input type="text" id="shopping_name_info" class="form-control" name="info_event_diet" placeholder="상품명 + 가격">
+                      <input type="number" id="totalPrice_info" class="form-control" name="info_event_diet" placeholder="가격 총 합">
+                  </fieldset>
+              </fieldset>
           </div>
           <div id="location_info">
               <label for="info_event_location" class="col-form-label">장소 내용</label>
