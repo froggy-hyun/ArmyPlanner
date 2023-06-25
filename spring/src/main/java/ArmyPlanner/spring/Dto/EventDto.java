@@ -37,6 +37,10 @@ public class EventDto {
     private String saturatedFattyAcids;
     private String transFattyAcids;
 
+    //  소비 기록 --------------------
+    private String shopping_name;
+    private String total_price;
+
 //    private String description;
 
     private String start;
@@ -76,6 +80,22 @@ public class EventDto {
                 .cholesterol(cholesterol)
                 .saturatedFattyAcids(saturatedFattyAcids)
                 .transFattyAcids(transFattyAcids)
+                .start(LocalDateTime.parse(start, dateTimeFormatter))
+                .end(LocalDateTime.parse(end, dateTimeFormatter))
+                .allDay(allDay)
+                .member(member)
+                .build();
+
+    }
+
+    public Event toEntity_shopping() {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm", Locale.KOREA);
+
+        return Event.builder()
+                .eventType(eventType)
+                .title(title)
+                .food_name(shopping_name)
+                .kcal(total_price)
                 .start(LocalDateTime.parse(start, dateTimeFormatter))
                 .end(LocalDateTime.parse(end, dateTimeFormatter))
                 .allDay(allDay)

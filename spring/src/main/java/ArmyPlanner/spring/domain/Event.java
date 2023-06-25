@@ -37,6 +37,10 @@ public class Event {
     private String saturatedFattyAcids;
     private String transFattyAcids;
 
+//  소비 기록 --------------------
+    private String shopping_name;
+    private String total_price;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+9")
     private LocalDateTime start;

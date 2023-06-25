@@ -42,7 +42,9 @@ public class MyPlannerController {
     @ResponseBody
     public void addEvent_text(@RequestBody EventDto eventTextDto, Principal principal) throws Exception {
         String eventType = eventTextDto.getEventType();
+
         String title = eventTextDto.getTitle();
+
         String start = eventTextDto.getStart();
         String end = eventTextDto.getEnd();
         boolean allDay = eventTextDto.isAllDay();
@@ -64,24 +66,26 @@ public class MyPlannerController {
 
     @PostMapping(value = "create_diet")
     @ResponseBody
-    public void addEvent_diet(@RequestBody EventDto eventTextDto, Principal principal) throws Exception {
-        String eventType = eventTextDto.getEventType();
-        String title = eventTextDto.getTitle();
-        String food_name = eventTextDto.getFood_name();
-        String kcal = eventTextDto.getKcal();
-        String carbohydrate = eventTextDto.getCarbohydrate();
-        String protein = eventTextDto.getProtein();
-        String fat = eventTextDto.getFat();
-        String sugar = eventTextDto.getSugar();
-        String salt = eventTextDto.getSalt();
-        String cholesterol = eventTextDto.getCholesterol();
-        String saturatedFattyAcids = eventTextDto.getSaturatedFattyAcids();
-        String transFattyAcids = eventTextDto.getTransFattyAcids();
+    public void addEvent_diet(@RequestBody EventDto eventDietDto, Principal principal) throws Exception {
+        String eventType = eventDietDto.getEventType();
+
+        String title = eventDietDto.getTitle();
+
+        String food_name = eventDietDto.getFood_name();
+        String kcal = eventDietDto.getKcal();
+        String carbohydrate = eventDietDto.getCarbohydrate();
+        String protein = eventDietDto.getProtein();
+        String fat = eventDietDto.getFat();
+        String sugar = eventDietDto.getSugar();
+        String salt = eventDietDto.getSalt();
+        String cholesterol = eventDietDto.getCholesterol();
+        String saturatedFattyAcids = eventDietDto.getSaturatedFattyAcids();
+        String transFattyAcids = eventDietDto.getTransFattyAcids();
 
 
-        String start = eventTextDto.getStart();
-        String end = eventTextDto.getEnd();
-        boolean allDay = eventTextDto.isAllDay();
+        String start = eventDietDto.getStart();
+        String end = eventDietDto.getEnd();
+        boolean allDay = eventDietDto.isAllDay();
         String username = principal.getName();
         Member member = memberRepository.findByEmail(username);
 
@@ -172,9 +176,40 @@ public class MyPlannerController {
 
     @DeleteMapping(value = "delete")
     @ResponseBody
-    public void deleteEvent(@RequestBody EventDto eventTextDto, Principal principal) throws Exception {
-        Long id = eventTextDto.getId();
+    public void deleteEvent(@RequestBody EventDto eventDto, Principal principal) throws Exception {
+        Long id = eventDto.getId();
         eventService.deleteEvent(id);
+    }
+
+    @PostMapping(value = "create_shopping")
+    @ResponseBody
+    public void addEvent_shopping(@RequestBody EventDto eventShoppingDto, Principal principal) throws Exception {
+        String eventType = eventShoppingDto.getEventType();
+
+        String title = eventShoppingDto.getTitle();
+
+        String shopping_name = eventShoppingDto.getShopping_name();
+        String totalPrice = eventShoppingDto.getTotal_price();
+
+        String start = eventShoppingDto.getStart();
+        String end = eventShoppingDto.getEnd();
+        boolean allDay = eventShoppingDto.isAllDay();
+        String username = principal.getName();
+        Member member = memberRepository.findByEmail(username);
+
+
+        Event eventShopping = EventDto.builder()
+                .eventType(eventType)
+                .title(title)
+                .shopping_name(shopping_name)
+                .total_price(totalPrice)
+                .start(start)
+                .end(end)
+                .allDay(allDay)
+                .member(member)
+                .build().toEntity_text();
+
+        eventService.saveEvent(eventShopping);
     }
 
 }
