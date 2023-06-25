@@ -445,6 +445,66 @@
                   $('#shopping_input').css('display','block');
                   $('#shopping_title').attr('disabled', false);
                   $("#add_event_modal").modal("show");
+                  $("#add_event_save").off('click').on("click",function(){  // modal의 일정 추가 버튼 클릭 시 - 식단
+                      var shopping_title = $("#shopping_title").val();
+                      var shopping_name = $("#shopping_name").val();
+                      var total_price = $("#total_price").val();
+
+                      var start_date = $("#add_event_start_date").val();
+                      var start_time = $("#add_event_start_time").val();
+                      var end_date = $("#add_event_end_date").val();
+                      var end_time = $("#add_event_end_time").val();
+
+                      var allDay = true;
+                      if($('input:radio[id=set_time]').is(':checked')){
+                        allDay = false;
+                      }
+
+                      var start = start_date + " " + start_time;
+                      var end = end_date + " " + end_time;
+
+                      //내용 입력 여부 확인
+                      if(shopping_title == null || shopping_title == "" || shopping_name == null || shopping_name == "" ){
+                        alert("내용을 입력하세요.");
+                      }else if(start_date == "" || end_date ==""){
+                        alert("날짜를 입력하세요.");
+                      }else if(new Date(end)- new Date(start) < 0){ // date 타입으로 변경 후 확인
+                        alert("종료일이 시작일보다 먼저입니다.");
+                      }else{ // 정상적인 입력 시
+                        var obj = {
+
+                          "eventType" : "shopping",
+                          "title" : shopping_title,
+                          "start" : start,
+                          "end" : end,
+                          "allDay" : allDay,
+                          "shopping_name" : shopping_name,
+                          "total_price" : total_price,
+                        }//전송할 객체 생성
+                        var eventShopping = JSON.stringify(obj)
+                        $.ajax({
+                          url: "/myPlanner/create_diet",
+                          method: "POST",
+                          dataType: "text",
+                          data: eventShopping,
+                          contentType: 'application/json',
+                          beforeSend : function(xhr) {
+                            xhr.setRequestHeader(header, token);
+                          },
+                          success : function(){
+                            alert("등록을 완료하였습니다!");
+                          },
+                          fail : function (request, status, error){
+                            alert("에러 발생" + error)
+                          },
+                          complete : function(){
+                            location.replace("");
+                          }
+                        })
+                        calendar.unselect();
+                      }
+                  });
+
                   $("#add_shopping_by_px_api").off('click').on("click",function(){
                     $("#add_shopping_by_px_api_modal").modal("show");
 
