@@ -391,7 +391,7 @@
                       $("#diet_pagingul").html(pageHtml);
                       let displayCount = "";
                       displayCount = `현재 ${pageNo} - ${totalPage} 페이지 / ${totalCount}건`;
-                      $("#displayCount").text(displayCount);
+                      $("#diet_displayCount").text(displayCount);
 
 
                       //페이징 번호 클릭 이벤트
@@ -408,7 +408,7 @@
                       });
                     }
 
-                    $(document).off('click').on('click', '#diet_api tbody>tr', function(){
+                    $(document).off('click').on('click', '#diet_api_body>tr', function(){
                         var tr = $(this);
                         var td = tr.children();
                         if($('#food_name').val() !=""){
@@ -472,22 +472,22 @@
 
                     $('#search_px').off('click').on("click", function(){
                         px_name = $('#px_name_input').val()
-                        if($(px_name)==""){
-                            pageNo = 1;
-                            url = `https://openapi.mnd.go.kr/${serviceKey}/${resultType}/${service}/{start}/{totalCount}`
-                            init();
-                            totalPage = Math.ceil(totalCount/numOfRows);
-                            paging(totalCount, numOfRows, pageCount, pageNo);
-                            displayData(pageNo);
-                        }else{
-                            pageNo = 1;
-                            px_name = $('#px_name_input').val();
-                            url = `http://apis.data.go.kr/1471000/FoodNtrIrdntInfoService1/getFoodNtrItdntList1?ServiceKey=${serviceKey}&numOfRows=${numOfRows}&pageNo=${pageNo}&type=json&desc_kor=${desc_kor}`;
-                            init();
-                            totalPage = Math.ceil(totalCount/numOfRows);
-                            paging(totalCount, numOfRows, pageCount, pageNo);
-                            displayData(pageNo);
-                        }
+<!--                        if($(px_name)==""){-->
+<!--                            pageNo = 1;-->
+<!--                            url = `https://openapi.mnd.go.kr/${serviceKey}/${resultType}/${service}/{start}/{totalCount}`-->
+<!--                            init();-->
+<!--                            totalPage = Math.ceil(totalCount/numOfRows);-->
+<!--                            paging(totalCount, numOfRows, pageCount, pageNo);-->
+<!--                            displayData(pageNo);-->
+<!--                        }else{-->
+<!--                            pageNo = 1;-->
+<!--                            px_name = $('#px_name_input').val();-->
+<!--                            url = `http://apis.data.go.kr/1471000/FoodNtrIrdntInfoService1/getFoodNtrItdntList1?ServiceKey=${serviceKey}&numOfRows=${numOfRows}&pageNo=${pageNo}&type=json&desc_kor=${desc_kor}`;-->
+<!--                            init();-->
+<!--                            totalPage = Math.ceil(totalCount/numOfRows);-->
+<!--                            paging(totalCount, numOfRows, pageCount, pageNo);-->
+<!--                            displayData(pageNo);-->
+<!--                        }-->
                     });
 
                     //totalCount를 먼저 받아옴으로써 api가 정상적인지와 총 데이터의 갯수를 파악
@@ -535,7 +535,10 @@
 <!--                      }else{-->
 <!--                        url = `http://apis.data.go.kr/1471000/FoodNtrIrdntInfoService1/getFoodNtrItdntList1?ServiceKey=${serviceKey}&numOfRows=${numOfRows}&pageNo=${pageNo}&type=json&desc_kor=${desc_kor}`;-->
 <!--                      }-->
+
+                      $('#add_shopping_by_px_api_modal').scrollTop(0);
                       setTable(pageNo);
+
                     }
 
                     function paging(totalCount, numOfRows, pageCount, pageNo) {
@@ -590,6 +593,9 @@
                         if ($id == "prev") selectedPage = prev;
 
                         pageNo = selectedPage;
+                        start = ($id-1)*100 + 1;
+                        end = start + 99;
+                        url = `/myPlanner/getpxapi/${start}/${end}`;
                         paging(totalCount, numOfRows, pageCount, pageNo);
                         displayData(pageNo);
                       });
