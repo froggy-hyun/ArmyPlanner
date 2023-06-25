@@ -276,7 +276,7 @@
 
                     $('#search_food').off('click').on("click", function(){
                         desc_kor = $('#food_name_input').val()
-                        if($(desc_kor)==""){
+                        if(desc_kor == ""){
                             pageNo = 1;
                             url = `http://apis.data.go.kr/1471000/FoodNtrIrdntInfoService1/getFoodNtrItdntList1?ServiceKey=${serviceKey}&numOfRows=${numOfRows}&pageNo=${pageNo}&type=json`
                             init();
@@ -343,7 +343,7 @@
 
                     function displayData(pageNo) {
                       $('#diet_api_body').empty();
-                      if($(desc_kor)==""){
+                      if(desc_kor == ""){
                         url = `http://apis.data.go.kr/1471000/FoodNtrIrdntInfoService1/getFoodNtrItdntList1?ServiceKey=${serviceKey}&numOfRows=${numOfRows}&pageNo=${pageNo}&type=json`;
                       }else{
                         url = `http://apis.data.go.kr/1471000/FoodNtrIrdntInfoService1/getFoodNtrItdntList1?ServiceKey=${serviceKey}&numOfRows=${numOfRows}&pageNo=${pageNo}&type=json&desc_kor=${desc_kor}`;
@@ -447,13 +447,14 @@
                   $("#add_event_modal").modal("show");
                   $("#add_shopping_by_px_api").off('click').on("click",function(){
                     $("#add_shopping_by_px_api_modal").modal("show");
+
                     let pageNo;
                     const numOfRows = 100;
                     let start;
                     let end;
                     let totalPage;
                     let totalCount;
-                    let px_name;
+                    let px_name = "";
 
                     let pageCount = 8; //페이징에 나타낼 페이지 수
 
@@ -462,25 +463,24 @@
                     //초기 렌더링
                     init();
                     totalPage = Math.ceil(totalCount/numOfRows);
-
                     url = `/myPlanner/getpxapi/${start}/${totalCount}`
                     paging(totalCount, numOfRows, pageCount, pageNo);
-                    displayData(pageNo);
+                    displayData();
 
                     $('#search_px').off('click').on("click", function(){
                         px_name = $('#px_name_input').val()
-                        if($(px_name)==""){
+                        if(px_name == ""){
                             init();
                             totalPage = Math.ceil(totalCount/numOfRows);
                             url = `/myPlanner/getpxapi/${start}/${totalCount}`
                             paging(totalCount, numOfRows, pageCount, pageNo);
-                            displayData(pageNo);
+                            displayData();
                         }else{
                             px_name = $('#px_name_input').val();
                             search_init(px_name);
-                            totalPage = Math.ceil(totalCount/numOfRows);
-                            paging(totalCount, numOfRows, pageCount, pageNo);
-                            displayData(pageNo);
+                            totalPage = Math.ceil(search_totalCount/numOfRows);
+                            paging(search_totalCount, numOfRows, pageCount, pageNo);
+                            search_displayData();
                         }
                     });
 
@@ -502,6 +502,7 @@
                         })
                     }
 
+                    let search_totalCount;
                     //px 검색 했을 경우 init
                     function search_init(px_name) {
                         pageNo = 1;
@@ -516,13 +517,12 @@
                             success: function(data) {
                                 jsonData = JSON.parse(data).DS_MND_PX_PARD_PRDT_INFO;; //string -> json
                                 actual_totalCount = jsonData.list_total_count;
-                                totalCount = 0;
+                                search_totalCount = 0;
                                 for (let i = 0; i < actual_totalCount; i++) {
                                     if((jsonData.row[i]['prdtnm']).includes(px_name)){
-                                        totalCount += 1;
+                                        search_totalCount += 1;
                                     }
                                 }
-                                alert(totalCount);
                             }
                         })
                     }
@@ -549,7 +549,7 @@
                         })
                     }
 
-                    function setTable(pageNo, search){
+                    function search_setTable(pageNo, px_name){
                         $.ajax({
                             type: "GET",
                             url: url,
@@ -558,24 +558,32 @@
                             success: function(data) {
                                 let jsonData = JSON.parse(data).DS_MND_PX_PARD_PRDT_INFO; //string -> json
                                 for (let i = 0; i < numOfRows; i++) {
-                                    let table_html='';
-                                    table_html += '<tr>';
-                                    table_html += '  <td>'+jsonData.row[i]['prdtnm']+'</td>';
-                                    table_html += '  <td>'+jsonData.row[i]['sellyear']+'</td>';
-                                    table_html += '</tr>';
+                                     if((jsonData.row[i]['prdtnm']).includes(px_name)){
+                                        let table_html='';
+                                        table_html += '<tr>';
+                                        table_html += '  <td>'+jsonData.row[i]['prdtnm']+'</td>';
+                                        table_html += '  <td>'+jsonData.row[i]['sellyear']+'</td>';
+                                        table_html += '</tr>';
 
-                                    $('#px_api_body').append(table_html);
+                                        $('#px_api_body').append(table_html);
+                                     }
                                 }
                             }
                         })
                     }
 
-                    function displayData(pageNo) {
+                    function displayData() {
                       $('#px_api_body').empty();
 
                       $('#add_shopping_by_px_api_modal').scrollTop(0);
-                      setTable(pageNo);
+                      setTable(pageNo, px_name);
+                    }
 
+                    function search_displayData() {
+                      $('#px_api_body').empty();
+
+                      $('#add_shopping_by_px_api_modal').scrollTop(0);
+                      search_setTable(pageNo, px_name);
                     }
 
                     function paging(totalCount, numOfRows, pageCount, pageNo) {
