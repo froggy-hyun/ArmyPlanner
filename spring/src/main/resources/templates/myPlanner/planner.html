@@ -645,6 +645,21 @@
                         displayData(pageNo);
                       });
                     }
+
+                    $(document).off('click').on('click', '#px_api_body>tr', function(){
+                        let price = prompt('가격을 입력하세요. 공백 시 0원','0');
+                        var tr = $(this);
+                        var td = tr.children();
+                        if($('#shopping_name').val() !=""){
+                            $('#shopping_name').val($('#shopping_name').val() + "/");
+                        }
+                        let shopping_name = `${td.eq(0).text()} (${price} 원)`;
+                        $('#shopping_name').val($('#shopping_name').val() + shopping_name);
+                        $('#total_price').val((Number($('#total_price').val()) + Number(price)));
+
+                        $("#add_shopping_by_px_api_modal").modal("hide");
+                    });
+
                   });
                   $("#add_shopping_by_text").off('click').on("click",function(){
                     $("#add_shopping_by_text_modal").modal("show");
