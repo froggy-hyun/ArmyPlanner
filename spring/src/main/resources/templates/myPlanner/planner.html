@@ -449,9 +449,6 @@
                     $("#add_shopping_by_px_api_modal").modal("show");
                     let pageNo;
                     const numOfRows = 100;
-                    let serviceKey = "3733313631313630353532323832313332";
-                    let resultType = "json";
-                    let service = "DS_MND_PX_PARD_PRDT_INFO";
                     let start;
                     let end;
                     let totalPage;
@@ -465,7 +462,7 @@
                     //초기 렌더링
                     start = 1;
                     end = 1;
-                    url = `https://openapi.mnd.go.kr/${serviceKey}/${resultType}/${service}/${start}/${end}`
+                    url = `/myPlanner/getpxapi/${start}/${end}`
                     init();
                     totalPage = Math.ceil(totalCount/numOfRows);
                     paging(totalCount, numOfRows, pageCount, pageNo);
@@ -493,18 +490,17 @@
 
                     //totalCount를 먼저 받아옴으로써 api가 정상적인지와 총 데이터의 갯수를 파악
                     function init() {
-                        alloriginsUrl = `https://api.allorigins.win/get?url=${url}`;
                         $.ajax({
                             type: "GET",
-                            url: alloriginsUrl,
+                            url: url,
                             data: {},
                             async: false,
                             success: function(data) {
-                                data = JSON.stringify(data);
-                                data = JSON.parse(data); //string -> json
-                                alert(data.contents);
-                                totalCount = data.contents.DS_MND_PX_PARD_PRDT_INFO.list_total_count;
-                                alert(totalCount);
+<!--                                data = JSON.stringify(data);-->
+<!--                                data = JSON.parse(data); //string -> json-->
+<!--                                alert(data.contents);-->
+<!--                                totalCount = data.contents.DS_MND_PX_PARD_PRDT_INFO.list_total_count;-->
+<!--                                alert(totalCount);-->
                             }
                         })
 

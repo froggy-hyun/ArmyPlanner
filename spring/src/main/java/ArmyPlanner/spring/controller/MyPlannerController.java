@@ -5,12 +5,16 @@ import ArmyPlanner.spring.domain.Event;
 import ArmyPlanner.spring.domain.Member;
 import ArmyPlanner.spring.repository.MemberRepository;
 import ArmyPlanner.spring.service.EventService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.security.Principal;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -104,6 +108,30 @@ public class MyPlannerController {
         eventService.saveEvent(eventDiet);
 
     }
+
+    @GetMapping("getpxapi/{start}/{end}")
+    @ResponseBody
+    public String getPxApi(@PathVariable Long start, @PathVariable Long end) throws IOException {
+        String serviceKey = "3733313631313630353532323832313332";
+        String resultType = "json";
+        String service = "DS_MND_PX_PARD_PRDT_INFO";
+        String string_url = "https://openapi.mnd.go.kr/" + serviceKey + "/" + resultType + "/" + service + "/" + start + "/" + end;
+        URL url = new URL(string_url);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+        Object result = conn.getContent();
+
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonStr = null;
+        try {
+            jsonStr = mapper.writeValueAsString(result);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return jsonStr;
+
+    }
+
 
     @DeleteMapping(value = "delete")
     @ResponseBody
