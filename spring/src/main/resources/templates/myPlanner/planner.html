@@ -193,12 +193,12 @@
                           "saturatedFattyAcids" : saturatedFattyAcids,
                           "transFattyAcids" : transFattyAcids,
                         }//전송할 객체 생성
-                        var eventText = JSON.stringify(obj)
+                        var eventDiet = JSON.stringify(obj)
                         $.ajax({
                           url: "/myPlanner/create_diet",
                           method: "POST",
                           dataType: "text",
-                          data: eventText,
+                          data: eventDiet,
                           contentType: 'application/json',
                           beforeSend : function(xhr) {
                             xhr.setRequestHeader(header, token);
@@ -483,7 +483,7 @@
                         }//전송할 객체 생성
                         var eventShopping = JSON.stringify(obj)
                         $.ajax({
-                          url: "/myPlanner/create_diet",
+                          url: "/myPlanner/create_shopping",
                           method: "POST",
                           dataType: "text",
                           data: eventShopping,
