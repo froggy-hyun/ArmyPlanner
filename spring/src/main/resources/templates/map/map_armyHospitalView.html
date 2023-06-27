@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/common :: head(title)" />
+<body>
+<nav th:replace="fragments/common :: menu(menu)" />
+<button href="/map/searchView" type="button" class="btn btn-secondary">장소 검색</button>
+<div class="btn-group">
+    <button type="button" class="btn btn-success">군인 전용 장소 보기</button>
+    <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+        <span class="visually-hidden">Toggle Dropdown</span>
+    </button>
+    <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="/map/armyFacilityView">군 복지 휴양 시설</a></li>
+        <li><a class="dropdown-item" href="/map/armyHospitalView">군 병원</a></li>
+        <li><a class="dropdown-item" href="/map/armyTmoView">TMO</a></li>
+    </ul>
+</div>
+</body>
+<footer th:replace="fragments/common :: footer"></footer>
+</html>
