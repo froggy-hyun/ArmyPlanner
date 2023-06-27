@@ -30,17 +30,18 @@
 2. 식단기능 (칼로리, 다양한 영양소)
 3. 소비기록
 4. 장소 추가 + 지도 검색 기능
-5. 회원 전용 분석 페이지(전날 식단 영양소 분석, 일별 소비 기록 분석 및 예상, 예정된 방문 장소) 
+5. 군 우대 정보 페이지
+6. 회원 전용 분석 페이지(전날 식단 영양소 분석, 일별 소비 기록 분석 및 예상, 예정된 방문 장소) 
 
 ### [사용 API]
 
 - 공공데이터 API
 1. <국가중점데이터> 식품의약품안전처_식품 영양성분 정보 https://www.data.go.kr/data/15057436/openapi.do
 2. <국방분야데이터> 국방부 PX 인기상품 정보 : PX 인기상품 정보 https://opendata.mnd.go.kr/openinf/sheetview2.jsp?infId=OA-9491  
-3. <국방분야데이터> 병사 할인 혜택 정보 : 병사 할인 혜택 정보 https://opendata.mnd.go.kr/openinf/sheetview2.jsp?infId=OA-9493  
-   <국방분야데이터> 전군 복지 휴양시설 위치정보 목록 : 군 복지 휴양시설 정보 https://opendata.mnd.go.kr/openinf/sheetview2.jsp?infId=OA-9441  
+4. <국방분야데이터> 전군 복지 휴양시설 위치정보 목록 : 군 복지 휴양시설 정보 https://opendata.mnd.go.kr/openinf/sheetview2.jsp?infId=OA-9441  
    <국방분야데이터> 군병원 정보 : 군병원 정보 https://opendata.mnd.go.kr/openinf/sheetview2.jsp?infId=OA-9436  
    <국방분야데이터> TMO(여행장병 안내소) 정보 : TMO(여행장병 안내소) 정보 https://opendata.mnd.go.kr/openinf/sheetview2.jsp?infId=OA-9595
+5. <국방분야데이터> 병사 할인 혜택 정보 : 병사 할인 혜택 정보 https://opendata.mnd.go.kr/openinf/sheetview2.jsp?infId=OA-9493  
 
 - 네이버 API     
 1. Web Dynamic Map  
