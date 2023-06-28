@@ -30,7 +30,7 @@ public class MapController {
 
     @GetMapping("armyFacilityView/getArmyFacilityApi/{start}/{end}")
     @ResponseBody
-    public String getPxApi(@PathVariable Long start, @PathVariable Long end) throws IOException {
+    public String getArmyFacilityApi(@PathVariable Long start, @PathVariable Long end) throws IOException {
         String serviceKey = "3733313631313630353532323832313332";
         String resultType = "json";
         String service = "DS_WHLAM_WLFR_VCTNINSTLT";
@@ -61,6 +61,36 @@ public class MapController {
     @GetMapping("armyHospitalView")
     public String armyHospitalView(){
         return "map/map_armyHospitalView";
+    }
+
+    @GetMapping("armyHospitalView/getArmyHospitalApi/{start}/{end}")
+    @ResponseBody
+    public String getArmyHospitalApi(@PathVariable Long start, @PathVariable Long end) throws IOException {
+        String serviceKey = "3733313631313630353532323832313332";
+        String resultType = "json";
+        String service = "DS_WHLNAT_ROKAHSPT_ADDR";
+        String string_url = "https://openapi.mnd.go.kr/" + serviceKey + "/" + resultType + "/" + service + "/" + start + "/" + end;
+        URL url = new URL(string_url);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+        BufferedReader rd;
+
+        // 서비스코드가 정상이면 200~300사이의 숫자가 나옵니다.
+        if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
+            rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        } else {
+            rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+        }
+        StringBuilder sb = new StringBuilder();
+        String line;
+        while ((line = rd.readLine()) != null) {
+            sb.append(line);
+        }
+        rd.close();
+        conn.disconnect();
+
+        return sb.toString();
+
     }
 
     @GetMapping("armyTmoView")
