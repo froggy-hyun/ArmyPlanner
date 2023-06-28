@@ -87,49 +87,52 @@
   // 지도를 생성합니다
   var map = new kakao.maps.Map(mapContainer, mapOption);
 
-  // 주소-좌표 변환 객체를 생성합니다
-  var geocoder = new kakao.maps.services.Geocoder();
+  // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
+  var infowindow = new kakao.maps.InfoWindow({zIndex:1});
 
   // 지도를 재설정할 범위정보를 가지고 있을 LatLngBounds 객체를 생성합니다
   var bounds = new kakao.maps.LatLngBounds(); //추가한 코드
 
+  var bounds = new kakao.maps.LatLngBounds();
   positions.forEach(function (position) {
-    // 주소로 좌표를 검색합니다
-    geocoder.addressSearch(position.address, function(result, status) {
+    // 장소 검색 객체를 생성합니다
+    var ps = new kakao.maps.services.Places();
 
-      // 정상적으로 검색이 완료됐으면
-      if (status === kakao.maps.services.Status.OK) {
+    // 키워드로 장소를 검색합니다
+    ps.keywordSearch(position.title, placesSearchCB);
 
-        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+    // 키워드 검색 완료 시 호출되는 콜백함수 입니다
+    function placesSearchCB (data, status, pagination) {
+        if (status === kakao.maps.services.Status.OK) {
 
-        // 결과값으로 받은 위치를 마커로 표시합니다
+            // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+            // LatLngBounds 객체에 좌표를 추가합니다
+            displayMarker(data[0]);
+            bounds.extend(new kakao.maps.LatLng(data[0].y, data[0].x));
+
+            // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+            map.setBounds(bounds);
+        }
+    }
+
+    // 지도에 마커를 표시하는 함수입니다
+    function displayMarker(place) {
+
+        // 마커를 생성하고 지도에 표시합니다
         var marker = new kakao.maps.Marker({
-          map: map,
-          position: coords
+            map: map,
+            position: new kakao.maps.LatLng(place.y, place.x)
         });
-        marker.setMap(map); //추가한 코드
 
-        // LatLngBounds 객체에 좌표를 추가합니다
-        bounds.extend(coords); //추가한 코드, 현재 코드에서 좌표정보는 point[i]가 아닌 coords이다.
-
-        // 인포윈도우로 장소에 대한 설명을 표시합니다
-        var infowindow = new kakao.maps.InfoWindow({
-          content: '<div style="width:150px;text-align:center;padding:6px 0;">' + position.title + '</div>'
+        // 마커에 클릭이벤트를 등록합니다
+        kakao.maps.event.addListener(marker, 'click', function() {
+            // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
+            infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
+            infowindow.open(map, marker);
         });
-        infowindow.open(map, marker);
-
-        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-        // map.setCenter(coords); //제거한 코드
-        setBounds(); //추가한 코드
-      }
-    });
+    }
   });
 
-  function setBounds() {
-    // LatLngBounds 객체에 추가된 좌표들을 기준으로 지도의 범위를 재설정합니다
-    // 이때 지도의 중심좌표와 레벨이 변경될 수 있습니다
-    map.setBounds(bounds);
-  }
 </script>
 </body>
 <footer th:replace="fragments/common :: footer"></footer>
