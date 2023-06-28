@@ -1,6 +1,22 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/common :: head(title)" />
+<head>
+    <style>
+        .wrap * {padding: 0;margin: 0;}
+        .wrap .info {border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
+        .wrap .info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
+        .info .title {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
+        .info .close {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
+        .info .close:hover {cursor: pointer;}
+        .info .body {position: relative;overflow: hidden;}
+        .info .desc {position: relative;90px;height: 75px; padding: 5px;}
+        .desc .ellipsis {overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+        .desc .jibun {font-size: 11px;color: #888;margin-top: -2px;}
+        .info:after {content: '';position: absolute;margin-left: -12px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
+        .info .link {color: #5085BB;}
+    </style>
+</head>
 <body>
 <nav th:replace="fragments/common :: menu(menu)" />
 <button onclick="location.href='/map/searchView'" type="button" class="btn btn-secondary">장소 검색</button>
@@ -88,7 +104,7 @@
   positions.forEach(function (position) {
     // 주소로 좌표를 검색합니다
     geocoder.addressSearch(position.address, function(result, status) {
-
+      console.log(result);
       // 정상적으로 검색이 완료됐으면
       if (status === kakao.maps.services.Status.OK) {
 
@@ -104,9 +120,26 @@
         // LatLngBounds 객체에 좌표를 추가합니다
         bounds.extend(coords); //추가한 코드, 현재 코드에서 좌표정보는 point[i]가 아닌 coords이다.
 
+        var road_address_name = result[0].road_address.address_name;
+        var address_name = result[0].address.address_name;
+
+        var content =  '<div class="wrap">' +
+            '    <div class="info">' +
+            `        <div class="title">${position.title}` +
+            '            <div class="close" id="closeInfo" title="닫기"></div>' +
+            '        </div>' +
+            '        <div class="body">' +
+            '            <div class="desc">' +
+            `                <div class="ellipsis">${road_address_name}</div>` +
+            `                <div class="jibun ellipsis"> (지번) ${address_name}</div>` +
+            '            </div>' +
+            '        </div>' +
+            '    </div>' +
+            '</div>';
+
         // 인포윈도우로 장소에 대한 설명을 표시합니다
         var infowindow = new kakao.maps.InfoWindow({
-          content: '<div style="width:150px;text-align:center;padding:6px 0;">' + position.title + '</div>'
+          content: content
         });
         infowindow.open(map, marker);
 
