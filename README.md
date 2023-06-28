@@ -42,12 +42,13 @@
    <국방분야데이터> 군병원 정보 : 군병원 정보 https://opendata.mnd.go.kr/openinf/sheetview2.jsp?infId=OA-9436  
    <국방분야데이터> TMO(여행장병 안내소) 정보 : TMO(여행장병 안내소) 정보 https://opendata.mnd.go.kr/openinf/sheetview2.jsp?infId=OA-9595
 5. <국방분야데이터> 병사 할인 혜택 정보 : 병사 할인 혜택 정보 https://opendata.mnd.go.kr/openinf/sheetview2.jsp?infId=OA-9493  
-
-- 네이버 API     
-1. Web Dynamic Map  
-2. Static Map  
-3. Geocoding  
-4. Reverse Geocoding       
+   경기도 포천시_군장병할인업소 현황 데이터 https://www.data.go.kr/data/15106202/fileData.do  
+   충청남도 논산시_할인업소현황 데이터 https://www.data.go.kr/data/3073444/fileData.do  
+   경상북도 영천시_군장병 할인업소현황 https://www.data.go.kr/data/15044647/fileData.do  
+   경상남도 창원시_입영장병 가족할인업소현황 https://www.data.go.kr/data/15055435/fileData.do  
+   
+- 카카오 API     
+1. 카카오 지도 API  
 
 ### [제작방향]
 1. 기본 회원기능 구현(회원가입, 로그인, 세션...)
