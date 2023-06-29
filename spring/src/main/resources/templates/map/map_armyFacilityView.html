@@ -10,9 +10,10 @@
         .info .close {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
         .info .close:hover {cursor: pointer;}
         .info .body {position: relative;overflow: hidden;}
-        .info .desc {position: relative;90px;height: 75px; padding: 5px;}
+        .info .desc {position: relative;90px; padding: 5px;}
         .desc .ellipsis {overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
         .desc .jibun {font-size: 11px;color: #888;margin-top: -2px;}
+        .desc .etc {font-size: 8px;color: #888;margin-top: -2px;}
         .info:after {content: '';position: absolute;margin-left: -12px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
         .info .link {color: #5085BB;}
     </style>
@@ -80,7 +81,11 @@
            for (let i = 0; i < totalCount; i++){
               positions.push({
                   title: jsonData.DS_WHLAM_WLFR_VCTNINSTLT.row[i].instltn_nm,
-                  address: jsonData.DS_WHLAM_WLFR_VCTNINSTLT.row[i].pstn_addr
+                  address: jsonData.DS_WHLAM_WLFR_VCTNINSTLT.row[i].pstn_addr,
+                  room_qty: jsonData.DS_WHLAM_WLFR_VCTNINSTLT.row[i].room_qty,
+                  scale: jsonData.DS_WHLAM_WLFR_VCTNINSTLT.row[i].scale,
+                  sbsfcl: jsonData.DS_WHLAM_WLFR_VCTNINSTLT.row[i].sbsfcl,
+                  hmpg_addr: jsonData.DS_WHLAM_WLFR_VCTNINSTLT.row[i].hmpg_addr
               });
            }
         }
@@ -126,8 +131,13 @@
         var road_address_name = result[0].road_address.address_name;
         var address_name = result[0].address.address_name;
         var title = position.title;
+        var room_qty = position.room_qty;
+        var scale = position.scale;
+        var cntadr = position.cntadr;
+        var sbsfcl = position.sbsfcl;
+        var hmpg_addr = position.hmpg_addr;
 
-        function displayInfowindow(marker, title, road_address_name, address_name){
+        function displayInfowindow(marker, title, road_address_name, address_name, room_qty, scale, cntadr, sbsfcl, hmpg_addr){
             var content =  '<div class="wrap">' +
             '    <div class="info">' +
             `        <div class="title">${title}` +
@@ -136,7 +146,11 @@
             '        <div class="body">' +
             '            <div class="desc">' +
             `                <div class="ellipsis">${road_address_name}</div>` +
-            `                <div class="jibun ellipsis"> (지번) ${address_name}</div>` +
+            `                <div class="etc"> 객실 수: ${room_qty}</div>` +
+            `                <div class="etc"> 크기: ${scale}</div>` +
+            `                <div class="etc"> 전화번호: ${cntadr}</div>` +
+            `                <div class="etc"> 시설: ${sbsfcl}</div>` +
+            `                <div class="etc"> 홈페이지 <a href='http://${hmpg_addr}'>${hmpg_addr}</a></div>` +
             '            </div>' +
             '        </div>' +
             '    </div>' +
@@ -147,7 +161,7 @@
         }
 
         kakao.maps.event.addListener(marker, 'click', function() {
-            displayInfowindow(marker, title, road_address_name, address_name);
+            displayInfowindow(marker, title, road_address_name, address_name, room_qty, scale, cntadr, sbsfcl, hmpg_addr);
         });
 
         $(document).on("click", '#closeInfo', function () {
