@@ -34,12 +34,7 @@
 <div id="map" style="width:100%;height:350px;"></div>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3d7ccd2c2284f05d05ea7f9ae21515d9&libraries=services"></script>
 <script>
-  // 마커를 담을 배열입니다
-  var markers = [];
-
   var positions = [];
-
-  var places = [];
 
   let totalCount;
   init();
@@ -103,95 +98,75 @@
   // 주소-좌표 변환 객체를 생성합니다
   var geocoder = new kakao.maps.services.Geocoder();
 
-  // 지도를 재설정할 범위정보를 가지고 있을 LatLngBounds 객체를 생성합니다
-  var bounds = new kakao.maps.LatLngBounds(); //추가한 코드
-
   // 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
   var infowindow = new kakao.maps.InfoWindow({zIndex:1});
+
+  // 지도를 재설정할 범위정보를 가지고 있을 LatLngBounds 객체를 생성합니다
+  var bounds = new kakao.maps.LatLngBounds(); //추가한 코드
 
   positions.forEach(function (position) {
     // 주소로 좌표를 검색합니다
     geocoder.addressSearch(position.address, function(result, status) {
+      console.log(result);
       // 정상적으로 검색이 완료됐으면
       if (status === kakao.maps.services.Status.OK) {
-        var obj = {
-            title : position.title,
-            info : result
-        }
-        places.push(obj);
-      }
-    });
-  });
 
-  // 정상적으로 검색이 완료됐으면
-  // 검색 목록과 마커를 표출합니다
-  displayPlaces(places);
+        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-  // 검색 결과 목록과 마커를 표출하는 함수입니다
-  function displayPlaces(places) {
+        // 결과값으로 받은 위치를 마커로 표시합니다
+        var marker = new kakao.maps.Marker({
+          map: map,
+          position: coords
+        });
+        marker.setMap(map); //추가한 코드
 
-          console.log(places);
-          for ( var i=0; i<places.length; i++ ) {
+        // LatLngBounds 객체에 좌표를 추가합니다
+        bounds.extend(coords); //추가한 코드, 현재 코드에서 좌표정보는 point[i]가 아닌 coords이다.
 
-              // 마커를 생성하고 지도에 표시합니다
-              var placePosition = new kakao.maps.LatLng(places[i].info.y, places[i].info.x),
-                  marker = addMarker(placePosition, i),
+        var road_address_name = result[0].road_address.address_name;
+        var address_name = result[0].address.address_name;
+        var title = position.title;
 
-              // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
-              // LatLngBounds 객체에 좌표를 추가합니다
-              bounds.extend(placePosition);
-
-              // 마커와 검색결과 항목을 클릭 했을때
-              // 해당 장소에 인포윈도우에 장소명을 표시합니다
-              (function(marker, title, road_address, address) {
-                  kakao.maps.event.addListener(marker, 'click', function() {
-                      displayInfowindow(marker, title, road_address, address);
-                  });
-
-                  $(document).on("click", '#closeInfo', function () {
-                      infowindow.close();
-                  });
-
-              })(marker, places[i].title, places[i].info.road_address.address_name, places[i].info.address.address_name);
-          }
-  }
-
-  // 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
-  function addMarker(position, idx, title) {
-     var marker = new kakao.maps.Marker({
-        map: map,
-        position: placePosition
-     });
-
-     marker.setMap(map); // 지도 위에 마커를 표출합니다
-     markers.push(marker);  // 배열에 생성된 마커를 추가합니다
-
-     return marker;
-  }
-
-
-  // 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
-  // 인포윈도우에 장소명을 표시합니다
-  function displayInfowindow(marker, title, road_address, address) {
-      var content =  '<div class="wrap">' +
+        function displayInfowindow(marker, title, road_address_name, address_name){
+            var content =  '<div class="wrap">' +
             '    <div class="info">' +
             `        <div class="title">${title}` +
             '            <div class="close" id="closeInfo" title="닫기"></div>' +
             '        </div>' +
             '        <div class="body">' +
             '            <div class="desc">' +
-            `                <div class="ellipsis">${road_address}</div>` +
-            `                <div class="jibun ellipsis"> (지번) ${address}</div>` +
+            `                <div class="ellipsis">${road_address_name}</div>` +
+            `                <div class="jibun ellipsis"> (지번) ${address_name}</div>` +
             '            </div>' +
             '        </div>' +
             '    </div>' +
             '</div>';
 
-      infowindow.setContent(content);
-      infowindow.open(map, marker);
+            infowindow.setContent(content);
+            infowindow.open(map, marker);
+        }
+
+        kakao.maps.event.addListener(marker, 'click', function() {
+            displayInfowindow(marker, title, road_address_name, address_name);
+        });
+
+        $(document).on("click", '#closeInfo', function () {
+            infowindow.close();
+        });
+
+
+        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+        // map.setCenter(coords); //제거한 코드
+        setBounds(); //추가한 코드
+      }
+    });
+  });
+
+  function setBounds() {
+    // LatLngBounds 객체에 추가된 좌표들을 기준으로 지도의 범위를 재설정합니다
+    // 이때 지도의 중심좌표와 레벨이 변경될 수 있습니다
+    map.setBounds(bounds);
   }
-
-
 </script>
 </body>
 <footer th:replace="fragments/common :: footer"></footer>
