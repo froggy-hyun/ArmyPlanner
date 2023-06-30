@@ -1,17 +1,20 @@
 package ArmyPlanner.spring.controller;
 
+import ArmyPlanner.spring.Dto.LikedPlaceDto;
+import ArmyPlanner.spring.domain.LikedPlace;
+import ArmyPlanner.spring.domain.Member;
+import ArmyPlanner.spring.repository.MemberRepository;
+import ArmyPlanner.spring.service.LikedPlaceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.security.Principal;
 
 @Controller
 @RequiredArgsConstructor
@@ -260,6 +263,28 @@ public class MapController {
         conn.disconnect();
 
         return sb.toString();
+    }
+
+    private final LikedPlaceService likedPlaceService;
+    private final MemberRepository memberRepository;
+
+    @PostMapping(value = "place_like")
+    @ResponseBody
+    public void place_like(@RequestBody LikedPlaceDto likedPlaceDto, Principal principal) throws Exception {
+
+        String title = likedPlaceDto.getTitle();
+        String road_address_name = likedPlaceDto.getRoad_address_name();
+
+        String username = principal.getName();
+        Member member = memberRepository.findByEmail(username);
+
+        LikedPlace likedPlace = LikedPlaceDto.builder()
+                .title(title)
+                .road_address_name(road_address_name)
+                .member(member)
+                .build().toEntity();
+
+        likedPlaceService.saveLikedPlace(likedPlace);
     }
 
 }
