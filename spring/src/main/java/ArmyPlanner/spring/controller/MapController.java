@@ -130,12 +130,45 @@ public class MapController {
         return "map/map_armyPreferentialplaceView";
     }
 
-    @GetMapping("armyPreferentialplaceView/getArmyPreferentialplaceApi/{count}")
+    @GetMapping("armyPreferentialplaceView/getPocheonApi/{count}")
     @ResponseBody
-    public String getArmyPreferentialplaceApi(@PathVariable String count) throws IOException {
+    public String getPocheonApi(@PathVariable String count) throws IOException {
 
         String baseurl = "https://api.odcloud.kr/";
         String service = "api/15106202/v1/uddi:d6cc329d-8ac0-4471-b958-e9912dfade8f";
+        String serviceKey = "YfVszWFGgZBtStWJ429k2RIkV3b1vpS4obo/KLxcU15enrSNaCvSNO3TLZKnGjaAfL3trm9jk6X7jFG86kpm6Q==";
+        String page = "1";
+        String perPage = count;
+        String string_url = baseurl + service + "?" + "page=" + page + "&" + "perPage=" + perPage + "&"
+                + "serviceKey=" + serviceKey;
+        URL url = new URL(string_url);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+        BufferedReader rd;
+
+        // 서비스코드가 정상이면 200~300사이의 숫자가 나옵니다.
+        if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
+            rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        } else {
+            rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+        }
+        StringBuilder sb = new StringBuilder();
+        String line;
+        while ((line = rd.readLine()) != null) {
+            sb.append(line);
+        }
+        rd.close();
+        conn.disconnect();
+
+        return sb.toString();
+    }
+
+    @GetMapping("armyPreferentialplaceView/getNonsanApi/{count}")
+    @ResponseBody
+    public String getNonsanApi(@PathVariable String count) throws IOException {
+
+        String baseurl = "https://api.odcloud.kr/";
+        String service = "api/3073444/v1/uddi:2ba183cb-e8eb-44b7-9964-a5e09e0655bb_202004010952";
         String serviceKey = "YfVszWFGgZBtStWJ429k2RIkV3b1vpS4obo/KLxcU15enrSNaCvSNO3TLZKnGjaAfL3trm9jk6X7jFG86kpm6Q==";
         String page = "1";
         String perPage = count;

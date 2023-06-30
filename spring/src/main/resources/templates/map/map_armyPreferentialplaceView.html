@@ -38,27 +38,38 @@
 <script>
   var pocheon = [];
   //title: 상호명
+  //type: 업종 + 업태
   //address: 사업장 주소
   //lngt: 경도
   //ltd: 위도
   //phone: 전화번호
-  //type: 업종 + 업태
   //startTime: 영업시작시간
   //endTime: 영업종료시간
   //closed: 휴무
   //mainMenu: 주메뉴
   //discount: 할인내용
 
+  var nonsan = [];
+  //title: 업소명
+  //type: 업소구분
+  //address: 주소
+  //phone: 전화번호
+  //army_discount: 입영및면회객할인율
+  //colStudent_discount: 대학생할인율
+
   let totalCount;
-  init();
-  getData();
+  pocheon_init();
+  pocheon_getData();
   console.log(pocheon);
+  nonsan_init();
+  nonsan_getData();
+  console.log(nonsan);
 
   //totalCount를 먼저 받아옴으로써 api가 정상적인지와 총 데이터의 갯수를 파악
-  function init() {
+  function pocheon_init() {
      count = 1;
 
-     url = `armyPreferentialplaceView/getArmyPreferentialplaceApi/${count}`;
+     url = `armyPreferentialplaceView/getPocheonApi/${count}`;
      $.ajax({
         type: "GET",
         url: url,
@@ -72,9 +83,9 @@
   }
 
   //totalCount를 먼저 받아옴으로써 api가 정상적인지와 총 데이터의 갯수를 파악
-  function getData() {
+  function pocheon_getData() {
      count = totalCount;
-     url = `armyPreferentialplaceView/getArmyPreferentialplaceApi/${count}`;
+     url = `armyPreferentialplaceView/getPocheonApi/${count}`;
      $.ajax({
         type: "GET",
         url: url,
@@ -85,16 +96,58 @@
            for (let i = 0; i < totalCount; i++){
               pocheon.push({
                   title: jsonData.data[i]['상호명'],
+                  type: jsonData.data[i]['업종'] + jsonData.data[i]['업태'],
                   address: jsonData.data[i]['사업장 주소'],
                   lngt: jsonData.data[i]['경도'],
                   ltd: jsonData.data[i]['위도'],
                   phone: jsonData.data[i]['전화번호'],
-                  type: jsonData.data[i]['업종'] + jsonData.data[i]['업태'],
                   startTime: jsonData.data[i]['영업시작시간'],
                   endTime: jsonData.data[i]['영업종료시간'],
                   closed: jsonData.data[i]['휴무'],
                   mainMenu: jsonData.data[i]['주메뉴'],
                   discount: jsonData.data[i]['할인내용'],
+              });
+           }
+        }
+     });
+  }
+
+  //totalCount를 먼저 받아옴으로써 api가 정상적인지와 총 데이터의 갯수를 파악
+  function nonsan_init() {
+     count = 1;
+
+     url = `armyPreferentialplaceView/getNonsanApi/${count}`;
+     $.ajax({
+        type: "GET",
+        url: url,
+        data: {},
+        async: false,
+        success: function(data) {
+           jsonData = JSON.parse(data); //string -> json
+           totalCount = jsonData.totalCount;
+        }
+     })
+  }
+
+  //totalCount를 먼저 받아옴으로써 api가 정상적인지와 총 데이터의 갯수를 파악
+  function nonsan_getData() {
+     count = totalCount;
+     url = `armyPreferentialplaceView/getNonsanApi/${count}`;
+     $.ajax({
+        type: "GET",
+        url: url,
+        data: {},
+        async: false,
+        success: function(data) {
+           jsonData = JSON.parse(data); //string -> json
+           for (let i = 0; i < totalCount; i++){
+              nonsan.push({
+                  title: jsonData.data[i]['업소명'],
+                  type: jsonData.data[i]['업소구분'],
+                  address: jsonData.data[i]['주소'],
+                  phone: jsonData.data[i]['전화번호'],
+                  army_discount: jsonData.data[i]['입영및면회객할인율'],
+                  colStudent_discount: jsonData.data[i]['대학생할인율']
               });
            }
         }
