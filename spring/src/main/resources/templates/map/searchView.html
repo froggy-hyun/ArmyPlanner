@@ -2,6 +2,8 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/common :: head(title)" />
 <head>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <style>
         .map_wrap, .map_wrap * {margin:0;padding:0}
         .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
@@ -299,12 +301,42 @@
             `                <div class="jibun ellipsis"> (지번) ${address_name}</div>` +
             `                <div class = "phone">${phone}</div>` +
             '            </div>' +
+            `                <button id="likePlace">좋아요</div>` +
             '        </div>' +
             '    </div>' +
             '</div>';
 
         infowindow.setContent(content);
         infowindow.open(map, marker);
+
+        $(document).off('click').on('click', '#likePlace', function(){
+            var placeobj = {
+              "title" : title,
+              "road_address_name" : road_address_name,
+            }//전송할 객체 생성
+            console.log(placeobj);
+            var placeJsonObj = JSON.stringify(placeobj);
+
+            $.ajax({
+              url: "/map/place_like",
+              method: "POST",
+              dataType: "text",
+              data: placeJsonObj,
+              contentType: 'application/json',
+              beforeSend : function(xhr) {
+                xhr.setRequestHeader(header, token);
+              },
+              success : function(){
+                alert("등록을 완료하였습니다!");
+              },
+              fail : function (request, status, error){
+                alert("에러 발생" + error)
+              },
+              complete : function(){
+                location.replace("");
+              }
+            });
+        });
     }
 
      // 검색결과 목록의 자식 Element를 제거하는 함수입니다
@@ -313,7 +345,6 @@
             el.removeChild (el.lastChild);
         }
     }
-
 
 </script>
 </body>
