@@ -40,6 +40,9 @@
   let totalCount;
   init();
   getData();
+  if(positions == null){
+    alert("API에 일시적인 오류가 있습니다. 잠시 후 다시 시도해주세요.");
+  }
 
   //hsptnm 병원명
   //hspt_addr 주소

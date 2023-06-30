@@ -72,15 +72,27 @@
 
   pocheon_init();
   pocheon_getData();
+  if(pocheon == null){
+    alert("API에 일시적인 오류가 있습니다. 잠시 후 다시 시도해주세요.");
+  }
 
   nonsan_init();
   nonsan_getData();
+  if(nonsan == null){
+    alert("API에 일시적인 오류가 있습니다. 잠시 후 다시 시도해주세요.");
+  }
 
   yeongcheon_init();
   yeongcheon_getData();
+  if(yeongcheon == null){
+    alert("API에 일시적인 오류가 있습니다. 잠시 후 다시 시도해주세요.");
+  }
 
   changwon_init();
   changwon_getData();
+  if(changwon == null){
+    alert("API에 일시적인 오류가 있습니다. 잠시 후 다시 시도해주세요.");
+  }
 
 
   //totalCount를 먼저 받아옴으로써 api가 정상적인지와 총 데이터의 갯수를 파악
