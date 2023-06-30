@@ -36,18 +36,23 @@
 <div id="map" style="width:100%;height:350px;"></div>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3d7ccd2c2284f05d05ea7f9ae21515d9&libraries=services"></script>
 <script>
-  var positions = [];
+  var pocheon = [];
+  //title: 상호명
+  //address: 사업장 주소
+  //lngt: 경도
+  //ltd: 위도
+  //phone: 전화번호
+  //type: 업종 + 업태
+  //startTime: 영업시작시간
+  //endTime: 영업종료시간
+  //closed: 휴무
+  //mainMenu: 주메뉴
+  //discount: 할인내용
 
   let totalCount;
   init();
   getData();
-
-  //hsptnm 병원명
-  //hspt_addr 주소
-  //hspt_cntadr 전화번호
-  //zipcd 우편번호
-  //ltd 위도
-  //lngt 경도
+  console.log(pocheon);
 
   //totalCount를 먼저 받아옴으로써 api가 정상적인지와 총 데이터의 갯수를 파악
   function init() {
@@ -78,7 +83,7 @@
         success: function(data) {
            jsonData = JSON.parse(data); //string -> json
            for (let i = 0; i < totalCount; i++){
-              positions.push({
+              pocheon.push({
                   title: jsonData.data[i]['상호명'],
                   address: jsonData.data[i]['사업장 주소'],
                   lngt: jsonData.data[i]['경도'],
