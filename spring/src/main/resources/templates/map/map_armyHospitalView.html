@@ -1,6 +1,23 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/common :: head(title)" />
+<head>
+    <style>
+        .wrap * {padding: 0;margin: 0;}
+        .wrap .info {border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
+        .wrap .info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
+        .info .title {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
+        .info .close {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
+        .info .close:hover {cursor: pointer;}
+        .info .body {position: relative;overflow: hidden;}
+        .info .desc {position: relative;90px; padding: 5px;}
+        .desc .ellipsis {overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+        .desc .jibun {font-size: 11px;color: #888;margin-top: -2px;}
+        .desc .etc {font-size: 8px;color: #888;margin-top: -2px;}
+        .info:after {content: '';position: absolute;margin-left: -12px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
+        .info .link {color: #5085BB;}
+    </style>
+</head>
 <body>
 <nav th:replace="fragments/common :: menu(menu)" />
 <button onclick="location.href='/map/searchView'" type="button" class="btn btn-secondary">장소 검색</button>
@@ -64,7 +81,11 @@
            for (let i = 0; i < totalCount; i++){
               positions.push({
                   title: jsonData.DS_WHLNAT_ROKAHSPT_ADDR.row[i].hsptnm,
-                  address: jsonData.DS_WHLNAT_ROKAHSPT_ADDR.row[i].hspt_addr
+                  address: jsonData.DS_WHLNAT_ROKAHSPT_ADDR.row[i].hspt_addr,
+                  hspt_cntadr : jsonData.DS_WHLNAT_ROKAHSPT_ADDR.row[i].hspt_cntadr,
+                  zipcd : jsonData.DS_WHLNAT_ROKAHSPT_ADDR.row[i].zipcd,
+                  ltd : jsonData.DS_WHLNAT_ROKAHSPT_ADDR.row[i].ltd,
+                  lngt : jsonData.DS_WHLNAT_ROKAHSPT_ADDR.row[i].lngt
               });
            }
         }
@@ -82,39 +103,64 @@
   // 주소-좌표 변환 객체를 생성합니다
   var geocoder = new kakao.maps.services.Geocoder();
 
+  // 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
+  var infowindow = new kakao.maps.InfoWindow({zIndex:1});
+
   // 지도를 재설정할 범위정보를 가지고 있을 LatLngBounds 객체를 생성합니다
   var bounds = new kakao.maps.LatLngBounds(); //추가한 코드
 
   positions.forEach(function (position) {
-    // 주소로 좌표를 검색합니다
-    geocoder.addressSearch(position.address, function(result, status) {
 
-      // 정상적으로 검색이 완료됐으면
-      if (status === kakao.maps.services.Status.OK) {
+    console.log(position);
+    //주소로 검색이 안될 때를 대비해 api에서 제공하는 x,y좌표로 마커 추가
+    var coords = new kakao.maps.LatLng(position.ltd, position.lngt);
+    var address_name = position.address;
+    var title = position.title;
+    var hspt_cntadr = position.hspt_cntadr;
+    var zipcd = position.zipcd;
 
-        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-        // 결과값으로 받은 위치를 마커로 표시합니다
-        var marker = new kakao.maps.Marker({
-          map: map,
-          position: coords
-        });
-        marker.setMap(map); //추가한 코드
-
-        // LatLngBounds 객체에 좌표를 추가합니다
-        bounds.extend(coords); //추가한 코드, 현재 코드에서 좌표정보는 point[i]가 아닌 coords이다.
-
-        // 인포윈도우로 장소에 대한 설명을 표시합니다
-        var infowindow = new kakao.maps.InfoWindow({
-          content: '<div style="width:150px;text-align:center;padding:6px 0;">' + position.title + '</div>'
-        });
-        infowindow.open(map, marker);
-
-        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-        // map.setCenter(coords); //제거한 코드
-        setBounds(); //추가한 코드
-      }
+    // 결과값으로 받은 위치를 마커로 표시합니다
+    var marker = new kakao.maps.Marker({
+      map: map,
+      position: coords
     });
+    marker.setMap(map); //추가한 코드
+
+    // LatLngBounds 객체에 좌표를 추가합니다
+    bounds.extend(coords); //추가한 코드, 현재 코드에서 좌표정보는 point[i]가 아닌 coords이다.
+
+    function displayInfowindow(marker, title, address_name, hspt_cntadr, zipcd){
+        var content =  '<div class="wrap">' +
+        '    <div class="info">' +
+        `        <div class="title">${title}` +
+        '            <div class="close" id="closeInfo" title="닫기"></div>' +
+        '        </div>' +
+        '        <div class="body">' +
+        '            <div class="desc">' +
+        `                <div class="ellipsis">${address_name}</div>` +
+        `                <div class="etc"> 우편번호: ${zipcd}</div>` +
+        `                <div class="etc"> 전화번호: ${hspt_cntadr}</div>` +
+        '            </div>' +
+        '        </div>' +
+        '    </div>' +
+        '</div>';
+
+        infowindow.setContent(content);
+        infowindow.open(map, marker);
+      }
+
+      kakao.maps.event.addListener(marker, 'click', function() {
+          displayInfowindow(marker, title, address_name, hspt_cntadr, zipcd);
+      });
+
+      $(document).on("click", '#closeInfo', function () {
+          infowindow.close();
+      });
+
+
+      // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+      // map.setCenter(coords); //제거한 코드
+      setBounds(); //추가한 코드
   });
 
   function setBounds() {
