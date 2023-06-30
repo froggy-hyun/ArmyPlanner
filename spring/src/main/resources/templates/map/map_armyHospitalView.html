@@ -112,8 +112,7 @@
 
   positions.forEach(function (position) {
 
-    console.log(position);
-    //주소로 검색이 안될 때를 대비해 api에서 제공하는 x,y좌표로 마커 추가
+    //api가 x,y좌표를 제공하기때문에 주소로 검색이 안될 때를 대비해 api에서 제공하는 x,y좌표로 마커 구현
     var coords = new kakao.maps.LatLng(position.ltd, position.lngt);
     var address_name = position.address;
     var title = position.title;
