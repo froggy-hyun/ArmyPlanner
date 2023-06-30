@@ -196,5 +196,37 @@ public class MapController {
         return sb.toString();
     }
 
+    @GetMapping("armyPreferentialplaceView/getYeongcheonApi/{count}")
+    @ResponseBody
+    public String getYeongcheonApi(@PathVariable String count) throws IOException {
+
+        String baseurl = "https://api.odcloud.kr/";
+        String service = "api/15044647/v1/uddi:c0773d85-712c-413f-a37a-ee6adf13bce3";
+        String serviceKey = "YfVszWFGgZBtStWJ429k2RIkV3b1vpS4obo/KLxcU15enrSNaCvSNO3TLZKnGjaAfL3trm9jk6X7jFG86kpm6Q==";
+        String page = "1";
+        String perPage = count;
+        String string_url = baseurl + service + "?" + "page=" + page + "&" + "perPage=" + perPage + "&"
+                + "serviceKey=" + serviceKey;
+        URL url = new URL(string_url);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+        BufferedReader rd;
+
+        // 서비스코드가 정상이면 200~300사이의 숫자가 나옵니다.
+        if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
+            rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        } else {
+            rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+        }
+        StringBuilder sb = new StringBuilder();
+        String line;
+        while ((line = rd.readLine()) != null) {
+            sb.append(line);
+        }
+        rd.close();
+        conn.disconnect();
+
+        return sb.toString();
+    }
 
 }

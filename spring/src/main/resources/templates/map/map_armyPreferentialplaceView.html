@@ -57,13 +57,22 @@
   //army_discount: 입영및면회객할인율
   //colStudent_discount: 대학생할인율
 
+  var yeongcheon = [];
+  //title: 상호
+  //address: 주소
+  //phone: 전화번호
+
   let totalCount;
+
   pocheon_init();
   pocheon_getData();
   console.log(pocheon);
   nonsan_init();
   nonsan_getData();
   console.log(nonsan);
+  yeongcheon_init();
+  yeongcheon_getData();
+  console.log(yeongcheon);
 
   //totalCount를 먼저 받아옴으로써 api가 정상적인지와 총 데이터의 갯수를 파악
   function pocheon_init() {
@@ -148,6 +157,45 @@
                   phone: jsonData.data[i]['전화번호'],
                   army_discount: jsonData.data[i]['입영및면회객할인율'],
                   colStudent_discount: jsonData.data[i]['대학생할인율']
+              });
+           }
+        }
+     });
+  }
+
+  //totalCount를 먼저 받아옴으로써 api가 정상적인지와 총 데이터의 갯수를 파악
+  function yeongcheon_init() {
+     count = 1;
+
+     url = `armyPreferentialplaceView/getYeongcheonApi/${count}`;
+     $.ajax({
+        type: "GET",
+        url: url,
+        data: {},
+        async: false,
+        success: function(data) {
+           jsonData = JSON.parse(data); //string -> json
+           totalCount = jsonData.totalCount;
+        }
+     })
+  }
+
+  //totalCount를 먼저 받아옴으로써 api가 정상적인지와 총 데이터의 갯수를 파악
+  function yeongcheon_getData() {
+     count = totalCount;
+     url = `armyPreferentialplaceView/getYeongcheonApi/${count}`;
+     $.ajax({
+        type: "GET",
+        url: url,
+        data: {},
+        async: false,
+        success: function(data) {
+           jsonData = JSON.parse(data); //string -> json
+           for (let i = 0; i < totalCount; i++){
+              yeongcheon.push({
+                  title: jsonData.data[i]['상호'],
+                  address: jsonData.data[i]['주소'],
+                  phone: jsonData.data[i]['전화번호'],
               });
            }
         }
