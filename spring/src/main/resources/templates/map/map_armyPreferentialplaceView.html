@@ -486,6 +486,74 @@
     });
   });
 
+  changwon.forEach(function (position) {
+    // 주소로 좌표를 검색합니다
+    geocoder.addressSearch(position.address, function(result, status) {
+      // 정상적으로 검색이 완료됐으면
+      if (status === kakao.maps.services.Status.OK) {
+
+        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+        // 결과값으로 받은 위치를 마커로 표시합니다
+        var marker = new kakao.maps.Marker({
+          map: map,
+          position: coords
+        });
+        marker.setMap(map); //추가한 코드
+
+        // LatLngBounds 객체에 좌표를 추가합니다
+        bounds.extend(coords); //추가한 코드, 현재 코드에서 좌표정보는 point[i]가 아닌 coords이다.
+
+        var road_address_name = result[0].road_address.address_name;
+        var address_name = result[0].address.address_name;
+        var title = position.title;
+        var phone;
+        if(position.phone != null){
+            phone = position.phone;
+        } else {
+            phone = "제공되지 않음";
+        }
+        var mainMenu = position.mainMenu;
+
+        function displayInfowindow(marker, title, road_address_name, address_name, phone, mainMenu){
+          var content =  '<div class="wrap">' +
+          '    <div class="info">' +
+          `        <div class="title">${title}` +
+          '            <div class="close" id="closeInfo" title="닫기"></div>' +
+          '        </div>' +
+          '        <div class="body">' +
+          '            <div class="desc">' +
+          `                <div class="ellipsis">${road_address_name}</div>` +
+          `                <div class="jibun ellipsis"> (지번) ${address_name}</div>` +
+          `                <div class="etc"> 전화번호: ${phone}</div>`;
+          if(mainMenu != null){
+            content += `                <div class="etc"> 주메뉴: ${mainMenu}</div>`;
+          }
+          content += '            </div>' +
+          '        </div>' +
+          '    </div>' +
+          '</div>';
+
+          infowindow.setContent(content);
+          infowindow.open(map, marker);
+        }
+
+        kakao.maps.event.addListener(marker, 'click', function() {
+          displayInfowindow(marker, title, road_address_name, address_name, phone, mainMenu);
+        });
+
+        $(document).on("click", '#closeInfo', function () {
+          infowindow.close();
+        });
+
+
+        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+        // map.setCenter(coords); //제거한 코드
+        setBounds(); //추가한 코드
+      }
+    });
+  });
+
 
   function setBounds() {
     // LatLngBounds 객체에 추가된 좌표들을 기준으로 지도의 범위를 재설정합니다
