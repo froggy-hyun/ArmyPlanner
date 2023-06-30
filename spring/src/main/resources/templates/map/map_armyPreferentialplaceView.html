@@ -62,6 +62,12 @@
   //address: 주소
   //phone: 전화번호
 
+  var changwon = [];
+  //title: 업소명
+  //address: 소재지
+  //phone: 전화번호
+  //mainMenu: 주메뉴
+
   let totalCount;
 
   pocheon_init();
@@ -73,6 +79,9 @@
   yeongcheon_init();
   yeongcheon_getData();
   console.log(yeongcheon);
+  changwon_init();
+  changwon_getData();
+  console.log(changwon);
 
   //totalCount를 먼저 받아옴으로써 api가 정상적인지와 총 데이터의 갯수를 파악
   function pocheon_init() {
@@ -196,6 +205,46 @@
                   title: jsonData.data[i]['상호'],
                   address: jsonData.data[i]['주소'],
                   phone: jsonData.data[i]['전화번호'],
+              });
+           }
+        }
+     });
+  }
+
+  //totalCount를 먼저 받아옴으로써 api가 정상적인지와 총 데이터의 갯수를 파악
+  function changwon_init() {
+     count = 1;
+
+     url = `armyPreferentialplaceView/getChangwonApi/${count}`;
+     $.ajax({
+        type: "GET",
+        url: url,
+        data: {},
+        async: false,
+        success: function(data) {
+           jsonData = JSON.parse(data); //string -> json
+           totalCount = jsonData.totalCount;
+        }
+     })
+  }
+
+  //totalCount를 먼저 받아옴으로써 api가 정상적인지와 총 데이터의 갯수를 파악
+  function changwon_getData() {
+     count = totalCount;
+     url = `armyPreferentialplaceView/getChangwonApi/${count}`;
+     $.ajax({
+        type: "GET",
+        url: url,
+        data: {},
+        async: false,
+        success: function(data) {
+           jsonData = JSON.parse(data); //string -> json
+           for (let i = 0; i < totalCount; i++){
+              changwon.push({
+                  title: jsonData.data[i]['업소명'],
+                  address: jsonData.data[i]['소재지'],
+                  phone: jsonData.data[i]['전화번호'],
+                  mainMenu: jsonData.data[i]['주메뉴'],
               });
            }
         }
