@@ -1,10 +1,100 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/common :: head(title)" />
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <style>
+        .wrap * {padding: 0;margin: 0;}
+        .wrap .info {border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
+        .wrap .info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
+        .info .title {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
+        .info .close {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
+        .info .close:hover {cursor: pointer;}
+        .info .body {position: relative;overflow: hidden;}
+        .info .desc {position: relative;90px; padding: 5px;}
+        .desc .ellipsis {overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+        .desc .jibun {font-size: 11px;color: #888;margin-top: -2px;}
+        .desc .etc {font-size: 8px;color: #888;margin-top: -2px;}
+        .info:after {content: '';position: absolute;margin-left: -12px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
+        .info .link {color: #5085BB;}
+    </style>
 </head>
 <body>
+<nav th:replace="fragments/common :: menu(menu)" />
+<button onclick="location.href='/map/searchView'" type="button" class="btn btn-secondary">장소 검색</button>
+<div class="btn-group">
+    <button type="button" class="btn btn-success">군인 전용 장소 보기</button>
+    <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+        <span class="visually-hidden">Toggle Dropdown</span>
+    </button>
+    <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="/map/armyFacilityView">군 복지 휴양 시설</a></li>
+        <li><a class="dropdown-item" href="/map/armyHospitalView">군 병원</a></li>
+        <li><a class="dropdown-item" href="/map/armyTmoView">TMO</a></li>
+    </ul>
+</div>
+<button onclick="location.href='/map/armyPreferentialplaceView'" type="button" class="btn btn-warning">군인 우대 업소 보기</button>
+<div id="map" style="width:100%;height:350px;"></div>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3d7ccd2c2284f05d05ea7f9ae21515d9&libraries=services"></script>
+<script>
+  var positions = [];
 
+  let totalCount;
+  init();
+  getData();
+
+  //hsptnm 병원명
+  //hspt_addr 주소
+  //hspt_cntadr 전화번호
+  //zipcd 우편번호
+  //ltd 위도
+  //lngt 경도
+
+  //totalCount를 먼저 받아옴으로써 api가 정상적인지와 총 데이터의 갯수를 파악
+  function init() {
+     count = 1;
+
+     url = `armyPreferentialplaceView/getArmyPreferentialplaceApi/${count}`;
+     $.ajax({
+        type: "GET",
+        url: url,
+        data: {},
+        async: false,
+        success: function(data) {
+           jsonData = JSON.parse(data); //string -> json
+           totalCount = jsonData.totalCount;
+        }
+     })
+  }
+
+  //totalCount를 먼저 받아옴으로써 api가 정상적인지와 총 데이터의 갯수를 파악
+  function getData() {
+     count = totalCount;
+     url = `armyPreferentialplaceView/getArmyPreferentialplaceApi/${count}`;
+     $.ajax({
+        type: "GET",
+        url: url,
+        data: {},
+        async: false,
+        success: function(data) {
+           jsonData = JSON.parse(data); //string -> json
+           for (let i = 0; i < totalCount; i++){
+              positions.push({
+                  title: jsonData.data[i]['상호명'],
+                  address: jsonData.data[i]['사업장 주소'],
+                  lngt: jsonData.data[i]['경도'],
+                  ltd: jsonData.data[i]['위도'],
+                  phone: jsonData.data[i]['전화번호'],
+                  type: jsonData.data[i]['업종'] + jsonData.data[i]['업태'],
+                  startTime: jsonData.data[i]['영업시작시간'],
+                  endTime: jsonData.data[i]['영업종료시간'],
+                  closed: jsonData.data[i]['휴무'],
+                  mainMenu: jsonData.data[i]['주메뉴'],
+                  discount: jsonData.data[i]['할인내용'],
+              });
+           }
+        }
+     });
+  }
+</script>
 </body>
 </html>
