@@ -742,17 +742,16 @@
                             data: {},
                             async: false,
                             success: function(data) {
-<!--                                for (let i = 0; i < numOfRows; i++) {-->
-<!--                                     if((jsonData.row[i]['prdtnm']).includes(px_name)){-->
-<!--                                        let table_html='';-->
-<!--                                        table_html += '<tr>';-->
-<!--                                        table_html += '  <td>'+jsonData.row[i]['prdtnm']+'</td>';-->
-<!--                                        table_html += '  <td>'+jsonData.row[i]['sellyear']+'</td>';-->
-<!--                                        table_html += '</tr>';-->
+                                for (var item of data) {
+                                    let table_html='';
+                                    table_html += '<tr>';
+                                    table_html += '  <td>'+item['title']+'</td>';
+                                    table_html += '  <td>'+item['road_address_name']+'</td>';
+                                    table_html += '</tr>';
 
-<!--                                        $('#px_api_body').append(table_html);-->
-<!--                                     }-->
-<!--                                }-->
+                                    $('#likedPlace_body').append(table_html);
+
+                                }
                             }
                   })
                   $("#add_event_modal").modal("show");
@@ -1010,6 +1009,15 @@
           <div id="location_input">
               <label for="add_event_location" class="col-form-label">장소 추가</label>
               <input type="text" class="form-control" id="add_event_location" name="calendar_content" disabled="true">
+              <table class="table table-hover" id="likedPlace" style="font-size: 1vh">
+                  <thead id="likedPlace_table_head">
+                  <tr>
+                      <th scope="col">장소명</th>
+                      <th scope="col">주소</th>
+                  </tr>
+                  </thead>
+                  <tbody id="likedPlace_body"></tbody>
+              </table>
           </div>
           <div id="text_input">
               <label for="add_event_text" class="col-form-label">텍스트 추가</label>
