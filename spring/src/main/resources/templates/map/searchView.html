@@ -185,7 +185,7 @@
                     displayInfowindow(marker, title, category_name, road_address_name, address_name, phone, place_url);
                 });
 
-                $(document).on("click", '#closeInfo', function () {
+                $(document).on("click", '#closeInfo', function() {
                     infowindow.close();
                 });
 
@@ -305,7 +305,7 @@
             `                <div class="jibun ellipsis"> (지번) ${address_name}</div>` +
             `                <div class = "phone">${phone}</div>` +
             '            </div>' +
-            `                <button id="likePlace">관심 장소에 추가하기</div>` +
+            `                <button id="likePlace" class="btn btn-primary btn-sm">관심 장소에 추가하기</div>` +
             '        </div>' +
             '    </div>' +
             '</div>';
@@ -313,7 +313,7 @@
         infowindow.setContent(content);
         infowindow.open(map, marker);
 
-        $(document).off('click').on('click', '#likePlace', function(){
+        $('#likePlace').off('click').on('click', function(){
             var placeobj = {
               "title" : title,
               "road_address_name" : road_address_name,
