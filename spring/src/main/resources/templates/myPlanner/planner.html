@@ -295,7 +295,7 @@
                         }
                     });
 
-                    //totalCount와 resultCode를 먼저 받아옴으로써 api가 정상적인지와 총 데이터의 갯수를 파악
+                    //totalCount를 먼저 받아옴으로써 총 데이터의 갯수를 파악
                     function init() {
                         $.ajax({
                             type: "GET",
@@ -319,6 +319,10 @@
                             url: url,
                             data: {},
                             success: function(data){
+                               resultCode = data.header.resultCode;
+                               if(resultCode != "00"){
+                                 alert("공공데이터 API에 문제가 있습니다! 잠시 후 다시 시도해주세요.");
+                               }
                                let bodyData = data.body;
                                for (let i = 0; i < numOfRows; i++) {
                                     let table_html='';
@@ -560,6 +564,9 @@
                             success: function(data) {
                                 jsonData = JSON.parse(data); //string -> json
                                 totalCount = jsonData.DS_MND_PX_PARD_PRDT_INFO.list_total_count;
+                                if(jsonData.DS_MND_PX_PARD_PRDT_INFO == null || jsonData.DS_MND_PX_PARD_PRDT_INFO == ""){
+                                 alert("공공데이터 API에 문제가 있습니다! 잠시 후 다시 시도해주세요.");
+                                }
                             }
                         })
                     }
@@ -578,6 +585,9 @@
                             async: false,
                             success: function(data) {
                                 jsonData = JSON.parse(data).DS_MND_PX_PARD_PRDT_INFO;; //string -> json
+                                if(jsonData.DS_MND_PX_PARD_PRDT_INFO == null || jsonData.DS_MND_PX_PARD_PRDT_INFO == ""){
+                                 alert("공공데이터 API에 문제가 있습니다! 잠시 후 다시 시도해주세요.");
+                                }
                                 actual_totalCount = jsonData.list_total_count;
                                 search_totalCount = 0;
                                 for (let i = 0; i < actual_totalCount; i++) {
