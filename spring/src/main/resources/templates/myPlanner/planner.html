@@ -444,7 +444,7 @@
                   $('#shopping_input').css('display','block');
                   $('#shopping_title').attr('disabled', false);
                   $("#add_event_modal").modal("show");
-                  $("#add_event_save").off('click').on("click",function(){  // modal의 일정 추가 버튼 클릭 시 - 식단
+                  $("#add_event_save").off('click').on("click",function(){  // modal의 일정 추가 버튼 클릭 시 - 쇼핑
                       var shopping_title = $("#shopping_title").val();
                       var shopping_name = $("#shopping_name").val();
                       var total_price = $("#total_price").val();
@@ -735,7 +735,8 @@
                   });
                 } else if(eventType == "location") {
                   $('#location_input').css('display','block');
-                  $('#add_event_location').attr('disabled', false);
+                  $('#place_title').attr('disabled', false);
+
                   $.ajax({
                             type: "GET",
                             url: "/myPlanner/getLikedPlace",
@@ -750,11 +751,86 @@
                                     table_html += '</tr>';
 
                                     $('#likedPlace_body').append(table_html);
-
                                 }
                             }
                   })
+
                   $("#add_event_modal").modal("show");
+
+                  let placeName;
+                  let address;
+                  $(document).off('click').on('click', '#likedPlace_body>tr', function(){
+
+                    $('.table-primary').removeClass('table-primary');
+                    $(this).addClass('table-primary');
+
+                    var tbody = this.parentNode;
+                    var trs = tbody.getElementsByTagName('tr');
+
+                    var tr = $(this);
+                    var td = tr.children();
+
+                    placeName = td.eq(0).text();
+                    address = td.eq(1).text();
+                  });
+
+                  $("#add_event_save").off('click').on("click",function(){  // modal의 일정 추가 버튼 클릭 시 - 장소
+                    var title = $("#place_title").val();
+                    var start_date = $("#add_event_start_date").val();
+                    var start_time = $("#add_event_start_time").val();
+                    var end_date = $("#add_event_end_date").val();
+                    var end_time = $("#add_event_end_time").val();
+
+                    var allDay = true;
+                    if($('input:radio[id=set_time]').is(':checked')){
+                      allDay = false;
+                    }
+
+                    var start = start_date + " " + start_time;
+                    var end = end_date + " " + end_time;
+
+                    //내용 입력 여부 확인
+                    if(title == null || title == "" || placeName == null || placeName == ""){
+                      alert("내용을 입력하세요.");
+                    }else if(start_date == "" || end_date ==""){
+                      alert("날짜를 입력하세요.");
+                    }else if(new Date(end)- new Date(start) < 0){ // date 타입으로 변경 후 확인
+                      alert("종료일이 시작일보다 먼저입니다.");
+                    }else{ // 정상적인 입력 시
+                      var obj = {
+                        "eventType" : "place",
+                        "title" : title,
+                        "placeName" : placeName,
+                        "address" : address,
+                        "start" : start,
+                        "end" : end,
+                        "allDay" : allDay
+                      }//전송할 객체 생성
+                      var eventPlace = JSON.stringify(obj)
+                      console.log(eventPlace);
+                      $.ajax({
+                        url: "/myPlanner/create_place",
+                        method: "POST",
+                        dataType: "text",
+                        data: eventPlace,
+                        contentType: 'application/json',
+                        beforeSend : function(xhr) {
+                          xhr.setRequestHeader(header, token);
+                        },
+                        success : function(){
+                          alert("등록을 완료하였습니다!");
+                        },
+                        fail : function (request, status, error){
+                          alert("에러 발생" + error)
+                        },
+                        complete : function(){
+                          location.replace("");
+                      }
+                    })
+
+                    calendar.unselect();
+                    }
+                  });
                 } else if(eventType == "text") {
                   $('#text_input').css('display','block');
                   $('#add_event_text').attr('disabled', false);
@@ -1007,8 +1083,8 @@
               <input type="number" id="total_price" class="form-control" name="calendar_content" placeholder="총 금액 (원)" disabled="true">
           </div>
           <div id="location_input">
-              <label for="add_event_location" class="col-form-label">장소 추가</label>
-              <input type="text" class="form-control" id="add_event_location" name="calendar_content" disabled="true">
+              <label for="location_input" class="col-form-label">장소 추가</label>
+              <input type="text" id="place_title" class="form-control" name="calendar_content" placeholder="제목 예) 숙소, 식사 ..." value="" disabled="true">
               <table class="table table-hover" id="likedPlace" style="font-size: 1vh">
                   <thead id="likedPlace_table_head">
                   <tr>

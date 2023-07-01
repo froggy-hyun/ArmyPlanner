@@ -194,4 +194,32 @@ public class MyPlannerController {
         return likedPlaceService.listAllLikedPlace(member);
     }
 
+    @PostMapping(value = "create_place")
+    @ResponseBody
+    public void addEvent_place(@RequestBody EventDto eventPlaceDto, Principal principal) throws Exception {
+        String eventType = eventPlaceDto.getEventType();
+
+        String title = eventPlaceDto.getTitle();
+        String placeName = eventPlaceDto.getPlaceName();
+        String address = eventPlaceDto.getAddress();
+
+        String start = eventPlaceDto.getStart();
+        String end = eventPlaceDto.getEnd();
+
+        String username = principal.getName();
+        Member member = memberRepository.findByEmail(username);
+
+        Event eventPlace = EventDto.builder()
+                .eventType(eventType)
+                .title(title)
+                .placeName(placeName)
+                .address(address)
+                .start(start)
+                .end(end)
+                .member(member)
+                .build().toEntity_place();
+
+        eventService.saveEvent(eventPlace);
+    }
+
 }

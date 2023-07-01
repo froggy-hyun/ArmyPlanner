@@ -25,7 +25,7 @@ public class EventDto {
 
     private String title;
 
-    //  식단 -----------------------
+//  식단 -----------------------
     private String food_name;
     private String kcal;
     private String carbohydrate;
@@ -37,14 +37,15 @@ public class EventDto {
     private String saturatedFattyAcids;
     private String transFattyAcids;
 
-    //  소비 기록 --------------------
+//  소비 기록 --------------------
     private String shopping_name;
     private String total_price;
 
-//    private String description;
+//  장소 --------------------
+    private String placeName;
+    private String address;
 
     private String start;
-
     private String end;
 
     private Member member;
@@ -96,6 +97,21 @@ public class EventDto {
                 .title(title)
                 .shopping_name(shopping_name)
                 .total_price(total_price)
+                .start(LocalDateTime.parse(start, dateTimeFormatter))
+                .end(LocalDateTime.parse(end, dateTimeFormatter))
+                .allDay(allDay)
+                .member(member)
+                .build();
+
+    }
+
+    public Event toEntity_place() {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm", Locale.KOREA);
+        return Event.builder()
+                .eventType(eventType)
+                .title(title)
+                .placeName(placeName)
+                .address(address)
                 .start(LocalDateTime.parse(start, dateTimeFormatter))
                 .end(LocalDateTime.parse(end, dateTimeFormatter))
                 .allDay(allDay)

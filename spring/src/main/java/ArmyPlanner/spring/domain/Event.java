@@ -40,6 +40,9 @@ public class Event {
 //  소비 기록 --------------------
     private String shopping_name;
     private String total_price;
+//  장소 --------------------
+    private String placeName;
+    private String address;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+9")
