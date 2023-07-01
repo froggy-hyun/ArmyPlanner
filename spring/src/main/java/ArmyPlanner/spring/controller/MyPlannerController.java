@@ -205,6 +205,7 @@ public class MyPlannerController {
 
         String start = eventPlaceDto.getStart();
         String end = eventPlaceDto.getEnd();
+        boolean allDay = eventPlaceDto.isAllDay();
 
         String username = principal.getName();
         Member member = memberRepository.findByEmail(username);
@@ -216,6 +217,7 @@ public class MyPlannerController {
                 .address(address)
                 .start(start)
                 .end(end)
+                .allDay(allDay)
                 .member(member)
                 .build().toEntity_place();
 
