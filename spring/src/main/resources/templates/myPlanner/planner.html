@@ -26,11 +26,11 @@
            -moz-filter: brightness(0) grayscale(1) opacity(1);
                 filter: brightness(0) grayscale(1) opacity(1);
     }
-    .vacation{background-image:url(img/eventType/vacation.png);}
-    .diet{background-image:url(img/eventType/diet.png);}
-    .shopping{background-image:url(img/eventType/shopping.png);}
-    .location{background-image:url(img/eventType/location.png);}
-    .text{background-image:url(img/eventType/text.png);}
+    #vacation{background-image:url(img/eventType/vacation.png);}
+    #diet{background-image:url(img/eventType/diet.png);}
+    #shopping{background-image:url(img/eventType/shopping.png);}
+    #place{background-image:url(img/eventType/place.png);}
+    #text{background-image:url(img/eventType/text.png);}
 
 
     .cc-selector input:hover{
@@ -118,7 +118,7 @@
           $("#type_event_modal").modal("show"); // modal 나타내기
           $("#type_event_save").off('click').on("click",function(){
               var eventType = $('input:radio[name="type_event"]:checked').val();
-              if(eventType == "vacation" || eventType == "diet" || eventType == "shopping" || eventType == "location" || eventType == "text") {
+              if(eventType == "vacation" || eventType == "diet" || eventType == "shopping" || eventType == "place" || eventType == "text") {
 
                 //선택한 날짜 받아오기
                 document.getElementById("add_event_start_date").value = moment(arg.start).format('YYYY-MM-DD');
@@ -129,7 +129,7 @@
                 $('#vacation_input').css('display','none');
                 $('#diet_input').css('display','none');
                 $('#shopping_input').css('display','none');
-                $('#location_input').css('display','none');
+                $('#place_input').css('display','none');
                 $('#text_input').css('display','none');
 
                 if(eventType == "vacation") {
@@ -733,8 +733,8 @@
                         $("#add_shopping_by_text_modal").modal("hide");
                     })
                   });
-                } else if(eventType == "location") {
-                  $('#location_input').css('display','block');
+                } else if(eventType == "place") {
+                  $('#place_input').css('display','block');
                   $('#place_title').attr('disabled', false);
 
                   $('#likedPlace_body').empty();
@@ -903,7 +903,7 @@
           $('#vacation_info').css('display','none');
           $('#diet_info').css('display','none');
           $('#shopping_info').css('display','none');
-          $('#location_info').css('display','none');
+          $('#place_info').css('display','none');
           $('#text_info').css('display','none');
 
           document.getElementById("info_event_start_date").value = moment(arg.event.start).format('YYYY-MM-DD');
@@ -931,8 +931,8 @@
             document.getElementById("shopping_title_info").value = arg.event.title;
             document.getElementById("shopping_name_info").value = arg.event.extendedProps.shopping_name;
             document.getElementById("totalPrice_info").value = arg.event.extendedProps.total_price;
-          }else if(arg.event.extendedProps.eventType == "location"){
-            $('#location_info').css('display','block');
+          }else if(arg.event.extendedProps.eventType == "place"){
+            $('#place_info').css('display','block');
           }else if(arg.event.extendedProps.eventType == "text"){
             $('#text_info').css('display','block');
             document.getElementById("info_event_text").value = arg.event.title;
@@ -993,23 +993,23 @@
             <form class = "modal-body">
                 <div class="cc-selector">
                     <div>
-                        <input type="radio" class="type_event_input vacation" id="vacation" value="vacation" name="type_event">
+                        <input type="radio" class="type_event_input" id="vacation" value="vacation" name="type_event">
                         <label for="vacation">휴가</label>
                     </div>
                     <div>
-                        <input type="radio" class="type_event_input diet" id="diet" value="diet" name="type_event">
+                        <input type="radio" class="type_event_input" id="diet" value="diet" name="type_event">
                         <label for="diet">식단</label>
                     </div>
                     <div>
-                        <input type="radio" class="type_event_input shopping" id="shopping" value="shopping" name="type_event" >
+                        <input type="radio" class="type_event_input" id="shopping" value="shopping" name="type_event" >
                         <label for="shopping">소비</label>
                     </div>
                     <div>
-                        <input type="radio" class="type_event_input location" id="location" value="location" name="type_event">
-                        <label for="location">장소</label>
+                        <input type="radio" class="type_event_input" id="place" value="place" name="type_event">
+                        <label for="place">장소</label>
                     </div>
                     <div>
-                        <input type="radio" class="type_event_input text" id="text" value="text" name="type_event">
+                        <input type="radio" class="type_event_input" id="text" value="text" name="type_event">
                         <label for="text">텍스트로 입력하기</label>
                     </div>
                 </div>
@@ -1083,8 +1083,8 @@
               <input type="text" id="shopping_name" class="form-control" name="calendar_content" placeholder="상품명 + 금액" value="" disabled="true">
               <input type="number" id="total_price" class="form-control" name="calendar_content" placeholder="총 금액 (원)" disabled="true">
           </div>
-          <div id="location_input">
-              <label for="location_input" class="col-form-label">장소 추가</label>
+          <div id="place_input">
+              <label for="place_input" class="col-form-label">장소 추가</label>
               <input type="text" id="place_title" class="form-control" name="calendar_content" placeholder="제목 예) 숙소, 식사 ..." value="" disabled="true">
               <table class="table table-hover" id="likedPlace" style="font-size: 1vh">
                   <thead id="likedPlace_table_head">
@@ -1163,9 +1163,9 @@
                   </fieldset>
               </fieldset>
           </div>
-          <div id="location_info">
-              <label for="info_event_location" class="col-form-label">장소 내용</label>
-              <input type="text" class="form-control" id="info_event_location" name="info_calendar_text" disabled="true">
+          <div id="place_info">
+              <label for="info_event_place" class="col-form-label">장소 내용</label>
+              <input type="text" class="form-control" id="info_event_place" name="info_calendar_text" disabled="true">
           </div>
           <div id="text_info">
               <label for="info_event_text" class="col-form-label">일정 내용</label>
