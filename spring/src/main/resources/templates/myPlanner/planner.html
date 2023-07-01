@@ -189,6 +189,7 @@
           <div id="place_input">
               <label for="place_input" class="col-form-label">장소 추가</label>
               <input type="text" id="place_title" class="form-control" name="calendar_content" placeholder="제목 예) 숙소, 식사 ..." value="" disabled="true">
+              <label for="likedPlace" class="col-form-label">관심 장소 목록</label>
               <table class="table table-hover" id="likedPlace" style="font-size: 1vh">
                   <thead id="likedPlace_table_head">
                   <tr>
@@ -198,6 +199,7 @@
                   </thead>
                   <tbody id="likedPlace_body"></tbody>
               </table>
+              <p><a href = "/map/searchView">관심 목록 추가하러 가기</a></p>
           </div>
           <div id="text_input">
               <label for="add_event_text" class="col-form-label">텍스트 추가</label>
@@ -277,6 +279,7 @@
                   </fieldset>
                   <!-- 이미지 지도를 표시할 div 입니다 -->
                   <div id="map"></div>
+                  <p>지도 클릭 시 지도 검색으로 이동합니다.</p>
               </fieldset>
           </div>
           <div id="text_info">
