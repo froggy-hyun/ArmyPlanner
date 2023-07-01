@@ -949,6 +949,10 @@
             document.getElementById("totalPrice_info").value = arg.event.extendedProps.total_price;
           }else if(arg.event.extendedProps.eventType == "place"){
             $('#place_info').css('display','block');
+            console.log(arg.event.extendedProps);
+            document.getElementById("place_title_info").value = arg.event.title;
+            document.getElementById("place_name_info").value = arg.event.extendedProps.placeName;
+            document.getElementById("place_address_info").value = arg.event.extendedProps.address;
           }else if(arg.event.extendedProps.eventType == "text"){
             $('#text_info').css('display','block');
             document.getElementById("info_event_text").value = arg.event.title;
@@ -1174,14 +1178,21 @@
                   <input type="text" id="shopping_title_info" class="form-control" name="info_event_shopping">
                   <label for="info_event_shopping_info" class="col-form-label">소비 내용</label>
                   <fieldset id="info_event_shopping_info">
-                      <input type="text" id="shopping_name_info" class="form-control" name="info_shopping_diet">
-                      <input type="number" id="totalPrice_info" class="form-control" name="info_shopping_diet">
+                      <input type="text" id="shopping_name_info" class="form-control" name="info_event_shopping">
+                      <input type="number" id="totalPrice_info" class="form-control" name="info_event_shopping">
                   </fieldset>
               </fieldset>
           </div>
           <div id="place_info">
-              <label for="info_event_place" class="col-form-label">장소 내용</label>
-              <input type="text" class="form-control" id="info_event_place" name="info_calendar_text" disabled="true">
+              <fieldset id="info_event_place" disabled="true">
+                  <label for="place_title_info" class="col-form-label">장소 제목</label>
+                  <input type="text" id="place_title_info" class="form-control" name="info_place_shopping">
+                  <label for="info_event_place_info" class="col-form-label">장소 내용</label>
+                  <fieldset id="info_event_place_info">
+                      <input type="text" id="place_name_info" class="form-control" name="info_place_shopping">
+                      <input type="text" id="place_address_info" class="form-control" name="info_place_shopping">
+                  </fieldset>
+              </fieldset>
           </div>
           <div id="text_info">
               <label for="info_event_text" class="col-form-label">일정 내용</label>

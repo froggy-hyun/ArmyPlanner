@@ -45,6 +45,9 @@ public class EventService {
             eventTextDto.setShopping_name(list.get(i).getShopping_name());
             eventTextDto.setTotal_price(list.get(i).getTotal_price());
 
+            eventTextDto.setPlaceName(list.get(i).getPlaceName());
+            eventTextDto.setAddress(list.get(i).getAddress());
+
             eventTextDto.setStart(list.get(i).getStart().toString());
             eventTextDto.setEnd(list.get(i).getEnd().toString());
             eventTextDto.setAllDay(list.get(i).isAllDay());
