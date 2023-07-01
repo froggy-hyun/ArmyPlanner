@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/common :: head(title)" />
+<meta name="_csrf" th:content="${_csrf.token}"/>
+<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 <head>
     <style>
         .wrap * {padding: 0;margin: 0;}
@@ -36,6 +38,10 @@
 <div id="map" style="width:100%;height:350px;"></div>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3d7ccd2c2284f05d05ea7f9ae21515d9&libraries=services"></script>
 <script>
+  //csrf
+  var token = $("meta[name='_csrf']").attr("content");
+  var header = $("meta[name='_csrf_header']").attr("content");
+
   let pocheon = [];
   //title: 상호명
   //type: 업종 + 업태
@@ -300,6 +306,8 @@
     var closed = position.closed;
     var mainMenu = position.mainMenu;
     var discount = position.discount;
+    var x = position.lngt;
+    var y = position.ltd;
 
     // 결과값으로 받은 위치를 마커로 표시합니다
     var marker = new kakao.maps.Marker({
@@ -311,7 +319,7 @@
     // LatLngBounds 객체에 좌표를 추가합니다
     bounds.extend(coords); //추가한 코드, 현재 코드에서 좌표정보는 point[i]가 아닌 coords이다.
 
-    function displayInfowindow(marker, title, type, address, phone, startTime, endTime, closed, mainMenu, discount){
+    function displayInfowindow(marker, title, type, address, phone, startTime, endTime, closed, mainMenu, discount, x, y){
       var content =  '<div class="wrap">' +
       '    <div class="info">' +
       `        <div class="title">${title}` +
@@ -347,16 +355,47 @@
 
       content +=
       '            </div>' +
+      `                <button id="likePlace" class="btn btn-primary btn-sm">관심 장소에 추가하기</div>` +
       '        </div>' +
       '    </div>' +
       '</div>';
 
       infowindow.setContent(content);
       infowindow.open(map, marker);
+
+      $('#likePlace').off('click').on('click', function(){
+        var placeobj = {
+          "title" : title,
+          "road_address_name" : address,
+          "x" : x,
+          "y" : y
+        }//전송할 객체 생성
+        var placeJsonObj = JSON.stringify(placeobj);
+
+        $.ajax({
+          url: "/map/place_like",
+          method: "POST",
+          dataType: "text",
+          data: placeJsonObj,
+          contentType: 'application/json',
+          beforeSend : function(xhr) {
+            xhr.setRequestHeader(header, token);
+          },
+          success : function(){
+            alert("등록을 완료하였습니다!");
+          },
+          fail : function (request, status, error){
+            alert("에러 발생" + error)
+          },
+          complete : function(){
+            location.replace("");
+          }
+        });
+      });
     }
 
     kakao.maps.event.addListener(marker, 'click', function() {
-        displayInfowindow(marker, title, type, address, phone, startTime, endTime, closed, mainMenu, discount);
+        displayInfowindow(marker, title, type, address, phone, startTime, endTime, closed, mainMenu, discount, x, y);
     });
 
     $(document).on("click", '#closeInfo', function () {
@@ -393,8 +432,10 @@
         var phone = position.phone;
         var army_discount = position.army_discount;
         var colStudent_discount = position.colStudent_discount;
+        var x = result[0].x;
+        var y = result[0].y;
 
-        function displayInfowindow(marker, title, road_address_name, address_name, type, phone, army_discount, colStudent_discount){
+        function displayInfowindow(marker, title, road_address_name, address_name, type, phone, army_discount, colStudent_discount, x, y){
           var content =  '<div class="wrap">' +
           '    <div class="info">' +
           `        <div class="title">${title}` +
@@ -409,16 +450,47 @@
           `                <div class="etc"> 장병 및 면회객 할인율: ${army_discount}</div>` +
           `                <div class="etc"> 대학생 할인율: ${colStudent_discount}</div>` +
           '            </div>' +
+          `                <button id="likePlace" class="btn btn-primary btn-sm">관심 장소에 추가하기</div>` +
           '        </div>' +
           '    </div>' +
           '</div>';
 
           infowindow.setContent(content);
           infowindow.open(map, marker);
+
+          $('#likePlace').off('click').on('click', function(){
+            var placeobj = {
+              "title" : title,
+              "road_address_name" : road_address_name,
+              "x" : x,
+              "y" : y
+            }//전송할 객체 생성
+            var placeJsonObj = JSON.stringify(placeobj);
+
+            $.ajax({
+              url: "/map/place_like",
+              method: "POST",
+              dataType: "text",
+              data: placeJsonObj,
+              contentType: 'application/json',
+              beforeSend : function(xhr) {
+                xhr.setRequestHeader(header, token);
+              },
+              success : function(){
+                alert("등록을 완료하였습니다!");
+              },
+              fail : function (request, status, error){
+                alert("에러 발생" + error)
+              },
+              complete : function(){
+                location.replace("");
+              }
+            });
+          });
         }
 
         kakao.maps.event.addListener(marker, 'click', function() {
-          displayInfowindow(marker, title, road_address_name, address_name, type, phone, army_discount, colStudent_discount);
+          displayInfowindow(marker, title, road_address_name, address_name, type, phone, army_discount, colStudent_discount, x, y);
         });
 
         $(document).on("click", '#closeInfo', function () {
@@ -455,13 +527,15 @@
         var address_name = result[0].address.address_name;
         var title = position.title;
         var phone;
+        var x = result[0].x;
+        var y = result[0].y;
         if(position.phone != null){
             phone = position.phone;
         } else {
             phone = "제공되지 않음";
         }
 
-        function displayInfowindow(marker, title, road_address_name, address_name, phone){
+        function displayInfowindow(marker, title, road_address_name, address_name, phone, x, y){
           var content =  '<div class="wrap">' +
           '    <div class="info">' +
           `        <div class="title">${title}` +
@@ -473,16 +547,47 @@
           `                <div class="jibun ellipsis"> (지번) ${address_name}</div>` +
           `                <div class="etc"> 전화번호: ${phone}</div>` +
           '            </div>' +
+          `                <button id="likePlace" class="btn btn-primary btn-sm">관심 장소에 추가하기</div>` +
           '        </div>' +
           '    </div>' +
           '</div>';
 
           infowindow.setContent(content);
           infowindow.open(map, marker);
+
+          $('#likePlace').off('click').on('click', function(){
+            var placeobj = {
+              "title" : title,
+              "road_address_name" : road_address_name,
+              "x" : x,
+              "y" : y
+            }//전송할 객체 생성
+            var placeJsonObj = JSON.stringify(placeobj);
+
+            $.ajax({
+              url: "/map/place_like",
+              method: "POST",
+              dataType: "text",
+              data: placeJsonObj,
+              contentType: 'application/json',
+              beforeSend : function(xhr) {
+                xhr.setRequestHeader(header, token);
+              },
+              success : function(){
+                alert("등록을 완료하였습니다!");
+              },
+              fail : function (request, status, error){
+                alert("에러 발생" + error)
+              },
+              complete : function(){
+                location.replace("");
+              }
+            });
+          });
         }
 
         kakao.maps.event.addListener(marker, 'click', function() {
-          displayInfowindow(marker, title, road_address_name, address_name, phone);
+          displayInfowindow(marker, title, road_address_name, address_name, phone, x, y);
         });
 
         $(document).on("click", '#closeInfo', function () {
@@ -519,6 +624,8 @@
         var address_name = result[0].address.address_name;
         var title = position.title;
         var phone;
+        var x = result[0].x;
+        var y = result[0].y;
         if(position.phone != null){
             phone = position.phone;
         } else {
@@ -526,7 +633,7 @@
         }
         var mainMenu = position.mainMenu;
 
-        function displayInfowindow(marker, title, road_address_name, address_name, phone, mainMenu){
+        function displayInfowindow(marker, title, road_address_name, address_name, phone, mainMenu, x, y){
           var content =  '<div class="wrap">' +
           '    <div class="info">' +
           `        <div class="title">${title}` +
@@ -541,16 +648,47 @@
             content += `                <div class="etc"> 주메뉴: ${mainMenu}</div>`;
           }
           content += '            </div>' +
+          `                <button id="likePlace" class="btn btn-primary btn-sm">관심 장소에 추가하기</div>` +
           '        </div>' +
           '    </div>' +
           '</div>';
 
           infowindow.setContent(content);
           infowindow.open(map, marker);
+
+          $('#likePlace').off('click').on('click', function(){
+            var placeobj = {
+              "title" : title,
+              "road_address_name" : road_address_name,
+              "x" : x,
+              "y" : y
+            }//전송할 객체 생성
+            var placeJsonObj = JSON.stringify(placeobj);
+
+            $.ajax({
+              url: "/map/place_like",
+              method: "POST",
+              dataType: "text",
+              data: placeJsonObj,
+              contentType: 'application/json',
+              beforeSend : function(xhr) {
+                xhr.setRequestHeader(header, token);
+              },
+              success : function(){
+                alert("등록을 완료하였습니다!");
+              },
+              fail : function (request, status, error){
+                alert("에러 발생" + error)
+              },
+              complete : function(){
+                location.replace("");
+              }
+            });
+          });
         }
 
         kakao.maps.event.addListener(marker, 'click', function() {
-          displayInfowindow(marker, title, road_address_name, address_name, phone, mainMenu);
+          displayInfowindow(marker, title, road_address_name, address_name, phone, mainMenu, x, y);
         });
 
         $(document).on("click", '#closeInfo', function () {

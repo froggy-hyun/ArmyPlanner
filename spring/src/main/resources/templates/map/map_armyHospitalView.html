@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/common :: head(title)" />
+<meta name="_csrf" th:content="${_csrf.token}"/>
+<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 <head>
     <style>
         .wrap * {padding: 0;margin: 0;}
@@ -35,6 +37,10 @@
 <div id="map" style="width:100%;height:350px;"></div>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3d7ccd2c2284f05d05ea7f9ae21515d9&libraries=services"></script>
 <script>
+  //csrf
+  var token = $("meta[name='_csrf']").attr("content");
+  var header = $("meta[name='_csrf_header']").attr("content");
+
   var positions = [];
 
   let totalCount;
@@ -120,6 +126,8 @@
     var title = position.title;
     var hspt_cntadr = position.hspt_cntadr;
     var zipcd = position.zipcd;
+    var x = position.lngt;
+    var y = position.ltd;
 
     // 결과값으로 받은 위치를 마커로 표시합니다
     var marker = new kakao.maps.Marker({
@@ -131,7 +139,7 @@
     // LatLngBounds 객체에 좌표를 추가합니다
     bounds.extend(coords); //추가한 코드, 현재 코드에서 좌표정보는 point[i]가 아닌 coords이다.
 
-    function displayInfowindow(marker, title, address_name, hspt_cntadr, zipcd){
+    function displayInfowindow(marker, title, address_name, hspt_cntadr, zipcd, x, y){
         var content =  '<div class="wrap">' +
         '    <div class="info">' +
         `        <div class="title">${title}` +
@@ -143,16 +151,47 @@
         `                <div class="etc"> 우편번호: ${zipcd}</div>` +
         `                <div class="etc"> 전화번호: ${hspt_cntadr}</div>` +
         '            </div>' +
+        `                <button id="likePlace" class="btn btn-primary btn-sm">관심 장소에 추가하기</div>` +
         '        </div>' +
         '    </div>' +
         '</div>';
 
         infowindow.setContent(content);
         infowindow.open(map, marker);
+
+        $('#likePlace').off('click').on('click', function(){
+          var placeobj = {
+            "title" : title,
+            "road_address_name" : address_name,
+            "x" : x,
+            "y" : y
+          }//전송할 객체 생성
+          var placeJsonObj = JSON.stringify(placeobj);
+
+          $.ajax({
+            url: "/map/place_like",
+            method: "POST",
+            dataType: "text",
+            data: placeJsonObj,
+            contentType: 'application/json',
+            beforeSend : function(xhr) {
+              xhr.setRequestHeader(header, token);
+            },
+            success : function(){
+              alert("등록을 완료하였습니다!");
+            },
+            fail : function (request, status, error){
+              alert("에러 발생" + error)
+            },
+            complete : function(){
+              location.replace("");
+            }
+          });
+        });
       }
 
       kakao.maps.event.addListener(marker, 'click', function() {
-          displayInfowindow(marker, title, address_name, hspt_cntadr, zipcd);
+          displayInfowindow(marker, title, address_name, hspt_cntadr, zipcd, x, y);
       });
 
       $(document).on("click", '#closeInfo', function () {
