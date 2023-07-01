@@ -276,7 +276,7 @@
                       <input type="text" id="place_address_info" class="form-control" name="info_place_shopping">
                   </fieldset>
                   <!-- 이미지 지도를 표시할 div 입니다 -->
-                  <div id="staticMap" style="width:auto;height:350px;"></div>
+                  <div id="map"></div>
               </fieldset>
           </div>
           <div id="text_info">
@@ -1184,7 +1184,6 @@
                         "allDay" : allDay
                       }//전송할 객체 생성
                       var eventPlace = JSON.stringify(obj)
-                      console.log(eventPlace);
                       $.ajax({
                         url: "/myPlanner/create_place",
                         method: "POST",
@@ -1308,8 +1307,8 @@
             document.getElementById("shopping_name_info").value = arg.event.extendedProps.shopping_name;
             document.getElementById("totalPrice_info").value = arg.event.extendedProps.total_price;
           }else if(arg.event.extendedProps.eventType == "place"){
-            x = arg.event.extendedProps.x;
-            y = arg.event.extendedProps.y;
+            map_x = arg.event.extendedProps.x;
+            map_y = arg.event.extendedProps.y;
             $('#place_info').css('display','block');
             document.getElementById("place_title_info").value = arg.event.title;
             document.getElementById("place_name_info").value = arg.event.extendedProps.placeName;
@@ -1382,12 +1381,14 @@
 	 resetExtraInputs();
    })
 
-   var x;
-   var y;
-   $('#info_event_modal').on('shown.bs.modal', function() {
+   let map_x;
+   let map_y;
+   $('#info_event_modal').off().on('shown.bs.modal', function() {
+
+     $('#map').append(`<div id="staticMap" style="width:auto;height:350px;"></div>`);
 
      // 이미지 지도에서 마커가 표시될 위치입니다
-     var markerPosition  = new kakao.maps.LatLng(y, x);
+     var markerPosition  = new kakao.maps.LatLng(map_y, map_x);
 
      // 이미지 지도에 표시할 마커입니다
      // 이미지 지도에 표시할 마커는 Object 형태입니다
@@ -1405,5 +1406,10 @@
      // 이미지 지도를 표시할 div와 옵션으로 이미지 지도를 생성합니다
      var staticMap = new kakao.maps.StaticMap(staticMapContainer, staticMapOption);
    });
+
+   $('#info_event_modal').on('hidden.bs.modal', function() {
+     $('#map').empty();
+   });
+
 </script>
 
