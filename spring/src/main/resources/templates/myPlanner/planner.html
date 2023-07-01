@@ -168,10 +168,13 @@
                       var end = end_date + " " + end_time;
 
                       //내용 입력 여부 확인
-                      if(diet_title == null || diet_title == "" || food_name == null || food_name == "" ){
-                        alert("내용을 입력하세요.");
+                      if(diet_title == null || diet_title == ""){
+                        alert("제목을 입력해주세요.");
+                      }else if(food_name == null || food_name == ""){
+                        alert("식단을 입력해주세요.");
+                      }
                       }else if(start_date == "" || end_date ==""){
-                        alert("날짜를 입력하세요.");
+                        alert("날짜를 입력해주세요.");
                       }else if(new Date(end)- new Date(start) < 0){ // date 타입으로 변경 후 확인
                         alert("종료일이 시작일보다 먼저입니다.");
                       }else{ // 정상적인 입력 시
@@ -306,7 +309,7 @@
                             }
                         })
                         if(resultCode != "00"){
-                            alert("공공데이터 API에 문제가 있습니다! 잠시 후 다시 시도하세요.");
+                            alert("공공데이터 API에 문제가 있습니다! 잠시 후 다시 시도해주세요.");
                         }
                     }
 
@@ -463,10 +466,13 @@
                       var end = end_date + " " + end_time;
 
                       //내용 입력 여부 확인
-                      if(shopping_title == null || shopping_title == "" || shopping_name == null || shopping_name == "" ){
-                        alert("내용을 입력하세요.");
+                      if(shopping_title == null || shopping_title == ""){
+                        alert("제목을 입력해주세요.");
+                      }else if(shopping_name == null || shopping_name == ""){
+                        alert("소비내용을 입력해주세요.");
+                      }
                       }else if(start_date == "" || end_date ==""){
-                        alert("날짜를 입력하세요.");
+                        alert("날짜를 입력해주세요.");
                       }else if(new Date(end)- new Date(start) < 0){ // date 타입으로 변경 후 확인
                         alert("종료일이 시작일보다 먼저입니다.");
                       }else{ // 정상적인 입력 시
@@ -705,7 +711,7 @@
                     }
 
                     $(document).off('click').on('click', '#px_api_body>tr', function(){
-                        let price = prompt('가격을 입력하세요. 공백 시 0원','0');
+                        let price = prompt('가격을 입력해주세요. 공백 시 0원','0');
                         var tr = $(this);
                         var td = tr.children();
                         if($('#shopping_name').val() !=""){
@@ -791,10 +797,13 @@
                     var end = end_date + " " + end_time;
 
                     //내용 입력 여부 확인
-                    if(title == null || title == "" || placeName == null || placeName == ""){
-                      alert("내용을 입력하세요.");
+                    if(title == null || title == ""){
+                      alert("제목을 입력해주세요.");
+                    }else if(placeName == null || placeName == ""){
+                      alert("장소를 선택해주세요.");
+                    }
                     }else if(start_date == "" || end_date ==""){
-                      alert("날짜를 입력하세요.");
+                      alert("날짜를 입력해주세요.");
                     }else if(new Date(end)- new Date(start) < 0){ // date 타입으로 변경 후 확인
                       alert("종료일이 시작일보다 먼저입니다.");
                     }else{ // 정상적인 입력 시
@@ -855,9 +864,9 @@
 
                     //내용 입력 여부 확인
                     if(text == null || text == ""){
-                      alert("내용을 입력하세요.");
+                      alert("내용을 입력해주세요.");
                     }else if(start_date == "" || end_date ==""){
-                      alert("날짜를 입력하세요.");
+                      alert("날짜를 입력해주세요.");
                     }else if(new Date(end)- new Date(start) < 0){ // date 타입으로 변경 후 확인
                       alert("종료일이 시작일보다 먼저입니다.");
                     }else{ // 정상적인 입력 시
