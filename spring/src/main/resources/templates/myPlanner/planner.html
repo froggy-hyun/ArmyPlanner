@@ -1119,6 +1119,8 @@
 
                   let placeName;
                   let address;
+                  let x;
+                  let y;
                   $(document).off('click').on('click', '#likedPlace_body>tr', function(){
 
                     $('.table-primary').removeClass('table-primary');
@@ -1132,6 +1134,17 @@
 
                     placeName = td.eq(0).text();
                     address = td.eq(1).text();
+
+                    $.ajax({
+                      type: "GET",
+                      url: `/myPlanner/getLikedPlaceXY/${placeName}`,
+                      data: {},
+                      async: false,
+                      success: function(data) {
+                        x = data.x;
+                        y = data.y;
+                      }
+                    })
                   });
 
                   $("#add_event_save").off('click').on("click",function(){  // modal의 일정 추가 버튼 클릭 시 - 장소
@@ -1164,6 +1177,8 @@
                         "title" : title,
                         "placeName" : placeName,
                         "address" : address,
+                        "x" : x,
+                        "y" : y,
                         "start" : start,
                         "end" : end,
                         "allDay" : allDay

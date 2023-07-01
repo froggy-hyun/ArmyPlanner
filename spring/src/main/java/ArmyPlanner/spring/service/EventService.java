@@ -47,6 +47,8 @@ public class EventService {
 
             eventDto.setPlaceName(list.get(i).getPlaceName());
             eventDto.setAddress(list.get(i).getAddress());
+            eventDto.setX(list.get(i).getX());
+            eventDto.setY(list.get(i).getY());
 
             eventDto.setStart(list.get(i).getStart().toString());
             eventDto.setEnd(list.get(i).getEnd().toString());

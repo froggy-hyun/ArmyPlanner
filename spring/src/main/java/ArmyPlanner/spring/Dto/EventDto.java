@@ -44,6 +44,8 @@ public class EventDto {
 //  장소 --------------------
     private String placeName;
     private String address;
+    private String x;
+    private String y;
 
     private String start;
     private String end;
@@ -112,6 +114,8 @@ public class EventDto {
                 .title(title)
                 .placeName(placeName)
                 .address(address)
+                .x(x)
+                .y(y)
                 .start(LocalDateTime.parse(start, dateTimeFormatter))
                 .end(LocalDateTime.parse(end, dateTimeFormatter))
                 .allDay(allDay)

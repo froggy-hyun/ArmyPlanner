@@ -2,6 +2,7 @@ package ArmyPlanner.spring.controller;
 
 import ArmyPlanner.spring.Dto.EventDto;
 import ArmyPlanner.spring.Dto.LikedPlaceDto;
+import ArmyPlanner.spring.Dto.LikedPlaceXYDto;
 import ArmyPlanner.spring.domain.Event;
 import ArmyPlanner.spring.domain.Member;
 import ArmyPlanner.spring.repository.MemberRepository;
@@ -202,6 +203,8 @@ public class MyPlannerController {
         String title = eventPlaceDto.getTitle();
         String placeName = eventPlaceDto.getPlaceName();
         String address = eventPlaceDto.getAddress();
+        String x = eventPlaceDto.getX();
+        String y = eventPlaceDto.getY();
 
         String start = eventPlaceDto.getStart();
         String end = eventPlaceDto.getEnd();
@@ -215,6 +218,8 @@ public class MyPlannerController {
                 .title(title)
                 .placeName(placeName)
                 .address(address)
+                .x(x)
+                .y(y)
                 .start(start)
                 .end(end)
                 .allDay(allDay)
@@ -222,6 +227,16 @@ public class MyPlannerController {
                 .build().toEntity_place();
 
         eventService.saveEvent(eventPlace);
+    }
+
+    @GetMapping("/getLikedPlaceXY/{placeName}")
+    @ResponseBody
+    public LikedPlaceXYDto getLikedPlaceXY(@PathVariable String placeName, Principal principal) throws IOException {
+        String username = principal.getName();
+        Member member = memberRepository.findByEmail(username);
+
+        return likedPlaceService.findLikedPlaceXY(member, placeName);
+
     }
 
 }

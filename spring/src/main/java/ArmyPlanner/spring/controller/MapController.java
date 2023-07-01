@@ -274,6 +274,8 @@ public class MapController {
 
         String title = likedPlaceDto.getTitle();
         String road_address_name = likedPlaceDto.getRoad_address_name();
+        String x = likedPlaceDto.getX();
+        String y = likedPlaceDto.getY();
 
         String username = principal.getName();
         Member member = memberRepository.findByEmail(username);
@@ -281,6 +283,8 @@ public class MapController {
         LikedPlace likedPlace = LikedPlaceDto.builder()
                 .title(title)
                 .road_address_name(road_address_name)
+                .x(x)
+                .y(y)
                 .member(member)
                 .build().toEntity();
 

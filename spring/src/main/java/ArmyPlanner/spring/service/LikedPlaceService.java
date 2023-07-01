@@ -1,6 +1,7 @@
 package ArmyPlanner.spring.service;
 
 import ArmyPlanner.spring.Dto.LikedPlaceDto;
+import ArmyPlanner.spring.Dto.LikedPlaceXYDto;
 import ArmyPlanner.spring.domain.LikedPlace;
 import ArmyPlanner.spring.domain.Member;
 import ArmyPlanner.spring.repository.LikedPlaceRepository;
@@ -29,11 +30,21 @@ public class LikedPlaceService {
             likedPlaceDto.setId(list.get(i).getId());
             likedPlaceDto.setTitle(list.get(i).getTitle());
             likedPlaceDto.setRoad_address_name(list.get(i).getRoad_address_name().toString());
+            likedPlaceDto.setX(list.get(i).getX().toString());
+            likedPlaceDto.setY(list.get(i).getY().toString());
 
             likedPlacesDto.add(likedPlaceDto);
         }
 
         return likedPlacesDto;
+    }
+
+    public LikedPlaceXYDto findLikedPlaceXY(Member member, String placeName) {
+        LikedPlace likedPlace = likedPlaceRepository.findByMemberAndTitle(member, placeName);
+
+        LikedPlaceXYDto likedPlaceXYDto = new LikedPlaceXYDto(likedPlace.getX(), likedPlace.getY());
+
+        return likedPlaceXYDto;
     }
 
     public LikedPlace saveLikedPlace(LikedPlace likedPlace) {

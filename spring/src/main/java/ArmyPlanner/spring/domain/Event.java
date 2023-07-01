@@ -43,6 +43,8 @@ public class Event {
 //  장소 --------------------
     private String placeName;
     private String address;
+    private String x;
+    private String y;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+9")

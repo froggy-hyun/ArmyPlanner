@@ -180,7 +180,7 @@
 
             // 마커와 검색결과 항목을 클릭 했을때
             // 해당 장소에 인포윈도우에 장소명을 표시합니다
-            (function(marker, title, category_name, road_address_name, address_name, phone, place_url) {
+            (function(marker, title, category_name, road_address_name, address_name, phone, place_url, x, y) {
                 kakao.maps.event.addListener(marker, 'click', function() {
                     displayInfowindow(marker, title, category_name, road_address_name, address_name, phone, place_url, x, y);
                 });
@@ -190,7 +190,7 @@
                 });
 
                 itemEl.onclick =  function () {
-                    displayInfowindow(marker, title, category_name, road_address_name, address_name, phone, place_url);
+                    displayInfowindow(marker, title, category_name, road_address_name, address_name, phone, place_url, x, y);
                 };
 
             })(marker, places[i].place_name, places[i].category_name, places[i].road_address_name, places[i].address_name, places[i].phone, places[i].place_url, places[i].x, places[i].y);

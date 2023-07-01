@@ -9,6 +9,10 @@ import java.util.List;
 public interface LikedPlaceRepository extends JpaRepository<LikedPlace, Long> {
     List<LikedPlace> findAllByMember(Member member);
 
+    LikedPlace findByMemberAndTitle(Member member, String placeName);
+
     void deleteById(Long id);
+
+
 
 }
