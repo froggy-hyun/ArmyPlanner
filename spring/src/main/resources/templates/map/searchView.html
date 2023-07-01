@@ -89,6 +89,10 @@
 </div>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3d7ccd2c2284f05d05ea7f9ae21515d9&libraries=services"></script>
 <script>
+    //csrf
+    var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+
     // 마커를 담을 배열입니다
     var markers = [];
 
@@ -301,7 +305,7 @@
             `                <div class="jibun ellipsis"> (지번) ${address_name}</div>` +
             `                <div class = "phone">${phone}</div>` +
             '            </div>' +
-            `                <button id="likePlace">좋아요</div>` +
+            `                <button id="likePlace">저장하기</div>` +
             '        </div>' +
             '    </div>' +
             '</div>';
