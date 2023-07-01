@@ -1408,6 +1408,10 @@
 
      // 이미지 지도를 표시할 div와 옵션으로 이미지 지도를 생성합니다
      var staticMap = new kakao.maps.StaticMap(staticMapContainer, staticMapOption);
+
+     $('#map').off('click').on('click', function(){
+       window.location.assign(`/map/searchView?x=${map_x}&y=${map_y}`);
+     });
    });
 
    $('#info_event_modal').on('hidden.bs.modal', function() {
