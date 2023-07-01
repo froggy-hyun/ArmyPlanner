@@ -182,7 +182,7 @@
             // 해당 장소에 인포윈도우에 장소명을 표시합니다
             (function(marker, title, category_name, road_address_name, address_name, phone, place_url) {
                 kakao.maps.event.addListener(marker, 'click', function() {
-                    displayInfowindow(marker, title, category_name, road_address_name, address_name, phone, place_url);
+                    displayInfowindow(marker, title, category_name, road_address_name, address_name, phone, place_url, x, y);
                 });
 
                 $(document).on("click", '#closeInfo', function() {
@@ -193,7 +193,7 @@
                     displayInfowindow(marker, title, category_name, road_address_name, address_name, phone, place_url);
                 };
 
-            })(marker, places[i].place_name, places[i].category_name, places[i].road_address_name, places[i].address_name, places[i].phone, places[i].place_url);
+            })(marker, places[i].place_name, places[i].category_name, places[i].road_address_name, places[i].address_name, places[i].phone, places[i].place_url, places[i].x, places[i].y);
 
             fragment.appendChild(itemEl);
         }
@@ -292,7 +292,7 @@
 
     // 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
     // 인포윈도우에 장소명을 표시합니다
-    function displayInfowindow(marker, title, category_name, road_address_name, address_name, phone, place_url) {
+    function displayInfowindow(marker, title, category_name, road_address_name, address_name, phone, place_url, x, y) {
         var content =  '<div class="wrap">' +
             '    <div class="info">' +
             `        <div class="title">${title}` +
@@ -317,6 +317,8 @@
             var placeobj = {
               "title" : title,
               "road_address_name" : road_address_name,
+              "x" : x,
+              "y" : y
             }//전송할 객체 생성
             console.log(placeobj);
             var placeJsonObj = JSON.stringify(placeobj);

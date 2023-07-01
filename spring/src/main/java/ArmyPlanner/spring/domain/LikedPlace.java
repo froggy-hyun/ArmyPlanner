@@ -26,6 +26,11 @@ public class LikedPlace {
     @Column(nullable = false)
     private String road_address_name;
 
+    @Column(nullable = false)
+    private String x;
+    @Column(nullable = false)
+    private String y;
+
     @ManyToOne
     private Member member;
 

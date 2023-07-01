@@ -21,12 +21,17 @@ public class LikedPlaceDto {
     private String road_address_name;
     private Member member;
 
+    private String x;
+    private String y;
+
 
     public LikedPlace toEntity() {
 
         return LikedPlace.builder()
                 .title(title)
                 .road_address_name(road_address_name)
+                .x(x)
+                .y(y)
                 .member(member)
                 .build();
     }

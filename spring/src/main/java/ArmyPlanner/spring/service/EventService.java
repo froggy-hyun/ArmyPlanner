@@ -25,33 +25,33 @@ public class EventService {
         List<EventDto> eventsDto = new ArrayList<>();
 
         for (int i = 0; i < list.size(); i++) {
-            EventDto eventTextDto = new EventDto();
+            EventDto eventDto = new EventDto();
 
-            eventTextDto.setId(list.get(i).getId());
-            eventTextDto.setEventType(list.get(i).getEventType());
-            eventTextDto.setTitle(list.get(i).getTitle());
+            eventDto.setId(list.get(i).getId());
+            eventDto.setEventType(list.get(i).getEventType());
+            eventDto.setTitle(list.get(i).getTitle());
 
-            eventTextDto.setFood_name(list.get(i).getFood_name());
-            eventTextDto.setKcal(list.get(i).getKcal());
-            eventTextDto.setCarbohydrate(list.get(i).getCarbohydrate());
-            eventTextDto.setProtein(list.get(i).getProtein());
-            eventTextDto.setFat(list.get(i).getFat());
-            eventTextDto.setSugar(list.get(i).getSugar());
-            eventTextDto.setSalt(list.get(i).getSalt());
-            eventTextDto.setCholesterol(list.get(i).getCholesterol());
-            eventTextDto.setSaturatedFattyAcids(list.get(i).getSaturatedFattyAcids());
-            eventTextDto.setTransFattyAcids(list.get(i).getTransFattyAcids());
+            eventDto.setFood_name(list.get(i).getFood_name());
+            eventDto.setKcal(list.get(i).getKcal());
+            eventDto.setCarbohydrate(list.get(i).getCarbohydrate());
+            eventDto.setProtein(list.get(i).getProtein());
+            eventDto.setFat(list.get(i).getFat());
+            eventDto.setSugar(list.get(i).getSugar());
+            eventDto.setSalt(list.get(i).getSalt());
+            eventDto.setCholesterol(list.get(i).getCholesterol());
+            eventDto.setSaturatedFattyAcids(list.get(i).getSaturatedFattyAcids());
+            eventDto.setTransFattyAcids(list.get(i).getTransFattyAcids());
 
-            eventTextDto.setShopping_name(list.get(i).getShopping_name());
-            eventTextDto.setTotal_price(list.get(i).getTotal_price());
+            eventDto.setShopping_name(list.get(i).getShopping_name());
+            eventDto.setTotal_price(list.get(i).getTotal_price());
 
-            eventTextDto.setPlaceName(list.get(i).getPlaceName());
-            eventTextDto.setAddress(list.get(i).getAddress());
+            eventDto.setPlaceName(list.get(i).getPlaceName());
+            eventDto.setAddress(list.get(i).getAddress());
 
-            eventTextDto.setStart(list.get(i).getStart().toString());
-            eventTextDto.setEnd(list.get(i).getEnd().toString());
-            eventTextDto.setAllDay(list.get(i).isAllDay());
-            eventsDto.add(eventTextDto);
+            eventDto.setStart(list.get(i).getStart().toString());
+            eventDto.setEnd(list.get(i).getEnd().toString());
+            eventDto.setAllDay(list.get(i).isAllDay());
+            eventsDto.add(eventDto);
         }
 
         return eventsDto;
