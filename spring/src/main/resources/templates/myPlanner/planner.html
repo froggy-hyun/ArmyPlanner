@@ -736,6 +736,25 @@
                 } else if(eventType == "location") {
                   $('#location_input').css('display','block');
                   $('#add_event_location').attr('disabled', false);
+                  $.ajax({
+                            type: "GET",
+                            url: "/myPlanner/getLikedPlace",
+                            data: {},
+                            async: false,
+                            success: function(data) {
+<!--                                for (let i = 0; i < numOfRows; i++) {-->
+<!--                                     if((jsonData.row[i]['prdtnm']).includes(px_name)){-->
+<!--                                        let table_html='';-->
+<!--                                        table_html += '<tr>';-->
+<!--                                        table_html += '  <td>'+jsonData.row[i]['prdtnm']+'</td>';-->
+<!--                                        table_html += '  <td>'+jsonData.row[i]['sellyear']+'</td>';-->
+<!--                                        table_html += '</tr>';-->
+
+<!--                                        $('#px_api_body').append(table_html);-->
+<!--                                     }-->
+<!--                                }-->
+                            }
+                  })
                   $("#add_event_modal").modal("show");
                 } else if(eventType == "text") {
                   $('#text_input').css('display','block');

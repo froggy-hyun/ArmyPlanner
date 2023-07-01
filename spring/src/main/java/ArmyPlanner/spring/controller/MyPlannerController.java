@@ -1,10 +1,12 @@
 package ArmyPlanner.spring.controller;
 
 import ArmyPlanner.spring.Dto.EventDto;
+import ArmyPlanner.spring.Dto.LikedPlaceDto;
 import ArmyPlanner.spring.domain.Event;
 import ArmyPlanner.spring.domain.Member;
 import ArmyPlanner.spring.repository.MemberRepository;
 import ArmyPlanner.spring.service.EventService;
+import ArmyPlanner.spring.service.LikedPlaceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +26,7 @@ public class MyPlannerController {
 
     private final EventService eventService;
     private final MemberRepository memberRepository;
+    private final LikedPlaceService likedPlaceService;
 
     @GetMapping("api/events")
     @ResponseBody
@@ -180,6 +183,15 @@ public class MyPlannerController {
                 .build().toEntity_shopping();
 
         eventService.saveEvent(eventShopping);
+    }
+
+    @GetMapping("getLikedPlace")
+    @ResponseBody
+    public List<LikedPlaceDto> getLikedPlace(Principal principal) {
+        String username = principal.getName();
+        Member member = memberRepository.findByEmail(username);
+
+        return likedPlaceService.listAllLikedPlace(member);
     }
 
 }
