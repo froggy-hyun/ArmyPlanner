@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/common :: head(title)" />
+<th:block>
+    <style>
+        .fieldError {
+            color: #bd2130;
+        }
+    </style>
+</th:block>
+
+<body>
+<nav th:replace="fragments/common :: menu(menu)" />
+<div class="container">
+    <div class="my-4">
+        <h2>사용자 회원가입</h2>
+        <form th:action="@{/registry}" role="form" method="post" th:object="${memberRegistryDto}">
+            <div class="form-group py-2">
+                <label th:for="email">이메일</label>
+                <input type="text" th:field="*{email}" class="form-control" placeholder="이메일 입력">
+                <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="fieldError">Incorrect data</p>
+            </div>
+            <div class="form-group py-2">
+                <label th:for="password">비밀번호</label>
+                <input type="password" th:field="*{password}" class="form-control" placeholder="비밀번호 입력">
+                <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="fieldError">Incorrect data</p>
+            </div>
+            <div class="form-group py-2">
+                <label th:for="name">이름</label>
+                <input type="text" th:field="*{name}" class="form-control" placeholder="이름 입력">
+                <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="fieldError">Incorrect data</p>
+            </div>
+            <div class="form-group py-2">
+                <label th:for="phone">휴대폰 번호</label>
+                <input type="text" th:field="*{phone}" class="form-control" placeholder="휴대폰번호 입력('-'포함)">
+                <p th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="fieldError">Incorrect data</p>
+            </div>
+            <div style="text-align:center" class="py-3">
+                <button type="submit" class="btn btn-outline-dark">회원가입</button>
+                <button type="button" class="btn btn-outline-dark" onclick="history.back();">취소</button>
+            </div>
+        </form>
+    </div>
+</div>
+<footer th:replace="fragments/common :: footer"></footer>
+</body>
+<!--회원가입 실패시 에러 메시지 출력-->
+<th:block>
+    <script th:inline="javascript">
+    $(document).ready(function(){
+        var errorMessage = [[${errorMessage}]];
+        if(errorMessage != null){
+            alert(errorMessage);
+        }
+    });
+    </script>
+</th:block>
+</html>
