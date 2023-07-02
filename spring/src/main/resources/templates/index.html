@@ -171,7 +171,6 @@
     <main sec:authorize="isAuthenticated()" class="flex-shrink-0">
         <div id="weather">
             <p>오늘의 전국 일기 예보</p>
-            <p id="weatherInfo"></p>
         </div>
     </main>
     <!-- Footer-->
@@ -214,6 +213,7 @@
            item = jsonData.response.body.items.item;
            for (let i = 0; i < item.length; i++){
              weatherInfo.push(item[i].wfSv);
+             $('#weather').append('<p>' + item[i].wfSv + '</p>');
            }
         }
      });
@@ -221,6 +221,7 @@
      if(weatherInfo.length == 0){
        alert("날씨 공공데이터 API에 일시적인 오류가 있습니다. 잠시 후 다시 시도해주세요.");
      }
+
 
 </script>
 </html>
