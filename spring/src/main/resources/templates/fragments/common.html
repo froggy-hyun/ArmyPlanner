@@ -61,12 +61,12 @@
                 <li class="nav-item" sec:authorize="!isAuthenticated()"><a class="nav-link" th:href="@{/login}">로그인</a></li>
                 <li class="nav-item" sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{/logout}">로그아웃</a></li>
                 <li class="nav-item"><a class="nav-link" th:href="@{/myPlanner}">나의 Planner</a></li>
-                <li class="nav-item"><a class="nav-link" th:href="@{/map/searchView}">지도검색</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/map/searchView}">군혜택MAP</a></li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdownPortfolio" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">군인혜택</a>
+                    <a class="nav-link dropdown-toggle" id="navbarDropdownPortfolio" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">기타 군혜택</a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownPortfolio">
-                        <li><a class="dropdown-item" href="portfolio-overview.html">군인우대정보</a></li>
-                        <li><a class="dropdown-item" href="portfolio-item.html">커뮤니티</a></li>
+                        <li><a class="dropdown-item" href="portfolio-overview.html">국방부 MOU 혜택 정보</a></li>
+<!--                        <li><a class="dropdown-item" href="portfolio-item.html">커뮤니티</a></li>-->
                     </ul>
                 </li>
             </ul>
