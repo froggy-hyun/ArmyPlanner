@@ -95,7 +95,7 @@
 <!-- Navigation-->
 <nav th:fragment="menu(menu)" class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container px-5">
-        <a class="navbar-brand" href="/">ArmyPlanner</a>
+        <a class="navbar-brand" href="/"><img src="img/logo/armyPlannerLogo_white.png" style="width:9vh"></img></a>
         <div class="collapse navbar-collapse" id="navbarStatus" sec:authorize="isAuthenticated()">
             <ul>
                 <li class="text-light" th:text="|${#authentication.name}님 환영합니다.|"></li>
