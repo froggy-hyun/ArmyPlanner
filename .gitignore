@@ -1,6 +1,6 @@
 # Default ignored files
 /shelf/
 /.idea
-/.gradle
-/.out
+/gradle
+/out
 
