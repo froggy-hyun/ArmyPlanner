@@ -55,4 +55,9 @@ public class MainController {
         return sb.toString();
     }
 
+    @GetMapping("armyMou")
+    public String armyMou() {
+        return "armyMou/armyMou";
+    }
+
 }
