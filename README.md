@@ -26,26 +26,31 @@
 
 ### [기능]
 0. 회원 기능
-1. Calendar기능(FullCalendar, 기간별로 볼 수 있음) 구성 - 계획 CRUD
-2. 식단기능 (칼로리, 다양한 영양소)
-3. 소비기록
-4. 장소 추가 + 지도 검색 기능
-5. 군 우대 정보 페이지
-6. 회원 전용 분석 페이지(전날 식단 영양소 분석, 일별 소비 기록 분석 및 예상, 예정된 방문 장소) 
+1. Calendar기능(FullCalendar, 기간별로 볼 수 있음) 구성 (휴가, 식단, 소비, 장소, 텍스트)
+   - 일정 추가/삭제
+   - 일정 상세 정보 보기
+2. 군혜택 맵 + 관심 장소 추가 기능
+    - 장소 검색
+    - 군인 전용 장소 보기 (군 복지 휴양 시설, 군 병원, TMO)
+    - 군인 우대 업소 보기
+3. 기타 군혜택 페이지
+    - 국방부 MOU 혜택 정보
+4. 회원 전용 홈(전국 중기예보전망, 전날 식단 영양소 분석, 일별 소비 기록 분석 및 예상, 예정된 방문 장소) 
 
 ### [사용 API]
 
 - 공공데이터 API
-1. <국가중점데이터> 식품의약품안전처_식품 영양성분 정보 https://www.data.go.kr/data/15057436/openapi.do
-2. <국방분야데이터> 국방부 PX 인기상품 정보 : PX 인기상품 정보 https://opendata.mnd.go.kr/openinf/sheetview2.jsp?infId=OA-9491  
-4. <국방분야데이터> 전군 복지 휴양시설 위치정보 목록 : 군 복지 휴양시설 정보 https://opendata.mnd.go.kr/openinf/sheetview2.jsp?infId=OA-9441  
-   <국방분야데이터> 군병원 정보 : 군병원 정보 https://opendata.mnd.go.kr/openinf/sheetview2.jsp?infId=OA-9436  
-   <국방분야데이터> TMO(여행장병 안내소) 정보 : TMO(여행장병 안내소) 정보 https://opendata.mnd.go.kr/openinf/sheetview2.jsp?infId=OA-9595
-5. <국방분야데이터> 병사 할인 혜택 정보 : 병사 할인 혜택 정보 https://opendata.mnd.go.kr/openinf/sheetview2.jsp?infId=OA-9493  
-   경기도 포천시_군장병할인업소 현황 데이터 https://www.data.go.kr/data/15106202/fileData.do  
-   충청남도 논산시_할인업소현황 데이터 https://www.data.go.kr/data/3073444/fileData.do  
-   경상북도 영천시_군장병 할인업소현황 https://www.data.go.kr/data/15044647/fileData.do  
+1. <국가중점데이터> 식품의약품안전처_식품 영양성분 정보 https://www.data.go.kr/data/15057436/openapi.do  
+   <국방분야데이터> 국방부 PX 인기상품 정보 : PX 인기상품 정보 https://opendata.mnd.go.kr/openinf/sheetview2.jsp?infId=OA-9491    
+2. <국방분야데이터> 전군 복지 휴양시설 위치정보 목록 : 군 복지 휴양시설 정보 https://opendata.mnd.go.kr/openinf/sheetview2.jsp?infId=OA-9441    
+   <국방분야데이터> 군병원 정보 : 군병원 정보 https://opendata.mnd.go.kr/openinf/sheetview2.jsp?infId=OA-9436    
+   <국방분야데이터> TMO(여행장병 안내소) 정보 : TMO(여행장병 안내소) 정보 https://opendata.mnd.go.kr/openinf/sheetview2.jsp?infId=OA-9595  
+   경기도 포천시_군장병할인업소 현황 데이터 https://www.data.go.kr/data/15106202/fileData.do    
+   충청남도 논산시_할인업소현황 데이터 https://www.data.go.kr/data/3073444/fileData.do    
+   경상북도 영천시_군장병 할인업소현황 https://www.data.go.kr/data/15044647/fileData.do    
    경상남도 창원시_입영장병 가족할인업소현황 https://www.data.go.kr/data/15055435/fileData.do  
+3. <국방분야데이터> 병사 할인 혜택 정보 : 병사 할인 혜택 정보 https://opendata.mnd.go.kr/openinf/sheetview2.jsp?infId=OA-9493     
+4. <국가중점데이터> 기상청_중기예보 조회서비스 https://www.data.go.kr/data/15059468/openapi.do  
    
 - 카카오 API     
 1. 카카오 지도 API  
@@ -54,10 +59,11 @@
 1. 기본 회원기능 구현(회원가입, 로그인, 세션...)
 2. FullCalendar이용, 기본 텍스트 CRUD구현(OpenAPI사용), DB 연동
 3. 기능 추가 - 식단, 소비기록, 지도 검색 + 장소 기록 추가
-4. 회원 전용 분석 페이지 구현
-5. 회원 기능 보안
-6. 보안 강화
-7. 어드민, 매니저 기능 구현
+4. 회원 전용 홈 구현
+5. 기타 군혜택 페이지 구현
+6. 회원 기능 보안
+7. 보안 강화
+8. 어드민, 매니저 기능 구현
 
 ### Commit convention (커밋 컨벤션)
 feat : 새로운 기능과 관련된 것  
