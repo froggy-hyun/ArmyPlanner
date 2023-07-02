@@ -178,6 +178,7 @@
     <footer th:replace="fragments/common :: footer"></footer>
 </body>
 <script>
+     let weatherInfo = [];
      let stnId = "108";
      let tmFc;
 
@@ -196,13 +197,10 @@
 
      if(today.getTime() < uploadCert1){
         tmFc = year + month + (day-1) + "1800";
-        console.log("1");
      } else if(uploadCert1 < today.getTime() < uploadCert1) {
         tmFc = year + month + day + "0600";
-        console.log("2");
      } else {
         tmFc = year + month + day + "1800";
-        console.log("3");
      }
 
      url = `getWeatherApi/${stnId}/${tmFc}`;
@@ -213,8 +211,14 @@
         async: false,
         success: function(data) {
            jsonData = JSON.parse(data); //string -> json
-           console.log(jsonData);
+           for (item in jsonData.response.body.items){
+             weatherInfo += item;
+           }
         }
-     })
+     });
+
+     if(weatherInfo.length == 0){
+       alert("날씨 공공데이터 API에 일시적인 오류가 있습니다. 잠시 후 다시 시도해주세요.");
+     }
 </script>
 </html>
