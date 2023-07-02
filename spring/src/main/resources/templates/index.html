@@ -211,8 +211,9 @@
         async: false,
         success: function(data) {
            jsonData = JSON.parse(data); //string -> json
-           for (item in jsonData.response.body.items){
-             weatherInfo += item;
+           item = jsonData.response.body.items.item;
+           for (let i = 0; i < item.length; i++){
+             weatherInfo.push(item[i].wfSv);
            }
         }
      });
@@ -220,5 +221,6 @@
      if(weatherInfo.length == 0){
        alert("날씨 공공데이터 API에 일시적인 오류가 있습니다. 잠시 후 다시 시도해주세요.");
      }
+
 </script>
 </html>
