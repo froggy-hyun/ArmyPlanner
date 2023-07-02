@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" >
 <head th:fragment="head(title)">
-    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, target-densitydpi=device-dpi" />
     <!--jquery-->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <title>ArmyPlanner</title>
@@ -87,6 +87,12 @@
           min-height: 15rem;
         }
 
+        #banner {
+            width:12vh;
+        }
+
+        img { -webkit-perspective: 1; }
+
 
     </style>
 </head>
@@ -95,7 +101,7 @@
 <!-- Navigation-->
 <nav th:fragment="menu(menu)" class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container px-5">
-        <a class="navbar-brand" href="/"><img src="/img/logo/armyPlannerLogo_white.png" style="width:9vh"></img></a>
+        <a class="navbar-brand" href="/"><img src="/img/logo/armyPlannerLogo_white.png" id="banner"></img></a>
         <div class="collapse navbar-collapse" id="navbarStatus" sec:authorize="isAuthenticated()">
             <ul>
                 <li class="text-light" th:text="|${#authentication.name}님 환영합니다.|"></li>
