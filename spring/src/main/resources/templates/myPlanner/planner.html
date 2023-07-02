@@ -656,7 +656,7 @@
                             }
                         })
                         if(resultCode != "00"){
-                            alert("공공데이터 API에 문제가 있습니다! 잠시 후 다시 시도해주세요.");
+                            alert("공공데이터 API 서버에 일시적 문제가 있습니다! 잠시 후 다시 시도해주세요.");
                         }
                     }
 
@@ -669,7 +669,7 @@
                             success: function(data){
                                resultCode = data.header.resultCode;
                                if(resultCode != "00"){
-                                 alert("공공데이터 API에 문제가 있습니다! 잠시 후 다시 시도해주세요.");
+                                 alert("공공데이터 API 서버에 일시적 문제가 있습니다! 잠시 후 다시 시도해주세요.");
                                }
                                let bodyData = data.body;
                                for (let i = 0; i < numOfRows; i++) {
@@ -913,7 +913,7 @@
                                 jsonData = JSON.parse(data); //string -> json
                                 totalCount = jsonData.DS_MND_PX_PARD_PRDT_INFO.list_total_count;
                                 if(jsonData.DS_MND_PX_PARD_PRDT_INFO == null || jsonData.DS_MND_PX_PARD_PRDT_INFO == ""){
-                                 alert("공공데이터 API에 문제가 있습니다! 잠시 후 다시 시도해주세요.");
+                                 alert("공공데이터 API 서버에 일시적 문제가 있습니다! 잠시 후 다시 시도해주세요.");
                                 }
                             }
                         })
@@ -934,7 +934,7 @@
                             success: function(data) {
                                 jsonData = JSON.parse(data).DS_MND_PX_PARD_PRDT_INFO;; //string -> json
                                 if(jsonData.DS_MND_PX_PARD_PRDT_INFO == null || jsonData.DS_MND_PX_PARD_PRDT_INFO == ""){
-                                 alert("공공데이터 API에 문제가 있습니다! 잠시 후 다시 시도해주세요.");
+                                 alert("공공데이터 API 서버에 일시적 문제가 있습니다! 잠시 후 다시 시도해주세요.");
                                 }
                                 actual_totalCount = jsonData.list_total_count;
                                 search_totalCount = 0;

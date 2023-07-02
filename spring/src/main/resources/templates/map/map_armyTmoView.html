@@ -107,6 +107,9 @@
                   etc: jsonData.DS_TB_MND_TMO_INFO.row[i].etc,
               });
            }
+           if(positions.length == 0){
+             alert("공공데이터 API 서버에 일시적 문제가 있습니다! 잠시 후 다시 시도해주세요.");
+           }
         }
      })
   }

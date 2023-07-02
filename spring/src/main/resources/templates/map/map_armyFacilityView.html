@@ -98,6 +98,10 @@
                   hmpg_addr: jsonData.DS_WHLAM_WLFR_VCTNINSTLT.row[i].hmpg_addr
               });
            }
+           console.log(positions.length);
+           if(positions.length == 0){
+             alert("공공데이터 API 서버에 일시적 문제가 있습니다! 잠시 후 다시 시도해주세요.");
+           }
         }
      })
   }

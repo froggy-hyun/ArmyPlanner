@@ -150,6 +150,9 @@
                   discount: jsonData.data[i]['할인내용'],
               });
            }
+           if(pocheon.length == 0){
+             alert("포천 공공데이터 API 서버에 일시적 문제가 있습니다! 잠시 후 다시 시도해주세요.");
+           }
         }
      });
   }
@@ -193,6 +196,9 @@
                   colStudent_discount: jsonData.data[i]['대학생할인율']
               });
            }
+           if(nonsan.length == 0){
+             alert("포천 공공데이터 API 서버에 일시적 문제가 있습니다! 잠시 후 다시 시도해주세요.");
+           }
         }
      });
   }
@@ -231,6 +237,9 @@
                   address: jsonData.data[i]['주소'],
                   phone: jsonData.data[i]['전화번호'],
               });
+           }
+           if(yeongcheon.length == 0){
+             alert("포천 공공데이터 API 서버에 일시적 문제가 있습니다! 잠시 후 다시 시도해주세요.");
            }
         }
      });
@@ -271,6 +280,9 @@
                   phone: jsonData.data[i]['전화번호'],
                   mainMenu: jsonData.data[i]['주메뉴'],
               });
+           }
+           if(changwon.length == 0){
+             alert("포천 공공데이터 API 서버에 일시적 문제가 있습니다! 잠시 후 다시 시도해주세요.");
            }
         }
      });
