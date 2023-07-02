@@ -45,10 +45,10 @@
 2. <국방분야데이터> 전군 복지 휴양시설 위치정보 목록 : 군 복지 휴양시설 정보 https://opendata.mnd.go.kr/openinf/sheetview2.jsp?infId=OA-9441    
    <국방분야데이터> 군병원 정보 : 군병원 정보 https://opendata.mnd.go.kr/openinf/sheetview2.jsp?infId=OA-9436    
    <국방분야데이터> TMO(여행장병 안내소) 정보 : TMO(여행장병 안내소) 정보 https://opendata.mnd.go.kr/openinf/sheetview2.jsp?infId=OA-9595  
-   경기도 포천시_군장병할인업소 현황 데이터 https://www.data.go.kr/data/15106202/fileData.do    
-   충청남도 논산시_할인업소현황 데이터 https://www.data.go.kr/data/3073444/fileData.do    
-   경상북도 영천시_군장병 할인업소현황 https://www.data.go.kr/data/15044647/fileData.do    
-   경상남도 창원시_입영장병 가족할인업소현황 https://www.data.go.kr/data/15055435/fileData.do  
+   (자치행정기관데이터) 경기도 포천시_군장병할인업소 현황 데이터 https://www.data.go.kr/data/15106202/fileData.do    
+   (자치행정기관데이터) 충청남도 논산시_할인업소현황 데이터 https://www.data.go.kr/data/3073444/fileData.do    
+   (자치행정기관데이터) 경상북도 영천시_군장병 할인업소현황 https://www.data.go.kr/data/15044647/fileData.do    
+   (자치행정기관데이터) 경상남도 창원시_입영장병 가족할인업소현황 https://www.data.go.kr/data/15055435/fileData.do  
 3. <국방분야데이터> 병사 할인 혜택 정보 : 병사 할인 혜택 정보 https://opendata.mnd.go.kr/openinf/sheetview2.jsp?infId=OA-9493     
 4. <국가중점데이터> 기상청_중기예보 조회서비스 https://www.data.go.kr/data/15059468/openapi.do  
    
