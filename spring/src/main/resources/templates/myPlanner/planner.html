@@ -235,8 +235,8 @@
           <label for="info_event_end_time" class="col-form-label">종료 시간</label>
           <input type="time" class="form-control" id="info_event_end_time" name="info_calendar_end_time" disabled="true">
           <div id="vacation_info">
-              <label for="info_event_vacation" class="col-form-label">휴가 내용</label>
-              <input type="text" class="form-control" id="info_event_vacation" name="info_calendar_text" disabled="true">
+              <label for="info_event_vacation" class="col-form-label">휴가 종류</label>
+              <input type="text" class="form-control" id="info_event_vacation" name="info_calendar_vacation" disabled="true">
           </div>
           <div id="diet_info">
               <fieldset id="info_event_diet" disabled="true">
@@ -1345,6 +1345,7 @@
 
           if(arg.event.extendedProps.eventType == "vacation"){
             $('#vacation_info').css('display','block');
+            document.getElementById("info_event_vacation").value = arg.event.title;
           }else if(arg.event.extendedProps.eventType == "diet"){
             $('#diet_info').css('display','block');
             document.getElementById("diet_title_info").value = arg.event.title;
