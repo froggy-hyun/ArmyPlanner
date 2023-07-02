@@ -169,9 +169,52 @@
         </section>
     </main>
     <main sec:authorize="isAuthenticated()" class="flex-shrink-0">
-        <h1>당신의 워크스페이스</h1>
+        <div id="weather">
+            <p>오늘의 전국 일기 예보</p>
+            <p id="weatherInfo"></p>
+        </div>
     </main>
     <!-- Footer-->
     <footer th:replace="fragments/common :: footer"></footer>
 </body>
+<script>
+     let stnId = "108";
+     let tmFc;
+
+     let today = new Date();
+
+     var year = today.getFullYear();
+     var month = ('0' + (today.getMonth() + 1)).slice(-2);
+     var day = ('0' + today.getDate()).slice(-2);
+     var dateString = year + month + day;
+
+     var hours = ('0' + today.getHours()).slice(-2);
+     var minutes = ('0' + today.getMinutes()).slice(-2);
+
+     let uploadCert1 = new Date(`${year}-${month}-${day} 06:00:00`);
+     let uploadCert2 = new Date(`${year}-${month}-${day} 18:00:00`);
+
+     if(today.getTime() < uploadCert1){
+        tmFc = year + month + (day-1) + "1800";
+        console.log("1");
+     } else if(uploadCert1 < today.getTime() < uploadCert1) {
+        tmFc = year + month + day + "0600";
+        console.log("2");
+     } else {
+        tmFc = year + month + day + "1800";
+        console.log("3");
+     }
+
+     url = `getWeatherApi/${stnId}/${tmFc}`;
+     $.ajax({
+        type: "GET",
+        url: url,
+        data: {},
+        async: false,
+        success: function(data) {
+           jsonData = JSON.parse(data); //string -> json
+           console.log(jsonData);
+        }
+     })
+</script>
 </html>
