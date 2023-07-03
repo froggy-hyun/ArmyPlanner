@@ -10,6 +10,8 @@ public interface EventRepository extends JpaRepository<Event, Long> {
 
     List<Event> findAllByMember(Member member);
 
+    List<Event> findAllByMemberAndStart_date(Member member, String yesterdayDate);
+
     void deleteById(Long id);
 
 

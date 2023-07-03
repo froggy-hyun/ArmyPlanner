@@ -1,5 +1,6 @@
 package ArmyPlanner.spring.controller;
 
+import ArmyPlanner.spring.Dto.EventDto;
 import ArmyPlanner.spring.Dto.LikedPlaceXYDto;
 import ArmyPlanner.spring.domain.Member;
 import ArmyPlanner.spring.repository.MemberRepository;
@@ -18,6 +19,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.Principal;
+import java.util.List;
 
 @Slf4j
 @Controller
@@ -64,13 +66,12 @@ public class UserController {
         return sb.toString();
     }
 
-//    @GetMapping("/getLikedPlaceXY/{placeName}")
+//    @GetMapping("user/getYesterdayDiet/{todayDate}")
 //    @ResponseBody
-//    public LikedPlaceXYDto getLikedPlaceXY(Principal principal) throws IOException {
+//    public List<EventDto> getYesterdayDiet(@PathVariable String todayDate, Principal principal) throws IOException {
 //        String username = principal.getName();
 //        Member member = memberRepository.findByEmail(username);
 //
-//        return eventService.findYesterdayDiet(member);
-//
+//        return eventService.findYesterdayDiet(member, todayDate);
 //    }
 }

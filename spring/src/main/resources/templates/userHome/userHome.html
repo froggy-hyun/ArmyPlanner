@@ -298,6 +298,28 @@
      if(weatherInfo.length == 0){
        alert("날씨 공공데이터 API에 일시적인 오류가 있습니다. 잠시 후 다시 시도해주세요.");
      }
+
+
+     let yesterday = new Date(today.setDate(today.getDate() -1));
+
+     // 식단을 가져오기 위한 어제날짜 string
+
+     function getYmd10(dateString) {
+          //yyyy-mm-dd 포맷 날짜 생성
+          return dateString.getFullYear() + "-" + ((dateString.getMonth() + 1) > 9 ? (dateString.getMonth() + 1).toString() : "0" + (dateString.getMonth() + 1)) + "-" + (dateString.getDate() > 9 ? dateString.getDate().toString() : "0" + dateString.getDate().toString());
+      }
+     let yesterdayDate = getYmd10(yesterday);
+
+     url = `/user/getYesterdayDiet/${yesterdayDate}`;
+     $.ajax({
+        type: "GET",
+        url: url,
+        data: {},
+        async: false,
+        success: function(data) {
+           console.log(data);
+        }
+     })
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 <script src="/js/userHome/scripts.js"></script>

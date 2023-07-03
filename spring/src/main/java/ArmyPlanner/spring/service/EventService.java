@@ -68,4 +68,32 @@ public class EventService {
         eventRepository.deleteById(id);
     }
 
+    public List<EventDto> findYesterdayDiet(Member member, String yesterdayDate){
+        List<Event> list = eventRepository.findAllByMemberAndStart_date(member, yesterdayDate);
+
+        List<EventDto> yesterdayDietDto = new ArrayList<>();
+
+        for (int i = 0; i < list.size(); i++) {
+            EventDto dietDto = new EventDto();
+
+            dietDto.setId(list.get(i).getId());
+            dietDto.setTitle(list.get(i).getTitle());
+            dietDto.setFood_name(list.get(i).getFood_name().toString());
+            dietDto.setKcal(list.get(i).getKcal().toString());
+            dietDto.setFood_name(list.get(i).getFood_name().toString());
+            dietDto.setCarbohydrate(list.get(i).getCarbohydrate().toString());
+            dietDto.setProtein(list.get(i).getProtein().toString());
+            dietDto.setFat(list.get(i).getFat().toString());
+            dietDto.setSugar(list.get(i).getSugar().toString());
+            dietDto.setSalt(list.get(i).getSalt().toString());
+            dietDto.setCholesterol(list.get(i).getCholesterol().toString());
+            dietDto.setSaturatedFattyAcids(list.get(i).getSaturatedFattyAcids().toString());
+            dietDto.setTransFattyAcids(list.get(i).getTransFattyAcids().toString());
+
+            yesterdayDietDto.add(dietDto);
+        }
+
+        return yesterdayDietDto;
+    }
+
 }
