@@ -1,5 +1,11 @@
 package ArmyPlanner.spring.controller;
 
+import ArmyPlanner.spring.Dto.LikedPlaceXYDto;
+import ArmyPlanner.spring.domain.Member;
+import ArmyPlanner.spring.repository.MemberRepository;
+import ArmyPlanner.spring.service.EventService;
+import ArmyPlanner.spring.service.LikedPlaceService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,10 +17,15 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.security.Principal;
 
 @Slf4j
 @Controller
+@RequiredArgsConstructor
 public class UserController {
+
+    private final EventService eventService;
+    private final MemberRepository memberRepository;
 
     @GetMapping("/user/home")
     public String userHome() {
@@ -52,4 +63,14 @@ public class UserController {
 
         return sb.toString();
     }
+
+//    @GetMapping("/getLikedPlaceXY/{placeName}")
+//    @ResponseBody
+//    public LikedPlaceXYDto getLikedPlaceXY(Principal principal) throws IOException {
+//        String username = principal.getName();
+//        Member member = memberRepository.findByEmail(username);
+//
+//        return eventService.findYesterdayDiet(member);
+//
+//    }
 }

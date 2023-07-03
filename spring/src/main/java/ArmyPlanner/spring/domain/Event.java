@@ -50,6 +50,10 @@ public class Event {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+9")
     private LocalDateTime start;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+9")
+    private LocalDateTime startDate; //for 소비, 식단, 장소
+
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+9")
     private LocalDateTime end;

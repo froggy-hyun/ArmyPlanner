@@ -88,6 +88,7 @@ public class MyPlannerController {
 
 
         String start = eventDietDto.getStart();
+        String startDate = eventDietDto.getStartDate();
         String end = eventDietDto.getEnd();
         boolean allDay = eventDietDto.isAllDay();
         String username = principal.getName();
@@ -108,6 +109,7 @@ public class MyPlannerController {
                 .saturatedFattyAcids(saturatedFattyAcids)
                 .transFattyAcids(transFattyAcids)
                 .start(start)
+                .startDate(startDate)
                 .end(end)
                 .allDay(allDay)
                 .member(member)
@@ -166,6 +168,7 @@ public class MyPlannerController {
         String totalPrice = eventShoppingDto.getTotal_price();
 
         String start = eventShoppingDto.getStart();
+        String startDate = eventShoppingDto.getStartDate();
         String end = eventShoppingDto.getEnd();
         boolean allDay = eventShoppingDto.isAllDay();
         String username = principal.getName();
@@ -178,6 +181,7 @@ public class MyPlannerController {
                 .shopping_name(shopping_name)
                 .total_price(totalPrice)
                 .start(start)
+                .startDate(startDate)
                 .end(end)
                 .allDay(allDay)
                 .member(member)
@@ -207,6 +211,7 @@ public class MyPlannerController {
         String y = eventPlaceDto.getY();
 
         String start = eventPlaceDto.getStart();
+        String startDate = eventPlaceDto.getStartDate();
         String end = eventPlaceDto.getEnd();
         boolean allDay = eventPlaceDto.isAllDay();
 
@@ -221,6 +226,7 @@ public class MyPlannerController {
                 .x(x)
                 .y(y)
                 .start(start)
+                .startDate(startDate)
                 .end(end)
                 .allDay(allDay)
                 .member(member)
