@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -55,10 +56,10 @@ public class EventDto {
 
     private boolean allDay;
 
-    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm", Locale.KOREA);
-    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.KOREA);
-
     public Event toEntity_text() {
+
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm", Locale.KOREA);
+
         return Event.builder()
                 .eventType(eventType)
                 .title(title)
@@ -71,6 +72,8 @@ public class EventDto {
     }
 
     public Event toEntity_diet() {
+
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm", Locale.KOREA);
 
         return Event.builder()
                 .eventType(eventType)
@@ -86,7 +89,7 @@ public class EventDto {
                 .saturatedFattyAcids(saturatedFattyAcids)
                 .transFattyAcids(transFattyAcids)
                 .start(LocalDateTime.parse(start, dateTimeFormatter))
-                .startDate(LocalDateTime.parse(startDate, dateFormatter))
+                .startDate(startDate)
                 .end(LocalDateTime.parse(end, dateTimeFormatter))
                 .allDay(allDay)
                 .member(member)
@@ -96,13 +99,15 @@ public class EventDto {
 
     public Event toEntity_shopping() {
 
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm", Locale.KOREA);
+
         return Event.builder()
                 .eventType(eventType)
                 .title(title)
                 .shopping_name(shopping_name)
                 .total_price(total_price)
                 .start(LocalDateTime.parse(start, dateTimeFormatter))
-                .startDate(LocalDateTime.parse(startDate, dateFormatter))
+                .startDate(startDate)
                 .end(LocalDateTime.parse(end, dateTimeFormatter))
                 .allDay(allDay)
                 .member(member)
@@ -112,6 +117,8 @@ public class EventDto {
 
     public Event toEntity_place() {
 
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm", Locale.KOREA);
+
         return Event.builder()
                 .eventType(eventType)
                 .title(title)
@@ -120,7 +127,7 @@ public class EventDto {
                 .x(x)
                 .y(y)
                 .start(LocalDateTime.parse(start, dateTimeFormatter))
-                .startDate(LocalDateTime.parse(startDate, dateFormatter))
+                .startDate(startDate)
                 .end(LocalDateTime.parse(end, dateTimeFormatter))
                 .allDay(allDay)
                 .member(member)
