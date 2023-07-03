@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <head th:replace="fragments/common :: head(title)" />
+</head>
+<body>
+<nav th:replace="fragments/common :: menu(menu)" />
+<main class="flex-shrink-0">
+  <div id="weather">
+    <p>오늘의 전국 일기 예보</p>
+  </div>
+</main>
+</body>
+<!-- Footer-->
+<footer th:replace="fragments/common :: footer"></footer>
+<script>
+     let weatherInfo = [];
+     let stnId = "108";
+     let tmFc;
+
+     let today = new Date();
+
+     var year = today.getFullYear();
+     var month = ('0' + (today.getMonth() + 1)).slice(-2);
+     var day = ('0' + today.getDate()).slice(-2);
+     var dateString = year + month + day;
+
+     var hours = ('0' + today.getHours()).slice(-2);
+     var minutes = ('0' + today.getMinutes()).slice(-2);
+
+     let uploadCert1 = new Date(`${year}-${month}-${day} 06:00:00`);
+     let uploadCert2 = new Date(`${year}-${month}-${day} 18:00:00`);
+
+     if(today.getTime() < uploadCert1){
+        tmFc = year + month + (day-1) + "1800";
+     } else if(uploadCert1 < today.getTime() < uploadCert1) {
+        tmFc = year + month + day + "0600";
+     } else {
+        tmFc = year + month + day + "1800";
+     }
+
+     url = `getWeatherApi/${stnId}/${tmFc}`;
+     $.ajax({
+        type: "GET",
+        url: url,
+        data: {},
+        async: false,
+        success: function(data) {
+           jsonData = JSON.parse(data); //string -> json
+           item = jsonData.response.body.items.item;
+           for (let i = 0; i < item.length; i++){
+             weatherInfo.push(item[i].wfSv);
+             $('#weather').append('<p>' + item[i].wfSv + '</p>');
+           }
+        }
+     });
+
+     if(weatherInfo.length == 0){
+       alert("날씨 공공데이터 API에 일시적인 오류가 있습니다. 잠시 후 다시 시도해주세요.");
+     }
+</script>
+</script>
+</html>

@@ -1,9 +1,7 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="fragments/common :: head(title)" />
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
-    <link href="css/styles.css" rel="stylesheet" />
+    <head th:replace="fragments/common :: head(title)" />
 </head>
 <style>
     #question {
@@ -34,1039 +32,322 @@
         height:100%;
     }
 
-    #layoutSidenav {
-      display: flex;
-    }
-    #layoutSidenav #layoutSidenav_nav {
-      flex-basis: 225px;
-      flex-shrink: 0;
-      transition: transform 0.15s ease-in-out;
-      z-index: 1038;
-      transform: translateX(-225px);
-    }
-    #layoutSidenav #layoutSidenav_content {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      min-width: 0;
-      flex-grow: 1;
-      min-height: calc(100vh - 56px);
-      margin-left: -225px;
-    }
-
-    .sb-sidenav-toggled #layoutSidenav #layoutSidenav_nav {
-      transform: translateX(0);
-    }
-    .sb-sidenav-toggled #layoutSidenav #layoutSidenav_content:before {
-      content: "";
-      display: block;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: #000;
-      z-index: 1037;
-      opacity: 0.5;
-      transition: opacity 0.3s ease-in-out;
-    }
-
-    @media (min-width: 992px) {
-      #layoutSidenav #layoutSidenav_nav {
-        transform: translateX(0);
-      }
-      #layoutSidenav #layoutSidenav_content {
-        margin-left: 0;
-        transition: margin 0.15s ease-in-out;
-      }
-      .sb-sidenav-toggled #layoutSidenav #layoutSidenav_nav {
-        transform: translateX(-225px);
-      }
-      .sb-sidenav-toggled #layoutSidenav #layoutSidenav_content {
-        margin-left: -225px;
-      }
-      .sb-sidenav-toggled #layoutSidenav #layoutSidenav_content:before {
-        display: none;
-      }
-    }
-    .sb-nav-fixed .sb-topnav {
-      z-index: 1039;
-    }
-    .sb-nav-fixed #layoutSidenav #layoutSidenav_nav {
-      width: 225px;
-      height: 100vh;
-      z-index: 1038;
-    }
-    .sb-nav-fixed #layoutSidenav #layoutSidenav_nav .sb-sidenav {
-      padding-top: 56px;
-    }
-    .sb-nav-fixed #layoutSidenav #layoutSidenav_nav .sb-sidenav .sb-sidenav-menu {
-      overflow-y: auto;
-    }
-    .sb-nav-fixed #layoutSidenav #layoutSidenav_content {
-      padding-left: 225px;
-      top: 56px;
-    }
-
 </style>
 <body class="d-flex flex-column h-100">
-    <nav th:replace="fragments/common :: menu(menu)" />
-    <div sec:authorize="!isAuthenticated()" class="flex-shrink-0">
-        <!-- Header-->
-        <header class="bg-dark py-5">
-            <div class="container px-5">
-                <div class="row gx-5 align-items-center justify-content-center">
-                    <div class="col-lg-8 col-xl-7 col-xxl-6">
-                        <div class="my-5 text-center text-xl-start">
-                            <h1 class="display-5 fw-bolder text-white mb-2">군생활,<br>허무하게 보내기엔 아까운 시간.</h1>
-                            <p class="lead fw-normal text-white-50 mb-4">제공되는 다양한 정보로 손쉽게 플래너를 만들어보자!</p>
-                            <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
-                                <a class="btn btn-primary btn-lg px-4 me-sm-3" th:href="@{/login}">시작하기</a>
-                                <a class="btn btn-outline-light btn-lg px-4" href="#features">알아보기</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center"><img class="img-fluid rounded-3 my-5" src="https://dummyimage.com/600x400/343a40/6c757d" alt="..." /></div>
-                </div>
-            </div>
-        </header>
-        <!-- 정보 section-->
-        <section class="py-5" id="features">
-            <div class="container px-5 my-5">
-                <div class="row gx-5">
-                    <div class="col-lg-4 mb-5 mb-lg-0"><h2 class="fw-bolder mb-0">알찬 군생활 플랜을 위한 다양한 정보 제공</h2></div>
-                    <div class="col-lg-8">
-                        <div class="row gx-5 row-cols-1 row-cols-md-2">
-                            <div class="col mb-5 h-100">
-                                <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-clipboard-data"></i></div>
-                                <h2 class="h5"><strong>[식단 정보]</strong></h2>
-                                <p class="mb-0">- 식품 영양성분 정보</p>
-                            </div>
-                            <div class="col mb-5 h-100">
-                                <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-cart-plus"></i></div>
-                                <h2 class="h5"><strong>[소비 정보]</strong></h2>
-                                <p class="mb-0">- PX 인기상품 정보</p>
-                            </div>
-                            <div class="col mb-5 mb-md-0 h-100">
-                                <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-geo-alt"></i></div>
-                                <h2 class="h5"><strong>[장소 정보]</strong></h2>
-                                <p class="mb-0">- 병사 할인 시설 정보</p>
-                                <p class="mb-0">- 군 복지 휴양시설 정보</p>
-                                <p class="mb-0">- 군병원 정보</p>
-                                <p class="mb-0">- TMO 정보</p>
-                                <p class="mb-0">- 군인 우대 업소 정보</p>
-                                <p class="mb-0">- 국방부 MOU 할인 혜택 정보</p>
-                            </div>
-                            <div class="col h-100">
-                                <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-cloud-sun"></i></div>
-                                <h2 class="h5"><strong>[날씨 정보]</strong></h2>
-                                <p class="mb-0">- 기상청 중기전망예보</p>
-                            </div>
+<nav th:replace="fragments/common :: menu(menu)" />
+<main class="flex-shrink-0">
+    <!-- Header-->
+    <header class="bg-dark py-5">
+        <div class="container px-5">
+            <div class="row gx-5 align-items-center justify-content-center">
+                <div class="col-lg-8 col-xl-7 col-xxl-6">
+                    <div class="my-5 text-center text-xl-start">
+                        <h1 class="display-5 fw-bolder text-white mb-2">군생활,<br>허무하게 보내기엔 아까운 시간.</h1>
+                        <p class="lead fw-normal text-white-50 mb-4">제공되는 다양한 정보로 손쉽게 플래너를 만들어보자!</p>
+                        <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
+                            <a class="btn btn-primary btn-lg px-4 me-sm-3" th:href="@{/login}">시작하기</a>
+                            <a class="btn btn-outline-light btn-lg px-4" href="#features">알아보기</a>
                         </div>
                     </div>
                 </div>
+                <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center"><img class="img-fluid rounded-3 my-5" src="https://dummyimage.com/600x400/343a40/6c757d" alt="..." /></div>
             </div>
-        </section>
-        <!-- Testimonial section-->
-        <div class="py-5 bg-light" id="question">
-            <div class="container px-5 my-5">
-                <div class="row gx-5 justify-content-center">
-                    <div class="col-lg-10 col-xl-7">
-                        <div class="text-center">
-                            <div class="fs-4 mb-4 fst-italic">"데이터를 제공해주는건 알겠는데...<br>플래너 만드는게 힘들잖아요..?"</div>
-                            <div class="d-flex align-items-center justify-content-center">
-                                <div class="fw-bold">
-                                    걱정마세요!
-                                </div>
-                            </div>
+        </div>
+    </header>
+    <!-- 정보 section-->
+    <section class="py-5" id="features">
+        <div class="container px-5 my-5">
+            <div class="row gx-5">
+                <div class="col-lg-4 mb-5 mb-lg-0"><h2 class="fw-bolder mb-0">알찬 군생활 플랜을 위한 다양한 정보 제공</h2></div>
+                <div class="col-lg-8">
+                    <div class="row gx-5 row-cols-1 row-cols-md-2">
+                        <div class="col mb-5 h-100">
+                            <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-clipboard-data"></i></div>
+                            <h2 class="h5"><strong>[식단 정보]</strong></h2>
+                            <p class="mb-0">- 식품 영양성분 정보</p>
+                        </div>
+                        <div class="col mb-5 h-100">
+                            <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-cart-plus"></i></div>
+                            <h2 class="h5"><strong>[소비 정보]</strong></h2>
+                            <p class="mb-0">- PX 인기상품 정보</p>
+                        </div>
+                        <div class="col mb-5 mb-md-0 h-100">
+                            <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-geo-alt"></i></div>
+                            <h2 class="h5"><strong>[장소 정보]</strong></h2>
+                            <p class="mb-0">- 병사 할인 시설 정보</p>
+                            <p class="mb-0">- 군 복지 휴양시설 정보</p>
+                            <p class="mb-0">- 군병원 정보</p>
+                            <p class="mb-0">- TMO 정보</p>
+                            <p class="mb-0">- 군인 우대 업소 정보</p>
+                            <p class="mb-0">- 국방부 MOU 할인 혜택 정보</p>
+                        </div>
+                        <div class="col h-100">
+                            <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-cloud-sun"></i></div>
+                            <h2 class="h5"><strong>[날씨 정보]</strong></h2>
+                            <p class="mb-0">- 기상청 중기전망예보</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- 기능 section-->
-        <section class="py-5">
-            <div class="container px-5 my-5">
-                <div class="row gx-5 justify-content-center">
-                    <div class="col-lg-8 col-xl-6">
-                        <div class="text-center">
-                            <h2 class="fw-bolder">다양한 기능을 통해 손쉽게 플래너를 만들어보세요.</h2>
-                            <p class="lead fw-normal text-muted mb-5">보기쉬운 UI와 다양한 정보로 클릭 몇번이면 플래너가 뚝딱!</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="row gx-5">
-                    <div class="col-lg-4 mb-5">
-                        <div class="card h-100 shadow border-0">
-                            <img class="card-img-top" src="https://dummyimage.com/600x350/ced4da/6c757d" alt="..." />
-                            <div class="card-body p-4">
-                                <a class="text-decoration-none link-dark stretched-link" href="#!"><h5 class="card-title mb-3"><strong>나만의 플래너 인터페이스</strong></h5></a>
-                                <p class="card-text mb-0">내가 추가한 일정을 월/주/일/리스트 형태로 원하는 형태로 볼 수 있어요.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 mb-5">
-                        <div class="card h-100 shadow border-0">
-                            <img class="card-img-top" src="https://dummyimage.com/600x350/ced4da/6c757d" alt="..." />
-                            <div class="card-body p-4">
-                                <a class="text-decoration-none link-dark stretched-link" href="#!"><h5 class="card-title mb-3"><strong>다양한 종류의 일정 추가/삭제</strong></h5></a>
-                                <p class="card-text mb-0">휴가, 식단, 소비, 장소, 텍스트 등 내가 직접 타이핑하거나 다양한 정보를 활용 및 선택하여 추가/삭제 가능.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 mb-5">
-                        <div class="card h-100 shadow border-0">
-                            <img class="card-img-top" src="https://dummyimage.com/600x350/ced4da/6c757d" alt="..." />
-                            <div class="card-body p-4">
-                                <a class="text-decoration-none link-dark stretched-link" href="#!"><h5 class="card-title mb-3"><strong>일정 내용 상세보기</strong></h5></a>
-                                <p class="card-text mb-0">일정을 클릭하면 일정 내용을 볼 수 있어요. 특히 장소일정의 경우 정적지도가 보여지고 클릭시 해당 장소를 기준으로 군혜택 MAP을 이용할 수 있어요.</p>
+    </section>
+    <!-- Testimonial section-->
+    <div class="py-5 bg-light" id="question">
+        <div class="container px-5 my-5">
+            <div class="row gx-5 justify-content-center">
+                <div class="col-lg-10 col-xl-7">
+                    <div class="text-center">
+                        <div class="fs-4 mb-4 fst-italic">"데이터를 제공해주는건 알겠는데...<br>플래너 만드는게 힘들잖아요..?"</div>
+                        <div class="d-flex align-items-center justify-content-center">
+                            <div class="fw-bold">
+                                걱정마세요!
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- Testimonial section-->
-                <div class="py-5 bg-light" id="etc_func_intro">
-                    <div class="container px-5 my-5">
-                        <div class="row gx-5 justify-content-end">
-                            <div class="col-lg-10 col-xl-7">
-                                <div class="text-center">
-                                    <div class="fs-4 mb-4 fw-bolder">단순히 플래너기능만 잘 만든 플랫폼이 아닙니다!</div>
-                                    <div class="d-flex align-items-center justify-content-center">
-                                        <div class="fw-bold">
-                                            다양한 페이지 제공가 제공됩니다.
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- 그 외 기능 section-->
-                <section class="py-5">
-                    <div class="container px-5 my-5">
-                        <div class="row gx-5 justify-content-center">
-                            <div class="col-lg-8 col-xl-6">
-                                <div class="text-center">
-                                    <h2 class="fw-bolder">군혜택MAP과 나만의 분석 페이지 등 다양한 기능을 이용해보세요.</h2>
-                                    <p class="lead fw-normal text-muted mb-5">플래너 기능과 함께할 수 있어요!</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row gx-5">
-                            <div class="col-lg-4 mb-5">
-                                <div class="card h-100 shadow border-0">
-                                    <img class="card-img-top" src="https://dummyimage.com/600x350/ced4da/6c757d" alt="..." />
-                                    <div class="card-body p-4">
-                                        <a class="text-decoration-none link-dark stretched-link" href="#!"><h5 class="card-title mb-3"><strong>군혜택MAP</strong></h5></a>
-                                        <p class="card-text mb-0">키워드로 장소 검색, 군인 전용 장소 보기, 군인 우대 업소 보기 가능!</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 mb-5">
-                                <div class="card h-100 shadow border-0">
-                                    <img class="card-img-top" src="https://dummyimage.com/600x350/ced4da/6c757d" alt="..." />
-                                    <div class="card-body p-4">
-                                        <a class="text-decoration-none link-dark stretched-link" href="#!"><h5 class="card-title mb-3"><strong>기타 군 혜택</strong></h5></a>
-                                        <p class="card-text mb-0">기타 군 혜택을 보기 쉽게 제공합니다. 게다가 선택시 지도로 볼 수 있습니다.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 mb-5">
-                                <div class="card h-100 shadow border-0">
-                                    <img class="card-img-top" src="https://dummyimage.com/600x350/ced4da/6c757d" alt="..." />
-                                    <div class="card-body p-4">
-                                        <a class="text-decoration-none link-dark stretched-link" href="#!"><h5 class="card-title mb-3"><strong>회원 전용 홈</strong></h5></a>
-                                        <p class="card-text mb-0">전국 중기예보전망, 전날 식단 영양소 분석, 일별 소비 기록 분석 및 예상, 예정된 방문 장소 등 여러 기능 제공</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                <!-- Pricing section-->
-                <section class="bg-light py-5">
-                    <div class="container px-5 my-5">
-                        <div class="text-center mb-5">
-                            <h1 class="fw-bolder">프리미엄 요금제를 이용할 수 있어요!</h1>
-                            <p class="lead fw-normal text-muted mb-0">오직 프리미엄 요금제만을 위한 추가 기능</p>
-                        </div>
-                        <div class="row gx-5 justify-content-center">
-                            <!-- Pricing card free-->
-                            <div class="col-lg-6 col-xl-4">
-                                <div class="card mb-5 mb-xl-0">
-                                    <div class="card-body p-5">
-                                        <div class="small text-uppercase fw-bold text-muted">무료 플랜</div>
-                                        <div class="mb-3">
-                                            <span class="display-4 fw-bold">무료</span>
-                                            <span class="text-muted">/ 매월</span>
-                                        </div>
-                                        <ul class="list-unstyled mb-4">
-                                            <li class="mb-2">
-                                                <i class="bi bi-check text-primary"></i>
-                                                오직 나만을 위한 플래너 인터페이스
-                                            </li>
-                                            <li class="mb-2">
-                                                <i class="bi bi-check text-primary"></i>
-                                                휴가 일정 추가/삭제
-                                            </li>
-                                            <li class="mb-2">
-                                                <i class="bi bi-check text-primary"></i>
-                                                장소 일정 추가/삭제
-                                            </li>
-                                            <li class="mb-2 text-muted">
-                                                <i class="bi bi-x"></i>
-                                                식단 기록 추가/삭제
-                                            </li>
-                                            <li class="mb-2 text-muted">
-                                                <i class="bi bi-x"></i>
-                                                소비 기록 추가/삭제
-                                            </li>
-                                            <li class="mb-2">
-                                                <i class="bi bi-check text-primary"></i>
-                                                관심 장소 저장/삭제
-                                            </li>
-                                            <li class="mb-2">
-                                                <i class="bi bi-check text-primary"></i>
-                                                장소 검색
-                                            </li>
-                                            <li class="mb-2">
-                                                <i class="bi bi-check text-primary"></i>
-                                                <strong>군인 전용 장소 정보 제공(군 복지 휴양 시설, 군 병원, TMO)</strong>
-                                            </li>
-                                            <li class="mb-2">
-                                                <i class="bi bi-check text-primary"></i>
-                                                국방부 MOU 혜택 정보 제공
-                                            </li>
-                                            <li class="mb-2">
-                                                <i class="bi bi-check text-primary"></i>
-                                                <strong>회원 전용 홈(예보, 다가오는 일정, 예정된 방문 장소)</strong>
-                                            </li>
-                                        </ul>
-                                        <div class="d-grid"><a class="btn btn-outline-primary" href="#!">플랜 선택하기</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Pricing card pro-->
-                            <div class="col-lg-6 col-xl-4">
-                                <div class="card mb-5 mb-xl-0">
-                                    <div class="card-body p-5">
-                                        <div class="small text-uppercase fw-bold">
-                                            <i class="bi bi-star-fill text-warning"></i>
-                                            Premium
-                                        </div>
-                                        <div class="mb-3">
-                                            <span class="display-4 fw-bold">4,900₩</span>
-                                            <span class="text-muted">/ 매월</span>
-                                        </div>
-                                        <ul class="list-unstyled mb-4">
-                                            <li class="mb-2">
-                                                <i class="bi bi-check text-primary"></i>
-                                                오직 나만을 위한 플래너 인터페이스
-                                            </li>
-                                            <li class="mb-2">
-                                                <i class="bi bi-check text-primary"></i>
-                                                휴가 일정 추가/삭제
-                                            </li>
-                                            <li class="mb-2">
-                                                <i class="bi bi-check text-primary"></i>
-                                                장소 일정 추가/삭제
-                                            </li>
-                                            <li class="mb-2">
-                                                <i class="bi bi-check text-primary"></i>
-                                                식단 기록 추가/삭제
-                                            </li>
-                                            <li class="mb-2">
-                                                <i class="bi bi-check text-primary"></i>
-                                                소비 기록 추가/삭제
-                                            </li>
-                                            <li class="mb-2">
-                                                <i class="bi bi-check text-primary"></i>
-                                                관심 장소 저장/삭제
-                                            </li>
-                                            <li class="mb-2">
-                                                <i class="bi bi-check text-primary"></i>
-                                                장소 검색
-                                            </li>
-                                            <li class="mb-2">
-                                                <i class="bi bi-check text-primary"></i>
-                                                <strong>군인 전용 장소 정보 제공(군 복지 휴양 시설, 군 병원, TMO, 군인 우대 업소 정보)</strong>
-                                            </li>
-                                            <li class="mb-2">
-                                                <i class="bi bi-check text-primary"></i>
-                                                국방부 MOU 혜택 정보 제공
-                                            </li>
-                                            <li class="mb-2">
-                                                <i class="bi bi-check text-primary"></i>
-                                                <strong>회원 전용 홈(예보, 다가오는 일정, 예정된 방문 장소, 주기적 식단 영양소 분석,
-                                                    일별 소비 기록 분석)</strong>
-                                            </li>
-                                        </ul>
-                                        <div class="d-grid"><a class="btn btn-primary" href="#!">플랜 선택하기</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                <!-- Call to action-->
-                <aside class="bg-primary bg-gradient rounded-3 p-4 p-sm-5 mt-5">
-                    <div class="d-flex align-items-center justify-content-between flex-column flex-xl-row text-center text-xl-start">
-                        <div class="mb-4 mb-xl-0">
-                            <div class="fs-3 fw-bold text-white" id="writing">"공공데이터를 단순히 보여주는 것을 넘어 사용자가 가공, 저장 등 다양한 방식으로 직접 사용할 수 있어야 한다.</div>
-                            <div class="text-white-50">공공데이터를 통해 새로운 가치를 만듭니다.</div>
-                            <div class="small text-blak-50">상병 최성현</div>
-                            <a href="https://www.instagram.com/froggy_hyun/"><img src="img/logo/instagram.png" style="height:30px"></a>
-                            <a href="https://github.com/froggy-hyun"><img src="/img/logo/github.png" style="height:30px"></a>
-                        </div>
-                    </div>
-                </aside>
             </div>
-        </section>
-    </div>
-    <div sec:authorize="isAuthenticated()" class="flex-shrink-0">
-        <div id="layoutSidenav">
-            <div id="layoutSidenav_content">
-                <main>
-                    <div class="container-fluid px-4">
-                        <h1 class="mt-4">대시보드</h1>
-                        <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Dashboard</li>
-                        </ol>
-                        <div class="row">
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-primary text-white mb-4">
-                                    <div class="card-body">Primary Card</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-warning text-white mb-4">
-                                    <div class="card-body">Warning Card</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-success text-white mb-4">
-                                    <div class="card-body">Success Card</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-danger text-white mb-4">
-                                    <div class="card-body">Danger Card</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xl-6">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        <i class="fas fa-chart-area me-1"></i>
-                                        Area Chart Example
-                                    </div>
-                                    <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
-                                </div>
-                            </div>
-                            <div class="col-xl-6">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        <i class="fas fa-chart-bar me-1"></i>
-                                        Bar Chart Example
-                                    </div>
-                                    <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-table me-1"></i>
-                                DataTable Example
-                            </div>
-                            <div class="card-body">
-                                <table id="datatablesSimple">
-                                    <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Position</th>
-                                        <th>Office</th>
-                                        <th>Age</th>
-                                        <th>Start date</th>
-                                        <th>Salary</th>
-                                    </tr>
-                                    </thead>
-                                    <tfoot>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Position</th>
-                                        <th>Office</th>
-                                        <th>Age</th>
-                                        <th>Start date</th>
-                                        <th>Salary</th>
-                                    </tr>
-                                    </tfoot>
-                                    <tbody>
-                                    <tr>
-                                        <td>Tiger Nixon</td>
-                                        <td>System Architect</td>
-                                        <td>Edinburgh</td>
-                                        <td>61</td>
-                                        <td>2011/04/25</td>
-                                        <td>$320,800</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Garrett Winters</td>
-                                        <td>Accountant</td>
-                                        <td>Tokyo</td>
-                                        <td>63</td>
-                                        <td>2011/07/25</td>
-                                        <td>$170,750</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Ashton Cox</td>
-                                        <td>Junior Technical Author</td>
-                                        <td>San Francisco</td>
-                                        <td>66</td>
-                                        <td>2009/01/12</td>
-                                        <td>$86,000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Cedric Kelly</td>
-                                        <td>Senior Javascript Developer</td>
-                                        <td>Edinburgh</td>
-                                        <td>22</td>
-                                        <td>2012/03/29</td>
-                                        <td>$433,060</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Airi Satou</td>
-                                        <td>Accountant</td>
-                                        <td>Tokyo</td>
-                                        <td>33</td>
-                                        <td>2008/11/28</td>
-                                        <td>$162,700</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Brielle Williamson</td>
-                                        <td>Integration Specialist</td>
-                                        <td>New York</td>
-                                        <td>61</td>
-                                        <td>2012/12/02</td>
-                                        <td>$372,000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Herrod Chandler</td>
-                                        <td>Sales Assistant</td>
-                                        <td>San Francisco</td>
-                                        <td>59</td>
-                                        <td>2012/08/06</td>
-                                        <td>$137,500</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Rhona Davidson</td>
-                                        <td>Integration Specialist</td>
-                                        <td>Tokyo</td>
-                                        <td>55</td>
-                                        <td>2010/10/14</td>
-                                        <td>$327,900</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Colleen Hurst</td>
-                                        <td>Javascript Developer</td>
-                                        <td>San Francisco</td>
-                                        <td>39</td>
-                                        <td>2009/09/15</td>
-                                        <td>$205,500</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Sonya Frost</td>
-                                        <td>Software Engineer</td>
-                                        <td>Edinburgh</td>
-                                        <td>23</td>
-                                        <td>2008/12/13</td>
-                                        <td>$103,600</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Jena Gaines</td>
-                                        <td>Office Manager</td>
-                                        <td>London</td>
-                                        <td>30</td>
-                                        <td>2008/12/19</td>
-                                        <td>$90,560</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Quinn Flynn</td>
-                                        <td>Support Lead</td>
-                                        <td>Edinburgh</td>
-                                        <td>22</td>
-                                        <td>2013/03/03</td>
-                                        <td>$342,000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Charde Marshall</td>
-                                        <td>Regional Director</td>
-                                        <td>San Francisco</td>
-                                        <td>36</td>
-                                        <td>2008/10/16</td>
-                                        <td>$470,600</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Haley Kennedy</td>
-                                        <td>Senior Marketing Designer</td>
-                                        <td>London</td>
-                                        <td>43</td>
-                                        <td>2012/12/18</td>
-                                        <td>$313,500</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tatyana Fitzpatrick</td>
-                                        <td>Regional Director</td>
-                                        <td>London</td>
-                                        <td>19</td>
-                                        <td>2010/03/17</td>
-                                        <td>$385,750</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Michael Silva</td>
-                                        <td>Marketing Designer</td>
-                                        <td>London</td>
-                                        <td>66</td>
-                                        <td>2012/11/27</td>
-                                        <td>$198,500</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Paul Byrd</td>
-                                        <td>Chief Financial Officer (CFO)</td>
-                                        <td>New York</td>
-                                        <td>64</td>
-                                        <td>2010/06/09</td>
-                                        <td>$725,000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Gloria Little</td>
-                                        <td>Systems Administrator</td>
-                                        <td>New York</td>
-                                        <td>59</td>
-                                        <td>2009/04/10</td>
-                                        <td>$237,500</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Bradley Greer</td>
-                                        <td>Software Engineer</td>
-                                        <td>London</td>
-                                        <td>41</td>
-                                        <td>2012/10/13</td>
-                                        <td>$132,000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Dai Rios</td>
-                                        <td>Personnel Lead</td>
-                                        <td>Edinburgh</td>
-                                        <td>35</td>
-                                        <td>2012/09/26</td>
-                                        <td>$217,500</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Jenette Caldwell</td>
-                                        <td>Development Lead</td>
-                                        <td>New York</td>
-                                        <td>30</td>
-                                        <td>2011/09/03</td>
-                                        <td>$345,000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Yuri Berry</td>
-                                        <td>Chief Marketing Officer (CMO)</td>
-                                        <td>New York</td>
-                                        <td>40</td>
-                                        <td>2009/06/25</td>
-                                        <td>$675,000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Caesar Vance</td>
-                                        <td>Pre-Sales Support</td>
-                                        <td>New York</td>
-                                        <td>21</td>
-                                        <td>2011/12/12</td>
-                                        <td>$106,450</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Doris Wilder</td>
-                                        <td>Sales Assistant</td>
-                                        <td>Sidney</td>
-                                        <td>23</td>
-                                        <td>2010/09/20</td>
-                                        <td>$85,600</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Angelica Ramos</td>
-                                        <td>Chief Executive Officer (CEO)</td>
-                                        <td>London</td>
-                                        <td>47</td>
-                                        <td>2009/10/09</td>
-                                        <td>$1,200,000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Gavin Joyce</td>
-                                        <td>Developer</td>
-                                        <td>Edinburgh</td>
-                                        <td>42</td>
-                                        <td>2010/12/22</td>
-                                        <td>$92,575</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Jennifer Chang</td>
-                                        <td>Regional Director</td>
-                                        <td>Singapore</td>
-                                        <td>28</td>
-                                        <td>2010/11/14</td>
-                                        <td>$357,650</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Brenden Wagner</td>
-                                        <td>Software Engineer</td>
-                                        <td>San Francisco</td>
-                                        <td>28</td>
-                                        <td>2011/06/07</td>
-                                        <td>$206,850</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Fiona Green</td>
-                                        <td>Chief Operating Officer (COO)</td>
-                                        <td>San Francisco</td>
-                                        <td>48</td>
-                                        <td>2010/03/11</td>
-                                        <td>$850,000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Shou Itou</td>
-                                        <td>Regional Marketing</td>
-                                        <td>Tokyo</td>
-                                        <td>20</td>
-                                        <td>2011/08/14</td>
-                                        <td>$163,000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Michelle House</td>
-                                        <td>Integration Specialist</td>
-                                        <td>Sidney</td>
-                                        <td>37</td>
-                                        <td>2011/06/02</td>
-                                        <td>$95,400</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Suki Burks</td>
-                                        <td>Developer</td>
-                                        <td>London</td>
-                                        <td>53</td>
-                                        <td>2009/10/22</td>
-                                        <td>$114,500</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Prescott Bartlett</td>
-                                        <td>Technical Author</td>
-                                        <td>London</td>
-                                        <td>27</td>
-                                        <td>2011/05/07</td>
-                                        <td>$145,000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Gavin Cortez</td>
-                                        <td>Team Leader</td>
-                                        <td>San Francisco</td>
-                                        <td>22</td>
-                                        <td>2008/10/26</td>
-                                        <td>$235,500</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Martena Mccray</td>
-                                        <td>Post-Sales support</td>
-                                        <td>Edinburgh</td>
-                                        <td>46</td>
-                                        <td>2011/03/09</td>
-                                        <td>$324,050</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Unity Butler</td>
-                                        <td>Marketing Designer</td>
-                                        <td>San Francisco</td>
-                                        <td>47</td>
-                                        <td>2009/12/09</td>
-                                        <td>$85,675</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Howard Hatfield</td>
-                                        <td>Office Manager</td>
-                                        <td>San Francisco</td>
-                                        <td>51</td>
-                                        <td>2008/12/16</td>
-                                        <td>$164,500</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Hope Fuentes</td>
-                                        <td>Secretary</td>
-                                        <td>San Francisco</td>
-                                        <td>41</td>
-                                        <td>2010/02/12</td>
-                                        <td>$109,850</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Vivian Harrell</td>
-                                        <td>Financial Controller</td>
-                                        <td>San Francisco</td>
-                                        <td>62</td>
-                                        <td>2009/02/14</td>
-                                        <td>$452,500</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Timothy Mooney</td>
-                                        <td>Office Manager</td>
-                                        <td>London</td>
-                                        <td>37</td>
-                                        <td>2008/12/11</td>
-                                        <td>$136,200</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Jackson Bradshaw</td>
-                                        <td>Director</td>
-                                        <td>New York</td>
-                                        <td>65</td>
-                                        <td>2008/09/26</td>
-                                        <td>$645,750</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Olivia Liang</td>
-                                        <td>Support Engineer</td>
-                                        <td>Singapore</td>
-                                        <td>64</td>
-                                        <td>2011/02/03</td>
-                                        <td>$234,500</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Bruno Nash</td>
-                                        <td>Software Engineer</td>
-                                        <td>London</td>
-                                        <td>38</td>
-                                        <td>2011/05/03</td>
-                                        <td>$163,500</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Sakura Yamamoto</td>
-                                        <td>Support Engineer</td>
-                                        <td>Tokyo</td>
-                                        <td>37</td>
-                                        <td>2009/08/19</td>
-                                        <td>$139,575</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Thor Walton</td>
-                                        <td>Developer</td>
-                                        <td>New York</td>
-                                        <td>61</td>
-                                        <td>2013/08/11</td>
-                                        <td>$98,540</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Finn Camacho</td>
-                                        <td>Support Engineer</td>
-                                        <td>San Francisco</td>
-                                        <td>47</td>
-                                        <td>2009/07/07</td>
-                                        <td>$87,500</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Serge Baldwin</td>
-                                        <td>Data Coordinator</td>
-                                        <td>Singapore</td>
-                                        <td>64</td>
-                                        <td>2012/04/09</td>
-                                        <td>$138,575</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Zenaida Frank</td>
-                                        <td>Software Engineer</td>
-                                        <td>New York</td>
-                                        <td>63</td>
-                                        <td>2010/01/04</td>
-                                        <td>$125,250</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Zorita Serrano</td>
-                                        <td>Software Engineer</td>
-                                        <td>San Francisco</td>
-                                        <td>56</td>
-                                        <td>2012/06/01</td>
-                                        <td>$115,000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Jennifer Acosta</td>
-                                        <td>Junior Javascript Developer</td>
-                                        <td>Edinburgh</td>
-                                        <td>43</td>
-                                        <td>2013/02/01</td>
-                                        <td>$75,650</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Cara Stevens</td>
-                                        <td>Sales Assistant</td>
-                                        <td>New York</td>
-                                        <td>46</td>
-                                        <td>2011/12/06</td>
-                                        <td>$145,600</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Hermione Butler</td>
-                                        <td>Regional Director</td>
-                                        <td>London</td>
-                                        <td>47</td>
-                                        <td>2011/03/21</td>
-                                        <td>$356,250</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Lael Greer</td>
-                                        <td>Systems Administrator</td>
-                                        <td>London</td>
-                                        <td>21</td>
-                                        <td>2009/02/27</td>
-                                        <td>$103,500</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Jonas Alexander</td>
-                                        <td>Developer</td>
-                                        <td>San Francisco</td>
-                                        <td>30</td>
-                                        <td>2010/07/14</td>
-                                        <td>$86,500</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Shad Decker</td>
-                                        <td>Regional Director</td>
-                                        <td>Edinburgh</td>
-                                        <td>51</td>
-                                        <td>2008/11/13</td>
-                                        <td>$183,000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Michael Bruce</td>
-                                        <td>Javascript Developer</td>
-                                        <td>Singapore</td>
-                                        <td>29</td>
-                                        <td>2011/06/27</td>
-                                        <td>$183,000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Donna Snider</td>
-                                        <td>Customer Support</td>
-                                        <td>New York</td>
-                                        <td>27</td>
-                                        <td>2011/01/25</td>
-                                        <td>$112,000</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </main>
-            </div>
-        </div>
-        <div id="weather">
-            <p>오늘의 전국 일기 예보</p>
         </div>
     </div>
-    <!-- Footer-->
-    <footer th:replace="fragments/common :: footer"></footer>
+    <!-- 기능 section-->
+    <section class="py-5">
+        <div class="container px-5 my-5">
+            <div class="row gx-5 justify-content-center">
+                <div class="col-lg-8 col-xl-6">
+                    <div class="text-center">
+                        <h2 class="fw-bolder">다양한 기능을 통해 손쉽게 플래너를 만들어보세요.</h2>
+                        <p class="lead fw-normal text-muted mb-5">보기쉬운 UI와 다양한 정보로 클릭 몇번이면 플래너가 뚝딱!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row gx-5">
+                <div class="col-lg-4 mb-5">
+                    <div class="card h-100 shadow border-0">
+                        <img class="card-img-top" src="https://dummyimage.com/600x350/ced4da/6c757d" alt="..." />
+                        <div class="card-body p-4">
+                            <a class="text-decoration-none link-dark stretched-link" href="#!"><h5 class="card-title mb-3"><strong>나만의 플래너 인터페이스</strong></h5></a>
+                            <p class="card-text mb-0">내가 추가한 일정을 월/주/일/리스트 형태로 원하는 형태로 볼 수 있어요.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-5">
+                    <div class="card h-100 shadow border-0">
+                        <img class="card-img-top" src="https://dummyimage.com/600x350/ced4da/6c757d" alt="..." />
+                        <div class="card-body p-4">
+                            <a class="text-decoration-none link-dark stretched-link" href="#!"><h5 class="card-title mb-3"><strong>다양한 종류의 일정 추가/삭제</strong></h5></a>
+                            <p class="card-text mb-0">휴가, 식단, 소비, 장소, 텍스트 등 내가 직접 타이핑하거나 다양한 정보를 활용 및 선택하여 추가/삭제 가능.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-5">
+                    <div class="card h-100 shadow border-0">
+                        <img class="card-img-top" src="https://dummyimage.com/600x350/ced4da/6c757d" alt="..." />
+                        <div class="card-body p-4">
+                            <a class="text-decoration-none link-dark stretched-link" href="#!"><h5 class="card-title mb-3"><strong>일정 내용 상세보기</strong></h5></a>
+                            <p class="card-text mb-0">일정을 클릭하면 일정 내용을 볼 수 있어요. 특히 장소일정의 경우 정적지도가 보여지고 클릭시 해당 장소를 기준으로 군혜택 MAP을 이용할 수 있어요.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Testimonial section-->
+            <div class="py-5 bg-light" id="etc_func_intro">
+                <div class="container px-5 my-5">
+                    <div class="row gx-5 justify-content-end">
+                        <div class="col-lg-10 col-xl-7">
+                            <div class="text-center">
+                                <div class="fs-4 mb-4 fw-bolder">단순히 플래너기능만 잘 만든 플랫폼이 아닙니다!</div>
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <div class="fw-bold">
+                                        다양한 페이지 제공가 제공됩니다.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 그 외 기능 section-->
+            <section class="py-5">
+                <div class="container px-5 my-5">
+                    <div class="row gx-5 justify-content-center">
+                        <div class="col-lg-8 col-xl-6">
+                            <div class="text-center">
+                                <h2 class="fw-bolder">군혜택MAP과 나만의 분석 페이지 등 다양한 기능을 이용해보세요.</h2>
+                                <p class="lead fw-normal text-muted mb-5">플래너 기능과 함께할 수 있어요!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row gx-5">
+                        <div class="col-lg-4 mb-5">
+                            <div class="card h-100 shadow border-0">
+                                <img class="card-img-top" src="https://dummyimage.com/600x350/ced4da/6c757d" alt="..." />
+                                <div class="card-body p-4">
+                                    <a class="text-decoration-none link-dark stretched-link" href="#!"><h5 class="card-title mb-3"><strong>군혜택MAP</strong></h5></a>
+                                    <p class="card-text mb-0">키워드로 장소 검색, 군인 전용 장소 보기, 군인 우대 업소 보기 가능!</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 mb-5">
+                            <div class="card h-100 shadow border-0">
+                                <img class="card-img-top" src="https://dummyimage.com/600x350/ced4da/6c757d" alt="..." />
+                                <div class="card-body p-4">
+                                    <a class="text-decoration-none link-dark stretched-link" href="#!"><h5 class="card-title mb-3"><strong>기타 군 혜택</strong></h5></a>
+                                    <p class="card-text mb-0">기타 군 혜택을 보기 쉽게 제공합니다. 게다가 선택시 지도로 볼 수 있습니다.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 mb-5">
+                            <div class="card h-100 shadow border-0">
+                                <img class="card-img-top" src="https://dummyimage.com/600x350/ced4da/6c757d" alt="..." />
+                                <div class="card-body p-4">
+                                    <a class="text-decoration-none link-dark stretched-link" href="#!"><h5 class="card-title mb-3"><strong>회원 전용 홈</strong></h5></a>
+                                    <p class="card-text mb-0">전국 중기예보전망, 전날 식단 영양소 분석, 일별 소비 기록 분석 및 예상, 예정된 방문 장소 등 여러 기능 제공</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Pricing section-->
+            <section class="bg-light py-5">
+                <div class="container px-5 my-5">
+                    <div class="text-center mb-5">
+                        <h1 class="fw-bolder">프리미엄 요금제를 이용할 수 있어요!</h1>
+                        <p class="lead fw-normal text-muted mb-0">오직 프리미엄 요금제만을 위한 추가 기능</p>
+                    </div>
+                    <div class="row gx-5 justify-content-center">
+                        <!-- Pricing card free-->
+                        <div class="col-lg-6 col-xl-4">
+                            <div class="card mb-5 mb-xl-0">
+                                <div class="card-body p-5">
+                                    <div class="small text-uppercase fw-bold text-muted">무료 플랜</div>
+                                    <div class="mb-3">
+                                        <span class="display-4 fw-bold">무료</span>
+                                        <span class="text-muted">/ 매월</span>
+                                    </div>
+                                    <ul class="list-unstyled mb-4">
+                                        <li class="mb-2">
+                                            <i class="bi bi-check text-primary"></i>
+                                            오직 나만을 위한 플래너 인터페이스
+                                        </li>
+                                        <li class="mb-2">
+                                            <i class="bi bi-check text-primary"></i>
+                                            휴가 일정 추가/삭제
+                                        </li>
+                                        <li class="mb-2">
+                                            <i class="bi bi-check text-primary"></i>
+                                            장소 일정 추가/삭제
+                                        </li>
+                                        <li class="mb-2 text-muted">
+                                            <i class="bi bi-x"></i>
+                                            식단 기록 추가/삭제
+                                        </li>
+                                        <li class="mb-2 text-muted">
+                                            <i class="bi bi-x"></i>
+                                            소비 기록 추가/삭제
+                                        </li>
+                                        <li class="mb-2">
+                                            <i class="bi bi-check text-primary"></i>
+                                            관심 장소 저장/삭제
+                                        </li>
+                                        <li class="mb-2">
+                                            <i class="bi bi-check text-primary"></i>
+                                            장소 검색
+                                        </li>
+                                        <li class="mb-2">
+                                            <i class="bi bi-check text-primary"></i>
+                                            <strong>군인 전용 장소 정보 제공(군 복지 휴양 시설, 군 병원, TMO)</strong>
+                                        </li>
+                                        <li class="mb-2">
+                                            <i class="bi bi-check text-primary"></i>
+                                            국방부 MOU 혜택 정보 제공
+                                        </li>
+                                        <li class="mb-2">
+                                            <i class="bi bi-check text-primary"></i>
+                                            <strong>회원 전용 홈(예보, 다가오는 일정, 예정된 방문 장소)</strong>
+                                        </li>
+                                    </ul>
+                                    <div class="d-grid"><a class="btn btn-outline-primary" href="#!">플랜 선택하기</a></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Pricing card pro-->
+                        <div class="col-lg-6 col-xl-4">
+                            <div class="card mb-5 mb-xl-0">
+                                <div class="card-body p-5">
+                                    <div class="small text-uppercase fw-bold">
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        Premium
+                                    </div>
+                                    <div class="mb-3">
+                                        <span class="display-4 fw-bold">4,900₩</span>
+                                        <span class="text-muted">/ 매월</span>
+                                    </div>
+                                    <ul class="list-unstyled mb-4">
+                                        <li class="mb-2">
+                                            <i class="bi bi-check text-primary"></i>
+                                            오직 나만을 위한 플래너 인터페이스
+                                        </li>
+                                        <li class="mb-2">
+                                            <i class="bi bi-check text-primary"></i>
+                                            휴가 일정 추가/삭제
+                                        </li>
+                                        <li class="mb-2">
+                                            <i class="bi bi-check text-primary"></i>
+                                            장소 일정 추가/삭제
+                                        </li>
+                                        <li class="mb-2">
+                                            <i class="bi bi-check text-primary"></i>
+                                            식단 기록 추가/삭제
+                                        </li>
+                                        <li class="mb-2">
+                                            <i class="bi bi-check text-primary"></i>
+                                            소비 기록 추가/삭제
+                                        </li>
+                                        <li class="mb-2">
+                                            <i class="bi bi-check text-primary"></i>
+                                            관심 장소 저장/삭제
+                                        </li>
+                                        <li class="mb-2">
+                                            <i class="bi bi-check text-primary"></i>
+                                            장소 검색
+                                        </li>
+                                        <li class="mb-2">
+                                            <i class="bi bi-check text-primary"></i>
+                                            <strong>군인 전용 장소 정보 제공(군 복지 휴양 시설, 군 병원, TMO, 군인 우대 업소 정보)</strong>
+                                        </li>
+                                        <li class="mb-2">
+                                            <i class="bi bi-check text-primary"></i>
+                                            국방부 MOU 혜택 정보 제공
+                                        </li>
+                                        <li class="mb-2">
+                                            <i class="bi bi-check text-primary"></i>
+                                            <strong>회원 전용 홈(예보, 다가오는 일정, 예정된 방문 장소, 주기적 식단 영양소 분석,
+                                                일별 소비 기록 분석)</strong>
+                                        </li>
+                                    </ul>
+                                    <div class="d-grid"><a class="btn btn-primary" href="#!">플랜 선택하기</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Call to action-->
+            <aside class="bg-primary bg-gradient rounded-3 p-4 p-sm-5 mt-5">
+                <div class="d-flex align-items-center justify-content-between flex-column flex-xl-row text-center text-xl-start">
+                    <div class="mb-4 mb-xl-0">
+                        <div class="fs-3 fw-bold text-white" id="writing">"공공데이터를 단순히 보여주는 것을 넘어 사용자가 가공, 저장 등 다양한 방식으로 직접 사용할 수 있어야 한다.</div>
+                        <div class="text-white-50">공공데이터를 통해 새로운 가치를 만듭니다.</div>
+                        <div class="small text-blak-50">상병 최성현</div>
+                        <a href="https://www.instagram.com/froggy_hyun/"><img src="img/logo/instagram.png" style="height:30px"></a>
+                        <a href="https://github.com/froggy-hyun"><img src="/img/logo/github.png" style="height:30px"></a>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </section>
+</main>
+<!-- Footer-->
+<footer th:replace="fragments/common :: footer"></footer>
 </body>
-<script>
-     let weatherInfo = [];
-     let stnId = "108";
-     let tmFc;
-
-     let today = new Date();
-
-     var year = today.getFullYear();
-     var month = ('0' + (today.getMonth() + 1)).slice(-2);
-     var day = ('0' + today.getDate()).slice(-2);
-     var dateString = year + month + day;
-
-     var hours = ('0' + today.getHours()).slice(-2);
-     var minutes = ('0' + today.getMinutes()).slice(-2);
-
-     let uploadCert1 = new Date(`${year}-${month}-${day} 06:00:00`);
-     let uploadCert2 = new Date(`${year}-${month}-${day} 18:00:00`);
-
-     if(today.getTime() < uploadCert1){
-        tmFc = year + month + (day-1) + "1800";
-     } else if(uploadCert1 < today.getTime() < uploadCert1) {
-        tmFc = year + month + day + "0600";
-     } else {
-        tmFc = year + month + day + "1800";
-     }
-
-     url = `getWeatherApi/${stnId}/${tmFc}`;
-     $.ajax({
-        type: "GET",
-        url: url,
-        data: {},
-        async: false,
-        success: function(data) {
-           jsonData = JSON.parse(data); //string -> json
-           item = jsonData.response.body.items.item;
-           for (let i = 0; i < item.length; i++){
-             weatherInfo.push(item[i].wfSv);
-             $('#weather').append('<p>' + item[i].wfSv + '</p>');
-           }
-        }
-     });
-
-     if(weatherInfo.length == 0){
-       alert("날씨 공공데이터 API에 일시적인 오류가 있습니다. 잠시 후 다시 시도해주세요.");
-     }
-
-</script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-<script>
-    window.addEventListener('DOMContentLoaded', event => {
-
-    // Toggle the side navigation
-    const sidebarToggle = document.body.querySelector('#sidebarToggle');
-    if (sidebarToggle) {
-        // Uncomment Below to persist sidebar toggle between refreshes
-        // if (localStorage.getItem('sb|sidebar-toggle') === 'true') {
-        //     document.body.classList.toggle('sb-sidenav-toggled');
-        // }
-        sidebarToggle.addEventListener('click', event => {
-            event.preventDefault();
-            document.body.classList.toggle('sb-sidenav-toggled');
-            localStorage.setItem('sb|sidebar-toggle', document.body.classList.contains('sb-sidenav-toggled'));
-        });
-    }
-
-    window.addEventListener('DOMContentLoaded', event => {
-    // Simple-DataTables
-    // https://github.com/fiduswriter/Simple-DataTables/wiki
-
-    const datatablesSimple = document.getElementById('datatablesSimple');
-    if (datatablesSimple) {
-        new simpleDatatables.DataTable(datatablesSimple);
-    }
-});
-  </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-<script src="/js/index/chart-area-demo.js"></script>
-<script src="/js/index/chart-bar-demo.js"></script>
-<script src="/js/index/datatables-simple-demo.js"></script>
 </html>
