@@ -224,6 +224,36 @@
     </main>
   </div>
 </div>
+<!-- dietCardInfo modal -->
+<div class="modal fade" id="info_dietCard_modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="info_dietCard_title">식단 상세 정보</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id ="dietResult">
+          <h2>어제 하루 섭취 영양소</h2>
+        </div>
+        <div id="dietStandard">
+          <h2>기준</h2>
+          <p>열량 권장 2000  최대 3000 세계보건기구</p>
+          <p>탄수화물 최소 100g 권장 130g 최대 200g 식약처
+          <p>단백질 - 50g~55g
+          <p>지방 권장 - 51g 식약처
+          <p>당류 권장 - 50g 세계보건기구
+          <p>나트륨 권장 - 2000mg 세계보건기구
+          <p>콜레스테롤 권장 - 300mg 미국심장협회</p>
+          <p>트랜스지방산 권장 -15g 식약처</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 </body>
 <!-- Footer-->
 <footer th:replace="fragments/common :: footer"></footer>
@@ -371,7 +401,7 @@
         html += '  <div class="card bg-success text-white mb-4">'
         html += '    <div class="card-body">균형 잡힌 식단을 실천중이에요!</div>'
         html += '    <div class="card-footer d-flex align-items-center justify-content-between">'
-        html += '      <a class="small text-white stretched-link" href="#">상세 보기</a>'
+        html += '      <a class="small text-white stretched-link" href="javascript:showDietCardInfo();">상세 보기</a>'
         html += '      <div class="small text-white"><i class="fas fa-angle-right"></i></div>'
         html += '    </div>'
         html += '  </div>'
@@ -386,7 +416,7 @@
         html += '  <div class="card bg-warning text-white mb-4">'
         html += '    <div class="card-body">전날 식단을 조금 신경 쓸 필요가 있어보여요.</div>'
         html += '    <div class="card-footer d-flex align-items-center justify-content-between">'
-        html += '      <a class="small text-white stretched-link" href="#">상세 보기</a>'
+        html += '      <a class="small text-white stretched-link" href="javascript:showDietCardInfo();">상세 보기</a>'
         html += '      <div class="small text-white"><i class="fas fa-angle-right"></i></div>'
         html += '    </div>'
         html += '  </div>'
@@ -401,13 +431,27 @@
         html += '  <div class="card bg-danger text-white mb-4">'
         html += '    <div class="card-body">식단의 개선이 필요합니다!!</div>'
         html += '    <div class="card-footer d-flex align-items-center justify-content-between">'
-        html += '      <a class="small text-white stretched-link" href="#">View Details</a>'
+        html += '      <a class="small text-white stretched-link" href="javascript:showDietCardInfo();">View Details</a>'
         html += '      <div class="small text-white"><i class="fas fa-angle-right"></i></div>'
         html += '    </div>'
         html += '  </div>'
         html += '</div>'
 
         $('#dietCard').append(html);
+     }
+
+     $('#dietResult').append(`<p>섭취 음식 : ${food_name}</p>`);
+     $('#dietResult').append(`<p>총 칼로리 (kcal) : ${totalKcal}</p>`);
+     $('#dietResult').append(`<p>총 탄수화물 (g) : ${totalCarbohydrate}</p>`);
+     $('#dietResult').append(`<p>총 단백질 (g) : ${totalProtein}</p>`);
+     $('#dietResult').append(`<p>총 지방 (g) : ${totalFat}</p>`);
+     $('#dietResult').append(`<p>총 당 (g) : ${totalSugar}</p>`);
+     $('#dietResult').append(`<p>총 나트륨 (mg) : ${totalSalt}</p>`);
+     $('#dietResult').append(`<p>총 콜레스테롤 (mg) : ${totalCholesterol}</p>`);
+     $('#dietResult').append(`<p>총 트랜스지방산 (g) : ${totalSaturatedFattyAcids}</p>`);
+
+     function showDietCardInfo(){
+        $("#info_dietCard_modal").modal("show"); // modal 나타내기
      }
 
 </script>
