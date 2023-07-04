@@ -26,6 +26,11 @@
                 <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="fieldError">Incorrect data</p>
             </div>
             <div class="form-group py-2">
+                <label th:for="password">비밀번호 확인</label>
+                <input type="password" th:field="*{password_confirm}" class="form-control" id="password_confirm" placeholder="비밀번호 재입력">
+                <p th:if="${#fields.hasErrors('password_confirm')}" th:errors="*{password_confirm}" class="fieldError">Incorrect data</p>
+            </div>
+            <div class="form-group py-2">
                 <label th:for="name">이름</label>
                 <input type="text" th:field="*{name}" class="form-control" placeholder="이름 입력">
                 <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="fieldError">Incorrect data</p>

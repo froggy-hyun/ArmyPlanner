@@ -32,6 +32,10 @@ public class RegistryController {
         if (bindingResult.hasErrors()) {
             return "user/register";
         }
+        if (!memberRegistryDto.getPassword().equals(memberRegistryDto.getPassword_confirm())) {
+            model.addAttribute("errorMessage", "비밀번호가 같지 않습니다.");
+            return "user/register";
+        }
         try {
             Member member = memberService.createMember(memberRegistryDto, passwordEncoder);
             memberService.saveMember(member);
