@@ -2,12 +2,28 @@
 Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#292b2c';
 
+let todayDateForDiet = new Date();
+let yesterdayDateForDiet = new Date(today.setDate(todayDateForDiet.getDate() -1));
+let twoDaysAgoDateForDiet = new Date(today.setDate(yesterdayDateForDiet.getDate() -1));
+let threeDaysAgoDateForDiet = new Date(today.setDate(twoDaysAgoDateForDiet.getDate() -1));
+let fourDaysAgoDateForDiet = new Date(today.setDate(threeDaysAgoDateForDiet.getDate() -1));
+let fiveDaysAgoDateForDiet = new Date(today.setDate(fourDaysAgoDateForDiet.getDate() -1));
+let sixDaysAgoDateForDiet = new Date(today.setDate(fiveDaysAgoDateForDiet.getDate() -1));
+
+
 // Area Chart Example
 var ctx = document.getElementById("myAreaChart");
 var myLineChart = new Chart(ctx, {
   type: 'line',
   data: {
-    labels: ["6일전", "5일전", "4일전", "3일전", "2일전", "어제", "오늘"],
+    labels: [sixDaysAgoDateForDiet.getMonth() + 1 + "/" + sixDaysAgoDateForDiet.getDate(),
+      fiveDaysAgoDateForDiet.getMonth() + 1 + "/" + fiveDaysAgoDateForDiet.getDate(),
+      fourDaysAgoDateForDiet.getMonth() + 1 + "/" + fourDaysAgoDateForDiet.getDate(),
+      threeDaysAgoDateForDiet.getMonth() + 1 + "/" + threeDaysAgoDateForDiet.getDate(),
+      twoDaysAgoDateForDiet.getMonth() + 1 + "/" + twoDaysAgoDateForDiet.getDate(),
+      yesterdayDateForDiet.getMonth() + 1 + "/" + yesterdayDateForDiet.getDate(),
+      todayDateForDiet.getMonth() + 1 + "/" + todayDateForDiet.getDate()
+    ],
     datasets: [{
       label: "Sessions",
       lineTension: 0.3,
