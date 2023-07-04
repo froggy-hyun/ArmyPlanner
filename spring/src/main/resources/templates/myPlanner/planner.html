@@ -859,6 +859,7 @@
                       var total_price = $("#total_price").val();
 
                       var start_date = $("#add_event_start_date").val();
+                      var start_month = start_date.substring(0,7);
                       var start_time = $("#add_event_start_time").val();
                       var end_date = $("#add_event_end_date").val();
                       var end_time = $("#add_event_end_time").val();
@@ -885,7 +886,8 @@
                           "eventType" : eventType,
                           "title" : shopping_title,
                           "start" : start,
-                          "startDate" : start_date,
+                          "start_date" : start_date,
+                          "start_month" : start_month,
                           "end" : end,
                           "allDay" : allDay,
                           "shopping_name" : shopping_name,

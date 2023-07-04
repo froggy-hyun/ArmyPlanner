@@ -169,6 +169,7 @@ public class MyPlannerController {
 
         String start = eventShoppingDto.getStart();
         String startDate = eventShoppingDto.getStartDate();
+        String startMonth = eventShoppingDto.getStartMonth();
         String end = eventShoppingDto.getEnd();
         boolean allDay = eventShoppingDto.isAllDay();
         String username = principal.getName();
@@ -182,6 +183,7 @@ public class MyPlannerController {
                 .total_price(totalPrice)
                 .start(start)
                 .startDate(startDate)
+                .startMonth(startMonth)
                 .end(end)
                 .allDay(allDay)
                 .member(member)

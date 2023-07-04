@@ -50,6 +50,7 @@ public class EventDto {
 
     private String start;
     private String startDate;
+    private String startMonth;
     private String end;
 
     private Member member;
@@ -108,6 +109,7 @@ public class EventDto {
                 .total_price(total_price)
                 .start(LocalDateTime.parse(start, dateTimeFormatter))
                 .startDate(startDate)
+                .startMonth(startMonth)
                 .end(LocalDateTime.parse(end, dateTimeFormatter))
                 .allDay(allDay)
                 .member(member)
