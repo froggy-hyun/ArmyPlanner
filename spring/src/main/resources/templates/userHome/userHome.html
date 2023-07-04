@@ -21,43 +21,8 @@
             <h5 class="card-title">전국 중기예보전망</h5>
           </div>
         </div>
-        <div class="row">
-          <div class="col-xl-3 col-md-6">
-            <div class="card bg-primary text-white mb-4">
-              <div class="card-body">전날 식단 데이터가 없어요.</div>
-              <div class="card-footer d-flex align-items-center justify-content-between">
-                <a class="small text-white stretched-link" href="/myPlanner">식단 추가하러 가기</a>
-                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-md-6">
-            <div class="card bg-success text-white mb-4">
-              <div class="card-body">전날 식단은 균형 잡힌 식단입니다!</div>
-              <div class="card-footer d-flex align-items-center justify-content-between">
-                <a class="small text-white stretched-link" href="#">View Details</a>
-                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-md-6">
-            <div class="card bg-warning text-white mb-4">
-              <div class="card-body">전날 식단을 조금 신경 쓸 필요가 있어보여요.</div>
-              <div class="card-footer d-flex align-items-center justify-content-between">
-                <a class="small text-white stretched-link" href="#">View Details</a>
-                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-               </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-md-6">
-            <div class="card bg-danger text-white mb-4">
-              <div class="card-body">식단의 개선이 필요합니다!!</div>
-              <div class="card-footer d-flex align-items-center justify-content-between">
-                <a class="small text-white stretched-link" href="#">View Details</a>
-                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-              </div>
-            </div>
-          </div>
+        <div class="row" id="dietCard">
+          <p>어제 식단 분석</p>
         </div>
         <div class="row">
           <div class="col-xl-6">
@@ -319,6 +284,16 @@
       }
      let yesterdayDate = getYmd10(yesterday);
 
+     let food_name = "";
+     let totalKcal = 0;
+     let totalCarbohydrate = 0;
+     let totalProtein = 0;
+     let totalFat = 0;
+     let totalSugar = 0;
+     let totalSalt = 0;
+     let totalCholesterol = 0;
+     let totalSaturatedFattyAcids = 0;
+
      url = `/user/getYesterdayDiet/${yesterdayDate}`;
      $.ajax({
         type: "GET",
@@ -326,9 +301,115 @@
         data: {},
         async: false,
         success: function(data) {
-           console.log(data);
+          for(let i = 0; i < data.length; i++){
+            food_name += data[i].food_name;
+            totalKcal += Number(data[i].kcal);
+            totalCarbohydrate += Number(data[i].carbohydrate);
+            totalProtein += Number(data[i].protein);
+            totalFat += Number(data[i].fat);
+            totalSugar += Number(data[i].sugar);
+            totalSalt += Number(data[i].salt);
+            totalCholesterol += Number(data[i].cholesterol);
+            totalSaturatedFattyAcids += Number(data[i].saturatedFattyAcids);
+          }
         }
      })
+     let dietScore = 0;
+
+<!--     열량 최소 1000 권장 2000  최대 3000 세계보건기구-->
+<!--     탄수화물 최소 100g 권장 130g 최대 200g 식약처-->
+<!--     단백질 권장 최소 50g~55g 식약처-->
+<!--     지방 권장 최소 51g 식약처 최대 66.7 세계보건기구-->
+<!--     당류 권장 최대 50g 세계보건기구-->
+<!--     나트륨 권장 최대 2000mg 세계보건기구-->
+<!--     콜레스테롤 권장 최대 300mg 미국심장협회-->
+<!--     트랜스지방산 권장 최대 15g 식약처-->
+     if (totalKcal >= 1000 && totalKcal <= 3000){
+        dietScore += 1;
+     }
+     if (totalCarbohydrate >= 100 && totalCarbohydrate <= 200){
+        dietScore += 1;
+     }
+     if (totalProtein >= 50){
+        dietScore += 1;
+     }
+     if (totalFat >= 51 && totalFat <= 66.7){
+        dietScore += 1;
+     }
+     if (totalSugar <= 50){
+        dietScore += 1;
+     }
+     if (totalSalt <= 2000){
+        dietScore += 1;
+     }
+     if (totalCholesterol <= 300){
+        dietScore += 1;
+     }
+     if (totalSaturatedFattyAcids <= 15){
+        dietScore += 1;
+     }
+
+     if (food_name == ""){
+        let html = "";
+
+        html += '<div class="col-xl-3 col-md-6">'
+        html += '  <div class="card bg-primary text-white mb-4">'
+        html += '    <div class="card-body">전날 식단 데이터가 없어요.</div>'
+        html += '    <div class="card-footer d-flex align-items-center justify-content-between">'
+        html += '      <a class="small text-white stretched-link" href="/myPlanner">식단 추가하러 가기</a>'
+        html += '      <div class="small text-white"><i class="fas fa-angle-right"></i></div>'
+        html += '    </div>'
+        html += '  </div>'
+        html += '</div>'
+
+        $('#dietCard').append(html);
+
+     } else if (dietScore == 8){
+        let html = "";
+
+        html += '<div class="col-xl-3 col-md-6">'
+        html += '  <div class="card bg-success text-white mb-4">'
+        html += '    <div class="card-body">균형 잡힌 식단을 실천중이에요!</div>'
+        html += '    <div class="card-footer d-flex align-items-center justify-content-between">'
+        html += '      <a class="small text-white stretched-link" href="#">상세 보기</a>'
+        html += '      <div class="small text-white"><i class="fas fa-angle-right"></i></div>'
+        html += '    </div>'
+        html += '  </div>'
+        html += '</div>'
+
+        $('#dietCard').append(html);
+
+     } else if (dietScore < 8 && dietScore >= 4){
+        let html = "";
+
+        html += '<div class="col-xl-3 col-md-6">'
+        html += '  <div class="card bg-warning text-white mb-4">'
+        html += '    <div class="card-body">전날 식단을 조금 신경 쓸 필요가 있어보여요.</div>'
+        html += '    <div class="card-footer d-flex align-items-center justify-content-between">'
+        html += '      <a class="small text-white stretched-link" href="#">상세 보기</a>'
+        html += '      <div class="small text-white"><i class="fas fa-angle-right"></i></div>'
+        html += '    </div>'
+        html += '  </div>'
+        html += '</div>'
+
+        $('#dietCard').append(html);
+
+     } else {
+        let html = "";
+
+        html += '<div class="col-xl-3 col-md-6">'
+        html += '  <div class="card bg-danger text-white mb-4">'
+        html += '    <div class="card-body">식단의 개선이 필요합니다!!</div>'
+        html += '    <div class="card-footer d-flex align-items-center justify-content-between">'
+        html += '      <a class="small text-white stretched-link" href="#">View Details</a>'
+        html += '      <div class="small text-white"><i class="fas fa-angle-right"></i></div>'
+        html += '    </div>'
+        html += '  </div>'
+        html += '</div>'
+
+        $('#dietCard').append(html);
+     }
+
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 <script src="/js/userHome/scripts.js"></script>
