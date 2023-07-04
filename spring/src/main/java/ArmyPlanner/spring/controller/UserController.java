@@ -66,12 +66,12 @@ public class UserController {
         return sb.toString();
     }
 
-//    @GetMapping("user/getYesterdayDiet/{todayDate}")
-//    @ResponseBody
-//    public List<EventDto> getYesterdayDiet(@PathVariable String todayDate, Principal principal) throws IOException {
-//        String username = principal.getName();
-//        Member member = memberRepository.findByEmail(username);
-//
-//        return eventService.findYesterdayDiet(member, todayDate);
-//    }
+    @GetMapping("user/getYesterdayDiet/{todayDate}")
+    @ResponseBody
+    public List<EventDto> getYesterdayDiet(@PathVariable String todayDate, Principal principal) throws IOException {
+        String username = principal.getName();
+        Member member = memberRepository.findByEmail(username);
+
+        return eventService.findYesterdayDiets(member, todayDate);
+    }
 }

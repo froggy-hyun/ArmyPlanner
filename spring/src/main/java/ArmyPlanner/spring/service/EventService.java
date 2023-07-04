@@ -59,17 +59,8 @@ public class EventService {
         return eventsDto;
     }
 
-    public Event saveEvent(Event event) {
-
-        return eventRepository.save(event);
-    }
-
-    public void deleteEvent(Long id) {
-        eventRepository.deleteById(id);
-    }
-
-    public List<EventDto> findYesterdayDiet(Member member, String yesterdayDate){
-        List<Event> list = eventRepository.findAllByMemberAndStart_date(member, yesterdayDate);
+    public List<EventDto> findYesterdayDiets(Member member, String yesterdayDate){
+        List<Event> list = eventRepository.findAllByMemberAndStartDate(member, yesterdayDate);
 
         List<EventDto> yesterdayDietDto = new ArrayList<>();
 
@@ -95,5 +86,15 @@ public class EventService {
 
         return yesterdayDietDto;
     }
+
+    public Event saveEvent(Event event) {
+
+        return eventRepository.save(event);
+    }
+
+    public void deleteEvent(Long id) {
+        eventRepository.deleteById(id);
+    }
+
 
 }
