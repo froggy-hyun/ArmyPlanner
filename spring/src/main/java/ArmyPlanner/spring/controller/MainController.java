@@ -13,9 +13,4 @@ public class MainController {
         return "index";
     }
 
-    @GetMapping("armyMou")
-    public String armyMou() {
-        return "armyMou/armyMou";
-    }
-
 }
