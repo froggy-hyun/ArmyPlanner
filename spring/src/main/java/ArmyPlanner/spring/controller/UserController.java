@@ -68,10 +68,10 @@ public class UserController {
 
     @GetMapping("user/getYesterdayDiet/{yesterdayDate}")
     @ResponseBody
-    public List<EventDto> getYesterdayDiet(@PathVariable String todayDate, Principal principal) throws IOException {
+    public List<EventDto> getYesterdayDiet(@PathVariable String yesterdayDate, Principal principal) throws IOException {
         String username = principal.getName();
         Member member = memberRepository.findByEmail(username);
 
-        return eventService.findYesterdayDiets(member, todayDate);
+        return eventService.findYesterdayDiets(member, yesterdayDate);
     }
 }
