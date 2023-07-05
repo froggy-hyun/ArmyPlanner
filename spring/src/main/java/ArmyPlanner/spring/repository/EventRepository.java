@@ -8,7 +8,9 @@ import java.util.List;
 
 public interface EventRepository extends JpaRepository<Event, Long> {
 
-    List<Event> findAllByMember(Member member);
+//    List<Event> findAllByMember(Member member);
+
+    List<Event> findAllByMemberAndEventType(Member member, String eventType);
 
     List<Event> findAllByMemberAndEventTypeAndStartDate(Member member, String eventType, String date);
 

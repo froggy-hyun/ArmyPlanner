@@ -29,12 +29,44 @@ public class MyPlannerController {
     private final MemberRepository memberRepository;
     private final LikedPlaceService likedPlaceService;
 
-    @GetMapping("api/events")
+    @GetMapping("api/events/vacation")
     @ResponseBody
-    public List<EventDto> listAllEvents(Principal principal) {
+    public List<EventDto> listAllVacationEvents(Principal principal) {
         String username = principal.getName();
         Member member = memberRepository.findByEmail(username);
-        return eventService.listAllEvents(member);
+        return eventService.listAllEventsByEventType(member, "vacation");
+    }
+
+    @GetMapping("api/events/diet")
+    @ResponseBody
+    public List<EventDto> listAllDietEvents(Principal principal) {
+        String username = principal.getName();
+        Member member = memberRepository.findByEmail(username);
+        return eventService.listAllEventsByEventType(member, "diet");
+    }
+
+    @GetMapping("api/events/shopping")
+    @ResponseBody
+    public List<EventDto> listAllShoppingEvents(Principal principal) {
+        String username = principal.getName();
+        Member member = memberRepository.findByEmail(username);
+        return eventService.listAllEventsByEventType(member, "shopping");
+    }
+
+    @GetMapping("api/events/place")
+    @ResponseBody
+    public List<EventDto> listAllPlaceEvents(Principal principal) {
+        String username = principal.getName();
+        Member member = memberRepository.findByEmail(username);
+        return eventService.listAllEventsByEventType(member, "place");
+    }
+
+    @GetMapping("api/events/text")
+    @ResponseBody
+    public List<EventDto> listAllTextEvents(Principal principal) {
+        String username = principal.getName();
+        Member member = memberRepository.findByEmail(username);
+        return eventService.listAllEventsByEventType(member, "text");
     }
 
     @GetMapping

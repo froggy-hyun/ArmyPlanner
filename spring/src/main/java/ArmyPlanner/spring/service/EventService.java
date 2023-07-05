@@ -19,8 +19,8 @@ public class EventService {
     private final EventRepository eventRepository;
 
 
-    public List<EventDto> listAllEvents(Member member) {
-        List<Event> list = eventRepository.findAllByMember(member);
+    public List<EventDto> listAllEventsByEventType(Member member, String eventType) {
+        List<Event> list = eventRepository.findAllByMemberAndEventType(member, eventType);
 
         List<EventDto> eventsDto = new ArrayList<>();
 
