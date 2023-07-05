@@ -287,10 +287,10 @@
      let sixDaysAgoDate = getYmd10(sixDaysAgo);
 
      //달 YYYY-MM
-     thisMonth = todayDate.substring(0,7);
-     lastMonth = todayDate.substring(0,6) + String(Number(todayDate[6]) - 1);
-     twoMonthsAgo = todayDate.substring(0,6) + String(Number(todayDate[6]) - 2);
-     console.log(twoMonthsAgo);
+     let firstDayOfThisMonth_temp = new Date(today.getFullYear(),today.getMonth() + 1, 1);
+     let thisMonth = getYmd10(firstDayOfThisMonth_temp).substring(0,7);
+     let lastMonth = getYmd10(new Date(firstDayOfThisMonth_temp.setMonth(today.getMonth()))).substring(0,7);
+     let twoMonthsAgo = getYmd10(new Date(firstDayOfThisMonth_temp.setMonth(today.getMonth() - 1))).substring(0,7);
 
      let weatherInfo = [];
      let stnId = "108";
