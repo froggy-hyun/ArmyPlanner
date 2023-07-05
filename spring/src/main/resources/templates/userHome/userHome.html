@@ -256,30 +256,55 @@
 </body>
 <!-- Footer-->
 <footer th:replace="fragments/common :: footer"></footer>
+<script src="/js/userHome/scripts.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+<script src="/js/userHome/chart-bar-demo.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+<script src="/js/userHome/datatables-simple-demo.js"></script>
 <script>
+
+     //날짜 일반 객체
+     let today_temp = new Date();
+     let today = new Date();
+     let yesterday = new Date(today_temp.setDate(today.getDate() -1));
+     let twoDaysAgo = new Date(today_temp.setDate(yesterday.getDate() -1));
+     let threeDaysAgo = new Date(today_temp.setDate(twoDaysAgo.getDate() -1));
+     let fourDaysAgo = new Date(today_temp.setDate(threeDaysAgo.getDate() -1));
+     let fiveDaysAgo = new Date(today_temp.setDate(fourDaysAgo.getDate() -1));
+     let sixDaysAgo = new Date(today_temp.setDate(fiveDaysAgo.getDate() -1));
+
+
+     //날짜 YYYY-MM-DD
+     function getYmd10(dateString) {
+          //yyyy-mm-dd 포맷 날짜 생성
+          return dateString.getFullYear() + "-" + ((dateString.getMonth() + 1) > 9 ? (dateString.getMonth() + 1).toString() : "0" + (dateString.getMonth() + 1)) + "-" + (dateString.getDate() > 9 ? dateString.getDate().toString() : "0" + dateString.getDate().toString());
+      }
+     let todayDate = getYmd10(today);
+     let yesterdayDate = getYmd10(yesterday);
+     let twoDaysAgoDate = getYmd10(twoDaysAgo);
+     let threeDaysAgoDate = getYmd10(threeDaysAgo);
+     let fourDaysAgoDate = getYmd10(fourDaysAgo);
+     let fiveDaysAgoDate = getYmd10(fiveDaysAgo);
+     let sixDaysAgoDate = getYmd10(sixDaysAgo);
+
      let weatherInfo = [];
      let stnId = "108";
      let tmFc;
 
-     let today = new Date();
+     let today_year = today.getFullYear();
+     let today_month = ('0' + (today.getMonth() + 1)).slice(-2);
+     let today_day = ('0' + today.getDate()).slice(-2);
+     let today_dateString = today_year + today_month + today_day;
 
-     var year = today.getFullYear();
-     var month = ('0' + (today.getMonth() + 1)).slice(-2);
-     var day = ('0' + today.getDate()).slice(-2);
-     var dateString = year + month + day;
-
-     var hours = ('0' + today.getHours()).slice(-2);
-     var minutes = ('0' + today.getMinutes()).slice(-2);
-
-     let uploadCert1 = new Date(`${year}-${month}-${day} 06:00:00`);
-     let uploadCert2 = new Date(`${year}-${month}-${day} 18:00:00`);
+     let uploadCert1 = new Date(`${today_year}-${today_month}-${today_day} 06:00:00`);
+     let uploadCert2 = new Date(`${today_year}-${today_month}-${today_day} 18:00:00`);
 
      if(today.getTime() < uploadCert1){
-        tmFc = year + month + (day-1) + "1800";
+        tmFc = today_year + today_month + (today_day-1) + "1800";
      } else if(uploadCert1 < today.getTime() < uploadCert1) {
-        tmFc = year + month + day + "0600";
+        tmFc = today_year + today_month + today_day + "0600";
      } else {
-        tmFc = year + month + day + "1800";
+        tmFc = today_year + today_month + today_day + "1800";
      }
 
      url = `getWeatherApi/${stnId}/${tmFc}`;
@@ -302,16 +327,6 @@
        alert("날씨 공공데이터 API에 일시적인 오류가 있습니다. 잠시 후 다시 시도해주세요.");
      }
 
-
-     let yesterday = new Date(today.setDate(today.getDate() -1));
-
-     // 식단을 가져오기 위한 어제날짜 string
-
-     function getYmd10(dateString) {
-          //yyyy-mm-dd 포맷 날짜 생성
-          return dateString.getFullYear() + "-" + ((dateString.getMonth() + 1) > 9 ? (dateString.getMonth() + 1).toString() : "0" + (dateString.getMonth() + 1)) + "-" + (dateString.getDate() > 9 ? dateString.getDate().toString() : "0" + dateString.getDate().toString());
-      }
-     let yesterdayDate = getYmd10(yesterday);
 
      let food_name = "";
      let totalKcal = 0;
@@ -453,11 +468,69 @@
         $("#info_dietCard_modal").modal("show"); // modal 나타내기
      }
 
+     Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+     Chart.defaults.global.defaultFontColor = '#292b2c';
+
+
+     // Area Chart Example
+     var ctx = document.getElementById("myAreaChart");
+     var myLineChart = new Chart(ctx, {
+       type: 'line',
+       data: {
+         labels: [sixDaysAgo.getMonth() + 1 + "/" + sixDaysAgo.getDate(),
+           fiveDaysAgo.getMonth() + 1 + "/" + fiveDaysAgo.getDate(),
+           fourDaysAgo.getMonth() + 1 + "/" + fourDaysAgo.getDate(),
+           threeDaysAgo.getMonth() + 1 + "/" + threeDaysAgo.getDate(),
+           twoDaysAgo.getMonth() + 1 + "/" + twoDaysAgo.getDate(),
+           yesterday.getMonth() + 1 + "/" + yesterday.getDate(),
+           today.getMonth() + 1 + "/" + today.getDate()
+         ],
+         datasets: [{
+           label: "Sessions",
+           lineTension: 0.3,
+           backgroundColor: "rgba(2,117,216,0.2)",
+           borderColor: "rgba(2,117,216,1)",
+           pointRadius: 5,
+           pointBackgroundColor: "rgba(2,117,216,1)",
+           pointBorderColor: "rgba(255,255,255,0.8)",
+           pointHoverRadius: 5,
+           pointHoverBackgroundColor: "rgba(2,117,216,1)",
+           pointHitRadius: 50,
+           pointBorderWidth: 2,
+           data: [31274, 33259, 25849, 24159, 32651, 31984, 38451],
+         }],
+       },
+       options: {
+         scales: {
+           xAxes: [{
+             time: {
+               unit: 'date'
+             },
+             gridLines: {
+               display: false
+             },
+             ticks: {
+               maxTicksLimit: 7
+             }
+           }],
+           yAxes: [{
+             ticks: {
+               min: 0,
+               max: 40000,
+               maxTicksLimit: 5
+             },
+             gridLines: {
+               color: "rgba(0, 0, 0, .125)",
+             }
+           }],
+         },
+         legend: {
+           display: false
+         }
+       }
+     });
+
+
 </script>
-<script src="/js/userHome/scripts.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-<script src="/js/userHome/chart-area-demo.js"></script>
-<script src="/js/userHome/chart-bar-demo.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
-<script src="/js/userHome/datatables-simple-demo.js"></script>
+
 </html>
