@@ -60,7 +60,7 @@ public class EventService {
     }
 
     public List<EventDto> findYesterdayDiets(Member member, String yesterdayDate){
-        List<Event> list = eventRepository.findAllByMemberAndStartDate(member, yesterdayDate);
+        List<Event> list = eventRepository.findAllByMemberAndEventTypeAndStartDate(member, "diet", yesterdayDate);
 
         List<EventDto> yesterdayDietDto = new ArrayList<>();
 
