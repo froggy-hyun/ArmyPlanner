@@ -468,11 +468,126 @@
         $("#info_dietCard_modal").modal("show"); // modal 나타내기
      }
 
+     //최근 일주일 소비 기록 가져오기
+     // 오늘
+     let todayShoppingPrice = 0;
+     url = `/user/getShoppingByDate/${todayDate}`;
+     $.ajax({
+        type: "GET",
+        url: url,
+        data: {},
+        async: false,
+        success: function(data) {
+          console.log(data);
+          for(let i = 0; i < data.length; i++){
+            todayShoppingPrice += Number(data[i].total_price);
+          }
+        }
+     })
+     // 어제
+     let yesterdayShoppingPrice = 0;
+     url = `/user/getShoppingByDate/${yesterdayDate}`;
+     $.ajax({
+        type: "GET",
+        url: url,
+        data: {},
+        async: false,
+        success: function(data) {
+          console.log(data);
+          for(let i = 0; i < data.length; i++){
+            yesterdayShoppingPrice += Number(data[i].total_price);
+          }
+        }
+     })
+     // 2일전
+     let twoDaysAgoShoppingPrice = 0;
+     url = `/user/getShoppingByDate/${twoDaysAgoDate}`;
+     $.ajax({
+        type: "GET",
+        url: url,
+        data: {},
+        async: false,
+        success: function(data) {
+          console.log(data);
+          for(let i = 0; i < data.length; i++){
+            twoDaysAgoShoppingPrice += Number(data[i].total_price);
+          }
+        }
+     })
+     // 3일전
+     let threeDaysAgoShoppingPrice = 0;
+     url = `/user/getShoppingByDate/${threeDaysAgoDate}`;
+     $.ajax({
+        type: "GET",
+        url: url,
+        data: {},
+        async: false,
+        success: function(data) {
+          console.log(data);
+          for(let i = 0; i < data.length; i++){
+            threeDaysAgoShoppingPrice += Number(data[i].total_price);
+          }
+        }
+     })
+     // 4일전
+     let fourDaysAgoShoppingPrice = 0;
+     url = `/user/getShoppingByDate/${fourDaysAgoDate}`;
+     $.ajax({
+        type: "GET",
+        url: url,
+        data: {},
+        async: false,
+        success: function(data) {
+          console.log(data);
+          for(let i = 0; i < data.length; i++){
+            fourDaysAgoShoppingPrice += Number(data[i].total_price);
+          }
+        }
+     })
+     // 5일전
+     let fiveDaysAgoShoppingPrice = 0;
+     url = `/user/getShoppingByDate/${fiveDaysAgoDate}`;
+     $.ajax({
+        type: "GET",
+        url: url,
+        data: {},
+        async: false,
+        success: function(data) {
+          console.log(data);
+          for(let i = 0; i < data.length; i++){
+            fiveDaysAgoShoppingPrice += Number(data[i].total_price);
+          }
+        }
+     })
+     // 6일전
+     let sixDaysAgoShoppingPrice = 0;
+     url = `/user/getShoppingByDate/${sixDaysAgoDate}`;
+     $.ajax({
+        type: "GET",
+        url: url,
+        data: {},
+        async: false,
+        success: function(data) {
+          console.log(data);
+          for(let i = 0; i < data.length; i++){
+            sixDaysAgoShoppingPrice += Number(data[i].total_price);
+          }
+        }
+     })
+
+     maxShoppingPriceOfDay = Math.max(sixDaysAgoShoppingPrice,
+                fiveDaysAgoShoppingPrice,
+                fourDaysAgoShoppingPrice,
+                threeDaysAgoShoppingPrice,
+                twoDaysAgoShoppingPrice,
+                yesterdayShoppingPrice,
+                todayShoppingPrice
+               );
+
      Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
      Chart.defaults.global.defaultFontColor = '#292b2c';
 
-
-     // Area Chart Example
+     //최근 일주일 소비 차트
      var ctx = document.getElementById("myAreaChart");
      var myLineChart = new Chart(ctx, {
        type: 'line',
@@ -486,7 +601,7 @@
            today.getMonth() + 1 + "/" + today.getDate()
          ],
          datasets: [{
-           label: "Sessions",
+           label: "소비 비용",
            lineTension: 0.3,
            backgroundColor: "rgba(2,117,216,0.2)",
            borderColor: "rgba(2,117,216,1)",
@@ -497,7 +612,14 @@
            pointHoverBackgroundColor: "rgba(2,117,216,1)",
            pointHitRadius: 50,
            pointBorderWidth: 2,
-           data: [31274, 33259, 25849, 24159, 32651, 31984, 38451],
+           data: [sixDaysAgoShoppingPrice,
+             fiveDaysAgoShoppingPrice,
+             fourDaysAgoShoppingPrice,
+             threeDaysAgoShoppingPrice,
+             twoDaysAgoShoppingPrice,
+             yesterdayShoppingPrice,
+             todayShoppingPrice
+           ],
          }],
        },
        options: {
@@ -516,8 +638,8 @@
            yAxes: [{
              ticks: {
                min: 0,
-               max: 40000,
-               maxTicksLimit: 5
+               max: maxShoppingPriceOfDay,
+               maxTicksLimit: 10
              },
              gridLines: {
                color: "rgba(0, 0, 0, .125)",
