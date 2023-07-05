@@ -66,7 +66,7 @@ public class UserController {
         return sb.toString();
     }
 
-    @GetMapping("user/getYesterdayDiet/{todayDate}")
+    @GetMapping("user/getYesterdayDiet/{yesterdayDate}")
     @ResponseBody
     public List<EventDto> getYesterdayDiet(@PathVariable String todayDate, Principal principal) throws IOException {
         String username = principal.getName();
