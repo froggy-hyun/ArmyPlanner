@@ -30,7 +30,7 @@
                 <i class="fas fa-chart-area me-1"></i>
                 최근 일주일 소비 차트
               </div>
-              <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
+              <div class="card-body" id="weekShoppingChart"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
             </div>
           </div>
           <div class="col-xl-6">
@@ -39,7 +39,7 @@
                 <i class="fas fa-chart-bar me-1"></i>
                 최근 세 달 소비 차트
               </div>
-              <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
+              <div class="card-body" id="monthShoppingChart"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
             </div>
           </div>
         </div>
@@ -287,11 +287,12 @@
      let sixDaysAgoDate = getYmd10(sixDaysAgo);
 
      //달 YYYY-MM
-     let firstDayOfThisMonth_temp = new Date(today.getFullYear(),today.getMonth() + 1, 1);
+     let firstDayOfThisMonth_temp = new Date(today.getFullYear(), today.getMonth(), 1);
      let thisMonth = getYmd10(firstDayOfThisMonth_temp).substring(0,7);
-     let lastMonth = getYmd10(new Date(firstDayOfThisMonth_temp.setMonth(today.getMonth()))).substring(0,7);
-     let twoMonthsAgo = getYmd10(new Date(firstDayOfThisMonth_temp.setMonth(today.getMonth() - 1))).substring(0,7);
+     let lastMonth = getYmd10(new Date(firstDayOfThisMonth_temp.setMonth(today.getMonth() -1))).substring(0,7);
+     let twoMonthsAgo = getYmd10(new Date(firstDayOfThisMonth_temp.setMonth(today.getMonth() - 2))).substring(0,7);
 
+     console.log(thisMonth);
      let weatherInfo = [];
      let stnId = "108";
      let tmFc;
@@ -487,7 +488,7 @@
             todayShoppingPrice += Number(data[i].total_price);
           }
         }
-     })
+     });
      // 어제
      let yesterdayShoppingPrice = 0;
      url = `/user/getShoppingByDate/${yesterdayDate}`;
@@ -501,7 +502,7 @@
             yesterdayShoppingPrice += Number(data[i].total_price);
           }
         }
-     })
+     });
      // 2일전
      let twoDaysAgoShoppingPrice = 0;
      url = `/user/getShoppingByDate/${twoDaysAgoDate}`;
@@ -515,7 +516,7 @@
             twoDaysAgoShoppingPrice += Number(data[i].total_price);
           }
         }
-     })
+     });
      // 3일전
      let threeDaysAgoShoppingPrice = 0;
      url = `/user/getShoppingByDate/${threeDaysAgoDate}`;
@@ -529,7 +530,7 @@
             threeDaysAgoShoppingPrice += Number(data[i].total_price);
           }
         }
-     })
+     });
      // 4일전
      let fourDaysAgoShoppingPrice = 0;
      url = `/user/getShoppingByDate/${fourDaysAgoDate}`;
@@ -543,7 +544,7 @@
             fourDaysAgoShoppingPrice += Number(data[i].total_price);
           }
         }
-     })
+     });
      // 5일전
      let fiveDaysAgoShoppingPrice = 0;
      url = `/user/getShoppingByDate/${fiveDaysAgoDate}`;
@@ -557,7 +558,7 @@
             fiveDaysAgoShoppingPrice += Number(data[i].total_price);
           }
         }
-     })
+     });
      // 6일전
      let sixDaysAgoShoppingPrice = 0;
      url = `/user/getShoppingByDate/${sixDaysAgoDate}`;
@@ -571,7 +572,7 @@
             sixDaysAgoShoppingPrice += Number(data[i].total_price);
           }
         }
-     })
+     });
 
      maxShoppingPriceOfDay = Math.max(sixDaysAgoShoppingPrice,
                 fiveDaysAgoShoppingPrice,
@@ -582,10 +583,13 @@
                 todayShoppingPrice
                );
 
+     //최근 일주일 소비 차트
      Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
      Chart.defaults.global.defaultFontColor = '#292b2c';
 
-     //최근 일주일 소비 차트
+     if(maxShoppingPriceOfDay == 0){
+        $('#weekShoppingChart').append('<p>최근 일주일 간 소비 내역이 없습니다.</p>')
+     }
      var ctx = document.getElementById("myAreaChart");
      var myLineChart = new Chart(ctx, {
        type: 'line',
@@ -595,8 +599,8 @@
            fourDaysAgo.getMonth() + 1 + "/" + fourDaysAgo.getDate(),
            threeDaysAgo.getMonth() + 1 + "/" + threeDaysAgo.getDate(),
            twoDaysAgo.getMonth() + 1 + "/" + twoDaysAgo.getDate(),
-           yesterday.getMonth() + 1 + "/" + yesterday.getDate(),
-           today.getMonth() + 1 + "/" + today.getDate()
+           "어제",
+           "오늘"
          ],
          datasets: [{
            label: "소비 비용",
@@ -705,12 +709,14 @@
      Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
      Chart.defaults.global.defaultFontColor = '#292b2c';
 
-     // Bar Chart Example
+     if(maxShoppingPriceOfDay == 0){
+        $('#monthShoppingChart').append('<p>최근 일주일 간 소비 내역이 없습니다.</p>')
+     }
      var ctx = document.getElementById("myBarChart");
      var myLineChart = new Chart(ctx, {
        type: 'bar',
        data: {
-         labels: ["2달전", "저번달", "이번달"],
+         labels: [twoMonthsAgo.substring(5,7)+"월", "저번달", "이번달"],
          datasets: [{
            label: "Revenue",
            backgroundColor: "rgba(2,117,216,1)",
