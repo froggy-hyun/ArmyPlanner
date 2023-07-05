@@ -258,7 +258,6 @@
 <footer th:replace="fragments/common :: footer"></footer>
 <script src="/js/userHome/scripts.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-<script src="/js/userHome/chart-bar-demo.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
 <script src="/js/userHome/datatables-simple-demo.js"></script>
 <script>
@@ -643,6 +642,54 @@
              },
              gridLines: {
                color: "rgba(0, 0, 0, .125)",
+             }
+           }],
+         },
+         legend: {
+           display: false
+         }
+       }
+     });
+
+
+     //최근 3달 소비 차트
+     Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+     Chart.defaults.global.defaultFontColor = '#292b2c';
+
+     // Bar Chart Example
+     var ctx = document.getElementById("myBarChart");
+     var myLineChart = new Chart(ctx, {
+       type: 'bar',
+       data: {
+         labels: ["2달전", "저번달", "이번달"],
+         datasets: [{
+           label: "Revenue",
+           backgroundColor: "rgba(2,117,216,1)",
+           borderColor: "rgba(2,117,216,1)",
+           data: [7841, 9821, 14984],
+         }],
+       },
+       options: {
+         scales: {
+           xAxes: [{
+             time: {
+               unit: 'month'
+             },
+             gridLines: {
+               display: false
+             },
+             ticks: {
+               maxTicksLimit: 6
+             }
+           }],
+           yAxes: [{
+             ticks: {
+               min: 0,
+               max: 15000,
+               maxTicksLimit: 5
+             },
+             gridLines: {
+               display: true
              }
            }],
          },
