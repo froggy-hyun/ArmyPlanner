@@ -273,11 +273,11 @@
      let sixDaysAgo = new Date(today_temp.setDate(fiveDaysAgo.getDate() -1));
 
 
-     //날짜 YYYY-MM-DD
+     //날짜 String YYYY-MM-DD
      function getYmd10(dateString) {
           //yyyy-mm-dd 포맷 날짜 생성
           return dateString.getFullYear() + "-" + ((dateString.getMonth() + 1) > 9 ? (dateString.getMonth() + 1).toString() : "0" + (dateString.getMonth() + 1)) + "-" + (dateString.getDate() > 9 ? dateString.getDate().toString() : "0" + dateString.getDate().toString());
-      }
+     }
      let todayDate = getYmd10(today);
      let yesterdayDate = getYmd10(yesterday);
      let twoDaysAgoDate = getYmd10(twoDaysAgo);
@@ -285,6 +285,12 @@
      let fourDaysAgoDate = getYmd10(fourDaysAgo);
      let fiveDaysAgoDate = getYmd10(fiveDaysAgo);
      let sixDaysAgoDate = getYmd10(sixDaysAgo);
+
+     //달 YYYY-MM
+     thisMonth = todayDate.substring(0,7);
+     lastMonth = todayDate.substring(0,6) + String(Number(todayDate[6]) - 1);
+     twoMonthsAgo = todayDate.substring(0,6) + String(Number(todayDate[6]) - 2);
+     console.log(twoMonthsAgo);
 
      let weatherInfo = [];
      let stnId = "108";
@@ -477,7 +483,6 @@
         data: {},
         async: false,
         success: function(data) {
-          console.log(data);
           for(let i = 0; i < data.length; i++){
             todayShoppingPrice += Number(data[i].total_price);
           }
@@ -492,7 +497,6 @@
         data: {},
         async: false,
         success: function(data) {
-          console.log(data);
           for(let i = 0; i < data.length; i++){
             yesterdayShoppingPrice += Number(data[i].total_price);
           }
@@ -507,7 +511,6 @@
         data: {},
         async: false,
         success: function(data) {
-          console.log(data);
           for(let i = 0; i < data.length; i++){
             twoDaysAgoShoppingPrice += Number(data[i].total_price);
           }
@@ -522,7 +525,6 @@
         data: {},
         async: false,
         success: function(data) {
-          console.log(data);
           for(let i = 0; i < data.length; i++){
             threeDaysAgoShoppingPrice += Number(data[i].total_price);
           }
@@ -537,7 +539,6 @@
         data: {},
         async: false,
         success: function(data) {
-          console.log(data);
           for(let i = 0; i < data.length; i++){
             fourDaysAgoShoppingPrice += Number(data[i].total_price);
           }
@@ -552,7 +553,6 @@
         data: {},
         async: false,
         success: function(data) {
-          console.log(data);
           for(let i = 0; i < data.length; i++){
             fiveDaysAgoShoppingPrice += Number(data[i].total_price);
           }
@@ -567,7 +567,6 @@
         data: {},
         async: false,
         success: function(data) {
-          console.log(data);
           for(let i = 0; i < data.length; i++){
             sixDaysAgoShoppingPrice += Number(data[i].total_price);
           }
@@ -651,6 +650,52 @@
        }
      });
 
+     //최근 3달 소비 기록 가져오기
+     // 이번달
+     let thisMonthShoppingPrice = 0;
+     url = `/user/getShoppingByMonth/${thisMonth}`;
+     $.ajax({
+        type: "GET",
+        url: url,
+        data: {},
+        async: false,
+        success: function(data) {
+          console.log(data);
+          for(let i = 0; i < data.length; i++){
+            thisMonthShoppingPrice += Number(data[i].total_price);
+          }
+        }
+     })
+     // 저번달
+     let lastMonthShoppingPrice = 0;
+     url = `/user/getShoppingByMonth/${lastMonth}`;
+     $.ajax({
+        type: "GET",
+        url: url,
+        data: {},
+        async: false,
+        success: function(data) {
+          console.log(data);
+          for(let i = 0; i < data.length; i++){
+            lastMonthShoppingPrice += Number(data[i].total_price);
+          }
+        }
+     })
+     // 두달전
+     let twoMonthsAgoShoppingPrice = 0;
+     url = `/user/getShoppingByMonth/${twoMonthsAgo}`;
+     $.ajax({
+        type: "GET",
+        url: url,
+        data: {},
+        async: false,
+        success: function(data) {
+          console.log(data);
+          for(let i = 0; i < data.length; i++){
+            twoMonthsAgoShoppingPrice += Number(data[i].total_price);
+          }
+        }
+     })
 
      //최근 3달 소비 차트
      Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
