@@ -87,6 +87,25 @@ public class EventService {
         return yesterdayDietDto;
     }
 
+    public List<EventDto> findDayShopping(Member member, String date){
+        List<Event> list = eventRepository.findAllByMemberAndEventTypeAndStartDate(member, "shopping", date);
+
+        List<EventDto> shoppingsDto = new ArrayList<>();
+
+        for (int i = 0; i < list.size(); i++) {
+            EventDto shoppingDto = new EventDto();
+
+            shoppingDto.setId(list.get(i).getId());
+            shoppingDto.setTitle(list.get(i).getTitle());
+            shoppingDto.setShopping_name(list.get(i).getShopping_name().toString());
+            shoppingDto.setTotal_price(list.get(i).getTotal_price().toString());
+
+            shoppingsDto.add(shoppingDto);
+        }
+
+        return shoppingsDto;
+    }
+
     public Event saveEvent(Event event) {
 
         return eventRepository.save(event);

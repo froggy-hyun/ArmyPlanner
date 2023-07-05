@@ -74,4 +74,13 @@ public class UserController {
 
         return eventService.findYesterdayDiets(member, yesterdayDate);
     }
+
+    @GetMapping("user/getShoppingByDate/{date}")
+    @ResponseBody
+    public List<EventDto> getShoppingByDate(@PathVariable String date, Principal principal) throws IOException {
+        String username = principal.getName();
+        Member member = memberRepository.findByEmail(username);
+
+        return eventService.findDayShopping(member, date);
+    }
 }
