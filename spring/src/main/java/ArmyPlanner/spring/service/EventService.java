@@ -106,6 +106,26 @@ public class EventService {
         return shoppingsDto;
     }
 
+    public List<EventDto> findMonthShopping(Member member, String month){
+        List<Event> list = eventRepository.findAllByMemberAndEventTypeAndStartMonth(member, "shopping", month);
+
+        List<EventDto> shoppingsDto = new ArrayList<>();
+
+        for (int i = 0; i < list.size(); i++) {
+            EventDto shoppingDto = new EventDto();
+
+            shoppingDto.setId(list.get(i).getId());
+            shoppingDto.setTitle(list.get(i).getTitle());
+            shoppingDto.setShopping_name(list.get(i).getShopping_name().toString());
+            shoppingDto.setTotal_price(list.get(i).getTotal_price().toString());
+
+            shoppingsDto.add(shoppingDto);
+        }
+
+        return shoppingsDto;
+    }
+
+
     public Event saveEvent(Event event) {
 
         return eventRepository.save(event);
