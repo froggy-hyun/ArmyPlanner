@@ -385,7 +385,6 @@
                     <thead id="px_table_head">
                     <tr>
                         <th scope="col">상품명</th>
-                        <th scope="col">판매년도</th>
                     </tr>
                     </thead>
                     <tbody id="px_api_body"></tbody>
@@ -962,6 +961,7 @@
                     let end;
                     let totalCount;
                     let status = "";
+                    let px_result = [];
 
                     let url;
 
@@ -1003,15 +1003,20 @@
                             success: function(data) {
                                 let jsonData = JSON.parse(data).DS_MND_PX_PARD_PRDT_INFO; //string -> json
                                 for (let i = 0; i < totalCount; i++) {
+                                    if (!px_result.includes(jsonData.row[i]['prdtnm'])) {
+                                      px_result.push(jsonData.row[i]['prdtnm'])
+                                    }
+                                }
+                                status = "ok";
+                                for (let i = 0; i < px_result.length; i++) {
+
                                     let table_html='';
                                     table_html += '<tr>';
-                                    table_html += '  <td>'+jsonData.row[i]['prdtnm']+'</td>';
-                                    table_html += '  <td>'+jsonData.row[i]['sellyear']+'</td>';
+                                    table_html += '  <td>'+px_result[i]+'</td>';
                                     table_html += '</tr>';
 
                                     $('#px_api_body').append(table_html);
                                 }
-                                status = "ok";
                                 $('#px_api').DataTable({
                                   "language": {
                                     "emptyTable": "데이터가 없어요.",
