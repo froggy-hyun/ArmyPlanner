@@ -308,7 +308,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body app">
+            <div class="modal-body app" id="add_diet_by_api_modal_body">
                 <form class="input-group mb-3">
                     <input type="text" id="food_name_input" class="form-control" placeholder="음식명을 입력해보세요." aria-label="Recipient's username" aria-describedby="button-addon2">
                     <button id="search_food" class="btn btn-outline-secondary" type="button">검색</button>
@@ -683,6 +683,8 @@
                   $("#add_diet_by_api").off('click').on("click",function(){
                     $("#add_diet_by_api_modal").modal("show");
 
+                    //식품의약품안전처_식품 영양성분 정보 api는 데이터의 양이 방대하고 한번 호출 시 최대 100개만 가져올 수 있으므로 직접 페이징 구현 및
+                    //다음페이지마다 100개씩 직접 호출 하도록 직접 구현
                     let pageNo;
                     const numOfRows = 100;
                     let totalPage;
@@ -757,24 +759,50 @@
                                jsonData = JSON.parse(data); //string -> json
                                resultCode = jsonData.header.resultCode;
                                let bodyData = jsonData.body;
-                               for (let i = 0; i < numOfRows; i++) {
-                                    let table_html='';
-                                    table_html += '<tr>';
-                                    table_html += '  <td>'+bodyData.items[i]['DESC_KOR']+'</td>';
-                                    table_html += '  <td>'+bodyData.items[i]['SERVING_WT']+'</td>';
-                                    table_html += '  <td>'+bodyData.items[i]['NUTR_CONT1']+'</td>';
-                                    table_html += '  <td>'+bodyData.items[i]['NUTR_CONT2']+'</td>';
-                                    table_html += '  <td>'+bodyData.items[i]['NUTR_CONT3']+'</td>';
-                                    table_html += '  <td>'+bodyData.items[i]['NUTR_CONT4']+'</td>';
-                                    table_html += '  <td>'+bodyData.items[i]['NUTR_CONT5']+'</td>';
-                                    table_html += '  <td>'+bodyData.items[i]['NUTR_CONT6']+'</td>';
-                                    table_html += '  <td>'+bodyData.items[i]['NUTR_CONT7']+'</td>';
-                                    table_html += '  <td>'+bodyData.items[i]['NUTR_CONT8']+'</td>';
-                                    table_html += '  <td>'+bodyData.items[i]['NUTR_CONT9']+'</td>';
-                                    table_html += '</tr>';
+                               if(totalCount != 0) {
+                                   if(pageNo == totalPage) {
+                                     for (let i = 0; i < totalCount % numOfRows; i++) {
+                                        let table_html='';
+                                        table_html += '<tr>';
+                                        table_html += '  <td>'+bodyData.items[i]['DESC_KOR']+'</td>';
+                                        table_html += '  <td>'+bodyData.items[i]['SERVING_WT']+'</td>';
+                                        table_html += '  <td>'+bodyData.items[i]['NUTR_CONT1']+'</td>';
+                                        table_html += '  <td>'+bodyData.items[i]['NUTR_CONT2']+'</td>';
+                                        table_html += '  <td>'+bodyData.items[i]['NUTR_CONT3']+'</td>';
+                                        table_html += '  <td>'+bodyData.items[i]['NUTR_CONT4']+'</td>';
+                                        table_html += '  <td>'+bodyData.items[i]['NUTR_CONT5']+'</td>';
+                                        table_html += '  <td>'+bodyData.items[i]['NUTR_CONT6']+'</td>';
+                                        table_html += '  <td>'+bodyData.items[i]['NUTR_CONT7']+'</td>';
+                                        table_html += '  <td>'+bodyData.items[i]['NUTR_CONT8']+'</td>';
+                                        table_html += '  <td>'+bodyData.items[i]['NUTR_CONT9']+'</td>';
+                                        table_html += '</tr>';
 
-                                    $('#diet_api_body').append(table_html);
+                                        $('#diet_api_body').append(table_html);
+                                     }
+                                   } else {
+                                       for (let i = 0; i < numOfRows; i++) {
+                                            let table_html='';
+                                            table_html += '<tr>';
+                                            table_html += '  <td>'+bodyData.items[i]['DESC_KOR']+'</td>';
+                                            table_html += '  <td>'+bodyData.items[i]['SERVING_WT']+'</td>';
+                                            table_html += '  <td>'+bodyData.items[i]['NUTR_CONT1']+'</td>';
+                                            table_html += '  <td>'+bodyData.items[i]['NUTR_CONT2']+'</td>';
+                                            table_html += '  <td>'+bodyData.items[i]['NUTR_CONT3']+'</td>';
+                                            table_html += '  <td>'+bodyData.items[i]['NUTR_CONT4']+'</td>';
+                                            table_html += '  <td>'+bodyData.items[i]['NUTR_CONT5']+'</td>';
+                                            table_html += '  <td>'+bodyData.items[i]['NUTR_CONT6']+'</td>';
+                                            table_html += '  <td>'+bodyData.items[i]['NUTR_CONT7']+'</td>';
+                                            table_html += '  <td>'+bodyData.items[i]['NUTR_CONT8']+'</td>';
+                                            table_html += '  <td>'+bodyData.items[i]['NUTR_CONT9']+'</td>';
+                                            table_html += '</tr>';
+
+                                            $('#diet_api_body').append(table_html);
+                                       }
+                                   }
+                               } else {
+                                 $('#add_diet_by_api_modal_body').append('<p>검색 결과가 없습니다.</p>');
                                }
+
                                status = "ok";
                             }
                         })
@@ -1373,10 +1401,17 @@
 	 setTimeDisplay();
    })
 
+   $('#add_diet_by_api_modal').on('hidden.bs.modal', function() {
+     $(this).find('form')[0].reset();
+     $('#diet_api_body').empty();
+   });
+
    $('#add_shopping_by_px_api_modal').on('hidden.bs.modal', function() {
      $(this).find('input')[0].reset();
      $('#px_api_body').empty();
    });
+
+
 
    let map_x;
    let map_y;
