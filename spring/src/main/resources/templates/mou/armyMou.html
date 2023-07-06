@@ -3,14 +3,20 @@
 <head>
     <head th:replace="fragments/common :: head(title)" />
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+    <style>
+        #mouCard {
+          margin: 2vh auto;
+		  max-width: 1500px;
+        }
+    </style>
 </head>
 <body>
 <nav th:replace="fragments/common :: menu(menu)" />
 
-<div class="card mb-4">
+<div class="card mb-4" id="mouCard">
     <div class="card-header">
         <i class="fas fa-table me-1"></i>
-        DataTable Example
+        국방부 MOU 업체 목록
     </div>
     <div class="card-body">
         <table id="datatablesSimple">
