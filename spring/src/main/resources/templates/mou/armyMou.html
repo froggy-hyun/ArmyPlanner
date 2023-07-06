@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <head th:replace="fragments/common :: head(title)" />
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+</head>
+<body>
+<nav th:replace="fragments/common :: menu(menu)" />
+
+<div class="card mb-4">
+    <div class="card-header">
+        <i class="fas fa-table me-1"></i>
+        DataTable Example
+    </div>
+    <div class="card-body">
+        <table id="datatablesSimple">
+            <thead>
+            <tr>
+                <th>지역</th>
+                <th>업체명</th>
+                <th>할인행사명</th>
+                <th>할인행사내용</th>
+                <th>전화번호</th>
+                <th>홈페이지</th>
+            </tr>
+            </thead>
+            <tbody id="mouTableBody"></tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+<!-- Footer-->
+<footer th:replace="fragments/common :: footer"></footer>
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+<script>
+    let start;
+    let end;
+    let totalCount;
+
+    let url;
+
+    //초기 렌더링
+    init();
+    url = `/mou/getmouapi/${start}/${totalCount}`
+    setTable();
+
+    //totalCount를 먼저 받아옴으로써 api가 정상적인지와 총 데이터의 갯수를 파악
+    function init() {
+      start = 1;
+      end = 1;
+      url = `/mou/getmouapi/${start}/${end}`
+      $.ajax({
+        type: "GET",
+        url: url,
+        data: {},
+        async: false,
+        success: function(data) {
+          jsonData = JSON.parse(data); //string -> json
+          totalCount = jsonData.DS_MND_ENLSTMN_DCNT_BEF_INF.list_total_count;
+          if(jsonData.DS_MND_ENLSTMN_DCNT_BEF_INF == null || jsonData.DS_MND_ENLSTMN_DCNT_BEF_INF == ""){
+              alert("공공데이터 API 서버에 일시적 문제가 있습니다! 잠시 후 다시 시도해주세요.");
+          }
+        }
+      })
+    }
+
+    //데이터 가져오기
+    function setTable(){
+      $.ajax({
+        type: "GET",
+        url: url,
+        data: {},
+        async: false,
+        success: function(data) {
+          let jsonData = JSON.parse(data).DS_MND_ENLSTMN_DCNT_BEF_INF; //string -> json
+          for (let i = 0; i < totalCount; i++) {
+            let table_html='';
+            table_html += '<tr>';
+            table_html += '  <td>'+jsonData.row[i]['rgn']+'</td>';
+            table_html += '  <td>'+jsonData.row[i]['instltnnm']+'</td>';
+            table_html += '  <td>'+jsonData.row[i]['dcntenatvnm']+'</td>';
+            table_html += '  <td>'+jsonData.row[i]['dtlexpln']+'</td>';
+            table_html += '  <td>'+jsonData.row[i]['cntadr']+'</td>';
+            table_html += '  <td>'+jsonData.row[i]['hmpg']+'</td>';
+            table_html += '</tr>';
+
+            $('#mouTableBody').append(table_html);
+          }
+        }
+      })
+    }
+
+    window.addEventListener('DOMContentLoaded', event => {
+      // Simple-DataTables
+      // https://github.com/fiduswriter/Simple-DataTables/wiki
+
+      const datatablesSimple = document.getElementById('datatablesSimple');
+      if (datatablesSimple) {
+        new simpleDatatables.DataTable(datatablesSimple);
+      }
+    });
+
+</script>
+</html>
