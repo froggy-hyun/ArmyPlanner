@@ -43,6 +43,7 @@
     let start;
     let end;
     let totalCount;
+    let status = "";
 
     let url;
 
@@ -64,9 +65,7 @@
         success: function(data) {
           jsonData = JSON.parse(data); //string -> json
           totalCount = jsonData.DS_MND_ENLSTMN_DCNT_BEF_INF.list_total_count;
-          if(jsonData.DS_MND_ENLSTMN_DCNT_BEF_INF == null || jsonData.DS_MND_ENLSTMN_DCNT_BEF_INF == ""){
-              alert("공공데이터 API 서버에 일시적 문제가 있습니다! 잠시 후 다시 시도해주세요.");
-          }
+          status = "ok";
         }
       })
     }
@@ -79,6 +78,7 @@
         data: {},
         async: false,
         success: function(data) {
+          status = "";
           let jsonData = JSON.parse(data).DS_MND_ENLSTMN_DCNT_BEF_INF; //string -> json
           for (let i = 0; i < totalCount; i++) {
             let table_html='';
@@ -93,8 +93,12 @@
 
             $('#mouTableBody').append(table_html);
           }
+          status = "ok";
         }
       })
+    }
+    if(status != "ok") {
+      alert("mou 공공데이터 서버에 일시적인 오류가 있습니다. 잠시 후 다시 시도해주세요.");
     }
 
     $('#mouDatatables').DataTable({
