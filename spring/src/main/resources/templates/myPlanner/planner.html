@@ -4,7 +4,7 @@
 <head>
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/google-calendar@6.1.8/index.global.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/google-calendar@6.1.8/index.global.min.js"></script><link href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css" rel="stylesheet" />
   <meta name="_csrf" th:content="${_csrf.token}"/>
   <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
   <style>
@@ -381,11 +381,6 @@
                 </button>
             </div>
             <div class="modal-body app">
-                <form class="input-group mb-3">
-                    <input type="text" id="px_name_input" class="form-control" placeholder="상품을 입력해보세요." aria-label="Recipient's username" aria-describedby="button-addon2">
-                    <button id="search_px" class="btn btn-outline-secondary" type="button">검색</button>
-                </form>
-                <span id="px_displayCount"></span>
                 <table class="table table-hover" id="px_api" style="font-size: 1vh">
                     <thead id="px_table_head">
                     <tr>
@@ -428,6 +423,7 @@
 <footer th:replace="fragments/common :: footer"></footer>
 </body>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3d7ccd2c2284f05d05ea7f9ae21515d9&libraries=services"></script>
+<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
 <script>
    $(document).ready(function (){
       var token = $("meta[name='_csrf']").attr("content");
@@ -963,42 +959,17 @@
                   $("#add_shopping_by_px_api").off('click').on("click",function(){
                     $("#add_shopping_by_px_api_modal").modal("show");
 
-                    let pageNo;
-                    const numOfRows = 100;
                     let start;
                     let end;
-                    let totalPage;
                     let totalCount;
-                    let px_name = "";
                     let status = "";
-
-                    let pageCount = 8; //페이징에 나타낼 페이지 수
 
                     let url;
 
                     //초기 렌더링
                     init();
-                    totalPage = Math.ceil(totalCount/numOfRows);
                     url = `/myPlanner/getpxapi/${start}/${totalCount}`
-                    paging(totalCount, numOfRows, pageCount, pageNo);
-                    displayData();
-
-                    $('#search_px').off('click').on("click", function(){
-                        px_name = $('#px_name_input').val();
-                        if(px_name == ""){
-                            init();
-                            totalPage = Math.ceil(totalCount/numOfRows);
-                            url = `/myPlanner/getpxapi/${start}/${totalCount}`
-                            paging(totalCount, numOfRows, pageCount, pageNo);
-                            displayData();
-                        }else{
-                            px_name = $('#px_name_input').val();
-                            search_init(px_name);
-                            totalPage = Math.ceil(search_totalCount/numOfRows);
-                            paging(search_totalCount, numOfRows, pageCount, pageNo);
-                            search_displayData();
-                        }
-                    });
+                    setTable();
 
                     //totalCount를 먼저 받아옴으로써 api가 정상적인지와 총 데이터의 갯수를 파악
                     function init() {
@@ -1023,38 +994,8 @@
                         status = "";
                     }
 
-                    let search_totalCount;
-                    //px 검색 했을 경우 init
-                    function search_init(px_name) {
-                        pageNo = 1;
-                        start = 1;
-                        end = totalCount;
-                        url = `/myPlanner/getpxapi/${start}/${end}`
-                        $.ajax({
-                            type: "GET",
-                            url: url,
-                            data: {},
-                            async: false,
-                            success: function(data) {
-                                jsonData = JSON.parse(data).DS_MND_PX_PARD_PRDT_INFO;; //string -> json
-                                actual_totalCount = jsonData.list_total_count;
-                                search_totalCount = 0;
-                                for (let i = 0; i < actual_totalCount; i++) {
-                                    if((jsonData.row[i]['prdtnm']).includes(px_name)){
-                                        search_totalCount += 1;
-                                    }
-                                }
-                                status = "ok";
-                            }
-                        })
-                        if(status != "ok") {
-                          alert("공공데이터 API 서버에 일시적 문제가 있습니다! 잠시 후 다시 시도해주세요.");
-                        }
-                        status = "";
-                    }
-
                     //데이터 가져오기
-                    function setTable(pageNo){
+                    function setTable(){
                         $.ajax({
                             type: "GET",
                             url: url,
@@ -1062,7 +1003,7 @@
                             async: false,
                             success: function(data) {
                                 let jsonData = JSON.parse(data).DS_MND_PX_PARD_PRDT_INFO; //string -> json
-                                for (let i = 0; i < numOfRows; i++) {
+                                for (let i = 0; i < totalCount; i++) {
                                     let table_html='';
                                     table_html += '<tr>';
                                     table_html += '  <td>'+jsonData.row[i]['prdtnm']+'</td>';
@@ -1072,6 +1013,23 @@
                                     $('#px_api_body').append(table_html);
                                 }
                                 status = "ok";
+                                $('#px_api_body').DataTable({
+                                  "language": {
+                                    "emptyTable": "데이터가 없어요.",
+                                    "lengthMenu": "페이지당 _MENU_ 개씩 보기",
+                                    "info": "현재 _START_ - _END_ / _TOTAL_건",
+                                    "infoEmpty": "데이터 없음",
+                                    "infoFiltered": "( _MAX_건의 데이터에서 필터링됨 )",
+                                    "search": "검색: ",
+                                    "zeroRecords": "일치하는 데이터가 없어요.",
+                                    "loadingRecords": "로딩중...",
+                                    "processing": "잠시만 기다려 주세요...",
+                                    "paginate": {
+                                      "next": "다음",
+                                      "previous": "이전"
+                                    }
+                                  }
+                                });
                             }
                         })
                         if(status != "ok") {
@@ -1080,107 +1038,6 @@
                         status = "";
                     }
 
-                    function search_setTable(pageNo, px_name){
-                        $.ajax({
-                            type: "GET",
-                            url: url,
-                            data: {},
-                            async: false,
-                            success: function(data) {
-                                let jsonData = JSON.parse(data).DS_MND_PX_PARD_PRDT_INFO; //string -> json
-                                for (let i = 0; i < numOfRows; i++) {
-                                     if((jsonData.row[i]['prdtnm']).includes(px_name)){
-                                        let table_html='';
-                                        table_html += '<tr>';
-                                        table_html += '  <td>'+jsonData.row[i]['prdtnm']+'</td>';
-                                        table_html += '  <td>'+jsonData.row[i]['sellyear']+'</td>';
-                                        table_html += '</tr>';
-
-                                        $('#px_api_body').append(table_html);
-                                     }
-                                }
-                                status = "ok";
-                            }
-                        })
-                        if(status != "ok") {
-                          alert("공공데이터 API 서버에 일시적 문제가 있습니다! 잠시 후 다시 시도해주세요.");
-                        }
-                        status = "";
-                    }
-
-                    function displayData() {
-                      $('#px_api_body').empty();
-
-                      $('#add_shopping_by_px_api_modal').scrollTop(0);
-                      setTable(pageNo, px_name);
-                    }
-
-                    function search_displayData() {
-                      $('#px_api_body').empty();
-
-                      $('#add_shopping_by_px_api_modal').scrollTop(0);
-                      search_setTable(pageNo, px_name);
-                    }
-
-                    function paging(totalCount, numOfRows, pageCount, pageNo) {
-
-                      if(totalPage<pageCount){
-                        pageCount=totalPage;
-                      }
-
-                      let pageGroup = Math.ceil(pageNo / pageCount); // 페이지 그룹
-                      let last = pageGroup * pageCount; //화면에 보여질 마지막 페이지 번호
-
-                      if (last > totalPage) {
-                        last = totalPage;
-                      }
-
-                      let first = last - (pageCount - 1); //화면에 보여질 첫번째 페이지 번호
-                      let next = last + 1;
-                      let prev = first - 1;
-
-                      let pageHtml = "";
-
-                      if (prev > 0) {
-                        pageHtml += "<li><a href='#' id='prev'> 이전 </a></li>";
-                      }
-
-                     //페이징 번호 표시
-                      for (var i = first; i <= last; i++) {
-                        if (pageNo == i) {
-                          pageHtml +=
-                            "<li class='on'><a href='#' id='" + i + "'>" + i + "</a></li>";
-                        } else {
-                          pageHtml += "<li><a href='#' id='" + i + "'>" + i + "</a></li>";
-                        }
-                      }
-
-                      if (last < totalPage) {
-                        pageHtml += "<li><a href='#' id='next'> 다음 </a></li>";
-                      }
-
-                      $("#px_pagingul").html(pageHtml);
-                      let displayCount = "";
-                      displayCount = `현재 ${pageNo} - ${totalPage} 페이지 / ${totalCount}건`;
-                      $("#px_displayCount").text(displayCount);
-
-
-                      //페이징 번호 클릭 이벤트
-                      $("#px_pagingul li a").click(function () {
-                        let $id = $(this).attr("id");
-                        selectedPage = $(this).text();
-
-                        if ($id == "next") selectedPage = next;
-                        if ($id == "prev") selectedPage = prev;
-
-                        pageNo = selectedPage;
-                        start = ($id-1)*100 + 1;
-                        end = start + 99;
-                        url = `/myPlanner/getpxapi/${start}/${end}`;
-                        paging(totalCount, numOfRows, pageCount, pageNo);
-                        displayData(pageNo);
-                      });
-                    }
 
                     $(document).off('click').on('click', '#px_api_body>tr', function(){
                         let price = prompt('가격을 입력해주세요. 공백 시 0원','0');
