@@ -549,6 +549,7 @@
                           method: "POST",
                           dataType: "text",
                           data: eventVacation,
+                          async: false,
                           contentType: 'application/json',
                           beforeSend : function(xhr) {
                             xhr.setRequestHeader(header, token);
@@ -632,6 +633,7 @@
                           method: "POST",
                           dataType: "text",
                           data: eventDiet,
+                          async: false,
                           contentType: 'application/json',
                           beforeSend : function(xhr) {
                             xhr.setRequestHeader(header, token);
@@ -692,6 +694,7 @@
                     let totalCount;
                     let resultCode;
                     let desc_kor = "";
+                    let status = "";
 
                     let pageCount = 8; //페이징에 나타낼 페이지 수
 
@@ -736,11 +739,16 @@
                                 jsonData = JSON.parse(data); //string -> json
                                 totalCount = jsonData.body.totalCount;
                                 resultCode = jsonData.header.resultCode;
+                                status = "ok";
                             }
                         })
                         if(resultCode != "00"){
                             alert("공공데이터 API 서버에 일시적 문제가 있습니다! 잠시 후 다시 시도해주세요.");
                         }
+                        if(status != "ok") {
+                          alert("공공데이터 API 서버에 일시적 문제가 있습니다! 잠시 후 다시 시도해주세요.");
+                        }
+                        status = "";
                     }
 
                     //데이터 가져오기
@@ -749,12 +757,10 @@
                             type: "GET",
                             url: url,
                             data: {},
+                            async: false,
                             success: function(data){
                                jsonData = JSON.parse(data); //string -> json
                                resultCode = jsonData.header.resultCode;
-                               if(resultCode != "00"){
-                                 alert("공공데이터 API 서버에 일시적 문제가 있습니다! 잠시 후 다시 시도해주세요.");
-                               }
                                let bodyData = jsonData.body;
                                for (let i = 0; i < numOfRows; i++) {
                                     let table_html='';
@@ -774,8 +780,16 @@
 
                                     $('#diet_api_body').append(table_html);
                                }
+                               status = "ok";
                             }
                         })
+                        if(resultCode != "00"){
+                            alert("공공데이터 API 서버에 일시적 문제가 있습니다! 잠시 후 다시 시도해주세요.");
+                        }
+                        if(status != "ok") {
+                          alert("공공데이터 API 서버에 일시적 문제가 있습니다! 잠시 후 다시 시도해주세요.");
+                        }
+                        status = "";
                     }
 
                     function displayData(pageNo) {
@@ -928,6 +942,7 @@
                           method: "POST",
                           dataType: "text",
                           data: eventShopping,
+                          async: false,
                           contentType: 'application/json',
                           beforeSend : function(xhr) {
                             xhr.setRequestHeader(header, token);
@@ -956,6 +971,7 @@
                     let totalPage;
                     let totalCount;
                     let px_name = "";
+                    let status = "";
 
                     let pageCount = 8; //페이징에 나타낼 페이지 수
 
@@ -999,11 +1015,13 @@
                             success: function(data) {
                                 jsonData = JSON.parse(data); //string -> json
                                 totalCount = jsonData.DS_MND_PX_PARD_PRDT_INFO.list_total_count;
-                                if(jsonData.DS_MND_PX_PARD_PRDT_INFO == null || jsonData.DS_MND_PX_PARD_PRDT_INFO == ""){
-                                 alert("공공데이터 API 서버에 일시적 문제가 있습니다! 잠시 후 다시 시도해주세요.");
-                                }
+                                status = "ok";
                             }
                         })
+                        if(status != "ok") {
+                          alert("공공데이터 API 서버에 일시적 문제가 있습니다! 잠시 후 다시 시도해주세요.");
+                        }
+                        status = "";
                     }
 
                     let search_totalCount;
@@ -1020,9 +1038,6 @@
                             async: false,
                             success: function(data) {
                                 jsonData = JSON.parse(data).DS_MND_PX_PARD_PRDT_INFO;; //string -> json
-                                if(jsonData.DS_MND_PX_PARD_PRDT_INFO == null || jsonData.DS_MND_PX_PARD_PRDT_INFO == ""){
-                                 alert("공공데이터 API 서버에 일시적 문제가 있습니다! 잠시 후 다시 시도해주세요.");
-                                }
                                 actual_totalCount = jsonData.list_total_count;
                                 search_totalCount = 0;
                                 for (let i = 0; i < actual_totalCount; i++) {
@@ -1030,8 +1045,13 @@
                                         search_totalCount += 1;
                                     }
                                 }
+                                status = "ok";
                             }
                         })
+                        if(status != "ok") {
+                          alert("공공데이터 API 서버에 일시적 문제가 있습니다! 잠시 후 다시 시도해주세요.");
+                        }
+                        status = "";
                     }
 
                     //데이터 가져오기
@@ -1052,8 +1072,13 @@
 
                                     $('#px_api_body').append(table_html);
                                 }
+                                status = "ok";
                             }
                         })
+                        if(status != "ok") {
+                          alert("공공데이터 API 서버에 일시적 문제가 있습니다! 잠시 후 다시 시도해주세요.");
+                        }
+                        status = "";
                     }
 
                     function search_setTable(pageNo, px_name){
@@ -1075,8 +1100,13 @@
                                         $('#px_api_body').append(table_html);
                                      }
                                 }
+                                status = "ok";
                             }
                         })
+                        if(status != "ok") {
+                          alert("공공데이터 API 서버에 일시적 문제가 있습니다! 잠시 후 다시 시도해주세요.");
+                        }
+                        status = "";
                     }
 
                     function displayData() {
@@ -1280,6 +1310,7 @@
                         method: "POST",
                         dataType: "text",
                         data: eventPlace,
+                        async: false,
                         contentType: 'application/json',
                         beforeSend : function(xhr) {
                           xhr.setRequestHeader(header, token);
@@ -1340,6 +1371,7 @@
                         method: "POST",
                         dataType: "text",
                         data: eventText,
+                        async: false,
                         contentType: 'application/json',
                         beforeSend : function(xhr) {
                           xhr.setRequestHeader(header, token);
@@ -1428,6 +1460,7 @@
                 method: "DELETE",
                 dataType: "text",
                 data: eventText,
+                async: false,
                 contentType: 'application/json',
                 beforeSend : function(xhr) {
                   xhr.setRequestHeader(header, token);
