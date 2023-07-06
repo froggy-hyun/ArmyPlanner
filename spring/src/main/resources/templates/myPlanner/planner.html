@@ -390,7 +390,6 @@
                     </thead>
                     <tbody id="px_api_body"></tbody>
                 </table>
-                <ul id="px_pagingul"></ul>
             </div>
         </div>
         <div class="modal-footer">
@@ -1013,7 +1012,7 @@
                                     $('#px_api_body').append(table_html);
                                 }
                                 status = "ok";
-                                $('#px_api_body').DataTable({
+                                $('#px_api').DataTable({
                                   "language": {
                                     "emptyTable": "데이터가 없어요.",
                                     "lengthMenu": "페이지당 _MENU_ 개씩 보기",
