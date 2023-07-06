@@ -2,7 +2,7 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <head th:replace="fragments/common :: head(title)" />
-    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css" rel="stylesheet" />
     <style>
         #mouCard {
           margin: 2vh auto;
@@ -19,7 +19,7 @@
         국방부 MOU 업체 목록
     </div>
     <div class="card-body">
-        <table id="datatablesSimple">
+        <table id="mouDatatables">
             <thead>
             <tr>
                 <th>지역</th>
@@ -38,7 +38,7 @@
 </body>
 <!-- Footer-->
 <footer th:replace="fragments/common :: footer"></footer>
-<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
 <script>
     let start;
     let end;
@@ -97,14 +97,22 @@
       })
     }
 
-    window.addEventListener('DOMContentLoaded', event => {
-      // Simple-DataTables
-      // https://github.com/fiduswriter/Simple-DataTables/wiki
-
-      const datatablesSimple = document.getElementById('datatablesSimple');
-      if (datatablesSimple) {
-        new simpleDatatables.DataTable(datatablesSimple);
-      }
+    $('#mouDatatables').DataTable({
+        "language": {
+            "emptyTable": "데이터가 없어요.",
+            "lengthMenu": "페이지당 _MENU_ 개씩 보기",
+            "info": "현재 _START_ - _END_ / _TOTAL_건",
+            "infoEmpty": "데이터 없음",
+            "infoFiltered": "( _MAX_건의 데이터에서 필터링됨 )",
+            "search": "검색: ",
+            "zeroRecords": "일치하는 데이터가 없어요.",
+            "loadingRecords": "로딩중...",
+            "processing":     "잠시만 기다려 주세요...",
+            "paginate": {
+                "next": "다음",
+                "previous": "이전"
+            }
+        }
     });
 
 </script>
