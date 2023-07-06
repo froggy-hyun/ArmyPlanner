@@ -234,6 +234,15 @@ public class MyPlannerController {
         return likedPlaceService.listAllLikedPlace(member);
     }
 
+    @DeleteMapping("/deleteLikedPlace/{placeName}/{address}")
+    @ResponseBody
+    public void deleteLikedPlace(@PathVariable String placeName, @PathVariable String address, Principal principal) throws IOException {
+        String username = principal.getName();
+        Member member = memberRepository.findByEmail(username);
+
+        likedPlaceService.deleteLikedPlace(member, placeName, address);
+    }
+
     @PostMapping(value = "create_place")
     @ResponseBody
     public void addEvent_place(@RequestBody EventDto eventPlaceDto, Principal principal) throws Exception {
@@ -270,13 +279,13 @@ public class MyPlannerController {
         eventService.saveEvent(eventPlace);
     }
 
-    @GetMapping("/getLikedPlaceXY/{placeName}")
+    @GetMapping("/getLikedPlaceXY/{placeName}/{address}")
     @ResponseBody
-    public LikedPlaceXYDto getLikedPlaceXY(@PathVariable String placeName, Principal principal) throws IOException {
+    public LikedPlaceXYDto getLikedPlaceXY(@PathVariable String placeName, @PathVariable String address, Principal principal) throws IOException {
         String username = principal.getName();
         Member member = memberRepository.findByEmail(username);
 
-        return likedPlaceService.findLikedPlaceXY(member, placeName);
+        return likedPlaceService.findLikedPlaceXY(member, placeName, address);
 
     }
 

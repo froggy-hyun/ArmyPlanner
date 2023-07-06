@@ -24,7 +24,7 @@ public class LikedPlace {
     private String title;
 
     @Column(nullable = false)
-    private String road_address_name;
+    private String roadAddressName;
 
     @Column(nullable = false)
     private String x;

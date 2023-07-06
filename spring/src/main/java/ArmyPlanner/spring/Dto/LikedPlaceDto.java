@@ -18,7 +18,7 @@ public class LikedPlaceDto {
     private Long id;
 
     private String title;
-    private String road_address_name;
+    private String roadAddressName;
     private Member member;
 
     private String x;
@@ -29,7 +29,7 @@ public class LikedPlaceDto {
 
         return LikedPlace.builder()
                 .title(title)
-                .road_address_name(road_address_name)
+                .roadAddressName(roadAddressName)
                 .x(x)
                 .y(y)
                 .member(member)

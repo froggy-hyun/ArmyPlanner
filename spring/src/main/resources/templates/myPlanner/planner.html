@@ -209,6 +209,7 @@
         </form>
       </div>
       <div class="modal-footer">
+        <button type="button" class="btn btn-danger btn-sm" id="delete_liked_place">선택 관심장소 삭제</button>
         <button type="button" class="btn btn-primary" id="add_event_save">추가</button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="add_event_modal_close">취소</button>
       </div>
@@ -272,11 +273,11 @@
           <div id="place_info">
               <fieldset id="info_event_place" disabled="true">
                   <label for="place_title_info" class="col-form-label">장소 제목</label>
-                  <input type="text" id="place_title_info" class="form-control" name="info_place_shopping">
+                  <input type="text" id="place_title_info" class="form-control" name="info_event_place">
                   <label for="info_event_place_info" class="col-form-label">장소 내용</label>
                   <fieldset id="info_event_place_info">
-                      <input type="text" id="place_name_info" class="form-control" name="info_place_shopping">
-                      <input type="text" id="place_address_info" class="form-control" name="info_place_shopping">
+                      <input type="text" id="place_name_info" class="form-control" name="info_event_place">
+                      <input type="text" id="place_address_info" class="form-control" name="info_event_place">
                   </fieldset>
                   <!-- 이미지 지도를 표시할 div 입니다 -->
                   <div id="map"></div>
@@ -1119,7 +1120,7 @@
                                     let table_html='';
                                     table_html += '<tr>';
                                     table_html += '  <td>'+item['title']+'</td>';
-                                    table_html += '  <td>'+item['road_address_name']+'</td>';
+                                    table_html += '  <td>'+item['roadAddressName']+'</td>';
                                     table_html += '</tr>';
 
                                     $('#likedPlace_body').append(table_html);
@@ -1149,7 +1150,7 @@
 
                     $.ajax({
                       type: "GET",
-                      url: `/myPlanner/getLikedPlaceXY/${placeName}`,
+                      url: `/myPlanner/getLikedPlaceXY/${placeName}/${address}`,
                       data: {},
                       async: false,
                       success: function(data) {
@@ -1219,6 +1220,31 @@
                     })
 
                     calendar.unselect();
+                    }
+                  });
+                  $("#delete_liked_place").off('click').on("click",function(){
+                    if(placeName == null || placeName == ""){
+                      alert("장소를 선택해주세요.");
+                    } else {
+                      $.ajax({
+                          type : "DELETE",
+                          dataType : "text",
+                          url: `/myPlanner/deleteLikedPlace/${placeName}/${address}`,
+                          data: {},
+                          async: false,
+                          beforeSend : function(xhr) {
+                            xhr.setRequestHeader(header, token);
+                          },
+                          success : function(){
+                            alert("삭제를 완료하였습니다!");
+                          },
+                          fail : function (request, status, error){
+                            alert("에러 발생" + error)
+                          },
+                          complete : function(){
+                            location.replace("");
+                          }
+                      })
                     }
                   });
                 } else if(eventType == "text") {

@@ -29,7 +29,7 @@ public class LikedPlaceService {
 
             likedPlaceDto.setId(list.get(i).getId());
             likedPlaceDto.setTitle(list.get(i).getTitle());
-            likedPlaceDto.setRoad_address_name(list.get(i).getRoad_address_name().toString());
+            likedPlaceDto.setRoadAddressName(list.get(i).getRoadAddressName().toString());
             likedPlaceDto.setX(list.get(i).getX().toString());
             likedPlaceDto.setY(list.get(i).getY().toString());
 
@@ -39,8 +39,8 @@ public class LikedPlaceService {
         return likedPlacesDto;
     }
 
-    public LikedPlaceXYDto findLikedPlaceXY(Member member, String placeName) {
-        LikedPlace likedPlace = likedPlaceRepository.findByMemberAndTitle(member, placeName);
+    public LikedPlaceXYDto findLikedPlaceXY(Member member, String placeName, String address) {
+        LikedPlace likedPlace = likedPlaceRepository.findByMemberAndTitleAndRoadAddressName(member, placeName, address);
 
         LikedPlaceXYDto likedPlaceXYDto = new LikedPlaceXYDto(likedPlace.getX(), likedPlace.getY());
 
@@ -49,5 +49,9 @@ public class LikedPlaceService {
 
     public LikedPlace saveLikedPlace(LikedPlace likedPlace) {
         return likedPlaceRepository.save(likedPlace);
+    }
+
+    public void deleteLikedPlace(Member member, String placeName, String address) {
+        likedPlaceRepository.deleteByMemberAndTitleAndRoadAddressName(member, placeName, address);
     }
 }

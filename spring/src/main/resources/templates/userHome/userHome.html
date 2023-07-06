@@ -120,7 +120,6 @@
      let lastMonth = getYmd10(new Date(firstDayOfThisMonth_temp.setMonth(today.getMonth() -1))).substring(0,7);
      let twoMonthsAgo = getYmd10(new Date(firstDayOfThisMonth_temp.setMonth(today.getMonth() - 2))).substring(0,7);
 
-     console.log(thisMonth);
      let weatherInfo = [];
      let stnId = "108";
      let tmFc;
@@ -492,7 +491,6 @@
         data: {},
         async: false,
         success: function(data) {
-          console.log(data);
           for(let i = 0; i < data.length; i++){
             thisMonthShoppingPrice += Number(data[i].total_price);
           }
@@ -507,7 +505,6 @@
         data: {},
         async: false,
         success: function(data) {
-          console.log(data);
           for(let i = 0; i < data.length; i++){
             lastMonthShoppingPrice += Number(data[i].total_price);
           }
@@ -522,7 +519,6 @@
         data: {},
         async: false,
         success: function(data) {
-          console.log(data);
           for(let i = 0; i < data.length; i++){
             twoMonthsAgoShoppingPrice += Number(data[i].total_price);
           }

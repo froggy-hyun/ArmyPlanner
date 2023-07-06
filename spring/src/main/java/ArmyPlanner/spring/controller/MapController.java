@@ -273,7 +273,7 @@ public class MapController {
     public void place_like(@RequestBody LikedPlaceDto likedPlaceDto, Principal principal) throws Exception {
 
         String title = likedPlaceDto.getTitle();
-        String road_address_name = likedPlaceDto.getRoad_address_name();
+        String roadAddressName = likedPlaceDto.getRoadAddressName();
         String x = likedPlaceDto.getX();
         String y = likedPlaceDto.getY();
 
@@ -282,7 +282,7 @@ public class MapController {
 
         LikedPlace likedPlace = LikedPlaceDto.builder()
                 .title(title)
-                .road_address_name(road_address_name)
+                .roadAddressName(roadAddressName)
                 .x(x)
                 .y(y)
                 .member(member)
