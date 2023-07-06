@@ -480,12 +480,11 @@
           },
           {
             googleCalendarId : 'ko.south_korea#holiday@group.v.calendar.google.com', //구글 캘린더 아이디 - 공휴일 가져오기
-            className : "koHolidays",
             color: 'white',
             textColor: 'red'
           }
         ],
-        //공휴일 클릭 방지
+        //공휴일 링크 제거
         eventDataTransform: function(event) {
             event.url = "";
             return event;
@@ -1398,6 +1397,16 @@
           })
         },
         eventClick: function(arg) {
+          //공휴일 모달창 금지
+          if (!(arg.event.extendedProps.eventType == "vacation"
+                || arg.event.extendedProps.eventType == "diet"
+                || arg.event.extendedProps.eventType == "vacation"
+                || arg.event.extendedProps.eventType == "shopping"
+                || arg.event.extendedProps.eventType == "place"
+                || arg.event.extendedProps.eventType == "text")
+          ) {
+            return null;
+          }
           $('#vacation_info').css('display','none');
           $('#diet_info').css('display','none');
           $('#shopping_info').css('display','none');
