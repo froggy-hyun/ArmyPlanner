@@ -282,7 +282,7 @@ public class MyPlannerController {
 
     @GetMapping("getDietApi/{numOfRows}/{pageNo}")
     @ResponseBody
-    public String getDietApiByName(@PathVariable Long numOfRows, @PathVariable Long pageNo) throws IOException {
+    public String getDietApi(@PathVariable Long numOfRows, @PathVariable Long pageNo) throws IOException {
 
         String base = "http://apis.data.go.kr/";
         String service = "1471000/FoodNtrIrdntInfoService1/getFoodNtrItdntList1";
