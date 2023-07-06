@@ -688,7 +688,6 @@
 
                     let pageNo;
                     const numOfRows = 100;
-                    let serviceKey = "YfVszWFGgZBtStWJ429k2RIkV3b1vpS4obo%2FKLxcU15enrSNaCvSNO3TLZKnGjaAfL3trm9jk6X7jFG86kpm6Q%3D%3D"
                     let totalPage;
                     let totalCount;
                     let resultCode;
@@ -700,7 +699,7 @@
 
                     //초기 렌더링
                     pageNo = 1;
-                    url = `http://apis.data.go.kr/1471000/FoodNtrIrdntInfoService1/getFoodNtrItdntList1?ServiceKey=${serviceKey}&numOfRows=${numOfRows}&pageNo=${pageNo}&type=json`
+                    url = `/myPlanner/getDietApi/${numOfRows}/${pageNo}`;
                     init();
                     totalPage = Math.ceil(totalCount/numOfRows);
                     paging(totalCount, numOfRows, pageCount, pageNo);
@@ -710,7 +709,7 @@
                         desc_kor = $('#food_name_input').val()
                         if(desc_kor == ""){
                             pageNo = 1;
-                            url = `http://apis.data.go.kr/1471000/FoodNtrIrdntInfoService1/getFoodNtrItdntList1?ServiceKey=${serviceKey}&numOfRows=${numOfRows}&pageNo=${pageNo}&type=json`
+                            url = `/myPlanner/getDietApi/${numOfRows}/${pageNo}`;
                             init();
                             totalPage = Math.ceil(totalCount/numOfRows);
                             paging(totalCount, numOfRows, pageCount, pageNo);
@@ -718,7 +717,7 @@
                         }else{
                             pageNo = 1;
                             desc_kor = $('#food_name_input').val();
-                            url = `http://apis.data.go.kr/1471000/FoodNtrIrdntInfoService1/getFoodNtrItdntList1?ServiceKey=${serviceKey}&numOfRows=${numOfRows}&pageNo=${pageNo}&type=json&desc_kor=${desc_kor}`;
+                            url = `/myPlanner/getDietApi/${numOfRows}/${pageNo}/${desc_kor}`;
                             init();
                             totalPage = Math.ceil(totalCount/numOfRows);
                             paging(totalCount, numOfRows, pageCount, pageNo);
@@ -734,8 +733,9 @@
                             data: {},
                             async: false,
                             success: function(data) {
-                                totalCount = data.body.totalCount;
-                                resultCode = data.header.resultCode;
+                                jsonData = JSON.parse(data); //string -> json
+                                totalCount = jsonData.body.totalCount;
+                                resultCode = jsonData.header.resultCode;
                             }
                         })
                         if(resultCode != "00"){
@@ -750,11 +750,12 @@
                             url: url,
                             data: {},
                             success: function(data){
-                               resultCode = data.header.resultCode;
+                               jsonData = JSON.parse(data); //string -> json
+                               resultCode = jsonData.header.resultCode;
                                if(resultCode != "00"){
                                  alert("공공데이터 API 서버에 일시적 문제가 있습니다! 잠시 후 다시 시도해주세요.");
                                }
-                               let bodyData = data.body;
+                               let bodyData = jsonData.body;
                                for (let i = 0; i < numOfRows; i++) {
                                     let table_html='';
                                     table_html += '<tr>';
@@ -780,9 +781,9 @@
                     function displayData(pageNo) {
                       $('#diet_api_body').empty();
                       if(desc_kor == ""){
-                        url = `http://apis.data.go.kr/1471000/FoodNtrIrdntInfoService1/getFoodNtrItdntList1?ServiceKey=${serviceKey}&numOfRows=${numOfRows}&pageNo=${pageNo}&type=json`;
+                        url = `/myPlanner/getDietApi/${numOfRows}/${pageNo}`;
                       }else{
-                        url = `http://apis.data.go.kr/1471000/FoodNtrIrdntInfoService1/getFoodNtrItdntList1?ServiceKey=${serviceKey}&numOfRows=${numOfRows}&pageNo=${pageNo}&type=json&desc_kor=${desc_kor}`;
+                        url = `/myPlanner/getDietApi/${numOfRows}/${pageNo}/${desc_kor}`;
                       }
                       setTable(pageNo);
                     }

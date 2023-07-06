@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.security.Principal;
 import java.util.List;
 
@@ -276,6 +277,73 @@ public class MyPlannerController {
         Member member = memberRepository.findByEmail(username);
 
         return likedPlaceService.findLikedPlaceXY(member, placeName);
+
+    }
+
+    @GetMapping("getDietApi/{numOfRows}/{pageNo}")
+    @ResponseBody
+    public String getDietApiByName(@PathVariable Long numOfRows, @PathVariable Long pageNo) throws IOException {
+
+        String base = "http://apis.data.go.kr/";
+        String service = "1471000/FoodNtrIrdntInfoService1/getFoodNtrItdntList1";
+        String serviceKey = "YfVszWFGgZBtStWJ429k2RIkV3b1vpS4obo%2FKLxcU15enrSNaCvSNO3TLZKnGjaAfL3trm9jk6X7jFG86kpm6Q%3D%3D";
+        String type = "json";
+        String string_url = base + service + "?" + "ServiceKey=" + serviceKey + "&" + "numOfRows=" + numOfRows + "&" + "pageNo=" + pageNo + "&" + "type=" + type;
+
+        URL url = new URL(string_url);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+        BufferedReader rd;
+
+        // 서비스코드가 정상이면 200~300사이의 숫자가 나옵니다.
+        if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
+            rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        } else {
+            rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+        }
+        StringBuilder sb = new StringBuilder();
+        String line;
+        while ((line = rd.readLine()) != null) {
+            sb.append(line);
+        }
+        rd.close();
+        conn.disconnect();
+
+        return sb.toString();
+
+    }
+
+    @GetMapping("getDietApi/{numOfRows}/{pageNo}/{desc_kor}")
+    @ResponseBody
+    public String getDietApiByName(@PathVariable Long numOfRows, @PathVariable Long pageNo, @PathVariable String desc_kor) throws IOException {
+
+        String base = "http://apis.data.go.kr/";
+        String service = "1471000/FoodNtrIrdntInfoService1/getFoodNtrItdntList1";
+        String serviceKey = "YfVszWFGgZBtStWJ429k2RIkV3b1vpS4obo%2FKLxcU15enrSNaCvSNO3TLZKnGjaAfL3trm9jk6X7jFG86kpm6Q%3D%3D";
+        String type = "json";
+        String searchParam = URLEncoder.encode(desc_kor, "UTF-8");
+        String string_url = base + service + "?" + "ServiceKey=" + serviceKey + "&" + "numOfRows=" + numOfRows + "&" + "pageNo=" + pageNo + "&" + "type=" + type + "&" + "desc_kor=" + searchParam;
+
+        URL url = new URL(string_url);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+        BufferedReader rd;
+
+        // 서비스코드가 정상이면 200~300사이의 숫자가 나옵니다.
+        if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
+            rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        } else {
+            rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+        }
+        StringBuilder sb = new StringBuilder();
+        String line;
+        while ((line = rd.readLine()) != null) {
+            sb.append(line);
+        }
+        rd.close();
+        conn.disconnect();
+
+        return sb.toString();
 
     }
 
