@@ -190,7 +190,7 @@
           <div id="place_input">
               <label for="place_input" class="col-form-label">장소 추가</label>
               <input type="text" id="place_title" class="form-control" name="calendar_content" placeholder="제목 예) 숙소, 식사 ..." value="" disabled="true">
-              <label for="likedPlace" class="col-form-label">관심 장소 목록</label>
+              <label for="likedPlace" class="col-form-label">관심 장소 목록(클릭 시 선택)</label>
               <table class="table table-hover" id="likedPlace" style="font-size: 1vh">
                   <thead id="likedPlace_table_head">
                   <tr>
@@ -199,6 +199,7 @@
                   </tr>
                   </thead>
                   <tbody id="likedPlace_body"></tbody>
+                  <button type="button" class="btn btn-danger btn-sm" id="delete_liked_place">선택 관심장소 삭제</button>
               </table>
               <p><a href = "/map/searchView">관심 목록 추가하러 가기</a></p>
           </div>
@@ -209,7 +210,6 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger btn-sm" id="delete_liked_place">선택 관심장소 삭제</button>
         <button type="button" class="btn btn-primary" id="add_event_save">추가</button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="add_event_modal_close">취소</button>
       </div>
