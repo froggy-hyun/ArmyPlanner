@@ -5,6 +5,10 @@
 <nav th:replace="fragments/common :: menu(menu)" />
 <div class="container">
     <div class="my-4">
+        <div style="width: 30%;">
+            <img src="/img/logo/armyPlannerLogo_black.png" class="img-thumbnail mb-2" alt="armyPlannerLogo_black.png" />
+        </div>
+
         <h2>로그인</h2>
         <form role="form" method="post" th:action="@{/login}">
             <div class="form-group py-2">
