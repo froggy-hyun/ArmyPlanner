@@ -136,14 +136,14 @@
                     </ul>
                 </li>
                 <!-- Navbar-->
-                <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4" sec:authorize="isAuthenticated()">
+                <ul class="navbar-nav ms-md-0 me-3 me-lg-4" sec:authorize="isAuthenticated()">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 <!--                            <li><a class="dropdown-item" href="#!">회원정보</a></li>-->
                             <li style="min-width: max-content;" class="p-1">
                                 <p th:text="|${#authentication.name}님 환영합니다.|" style="margin:0"></p>
-                                <p th:text="|현재 ${#authentication.name} 님의 권한 : ${#authentication.authorities}|" style="margin:0"></p>
+<!--                                <p th:text="|현재 ${#authentication.name} 님의 권한 : ${#authentication.authorities}|" style="margin:0"></p>-->
                             </li>
                             <li><hr class="dropdown-divider" /></li>
                             <li><a class="dropdown-item" th:href="@{/logout}">로그아웃</a></li>
