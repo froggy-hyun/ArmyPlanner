@@ -346,11 +346,9 @@
     // 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
     // 인포윈도우에 장소명을 표시합니다
     function displayInfowindow(marker, title, category_name, road_address_name, address_name, phone, place_url, x, y) {
-        var content =  '<div class="wrap">' +
+        var content =  '<div class="wrap" style="width: max-content;">' +
             '    <div class="info">' +
-            `        <div class="title">${title}` +
-            '            <div class="close" id="closeInfo" title="닫기"></div>' +
-            '        </div>' +
+            `        <div class="title">${title}</div>` +
             '        <div class="body">' +
             '            <div class="desc">' +
             `                <div class = "category">${category_name}</div>` +
@@ -358,7 +356,10 @@
             `                <div class="jibun ellipsis"> (지번) ${address_name}</div>` +
             `                <div class = "phone">${phone}</div>` +
             '            </div>' +
-            `                <button id="likePlace" class="btn btn-primary btn-sm" style="margin: 3px;">관심 장소에 추가하기</div>` +
+            `                <div class= "d-grid gap-2 d-md-flex justify-content-md-end pe-1 pb-1">` +
+            `                    <button id="likePlace" class="btn btn-primary btn-sm">관심 장소에 추가하기</button>` +
+            `                    <button type="button" id="closeInfo" class="btn btn-secondary btn-sm">닫기</button>` +
+            `                </div>` +
             '        </div>' +
             '    </div>' +
             '</div>';

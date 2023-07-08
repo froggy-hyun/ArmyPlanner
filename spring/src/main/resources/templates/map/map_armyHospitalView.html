@@ -151,18 +151,19 @@
     bounds.extend(coords); //추가한 코드, 현재 코드에서 좌표정보는 point[i]가 아닌 coords이다.
 
     function displayInfowindow(marker, title, address_name, hspt_cntadr, zipcd, x, y){
-        var content =  '<div class="wrap">' +
+        var content =  '<div class="wrap" style="width: max-content;">' +
         '    <div class="info">' +
-        `        <div class="title">${title}` +
-        '            <div class="close" id="closeInfo" title="닫기"></div>' +
-        '        </div>' +
+        `        <div class="title">${title}</div>` +
         '        <div class="body">' +
         '            <div class="desc">' +
         `                <div class="ellipsis">${address_name}</div>` +
         `                <div class="etc"> 우편번호: ${zipcd}</div>` +
         `                <div class="etc"> 전화번호: ${hspt_cntadr}</div>` +
         '            </div>' +
-        `                <button id="likePlace" class="btn btn-primary btn-sm" style="margin: 3px;">관심 장소에 추가하기</div>` +
+        `                <div class= "d-grid gap-2 d-md-flex justify-content-md-end pe-1 pb-1">` +
+        `                    <button id="likePlace" class="btn btn-primary btn-sm">관심 장소에 추가하기</button>` +
+        `                    <button type="button" id="closeInfo" class="btn btn-secondary btn-sm">닫기</button>` +
+        `                </div>` +
         '        </div>' +
         '    </div>' +
         '</div>';
