@@ -101,7 +101,7 @@
 
 <body>
 <!-- Navigation-->
-<nav th:fragment="menu(menu)" class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav th:fragment="menu(menu)" class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
     <div class="container px-5">
         <a class="navbar-brand" href="/" sec:authorize="!isAuthenticated()"><img src="/img/logo/armyPlannerLogo_white.png" class="banner"></img></a>
         <a class="navbar-brand" th:href="@{/user/home}" sec:authorize="isAuthenticated()"><img src="/img/logo/armyPlannerLogo_white.png" class="banner"></img></a>
