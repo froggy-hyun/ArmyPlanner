@@ -201,9 +201,10 @@
             infowindow.open(map, marker);
 
             $('#likePlace').off('click').on('click', function(){
+              let address = ( road_address_name != null || road_address_name != "") ? road_address_name : address_name;
               var placeobj = {
                 "title" : title,
-                "roadAddressName" : road_address_name,
+                "roadAddressName" : address,
                 "x" : x,
                 "y" : y
               }//전송할 객체 생성
