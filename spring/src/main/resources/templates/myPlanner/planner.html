@@ -1439,6 +1439,11 @@
      }
    }
 
+   $('#type_event_modal').on('hidden.bs.modal', function (e) {
+	 $(this).find('form')[0].reset();
+   })
+
+
    $('#add_event_modal').on('hidden.bs.modal', function (e) {
 	 $(this).find('form')[0].reset();
 	 setTimeDisplay();
@@ -1453,8 +1458,6 @@
      $(this).find('input')[0].reset();
      $('#px_api_body').empty();
    });
-
-
 
    let map_x;
    let map_y;
