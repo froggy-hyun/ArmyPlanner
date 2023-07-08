@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/common :: head(title)" />
 <head>
-    <head th:replace="fragments/common :: head(title)" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 </head>
 <style>
     #question {
@@ -46,7 +49,7 @@
         <div class="container px-5">
             <div class="row gx-5 align-items-center justify-content-center">
                 <div class="col-lg-8 col-xl-7 col-xxl-6">
-                    <div class="my-5 text-center text-xl-start">
+                    <div class="my-5 text-center text-xl-start animate__animated animate__backInDown">
                         <h1 class="display-5 fw-bolder text-white mb-2">군생활,<br>허무하게 보내기엔 아까운 시간.</h1>
                         <p class="lead fw-normal text-white-50 mb-4">제공되는 다양한 정보로 손쉽게 플래너를 만들어보자!</p>
                         <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
@@ -55,7 +58,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center"><img class="img-fluid rounded-3 my-5" src="/img/logo/armyPlannerLogo_white.png" alt="armyPlannerLogo_white.png" /></div>
+                <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center animate__animated animate__fadeIn animate__delay-1s"><img class="img-fluid rounded-3 my-5" src="/img/logo/armyPlannerLogo_white.png" alt="armyPlannerLogo_white.png" /></div>
             </div>
         </div>
     </header>
@@ -353,5 +356,8 @@
 </main>
 <!-- Footer-->
 <footer th:replace="fragments/common :: footer"></footer>
+<script>
+    AOS.init();
+</script>
 </body>
 </html>
