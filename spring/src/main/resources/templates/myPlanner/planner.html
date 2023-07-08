@@ -82,6 +82,10 @@
   <link href='/css/planner_css.css' rel='stylesheet'>
 </head>
 <body>
+<div id="div_load_image" style="position:absolute; top:50%; left:50%; z-index:9999; background:#f0f0f0; margin:auto; padding:0; text-align:center; transform: translate(-50%, -50%);">
+    <img src="/img/loading/loadingBar_book.gif" style="width:100px; height:100px; ">
+    <p>로딩중...</p>
+</div>
 <nav th:replace="fragments/common :: menu(menu)" />
 <div id='calendar'></div>
 <!-- 이벤트 유형 선택 modal -->
@@ -424,6 +428,10 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3d7ccd2c2284f05d05ea7f9ae21515d9&libraries=services"></script>
 <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
 <script>
+   window.onload = function () {
+	   $("#div_load_image").hide();
+   }
+
    $(document).ready(function (){
       var token = $("meta[name='_csrf']").attr("content");
 	  var header = $("meta[name='_csrf_header']").attr("content");
@@ -682,6 +690,7 @@
                   });
 
                   $("#add_diet_by_api").off('click').on("click",function(){
+                    $("#div_load_image").show();
                     $("#add_diet_by_api_modal").modal("show");
 
                     //식품의약품안전처_식품 영양성분 정보 api는 데이터의 양이 방대하고 한번 호출 시 최대 100개만 가져올 수 있으므로 직접 페이징 구현 및
@@ -699,12 +708,15 @@
                     let url;
 
                     //초기 렌더링
-                    pageNo = 1;
-                    url = `/myPlanner/getDietApi/${numOfRows}/${pageNo}`;
-                    init();
-                    totalPage = Math.ceil(totalCount/numOfRows);
-                    paging(totalCount, numOfRows, pageCount, pageNo);
-                    displayData(pageNo);
+                    setTimeout(function() {
+                        pageNo = 1;
+                        url = `/myPlanner/getDietApi/${numOfRows}/${pageNo}`;
+                        init();
+                        totalPage = Math.ceil(totalCount/numOfRows);
+                        paging(totalCount, numOfRows, pageCount, pageNo);
+                        displayData(pageNo);
+                        $("#div_load_image").hide();
+                    }, 100);
 
                     $('#search_food').off('click').on("click", function(){
                         desc_kor = $('#food_name_input').val()
@@ -814,6 +826,7 @@
                           alert("공공데이터 API 서버에 일시적 문제가 있습니다! 잠시 후 다시 시도해주세요.");
                         }
                         status = "";
+
                     }
 
                     function displayData(pageNo) {
@@ -986,6 +999,7 @@
                   });
 
                   $("#add_shopping_by_px_api").off('click').on("click",function(){
+                    $("#div_load_image").show();
                     $("#add_shopping_by_px_api_modal").modal("show");
 
                     let start;
@@ -997,9 +1011,12 @@
                     let url;
 
                     //초기 렌더링
-                    init();
-                    url = `/myPlanner/getpxapi/${start}/${totalCount}`
-                    setTable();
+                    setTimeout(function() {
+                        init();
+                        url = `/myPlanner/getpxapi/${start}/${totalCount}`
+                        setTable();
+                        $("#div_load_image").hide();
+                    }, 100);
 
                     //totalCount를 먼저 받아옴으로써 api가 정상적인지와 총 데이터의 갯수를 파악
                     function init() {
