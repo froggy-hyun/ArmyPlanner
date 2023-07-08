@@ -12,7 +12,10 @@
 </head>
 <body>
 <nav th:replace="fragments/common :: menu(menu)" />
-
+<div id="div_load_image" style="position:absolute; top:50%; left:50%; z-index:9999; background:#f0f0f0; margin:auto; padding:0; text-align:center; transform: translate(-50%, -50%);">
+    <img src="/img/loading/loadingBar_text.gif" style="width:200px;">
+    <p>로딩중...</p>
+</div>
 <div class="card mb-4" id="mouCard">
     <div class="card-header">
         <i class="fas fa-table me-1"></i>
@@ -40,6 +43,10 @@
 <footer th:replace="fragments/common :: footer"></footer>
 <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
 <script>
+    window.onload = function () {
+      $("#div_load_image").hide();
+    }
+
     let start;
     let end;
     let totalCount;
