@@ -26,7 +26,7 @@ public class MouController {
     @GetMapping("getmouapi/{start}/{end}")
     @ResponseBody
     public String getPxApi(@PathVariable Long start, @PathVariable Long end) throws IOException {
-        String serviceKey = "3733313631313630353532323832313332";
+        String serviceKey = "*";
         String resultType = "json";
         String service = "DS_MND_ENLSTMN_DCNT_BEF_INF";
         String string_url = "https://openapi.mnd.go.kr/" + serviceKey + "/" + resultType + "/" + service + "/" + start + "/" + end;

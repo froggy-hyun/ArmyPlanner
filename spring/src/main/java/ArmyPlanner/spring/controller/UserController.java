@@ -39,7 +39,7 @@ public class UserController {
     public String getWeatherApi(@PathVariable String stnId, @PathVariable String tmFc) throws IOException {
         String baseurl = "http://apis.data.go.kr/";
         String service = "1360000/MidFcstInfoService/getMidFcst";
-        String serviceKey = "YfVszWFGgZBtStWJ429k2RIkV3b1vpS4obo/KLxcU15enrSNaCvSNO3TLZKnGjaAfL3trm9jk6X7jFG86kpm6Q==";
+        String serviceKey = "*";
         String pageNo = "1";
         String dataType = "json";
         String string_url = baseurl + service + "?" + "serviceKey=" + serviceKey + "&" + "pageNo=" + pageNo + "&"

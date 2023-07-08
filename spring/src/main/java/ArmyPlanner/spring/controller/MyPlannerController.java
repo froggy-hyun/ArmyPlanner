@@ -155,7 +155,7 @@ public class MyPlannerController {
     @GetMapping("getpxapi/{start}/{end}")
     @ResponseBody
     public String getPxApi(@PathVariable Long start, @PathVariable Long end) throws IOException {
-        String serviceKey = "3733313631313630353532323832313332";
+        String serviceKey = "*";
         String resultType = "json";
         String service = "DS_MND_PX_PARD_PRDT_INFO";
         String string_url = "https://openapi.mnd.go.kr/" + serviceKey + "/" + resultType + "/" + service + "/" + start + "/" + end;
@@ -295,7 +295,7 @@ public class MyPlannerController {
 
         String base = "http://apis.data.go.kr/";
         String service = "1471000/FoodNtrIrdntInfoService1/getFoodNtrItdntList1";
-        String serviceKey = "YfVszWFGgZBtStWJ429k2RIkV3b1vpS4obo%2FKLxcU15enrSNaCvSNO3TLZKnGjaAfL3trm9jk6X7jFG86kpm6Q%3D%3D";
+        String serviceKey = "*";
         String type = "json";
         String string_url = base + service + "?" + "ServiceKey=" + serviceKey + "&" + "numOfRows=" + numOfRows + "&" + "pageNo=" + pageNo + "&" + "type=" + type;
 
@@ -328,7 +328,7 @@ public class MyPlannerController {
 
         String base = "http://apis.data.go.kr/";
         String service = "1471000/FoodNtrIrdntInfoService1/getFoodNtrItdntList1";
-        String serviceKey = "YfVszWFGgZBtStWJ429k2RIkV3b1vpS4obo%2FKLxcU15enrSNaCvSNO3TLZKnGjaAfL3trm9jk6X7jFG86kpm6Q%3D%3D";
+        String serviceKey = "*";
         String type = "json";
         String searchParam = URLEncoder.encode(desc_kor, "UTF-8");
         String string_url = base + service + "?" + "ServiceKey=" + serviceKey + "&" + "numOfRows=" + numOfRows + "&" + "pageNo=" + pageNo + "&" + "type=" + type + "&" + "desc_kor=" + searchParam;

@@ -34,7 +34,7 @@ public class MapController {
     @GetMapping("armyFacilityView/getArmyFacilityApi/{start}/{end}")
     @ResponseBody
     public String getArmyFacilityApi(@PathVariable Long start, @PathVariable Long end) throws IOException {
-        String serviceKey = "3733313631313630353532323832313332";
+        String serviceKey = "*";
         String resultType = "json";
         String service = "DS_WHLAM_WLFR_VCTNINSTLT";
         String string_url = "https://openapi.mnd.go.kr/" + serviceKey + "/" + resultType + "/" + service + "/" + start + "/" + end;
@@ -68,7 +68,7 @@ public class MapController {
     @GetMapping("armyHospitalView/getArmyHospitalApi/{start}/{end}")
     @ResponseBody
     public String getArmyHospitalApi(@PathVariable Long start, @PathVariable Long end) throws IOException {
-        String serviceKey = "3733313631313630353532323832313332";
+        String serviceKey = "*";
         String resultType = "json";
         String service = "DS_WHLNAT_ROKAHSPT_ADDR";
         String string_url = "https://openapi.mnd.go.kr/" + serviceKey + "/" + resultType + "/" + service + "/" + start + "/" + end;
@@ -102,7 +102,7 @@ public class MapController {
     @GetMapping("armyTmoView/getArmyTmoApi/{start}/{end}")
     @ResponseBody
     public String getArmyTmoApi(@PathVariable Long start, @PathVariable Long end) throws IOException {
-        String serviceKey = "3733313631313630353532323832313332";
+        String serviceKey = "*";
         String resultType = "json";
         String service = "DS_TB_MND_TMO_INFO";
         String string_url = "https://openapi.mnd.go.kr/" + serviceKey + "/" + resultType + "/" + service + "/" + start + "/" + end;
@@ -139,7 +139,7 @@ public class MapController {
 
         String baseurl = "https://api.odcloud.kr/";
         String service = "api/15106202/v1/uddi:d6cc329d-8ac0-4471-b958-e9912dfade8f";
-        String serviceKey = "YfVszWFGgZBtStWJ429k2RIkV3b1vpS4obo/KLxcU15enrSNaCvSNO3TLZKnGjaAfL3trm9jk6X7jFG86kpm6Q==";
+        String serviceKey = "*";
         String page = "1";
         String perPage = count;
         String string_url = baseurl + service + "?" + "page=" + page + "&" + "perPage=" + perPage + "&"
@@ -172,7 +172,7 @@ public class MapController {
 
         String baseurl = "https://api.odcloud.kr/";
         String service = "api/3073444/v1/uddi:2ba183cb-e8eb-44b7-9964-a5e09e0655bb_202004010952";
-        String serviceKey = "YfVszWFGgZBtStWJ429k2RIkV3b1vpS4obo/KLxcU15enrSNaCvSNO3TLZKnGjaAfL3trm9jk6X7jFG86kpm6Q==";
+        String serviceKey = "*";
         String page = "1";
         String perPage = count;
         String string_url = baseurl + service + "?" + "page=" + page + "&" + "perPage=" + perPage + "&"
@@ -205,7 +205,7 @@ public class MapController {
 
         String baseurl = "https://api.odcloud.kr/";
         String service = "api/15044647/v1/uddi:c0773d85-712c-413f-a37a-ee6adf13bce3";
-        String serviceKey = "YfVszWFGgZBtStWJ429k2RIkV3b1vpS4obo/KLxcU15enrSNaCvSNO3TLZKnGjaAfL3trm9jk6X7jFG86kpm6Q==";
+        String serviceKey = "*";
         String page = "1";
         String perPage = count;
         String string_url = baseurl + service + "?" + "page=" + page + "&" + "perPage=" + perPage + "&"
@@ -238,7 +238,7 @@ public class MapController {
 
         String baseurl = "https://api.odcloud.kr/";
         String service = "api/15055435/v1/uddi:6f90b74d-5f2e-4646-a9e6-8dee13833e46";
-        String serviceKey = "YfVszWFGgZBtStWJ429k2RIkV3b1vpS4obo/KLxcU15enrSNaCvSNO3TLZKnGjaAfL3trm9jk6X7jFG86kpm6Q==";
+        String serviceKey = "*";
         String page = "1";
         String perPage = count;
         String string_url = baseurl + service + "?" + "page=" + page + "&" + "perPage=" + perPage + "&"
