@@ -87,6 +87,18 @@
     <p>로딩중...</p>
 </div>
 <nav th:replace="fragments/common :: menu(menu)" />
+<div class="card" style="margin: 2vh auto;max-width: 1500px;background-color:#e9e9e9">
+    <div class="card-body">
+        <p>일정을 추가하려면 날짜 영역을 클릭 또는 드래그하세요. (모바일에서는 영역을 1초 이상 눌러야 클릭/드래그가 가능합니다.)</p>
+        <p>일정 색상 -
+            <span style="color: red">휴가</span>
+            <span style="tcolor: orange">식단</span>
+            <span style="color: yellow">소비</span>
+            <span style="color: green">장소</span>
+            <span style="color: blue">텍스트</span>
+        </p>
+    </div>
+</div>
 <div id='calendar'></div>
 <!-- 이벤트 유형 선택 modal -->
 <div class="modal fade" id="type_event_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
