@@ -25,3 +25,15 @@
 </div>
 <footer th:replace="fragments/common :: footer"></footer>
 </body>
+<!--회원가입 성공시 메시지 출력-->
+<th:block>
+    <script th:inline="javascript">
+    $(document).ready(function(){
+        var SuccessMsg = [[${SuccessMsg}]];
+        if(SuccessMsg != null){
+            alert(SuccessMsg);
+        }
+    });
+    </script>
+</th:block>
+

@@ -44,7 +44,7 @@ public class RegistryController {
             return "user/register";
         }
 
-        return "redirect:/login";
+        return "redirect:/login?status=success";
     }
 
 }
