@@ -3,6 +3,10 @@
 <head th:replace="fragments/common :: head(title)" />
 <body>
 <nav th:replace="fragments/common :: menu(menu)" />
+<div id="div_load_image" style="position:absolute; top:50%; left:50%; z-index:9999; background:#f0f0f0; margin:auto; padding:0; text-align:center; transform: translate(-50%, -50%);">
+  <img src="/img/loading/loadingBar_text.gif" style="width:200px;">
+  <p>로딩중...</p>
+</div>
 <div id="layoutSidenav">
   <div id="layoutSidenav_content">
     <main>
@@ -89,6 +93,10 @@
 <script src="/js/userHome/scripts.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
 <script>
+
+     window.onload = function () {
+	   $("#div_load_image").hide();
+     }
 
      //날짜 일반 객체
      let today_temp = new Date();
