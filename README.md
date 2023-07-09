@@ -136,6 +136,24 @@ remove : 파일을 삭제
 
 ## ⭐ skills
 
+### 프론트엔드(front-end)
+- Html5, css
+- Javascript   
+- Bootstrap 5.3.0
+- Jquery 3.5.1
+ 
+### 백엔드(back-end)
+- Java 11  
+- Springboot 2.7.12  
+- MySql
+
+### API
+- 11가지의 공공데이터 API
+- 카카오MAP API : 정적, 동적 지도 생성
+- 구글캘린더 API : 공휴일 가져오기
+
+<br> 
+
 ## 📈 Release Note
 
 | version | log |
@@ -150,8 +168,7 @@ AWS (아마존 웹 서비스)
 - EC2 : Ubuntu Server 22.04 LTS
 - RDS : MySQL Community
 
-
-### Setup
+<br>
 
 ## 🙏 마무리하며..
 
