@@ -140,8 +140,7 @@
    |![관심장소에추가](spring/src/main/resources/static/img/indexIntroducing/관심장소에추가.png)|
    
 **4. 기타 군혜택 페이지**
-    - 국방부 MOU 혜택 정보 페이지
-       
+    - 국방부 MOU 혜택 정보 페이지 
     |국방부 MOU 혜택 정보 페이지|
     |---|
     |![기타군혜택예시](spring/src/main/resources/static/img/indexIntroducing/기타군혜택예시.png)|
