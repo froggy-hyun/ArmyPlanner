@@ -140,10 +140,11 @@
    |![관심장소에추가](spring/src/main/resources/static/img/indexIntroducing/관심장소에추가.png)|
    
 **4. 기타 군혜택 페이지**
-    - 국방부 MOU 혜택 정보 페이지 
-    |국방부 MOU 혜택 정보 페이지|
-    |---|
-    |![기타군혜택예시](spring/src/main/resources/static/img/indexIntroducing/기타군혜택예시.png)|
+   - 국방부 MOU 혜택 정보 페이지 
+    
+   |국방부 MOU 혜택 정보 페이지|
+   |---|
+   |![기타군혜택예시](spring/src/main/resources/static/img/indexIntroducing/기타군혜택예시.png)|
 
 **5. 회원 전용 홈 서비스(전국 중기예보전망, 전날 식단 영양소 분석, 일/월별 소비 기록 분석), + AI를 이용한 예상치, 예정된 방문 장소 알림 기능 추가 예정**
    
