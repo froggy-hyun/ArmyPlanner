@@ -93,16 +93,27 @@
    |기본 월단위 뷰|주단위 뷰|일단위 뷰|리스트 뷰|
    |---|---|---|---|
    |![플래너예시_기본](https://github.com/froggy-hyun/ArmyPlanner/assets/111727754/2c3d385f-08db-4410-bc47-38fc17e2a0fd)|![플래너예시_주간](https://github.com/froggy-hyun/ArmyPlanner/assets/111727754/46badf37-6fcc-46c7-94c4-1edfcb62fac1)|![플래너예시_일간](https://github.com/froggy-hyun/ArmyPlanner/assets/111727754/9f24908b-35f5-4ac9-8a80-b942c1e155ee)|![플래너예시_리스트](https://github.com/froggy-hyun/ArmyPlanner/assets/111727754/973948c4-8eff-441e-8bb9-3da8b3f95888)|
+   
    - 휴가, 식단, 소비, 장소, 텍스트 등 다양한 종류의 일정(기록) 추가/삭제
+  
+   |일정 유형 선택|휴가 입력|식단 기록 입력|소비 기록 입력|장소 등록|텍스트 등록|
+   |---|---|---|---|---|---|
+   |![일정유형](https://github.com/froggy-hyun/ArmyPlanner/assets/111727754/fd06ad14-d27f-4df5-a79f-a5d11b568826)|![휴가일정입력](https://github.com/froggy-hyun/ArmyPlanner/assets/111727754/577b9ccf-5dc6-4429-bbfb-42abae678e4f)|![식단입력](https://github.com/froggy-hyun/ArmyPlanner/assets/111727754/d65cc20f-c18a-4169-a9f2-46e4039a39dd)|![소비입력](https://github.com/froggy-hyun/ArmyPlanner/assets/111727754/193de256-ad31-4d65-a5d6-e8cb2ded136a)|![장소입력](https://github.com/froggy-hyun/ArmyPlanner/assets/111727754/2af2623e-184f-4348-8d1c-fba78b186af3)|![텍스트입력](https://github.com/froggy-hyun/ArmyPlanner/assets/111727754/57a12866-487f-4ca0-9791-2f7b3d7c582a)|
+
    - 일정 상세 정보 보기
-3. 군혜택MAP 서비스
+  
+   |휴가 상세|식단 기록 상세|소비 기록 상세|장소 상세|텍스트 상세|
+   |---|---|---|---|---|
+   |![휴가일정정보예시](https://github.com/froggy-hyun/ArmyPlanner/assets/111727754/fe3eacfc-6c8c-4daa-9532-3972cf873847)|![식단정보예시](https://github.com/froggy-hyun/ArmyPlanner/assets/111727754/ae99641d-7c43-40b2-89ea-5c489e822927)|![소비정보예시](https://github.com/froggy-hyun/ArmyPlanner/assets/111727754/bd9921f3-352a-46d3-9655-c6d93ffef449)|![장소일정정보예시](https://github.com/froggy-hyun/ArmyPlanner/assets/111727754/a9d773fb-2ee1-483e-8123-4e21032970ed)|![텍스트일정정보예시](https://github.com/froggy-hyun/ArmyPlanner/assets/111727754/fab3612b-4c74-4c3a-b10e-1605bc23eea2)|
+   
+4. 군혜택MAP 서비스
     - 키워드로 장소 검색
     - 군인 전용 장소 보기 (군 복지 휴양 시설, 군 병원, TMO)
     - 군인 우대 업소 보기
     - 관심 장소 추가 기능
-4. 기타 군혜택 페이지
+5. 기타 군혜택 페이지
     - 국방부 MOU 혜택 정보 페이지
-5. 회원 전용 홈 서비스(전국 중기예보전망, 전날 식단 영양소 분석, 일/월별 소비 기록 분석), + AI를 이용한 예상치, 예정된 방문 장소 알림 기능 추가 예정
+6. 회원 전용 홈 서비스(전국 중기예보전망, 전날 식단 영양소 분석, 일/월별 소비 기록 분석), + AI를 이용한 예상치, 예정된 방문 장소 알림 기능 추가 예정
 
 
 
