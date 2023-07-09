@@ -1,5 +1,5 @@
 # ArmyPlanner
-![armyPlannerLogo_black](https://github.com/froggy-hyun/ArmyPlanner/assets/111727754/05802ad8-9e30-4ed4-bbd6-7a79777e3281)
+![armyPlannerLogo_black](spring/src/main/resources/static/img/logo/armyPlannerLogo_black.png)
 
 
 **11가지의 다양한 공공데이터 API를 통해 실시간으로 정보 제공 및 장병들이 직접 선택, 가공, 저장, 활용할 수 있도록 다양한 기능과 서비스를 제공하여 군생활을 알차게 계획하고 실행할 수 있는 통합 플랫폼 PC/모바일 웹사이트**   
@@ -85,64 +85,64 @@
 
 |회원가입|로그인|
 |---|---|
-|![회원가입](https://github.com/froggy-hyun/ArmyPlanner/assets/111727754/347763bf-66bc-458e-8b4e-e2de8deefef6)|![로그인](https://github.com/froggy-hyun/ArmyPlanner/assets/111727754/a3c42de9-1fd9-4ae8-96b5-9b0c965e766a)|
+|![회원가입](spring/src/main/resources/static/img/indexIntroducing/회원가입.png)|![로그인](spring/src/main/resources/static/img/indexIntroducing/로그인.png)|
 
 2. 나의 Planner 서비스
    - 월, 주, 일, 리스트 단위로 볼 수 있음.
   
    |기본 월단위 뷰|주단위 뷰|일단위 뷰|리스트 뷰|
    |---|---|---|---|
-   |![플래너예시_기본](https://github.com/froggy-hyun/ArmyPlanner/assets/111727754/2c3d385f-08db-4410-bc47-38fc17e2a0fd)|![플래너예시_주간](https://github.com/froggy-hyun/ArmyPlanner/assets/111727754/46badf37-6fcc-46c7-94c4-1edfcb62fac1)|![플래너예시_일간](https://github.com/froggy-hyun/ArmyPlanner/assets/111727754/9f24908b-35f5-4ac9-8a80-b942c1e155ee)|![플래너예시_리스트](https://github.com/froggy-hyun/ArmyPlanner/assets/111727754/973948c4-8eff-441e-8bb9-3da8b3f95888)|
+   |![플래너예시_기본](spring/src/main/resources/static/img/indexIntroducing/플래너예시_기본.png)|![플래너예시_주간](spring/src/main/resources/static/img/indexIntroducing/플래너예시_주간.png)|![플래너예시_일간](spring/src/main/resources/static/img/indexIntroducing/플래너예시_일간.png)|![플래너예시_리스트](spring/src/main/resources/static/img/indexIntroducing/플래너예시_리스트.png)|
    
    - 휴가, 식단, 소비, 장소, 텍스트 등 다양한 종류의 일정(기록) 추가/삭제
   
    |일정 유형 선택|휴가 등록|식단 기록 등록|소비 기록 등록|장소 등록|텍스트 등록|
    |---|---|---|---|---|---|
-   |![일정유형](https://github.com/froggy-hyun/ArmyPlanner/assets/111727754/fd06ad14-d27f-4df5-a79f-a5d11b568826)|![휴가일정입력](https://github.com/froggy-hyun/ArmyPlanner/assets/111727754/577b9ccf-5dc6-4429-bbfb-42abae678e4f)|![식단입력](https://github.com/froggy-hyun/ArmyPlanner/assets/111727754/d65cc20f-c18a-4169-a9f2-46e4039a39dd)|![소비입력](https://github.com/froggy-hyun/ArmyPlanner/assets/111727754/193de256-ad31-4d65-a5d6-e8cb2ded136a)|![장소입력](https://github.com/froggy-hyun/ArmyPlanner/assets/111727754/2af2623e-184f-4348-8d1c-fba78b186af3)|![텍스트입력](https://github.com/froggy-hyun/ArmyPlanner/assets/111727754/57a12866-487f-4ca0-9791-2f7b3d7c582a)|
+   |![일정유형](spring/src/main/resources/static/img/indexIntroducing/일정유형.png)|![휴가일정입력](spring/src/main/resources/static/img/indexIntroducing/휴가일정입력.png)|![식단입력](spring/src/main/resources/static/img/indexIntroducing/식단입력.png)|![소비입력](spring/src/main/resources/static/img/indexIntroducing/소비입력.png)|![장소입력](spring/src/main/resources/static/img/indexIntroducing/장소입력.png)|![텍스트입력](spring/src/main/resources/static/img/indexIntroducing/텍스트입력.png)|
 
    - 일정 상세 정보 보기
   
    |휴가 상세|식단 기록 상세|소비 기록 상세|장소 상세|텍스트 상세|
    |---|---|---|---|---|
-   |![휴가일정정보예시](https://github.com/froggy-hyun/ArmyPlanner/assets/111727754/fe3eacfc-6c8c-4daa-9532-3972cf873847)|![식단정보예시](https://github.com/froggy-hyun/ArmyPlanner/assets/111727754/ae99641d-7c43-40b2-89ea-5c489e822927)|![소비정보예시](https://github.com/froggy-hyun/ArmyPlanner/assets/111727754/bd9921f3-352a-46d3-9655-c6d93ffef449)|![장소일정정보예시](https://github.com/froggy-hyun/ArmyPlanner/assets/111727754/a9d773fb-2ee1-483e-8123-4e21032970ed)|![텍스트일정정보예시](https://github.com/froggy-hyun/ArmyPlanner/assets/111727754/fab3612b-4c74-4c3a-b10e-1605bc23eea2)|
+   |![휴가일정정보예시](spring/src/main/resources/static/img/indexIntroducing/휴가일정정보예시.png)|![식단정보예시](spring/src/main/resources/static/img/indexIntroducing/식단정보예시.png)|![소비정보예시](spring/src/main/resources/static/img/indexIntroducing/소비정보예시.png)|![장소일정정보예시](spring/src/main/resources/static/img/indexIntroducing/장소일정정보예시.png)|![텍스트일정정보예시](spring/src/main/resources/static/img/indexIntroducing/텍스트일정정보예시.png)|
    
 3. 군혜택MAP 서비스
    - 키워드로 장소 검색
 
    |키워드로 장소 검색|
    |---|
-   |![군혜택MAP소개](https://github.com/froggy-hyun/ArmyPlanner/assets/111727754/8314fff9-41c3-4c1b-9189-8e3ac56cd48f)|
+   |![군혜택MAP소개](spring/src/main/resources/static/img/indexIntroducing/군혜택MAP소개.png)|
    
    - 군인 전용 장소 보기 (군 복지 휴양 시설, 군 병원, TMO)
   
    |군인 전용 장소 보기|
    |---|
-   |![군인전용장소보기](https://github.com/froggy-hyun/ArmyPlanner/assets/111727754/1390064f-6f23-4f8e-b8f2-4d82b72dc770)|
+   |![군인전용장소보기](spring/src/main/resources/static/img/indexIntroducing/군인전용장소보기.png)|
    
    - 군인 우대 업소 보기
       
    |군인 우대 업소 보기|
    |---|
-   |![군인우대업소보기](https://github.com/froggy-hyun/ArmyPlanner/assets/111727754/481424b1-9b69-4f4d-bd3b-2e9183e528c9)|
+   |![군인우대업소보기](spring/src/main/resources/static/img/indexIntroducing/군인우대업소보기.png)|
       
    - 관심 장소 추가 기능
    
    |관심 장소 추가|
    |---|
-   |![관심장소에추가](https://github.com/froggy-hyun/ArmyPlanner/assets/111727754/ff305cc4-34ed-4688-9394-c83720a00735)|
+   |![관심장소에추가](spring/src/main/resources/static/img/indexIntroducing/관심장소에추가.png)|
    
 4. 기타 군혜택 페이지
     - 국방부 MOU 혜택 정보 페이지
        
     |국방부 MOU 혜택 정보 페이지|
     |---|
-    |![기타군혜택예시](https://github.com/froggy-hyun/ArmyPlanner/assets/111727754/9d73c6aa-00ab-4121-8537-cd5a647dd7dc)|
+    |![기타군혜택예시](spring/src/main/resources/static/img/indexIntroducing/기타군혜택예시.png)|
 
 5. 회원 전용 홈 서비스(전국 중기예보전망, 전날 식단 영양소 분석, 일/월별 소비 기록 분석), + AI를 이용한 예상치, 예정된 방문 장소 알림 기능 추가 예정
    
    |대시보드(회원 홈)|
    |---|
-   |![유저홈예시](https://github.com/froggy-hyun/ArmyPlanner/assets/111727754/be36c004-9ff2-41a3-b5ff-17e7d2a2b7ca)|
+   |![유저홈예시](spring/src/main/resources/static/img/indexIntroducing/유저홈예시.png)|
 
 
 <br>
@@ -192,7 +192,8 @@ remove : 파일을 삭제
 
 ### 프론트엔드(front-end)
 - Html5, css
-- Javascript   
+- Javascript
+- Thymeleaf   
 - Bootstrap 5.3.0
 - Jquery 3.5.1
  
