@@ -5,14 +5,20 @@
 <br>
 
 ## 👉  목차  
-1. [📰 프로젝트 개요](##프로젝트-개요)  
-   - [🙋‍♀️ 참가자]()
-   - [📜 사용 공공데이터 API]()
-2. [💡 개발 배경](##개발-배경)   
-3. [📌 링크](##링크)   
-4. [📈 Release Note](##-Release-Note)   
-    - [❓ EASYME.md가 뭐예요?](#-easymemd가-뭐예요)   
-    - [🛠 기능 엿보기](#-기능-엿보기)  
+1. [📰 프로젝트 개요](#-프로젝트-개요)  
+   - [🙋‍♀️ 참가자](#-참가자)
+   - [📜 사용 공공데이터 API](#-사용-공공데이터-api)
+2. [🛠️ Tech Stacks](#-Tech-Stacks)
+3. [💡 개발 배경](#-개발-배경)   
+4. [📌 링크](#-링크)
+5. [🔔 기능](#-기능)
+6. [✏️ 제작방향](#-제작방향)
+   - [🚩 계획 절차](#-계획 절차)
+   - [:octocat: Commit convention (커밋 컨벤션)](#-커밋-컨벤션)
+7. [⭐️ skills](#-skills)
+8. [📈 Release Note](#-Release-Note)   
+9. [⚙️ 배포](#-배포)
+10. [🙏 마무리하며..](#-마무리하며...)
 
 <br>
 
@@ -26,21 +32,27 @@
     
 ### 📜 사용 공공데이터 API
 
-1. <국가중점데이터> 식품의약품안전처_식품 영양성분 정보 https://www.data.go.kr/data/15057436/openapi.do  
-   <국방분야데이터> 국방부 PX 인기상품 정보 : PX 인기상품 정보 https://opendata.mnd.go.kr/openinf/sheetview2.jsp?infId=OA-9491    
-2. <국방분야데이터> 전군 복지 휴양시설 위치정보 목록 : 군 복지 휴양시설 정보 https://opendata.mnd.go.kr/openinf/sheetview2.jsp?infId=OA-9441    
-   <국방분야데이터> 군병원 정보 : 군병원 정보 https://opendata.mnd.go.kr/openinf/sheetview2.jsp?infId=OA-9436    
-   <국방분야데이터> TMO(여행장병 안내소) 정보 : TMO(여행장병 안내소) 정보 https://opendata.mnd.go.kr/openinf/sheetview2.jsp?infId=OA-9595  
-   (자치행정기관데이터) 경기도 포천시_군장병할인업소 현황 데이터 https://www.data.go.kr/data/15106202/fileData.do    
-   (자치행정기관데이터) 충청남도 논산시_할인업소현황 데이터 https://www.data.go.kr/data/3073444/fileData.do    
-   (자치행정기관데이터) 경상북도 영천시_군장병 할인업소현황 https://www.data.go.kr/data/15044647/fileData.do    
-   (자치행정기관데이터) 경상남도 창원시_입영장병 가족할인업소현황 https://www.data.go.kr/data/15055435/fileData.do  
-3. <국방분야데이터> 병사 할인 혜택 정보 : 병사 할인 혜택 정보 https://opendata.mnd.go.kr/openinf/sheetview2.jsp?infId=OA-9493     
-4. <국가중점데이터> 기상청_중기예보 조회서비스 https://www.data.go.kr/data/15059468/openapi.do  
+1. <국가중점데이터> 식품의약품안전처_식품 영양성분 정보  
+https://www.data.go.kr/data/15057436/openapi.do 
+2. <국가중점데이터> 기상청_중기예보 조회서비스  
+https://www.data.go.kr/data/15059468/openapi.do  
+3. <국방분야데이터> 국방부 PX 인기상품 정보 : PX 인기상품 정보 https://opendata.mnd.go.kr/openinf/sheetview2.jsp?infId=OA-9491    
+4. <국방분야데이터> 전군 복지 휴양시설 위치정보 목록 : 군 복지 휴양시설 정보 https://opendata.mnd.go.kr/openinf/sheetview2.jsp?infId=OA-9441    
+5. <국방분야데이터> 군병원 정보 : 군병원 정보  
+https://opendata.mnd.go.kr/openinf/sheetview2.jsp?infId=OA-9436    
+6. <국방분야데이터> TMO(여행장병 안내소) 정보 : TMO(여행장병 안내소) 정보 https://opendata.mnd.go.kr/openinf/sheetview2.jsp?infId=OA-9595
+7. <국방분야데이터> 병사 할인 혜택 정보 : 병사 할인 혜택 정보 https://opendata.mnd.go.kr/openinf/sheetview2.jsp?infId=OA-9493       
+8. (자치행정기관데이터) 경기도 포천시_군장병할인업소 현황 데이터 https://www.data.go.kr/data/15106202/fileData.do    
+9. (자치행정기관데이터) 충청남도 논산시_할인업소현황 데이터 https://www.data.go.kr/data/3073444/fileData.do    
+10. (자치행정기관데이터) 경상북도 영천시_군장병 할인업소현황 https://www.data.go.kr/data/15044647/fileData.do    
+11. (자치행정기관데이터) 경상남도 창원시_입영장병 가족할인업소현황 https://www.data.go.kr/data/15055435/fileData.do  
+
+ 
   
-<br>
+<br>  
+
+## 🛠️ Tech Stacks
 <div style="text-align: left;">
-    <h2 style="border-bottom: 1px solid #d8dee4; color: #282d33;"> 🛠️ Tech Stacks </h2> <br> 
     <div style="margin: ; text-align: left;" "text-align: left;"> <img src="https://img.shields.io/badge/Bootstrap-7952B3?style=for-the-badge&logo=Bootstrap&logoColor=white">
         <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=HTML5&logoColor=white">
         <img src="https://img.shields.io/badge/Javascript-F7DF1E?style=for-the-badge&logo=Javascript&logoColor=white">
