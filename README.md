@@ -104,7 +104,7 @@
    |식단 기록 등록|소비 기록 등록|
    |![식단입력](spring/src/main/resources/static/img/indexIntroducing/식단입력.png)|![소비입력](spring/src/main/resources/static/img/indexIntroducing/소비입력.png)|
    |장소 등록|텍스트 등록|
-   |![장소입력](spring/src/main/resources/static/img/indexIntroducing/장소입력.png)|![텍스트입력](spring/src/main/resources/static/img/indexIntroducing/텍스트입력.png)|
+   |![장소입력](spring/src/main/resources/static/img/indexIntroducing/장소입력.png)|
 
    - 일정 상세 정보 보기
   
