@@ -80,9 +80,19 @@
 <br>
 
 ## 🔔 기능
+
 0. 회원 기능
-1. 나의 Planner 서비스
-   - 월, 주, 일, 리스트 단위로 볼 수 있음. 
+
+|회원가입|로그인|
+|---|---|
+|![회원가입](https://github.com/froggy-hyun/ArmyPlanner/assets/111727754/347763bf-66bc-458e-8b4e-e2de8deefef6)|![로그인](https://github.com/froggy-hyun/ArmyPlanner/assets/111727754/a3c42de9-1fd9-4ae8-96b5-9b0c965e766a)|
+
+2. 나의 Planner 서비스
+   - 월, 주, 일, 리스트 단위로 볼 수 있음.
+  
+   |기본 월단위 뷰|주단위 뷰|일단위 뷰|리스트 뷰|
+   |---|---|---|---|
+   |![플래너예시_기본](https://github.com/froggy-hyun/ArmyPlanner/assets/111727754/2c3d385f-08db-4410-bc47-38fc17e2a0fd)|![플래너예시_주간](https://github.com/froggy-hyun/ArmyPlanner/assets/111727754/46badf37-6fcc-46c7-94c4-1edfcb62fac1)|![플래너예시_일간](https://github.com/froggy-hyun/ArmyPlanner/assets/111727754/9f24908b-35f5-4ac9-8a80-b942c1e155ee)|![플래너예시_리스트](https://github.com/froggy-hyun/ArmyPlanner/assets/111727754/973948c4-8eff-441e-8bb9-3da8b3f95888)|
    - 휴가, 식단, 소비, 장소, 텍스트 등 다양한 종류의 일정(기록) 추가/삭제
    - 일정 상세 정보 보기
 3. 군혜택MAP 서비스
@@ -92,7 +102,9 @@
     - 관심 장소 추가 기능
 4. 기타 군혜택 페이지
     - 국방부 MOU 혜택 정보 페이지
-5. 회원 전용 홈 서비스(전국 중기예보전망, 전날 식단 영양소 분석, 일/월별 소비 기록 분석), + AI를 이용한 예상치, 예정된 방문 장소 알림 기능 추가 예정  
+5. 회원 전용 홈 서비스(전국 중기예보전망, 전날 식단 영양소 분석, 일/월별 소비 기록 분석), + AI를 이용한 예상치, 예정된 방문 장소 알림 기능 추가 예정
+
+
 
 <br>
 
