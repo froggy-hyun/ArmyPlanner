@@ -81,7 +81,7 @@
 
 ## 🔔 기능
 
-0. 회원 기능
+1. 회원 기능
 
 |회원가입|로그인|
 |---|---|
@@ -106,7 +106,7 @@
    |---|---|---|---|---|
    |![휴가일정정보예시](https://github.com/froggy-hyun/ArmyPlanner/assets/111727754/fe3eacfc-6c8c-4daa-9532-3972cf873847)|![식단정보예시](https://github.com/froggy-hyun/ArmyPlanner/assets/111727754/ae99641d-7c43-40b2-89ea-5c489e822927)|![소비정보예시](https://github.com/froggy-hyun/ArmyPlanner/assets/111727754/bd9921f3-352a-46d3-9655-c6d93ffef449)|![장소일정정보예시](https://github.com/froggy-hyun/ArmyPlanner/assets/111727754/a9d773fb-2ee1-483e-8123-4e21032970ed)|![텍스트일정정보예시](https://github.com/froggy-hyun/ArmyPlanner/assets/111727754/fab3612b-4c74-4c3a-b10e-1605bc23eea2)|
    
-4. 군혜택MAP 서비스
+3. 군혜택MAP 서비스
    - 키워드로 장소 검색
 
    |키워드로 장소 검색|
@@ -131,14 +131,14 @@
    |---|
    |![관심장소에추가](https://github.com/froggy-hyun/ArmyPlanner/assets/111727754/ff305cc4-34ed-4688-9394-c83720a00735)|
    
-6. 기타 군혜택 페이지
+4. 기타 군혜택 페이지
     - 국방부 MOU 혜택 정보 페이지
        
     |국방부 MOU 혜택 정보 페이지|
     |---|
     |![기타군혜택예시](https://github.com/froggy-hyun/ArmyPlanner/assets/111727754/9d73c6aa-00ab-4121-8537-cd5a647dd7dc)|
 
-7. 회원 전용 홈 서비스(전국 중기예보전망, 전날 식단 영양소 분석, 일/월별 소비 기록 분석), + AI를 이용한 예상치, 예정된 방문 장소 알림 기능 추가 예정
+5. 회원 전용 홈 서비스(전국 중기예보전망, 전날 식단 영양소 분석, 일/월별 소비 기록 분석), + AI를 이용한 예상치, 예정된 방문 장소 알림 기능 추가 예정
    
    |대시보드(회원 홈)|
    |---|
