@@ -1,5 +1,6 @@
 # ArmyPlanner
-![armyPlannerLogo_black](https://github.com/froggy-hyun/ArmyPlanner/assets/111727754/c54fe781-d11d-4db4-8ceb-024ef435db66)
+![armyPlannerLogo_black](https://github.com/froggy-hyun/ArmyPlanner/assets/111727754/05802ad8-9e30-4ed4-bbd6-7a79777e3281)
+
 
 **11가지의 다양한 공공데이터 API를 통해 실시간으로 정보 제공 및 장병들이 직접 선택, 가공, 저장, 활용할 수 있도록 다양한 기능과 서비스를 제공하여 군생활을 알차게 계획하고 실행할 수 있는 통합 플랫폼 PC/모바일 웹사이트**   
 <br>
