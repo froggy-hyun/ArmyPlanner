@@ -81,32 +81,40 @@
 
 ## 🔔 기능
 
-1. 회원 기능
+**1. 회원 기능**
 
 |회원가입|로그인|
 |---|---|
 |![회원가입](spring/src/main/resources/static/img/indexIntroducing/회원가입.png)|![로그인](spring/src/main/resources/static/img/indexIntroducing/로그인.png)|
 
-2. 나의 Planner 서비스
+**2. 나의 Planner 서비스**
    - 월, 주, 일, 리스트 단위로 볼 수 있음.
   
-   |기본 월단위 뷰|주단위 뷰|일단위 뷰|리스트 뷰|
-   |---|---|---|---|
-   |![플래너예시_기본](spring/src/main/resources/static/img/indexIntroducing/플래너예시_기본.png)|![플래너예시_주간](spring/src/main/resources/static/img/indexIntroducing/플래너예시_주간.png)|![플래너예시_일간](spring/src/main/resources/static/img/indexIntroducing/플래너예시_일간.png)|![플래너예시_리스트](spring/src/main/resources/static/img/indexIntroducing/플래너예시_리스트.png)|
+   |기본 월단위 뷰|주단위 뷰|
+   |---|---|
+   |![플래너예시_기본](spring/src/main/resources/static/img/indexIntroducing/플래너예시_기본.png)|![플래너예시_주간](spring/src/main/resources/static/img/indexIntroducing/플래너예시_주간.png)|
+   |일단위 뷰|리스트 뷰|
+   |![플래너예시_일간](spring/src/main/resources/static/img/indexIntroducing/플래너예시_일간.png)|![플래너예시_리스트](spring/src/main/resources/static/img/indexIntroducing/플래너예시_리스트.png)|
    
    - 휴가, 식단, 소비, 장소, 텍스트 등 다양한 종류의 일정(기록) 추가/삭제
   
-   |일정 유형 선택|휴가 등록|식단 기록 등록|소비 기록 등록|장소 등록|텍스트 등록|
-   |---|---|---|---|---|---|
-   |![일정유형](spring/src/main/resources/static/img/indexIntroducing/일정유형.png)|![휴가일정입력](spring/src/main/resources/static/img/indexIntroducing/휴가일정입력.png)|![식단입력](spring/src/main/resources/static/img/indexIntroducing/식단입력.png)|![소비입력](spring/src/main/resources/static/img/indexIntroducing/소비입력.png)|![장소입력](spring/src/main/resources/static/img/indexIntroducing/장소입력.png)|![텍스트입력](spring/src/main/resources/static/img/indexIntroducing/텍스트입력.png)|
+   |일정 유형 선택|휴가 등록|
+   |---|---|
+   |![일정유형](spring/src/main/resources/static/img/indexIntroducing/일정유형.png)|![휴가일정입력](spring/src/main/resources/static/img/indexIntroducing/휴가일정입력.png)|
+   |식단 기록 등록|소비 기록 등록|
+   |![식단입력](spring/src/main/resources/static/img/indexIntroducing/식단입력.png)|![소비입력](spring/src/main/resources/static/img/indexIntroducing/소비입력.png)|
+   |장소 등록|텍스트 등록|
+   |![장소입력](spring/src/main/resources/static/img/indexIntroducing/장소입력.png)|![텍스트입력](spring/src/main/resources/static/img/indexIntroducing/텍스트입력.png)|
 
    - 일정 상세 정보 보기
   
-   |휴가 상세|식단 기록 상세|소비 기록 상세|장소 상세|텍스트 상세|
-   |---|---|---|---|---|
-   |![휴가일정정보예시](spring/src/main/resources/static/img/indexIntroducing/휴가일정정보예시.png)|![식단정보예시](spring/src/main/resources/static/img/indexIntroducing/식단정보예시.png)|![소비정보예시](spring/src/main/resources/static/img/indexIntroducing/소비정보예시.png)|![장소일정정보예시](spring/src/main/resources/static/img/indexIntroducing/장소일정정보예시.png)|![텍스트일정정보예시](spring/src/main/resources/static/img/indexIntroducing/텍스트일정정보예시.png)|
+   |휴가 상세|식단 기록 상세|소비 기록 상세|
+   |---|---|---|
+   |![휴가일정정보예시](spring/src/main/resources/static/img/indexIntroducing/휴가일정정보예시.png)|![식단정보예시](spring/src/main/resources/static/img/indexIntroducing/식단정보예시.png)|![소비정보예시](spring/src/main/resources/static/img/indexIntroducing/소비정보예시.png)|
+   |장소 상세|텍스트 상세|
+   |![장소일정정보예시](spring/src/main/resources/static/img/indexIntroducing/장소일정정보예시.png)|![텍스트일정정보예시](spring/src/main/resources/static/img/indexIntroducing/텍스트일정정보예시.png)|
    
-3. 군혜택MAP 서비스
+**3. 군혜택MAP 서비스**
    - 키워드로 장소 검색
 
    |키워드로 장소 검색|
@@ -131,14 +139,14 @@
    |---|
    |![관심장소에추가](spring/src/main/resources/static/img/indexIntroducing/관심장소에추가.png)|
    
-4. 기타 군혜택 페이지
+**4. 기타 군혜택 페이지**
     - 국방부 MOU 혜택 정보 페이지
        
     |국방부 MOU 혜택 정보 페이지|
     |---|
     |![기타군혜택예시](spring/src/main/resources/static/img/indexIntroducing/기타군혜택예시.png)|
 
-5. 회원 전용 홈 서비스(전국 중기예보전망, 전날 식단 영양소 분석, 일/월별 소비 기록 분석), + AI를 이용한 예상치, 예정된 방문 장소 알림 기능 추가 예정
+**5. 회원 전용 홈 서비스(전국 중기예보전망, 전날 식단 영양소 분석, 일/월별 소비 기록 분석), + AI를 이용한 예상치, 예정된 방문 장소 알림 기능 추가 예정**
    
    |대시보드(회원 홈)|
    |---|
