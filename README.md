@@ -1,4 +1,5 @@
 # ArmyPlanner
+www.armyplanner.com (24.01.21 부로 서비스 중단)
 ![armyPlannerLogo_black](spring/src/main/resources/static/img/logo/armyPlannerLogo_black.png)
 
 |소개 영상 (클릭 시 유튜브로 이동)|
