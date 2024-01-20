@@ -1,7 +1,7 @@
 # ArmyPlanner
 ![armyPlannerLogo_black](spring/src/main/resources/static/img/logo/armyPlannerLogo_black.png)
 
-|소개 영상 (유튜브)|
+|소개 영상 (클릭 시 유튜브로 이동)|
 |---|
 |[![Video Label](https://i9.ytimg.com/vi_webp/NF-byUaAbFI/mqdefault.webp?v=65ac1ba6&sqp=COC5sK0G&rs=AOn4CLASIBw-9SnkH9-2cYmfpTBh91LkRQ)](https://www.youtube.com/watch?v=NF-byUaAbFI)|
 
