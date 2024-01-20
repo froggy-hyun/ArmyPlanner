@@ -1,6 +1,9 @@
 # ArmyPlanner
 ![armyPlannerLogo_black](spring/src/main/resources/static/img/logo/armyPlannerLogo_black.png)
 
+|소개 영상 (유튜브)|
+|---|
+|[![Video Label](https://i9.ytimg.com/vi_webp/NF-byUaAbFI/mqdefault.webp?v=65ac1ba6&sqp=COC5sK0G&rs=AOn4CLASIBw-9SnkH9-2cYmfpTBh91LkRQ)](https://www.youtube.com/watch?v=NF-byUaAbFI)|
 
 **11가지의 다양한 공공데이터 API를 통해 실시간으로 정보 제공 및 장병들이 직접 선택, 가공, 저장, 활용할 수 있도록 다양한 기능과 서비스를 제공하여 군생활을 알차게 계획하고 실행할 수 있는 통합 플랫폼 PC/모바일 웹사이트**   
 <br>
