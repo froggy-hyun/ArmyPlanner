@@ -1,7 +1,9 @@
 # ArmyPlanner
+<img src="spring/src/main/resources/static/img/logo/armyPlannerLogo_black.png" width="50%" height="50%" />
 www.armyplanner.com (24.01.21 부로 서비스 중단)
-![armyPlannerLogo_black](spring/src/main/resources/static/img/logo/armyPlannerLogo_black.png)
 
+<br>
+<br>
 <table>
 	<tr>
 		<td>
