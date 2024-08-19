@@ -174,7 +174,7 @@ www.armyplanner.com (24.01.21 부로 서비스 중단)
 ### 🚩 개발 절차
 0. 스프링 부트 프로젝트 생성, sqlite3 DB 사용
 1. 기본 회원기능 구현(회원가입, 로그인, 세션...)
-2. 나의 Planner 서비스 구현, 모달 창 구현, 기본 텍스트 CRUD구현, sqlite로 DB 변경
+2. 나의 Planner 서비스 구현, 모달 창 구현, 기본 텍스트 CRUD구현, MySql로 DB 변경
 3. 나의 Planner 기능 추가 - 식단, 소비 기록, 장소 기록 (공공데이터 API AJAX를 통해 가져오기, 데이터 가공 및 표현 알고리즘 구현)
 4. 군혜택 MAP 서비스 (공공데이터 API AJAX를 통해 가져오기, 데이터 가공 및 표현 알고리즘 구현)
 5. 회원 전용 홈 구현
@@ -211,22 +211,34 @@ remove : 파일을 삭제
 
 ## ⭐ skills
 
-### 프론트엔드(front-end)
-- Html5, css
-- Javascript
-- Thymeleaf   
-- Bootstrap 5.3.0
-- Jquery 3.5.1
- 
-### 백엔드(back-end)
-- Java 11  
-- Springboot 2.7.12  
-- MySql
+### 백엔드 (Backend)
+- 언어: Java 11
+- 프레임워크: Spring Boot 2.7.12
+- DB: MySQL (초기 개발 단계에서는 SQLite3 사용 후 마이그레이션)
+- 데이터 접근: Spring Data JPA (Hibernate)
+- 보안: Spring Security
+    - Form Login + Session 기반 인증
+    - UserDetailsService 구현(DB 기반 사용자 인증) + BCrypt 비밀번호 해싱
+    - URL Path 기반 권한 제어: ROLE_MEMBER / ROLE_MANAGER / ROLE_ADMIN
+- 검증: Bean Validation (spring-boot-starter-validation)
 
-### API
-- 11가지의 공공데이터 API
-- 카카오MAP API : 정적, 동적 지도 생성
-- 구글캘린더 API : 공휴일 가져오기
+### 인프라 및 배포 (Infrastructure & Deployment)
+- 서버: AWS EC2 (Ubuntu Server 22.04 LTS)
+- 데이터베이스 서버: AWS RDS (MySQL Community)
+
+### 프론트엔드 (Frontend)
+- 언어 및 마크업: HTML5, CSS, JavaScript
+- 템플릿 엔진: Thymeleaf
+- 라이브러리/프레임워크:
+    - Bootstrap 5.3.0
+    - jQuery 3.5.1
+
+### API 및 데이터 (APIs & Data)
+- 지도/위치: KakaoMap API (정적/동적 지도 생성)
+- 일정: Google Calendar API (공휴일 정보)
+- 공공데이터: 총 11종의 국방 및 공공 데이터 API 활용
+    - 국방부 PX 인기상품 정보, 군 복지 휴양시설 정보, 군병원 정보, TMO 정보 등
+    - 기상청 중기예보, 식약처 식품 영양성분 정보 등
 
 <br> 
 
